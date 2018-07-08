@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,23 +20,12 @@ public class Player {
     @Column(name = "PLAYER_ID")
     private Long id;
 
-    @Column(name = "USERNAME", unique = true)
+    @Column(unique = true)
     private String username;
 
-    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "AGE")
     private Integer age;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ROOM_ID")
-    private Room room;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "GAME_ID")
-    private Game game;
 }
