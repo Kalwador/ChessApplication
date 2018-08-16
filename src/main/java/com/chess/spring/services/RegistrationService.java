@@ -3,7 +3,7 @@
 //import com.chess.spring.exceptions.register.EmailNotUnique;
 //import com.chess.spring.exceptions.register.UsernameNotUnique;
 //import com.chess.spring.repositories.PlayerRepository;
-//import com.chess.spring.entities.Player;
+//import com.chess.spring.entities.Account;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
@@ -20,20 +20,20 @@
 //    }
 //
 //    public void checkIfEmailUnique(String email) {
-//        Optional<Player> player = this.playerRepository.findByEmail(email);
-//        if(player.isPresent()){
+//        Optional<Account> account = this.playerRepository.findByEmail(email);
+//        if(account.isPresent()){
 //            throw new EmailNotUnique();
 //        }
 //    }
 //
 //    public void checkIfUsernameUnique(String username) {
-//        Optional<Player> player = this.playerRepository.findByUsername(username);
-//        if(player.isPresent()){
+//        Optional<Account> account = this.playerRepository.findByUsername(username);
+//        if(account.isPresent()){
 //            throw new UsernameNotUnique();
 //        }
 //    }
 //
-//    public void registerPlayer(Player player) {
-//        playerRepository.save(player);
+//    public void registerPlayer(Account account) {
+//        playerRepository.save(account);
 //    }
 //}

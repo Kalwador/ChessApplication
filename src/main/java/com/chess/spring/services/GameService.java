@@ -3,10 +3,10 @@
 //import com.chess.spring.dto.GameStatusDTO;
 //import com.chess.spring.dto.MoveDTO;
 //import com.chess.spring.entities.Game;
-//import com.chess.spring.entities.Player;
+//import com.chess.spring.entities.Account;
 //import com.chess.spring.entities.Room;
 //import com.chess.spring.exceptions.game.GameNotExistException;
-//import com.chess.spring.models.player.PlayerColor;
+//import com.chess.spring.models.account.PlayerColor;
 //import com.chess.spring.models.status.GameStatus;
 //import com.chess.spring.repositories.GameRepository;
 //import com.chess.spring.repositories.PlayerRepository;
@@ -33,8 +33,8 @@
 //    }
 //
 //    public void startNewGame(Room room) {
-//        final Player whitePlayer = room.getPlayers().get(0);
-//        final Player blackPlayer = room.getPlayers().get(1);
+//        final Account whitePlayer = room.getPlayers().get(0);
+//        final Account blackPlayer = room.getPlayers().get(1);
 //
 //        HashMap players = new HashMap() {
 //            {
@@ -68,8 +68,8 @@
 //                .build();
 //    }
 //
-//    private Game getGameFromPlayer(Player player) {
-//        Optional<Game> optionalGame = Optional.ofNullable(player.getGame());
+//    private Game getGameFromPlayer(Account account) {
+//        Optional<Game> optionalGame = Optional.ofNullable(account.getGame());
 //        if (optionalGame.isPresent()) {
 //            return optionalGame.get();
 //        }

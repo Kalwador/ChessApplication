@@ -20,7 +20,7 @@
 //    private Long id;
 //
 //    @OneToMany(mappedBy = "room",fetch = FetchType.EAGER)
-//    private List<Player> players;
+//    private List<Account> players;
 //
 //    private Integer status;
 //}

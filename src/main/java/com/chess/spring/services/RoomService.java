@@ -1,9 +1,9 @@
 //package com.chess.spring.services;
 //
 //import com.chess.spring.exceptions.YouJustScrewUpException;
-//import com.chess.spring.entities.Player;
+//import com.chess.spring.entities.Account;
 //import com.chess.spring.entities.Room;
-//import com.chess.spring.exceptions.player.PlayerNotExistException;
+//import com.chess.spring.exceptions.account.PlayerNotExistException;
 //import com.chess.spring.dto.RoomDTO;
 //import com.chess.spring.exceptions.room.RoomNotExistException;
 //import com.chess.spring.models.status.RoomStatus;
@@ -29,8 +29,8 @@
 //    }
 //
 //    /**
-//     * Add player to room.
-//     * Look for a room with status "queue" and adds player to it, if there is one,
+//     * Add account to room.
+//     * Look for a room with status "queue" and adds account to it, if there is one,
 //     * If not looks for room with status "free", if there isn't any it create new room.
 //     *
 //     * @param playerId
@@ -38,17 +38,17 @@
 //     */
 //    public RoomDTO joinRoom(Long playerId) {
 //        //TODO get playerID from security, not from controller
-//        Player player = playerRepository.findById(playerId).orElseThrow(PlayerNotExistException::new);
+//        Account account = playerRepository.findById(playerId).orElseThrow(PlayerNotExistException::new);
 //
-//        Optional<Room> optionalRoom = Optional.ofNullable(player.getRoom());
+//        Optional<Room> optionalRoom = Optional.ofNullable(account.getRoom());
 //        if (optionalRoom.isPresent()) {
 //            return RoomDTO.convert(optionalRoom.get());
 //        } else {
 //            Room room = findRoom();
 //
-//            room.getPlayers().add(player);
-//            player.setRoom(room);
-//            playerRepository.save(player);
+//            room.getPlayers().add(account);
+//            account.setRoom(room);
+//            playerRepository.save(account);
 //            room = roomRepository.save(room);
 //
 //            tryStartGame(room);

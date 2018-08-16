@@ -1,6 +1,6 @@
 //package com.chess.spring.dto;
 //
-//import com.chess.spring.entities.Player;
+//import com.chess.spring.entities.Account;
 //import lombok.*;
 ////import org.hibernate.validator.constraints.Length;
 //
@@ -34,17 +34,17 @@
 //    @NotNull
 //    private Integer age;
 //
-//    public static Player convert(@Valid PlayerDTO playerDTO) {
-//        Player player = new Player();
+//    public static Account convert(@Valid PlayerDTO playerDTO) {
+//        Account account = new Account();
 //        Optional<Long> idOptional = Optional.ofNullable(playerDTO.id);
 //        if(idOptional.isPresent()){
-//            player.setId(playerDTO.id);
+//            account.setId(playerDTO.id);
 //        }
-//        player.setUsername(playerDTO.username);
-//        player.setPassword(playerDTO.password);
-//        player.setAge(playerDTO.age);
-//        player.setEmail(playerDTO.email);
-//        player.setRoom(null);
-//        return player;
+//        account.setUsername(playerDTO.username);
+//        account.setPassword(playerDTO.password);
+//        account.setAge(playerDTO.age);
+//        account.setEmail(playerDTO.email);
+//        account.setRoom(null);
+//        return account;
 //    }
 //}

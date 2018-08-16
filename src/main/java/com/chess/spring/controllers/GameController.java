@@ -29,13 +29,4 @@ public class GameController {
 //        this.gameService.makeMove(moveDTO);
 //    }
 
-    @ApiOperation(value = "Returns test Greating")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "That really works"),
-            @ApiResponse(code = 404, message = "Nope just illusion")
-    })
-    @GetMapping(path = "/test")
-    public String test() {
-        return "Yo";
-    }
 }

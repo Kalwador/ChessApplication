@@ -1,9 +1,9 @@
 //package com.chess.spring;
 //
 //import com.chess.spring.entities.Game;
-//import com.chess.spring.entities.Player;
+//import com.chess.spring.entities.Account;
 //import com.chess.spring.entities.Room;
-//import com.chess.spring.models.player.PlayerColor;
+//import com.chess.spring.models.account.PlayerColor;
 //import com.chess.spring.models.status.GameStatus;
 //import com.chess.spring.repositories.GameRepository;
 //import com.chess.spring.repositories.PlayerRepository;
@@ -32,10 +32,10 @@
 //
 //    @PostConstruct
 //    public void inject() {
-////        Player player1 = new Player(1L, "user1", "password", "email1@email.com", 11, null, null);
-////        Player player2 = new Player(2L, "user2", "password", "email2@email.com", 12, null, null);
-////        Player player3 = new Player(3L, "user3", "password", "email3@email.com", 13, null, null);
-////        Player player4 = new Player(4L, "user4", "password", "email4@email.com", 14, null, null);
+////        Account player1 = new Account(1L, "user1", "password", "email1@email.com", 11, null, null);
+////        Account player2 = new Account(2L, "user2", "password", "email2@email.com", 12, null, null);
+////        Account player3 = new Account(3L, "user3", "password", "email3@email.com", 13, null, null);
+////        Account player4 = new Account(4L, "user4", "password", "email4@email.com", 14, null, null);
 ////
 ////        player1 = playerRepository.save(player1);
 ////        player2 = playerRepository.save(player2);
@@ -53,7 +53,7 @@
 ////        Game game = Game.builder()
 ////                .id(1L)
 ////                .players(players)
-////                // TODO: 05/17/18 set up starting player position
+////                // TODO: 05/17/18 set up starting account position
 ////                .status(GameStatus.WHITE_MOVE.ordinal())
 ////                .timeMoveStarted(LocalDate.now())
 ////                .build();
