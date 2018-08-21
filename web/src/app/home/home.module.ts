@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BoardComponent} from './board/board.component';
-import {GameComponent} from './game.component';
+import {HomeComponent} from './home.component';
 import {RouterModule, Routes} from '@angular/router';
+import {HomeService} from './home-service/home.service';
+
 
 const routes: Routes = [
-    {path: '', component: GameComponent}
+    {path: '', component: HomeComponent}
 ];
 
 @NgModule({
@@ -13,7 +14,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         CommonModule
     ],
-    declarations: [BoardComponent, GameComponent]
+    declarations: [HomeComponent],
+    providers: [HomeService]
 })
-export class GameModule {
+export class HomeModule {
 }

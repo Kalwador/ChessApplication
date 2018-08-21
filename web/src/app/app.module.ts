@@ -1,27 +1,36 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import {AppComponent} from './app.component';
+import {HttpClientModule} from '@angular/common/http';
+import {TopBarComponent} from './top-bar/top-bar.component';
+import {FooterComponent} from './footer/footer.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpModule} from '@angular/http';
 
-import { AppComponent } from './app.component';
-import { ProfilePanelComponent } from './profile/profile-panel/profile-panel.component';
-import {HttpClientModule} from "@angular/common/http";
-import {ProfileService} from "./profile/profile-service/profile.service";
-import {FileUploadComponent} from "./profile/file-upload/file-upload.component";
-import {GameComponent} from './game/game.component';
-import {BoardComponent} from './game/board/board.component';
+const routes: Routes = [
+    { path: '', loadChildren: './home/home.module#HomeModule' },
+    { path: 'game', loadChildren: './game/game.module#GameModule' },
+    { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
+    { path: 'login', loadChildren: './login/login.module#LoginModule' },
+    { path: 'register', loadChildren: './register/register.module#RegisterModule' }
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProfilePanelComponent,
-    FileUploadComponent,
-    GameComponent,
-    BoardComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule
-  ],
-  providers: [ProfileService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        TopBarComponent,
+        FooterComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        HttpClientModule,
+        NgbModule.forRoot(),
+        RouterModule.forRoot(routes)
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

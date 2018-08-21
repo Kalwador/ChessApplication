@@ -11,7 +11,7 @@ export class ProfilePanelComponent implements OnInit {
 
   selectedFiles: FileList;
   currentFileUpload: File;
-  progress: { percentage: number } = { percentage: 0 }
+  progress: { percentage: number } = { percentage: 0 };
 
   constructor(private profileService: ProfileService) { }
 

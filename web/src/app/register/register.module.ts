@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BoardComponent} from './board/board.component';
-import {GameComponent} from './game.component';
+import {RegisterComponent} from './register.component';
 import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-    {path: '', component: GameComponent}
+    {path: '', component: RegisterComponent}
 ];
 
 @NgModule({
@@ -13,7 +12,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         CommonModule
     ],
-    declarations: [BoardComponent, GameComponent]
+    declarations: [RegisterComponent]
 })
-export class GameModule {
+export class RegisterModule {
 }
