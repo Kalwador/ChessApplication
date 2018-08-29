@@ -1,0 +1,18 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.test {
+    background: #262216;
+    background: #30231d;
+    background: #49412c;
+    background: #6a5750;
+    background: #97743a;
+    background: #b5a397;
+    background: #b0a18e;
+    background: #f6f1ed;
+}
+
+body {
+    background: #49412c !important;
+    font-size: 1.3em;
+    color: #f6f1ed;
+}

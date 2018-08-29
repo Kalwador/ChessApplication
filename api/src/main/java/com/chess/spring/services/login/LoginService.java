@@ -2,8 +2,8 @@ package com.chess.spring.services.login;
 
 import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.repositories.AccountDetailsRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,15 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-
+@Log4j
 @Service
 public class LoginService implements UserDetailsService {
 
-    private final Logger log = LoggerFactory.getLogger(LoginService.class);
-
-
     private AccountDetailsRepository accountDetailsRepository;
 
+    @Autowired
     public LoginService(AccountDetailsRepository accountDetailsRepository) {
         this.accountDetailsRepository = accountDetailsRepository;
     }
@@ -29,7 +27,7 @@ public class LoginService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
 
-        log.debug("Authenticating {}", login);
+        log.debug("Authenticating {" + login + "}");
         String lowercaseLogin = login.toLowerCase();
 
         Optional<AccountDetails> optionalAccount;
@@ -39,6 +37,6 @@ public class LoginService implements UserDetailsService {
             optionalAccount = accountDetailsRepository.findByUsernameCaseInsensitive(lowercaseLogin);
         }
 
-        return optionalAccount.orElseThrow(() -> new UsernameNotFoundException("Account " + lowercaseLogin + " was not found in the database"));
+        return optionalAccount.orElseThrow(() -> new UsernameNotFoundException("Account " + login + " was not found in the database"));
     }
 }

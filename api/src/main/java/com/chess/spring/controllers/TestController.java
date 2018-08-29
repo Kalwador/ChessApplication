@@ -24,7 +24,7 @@ public class TestController {
 
     @GetMapping(value = "/home")
     public String sayHello2() {
-        return "home";
+        return "Hello User!";
     }
 
     @GetMapping(value = "/home/111")
@@ -39,7 +39,7 @@ public class TestController {
 
     @GetMapping(value = "/register/test")
     public String sayHello34() {
-        return "register";
+        return "login";
     }
 
 

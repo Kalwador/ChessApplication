@@ -16,4 +16,8 @@ public interface AccountDetailsRepository  extends JpaRepository<AccountDetails,
     Optional<AccountDetails> findByEmail(String email);
 
     Optional<AccountDetails> findById(Long id);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String username);
 }

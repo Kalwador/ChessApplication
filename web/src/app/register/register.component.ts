@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RegisterModel} from '../models/register.model';
+import {RegisterService} from './register-service/register.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+    private registerModel: RegisterModel;
+    private  facebookRegisterPath: string;
 
-  constructor() { }
+    constructor(private registerService: RegisterService) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.registerModel = new RegisterModel();
+        this.facebookRegisterPath = this.registerService.getFacebookPath();
+
+    }
+
+    submit() {
+        this.registerService.register(this.registerModel);
+    }
 
 }

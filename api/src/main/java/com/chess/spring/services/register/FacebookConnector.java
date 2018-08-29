@@ -1,12 +1,12 @@
 package com.chess.spring.services.register;
 
-import com.chess.spring.dto.AccountDTO;
-import com.chess.spring.models.register.AccessToken;
-import com.chess.spring.models.register.AccessTokenData;
-import com.chess.spring.models.register.Data;
+import com.chess.spring.dto.RegisterDTO;
+import com.chess.spring.models.login.AccessToken;
+import com.chess.spring.models.login.AccessTokenData;
+import com.chess.spring.models.login.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
+@Log4j
 @Getter
 @Setter
 @Service
@@ -71,17 +71,17 @@ public class FacebookConnector {
         }
     }
 
-    public AccountDTO getUserDetailsFromAccessToken(String accessToken) {
+    public RegisterDTO getUserDetailsFromAccessToken(String accessToken) {
 
         Map<String, String> urlparams = new HashMap<>();
         urlparams.put("access_token", accessToken);
         urlparams.put("fields", "id,email");
-        log.info("Retrieving user details with {} and {}", accessToken, urlparams);
+        log.info("Retrieving user details with {" + accessToken + "} and {" + urlparams + "}");
         try {
-            AccountDTO accountDTO = restTemplate
+            RegisterDTO registerDTO = restTemplate
                     .getForObject("https://graph.facebook.com/v2.9/me/?access_token={access_token}&fields={fields}",
-                            AccountDTO.class, urlparams);
-            return accountDTO;
+                            RegisterDTO.class, urlparams);
+            return registerDTO;
         } catch (HttpStatusCodeException exception) {
             log.warn(exception.getResponseBodyAsString());
             throw new RuntimeException(String.valueOf(exception.getStatusCode()));

@@ -1,6 +1,7 @@
 package com.chess.spring.configuration.security;
 
-import com.chess.spring.models.Authorities;
+import com.chess.spring.models.account.AuthorityType;
+import com.chess.spring.services.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private LoginService loginService;
+
     @Bean
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
@@ -49,7 +53,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager)
+                .userDetailsService(loginService);
     }
 
     @Override
@@ -57,7 +62,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         clients.inMemory()
                 .withClient(PROP_CLIENTID)
                 .scopes("read", "write")
-                .authorities(Authorities.ROLE_ADMIN.name(), Authorities.ROLE_USER.name())
+                .authorities(AuthorityType.ROLE_ADMIN.name(), AuthorityType.ROLE_USER.name())
                 .authorizedGrantTypes("password", "refresh_token")
                 .secret(this.passwordEncoder.encode(PROP_SECRET))
                 .accessTokenValiditySeconds(Integer.valueOf(PROP_TOKEN_VALIDITY_SECONDS))

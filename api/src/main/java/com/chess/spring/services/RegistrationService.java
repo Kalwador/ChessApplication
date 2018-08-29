@@ -1,7 +1,7 @@
 //package com.chess.spring.services;
 //
-//import com.chess.spring.exceptions.register.EmailNotUnique;
-//import com.chess.spring.exceptions.register.UsernameNotUnique;
+//import com.chess.spring.exceptions.login.EmailNotUnique;
+//import com.chess.spring.exceptions.login.UsernameNotUnique;
 //import com.chess.spring.repositories.PlayerRepository;
 //import com.chess.spring.entities.account.Account;
 //import org.springframework.beans.factory.annotation.Autowired;

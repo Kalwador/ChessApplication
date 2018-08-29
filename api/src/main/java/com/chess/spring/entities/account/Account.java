@@ -1,31 +1,41 @@
 package com.chess.spring.entities.account;
 
-import com.chess.spring.models.player.Gender;
+import com.chess.spring.entities.GamePvE;
+import com.chess.spring.models.account.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class Account implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_details")
+    @JoinColumn(name = "account_details", nullable = false)
     private AccountDetails accountDetails;
+
+    @Size(min = 1)
+    private String firstName;
+
+    @Size(min = 1)
+    private String lastName;
 
     @Lob
     @Column(name = "avatar", length = 5120)
@@ -36,19 +46,26 @@ public class Account {
 
     private Gender gender;
 
+    @ColumnDefault("true")
+    private boolean isFirstLogin;
+
+    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    private Set<GamePvE> pveGames;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(id, account.id) &&
+        return isFirstLogin == account.isFirstLogin &&
+                Objects.equals(firstName, account.firstName) &&
+                Objects.equals(lastName, account.lastName) &&
                 Objects.equals(age, account.age) &&
                 gender == account.gender;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, age, gender);
-        return result;
+        return Objects.hash(firstName, lastName, age, gender, isFirstLogin);
     }
 }

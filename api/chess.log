@@ -1,0 +1,65 @@
+INFO    2018-08-23 21:29:25,863 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:33:30,327 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:34:15,131 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:37:02,356 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:37:51,761 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:39:21,043 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:41:04,425 [http-nio-8080-exec-5] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:45:49,815 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:47:16,946 [http-nio-8080-exec-5] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:47:17,071 [http-nio-8080-exec-6] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:48:24,533 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:48:41,978 [http-nio-8080-exec-2] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:48:42,074 [http-nio-8080-exec-3] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:49:33,761 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:51:49,049 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:54:12,024 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:56:23,661 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 21:58:49,658 [http-nio-8080-exec-9] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:59:28,602 [http-nio-8080-exec-1] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:59:28,781 [http-nio-8080-exec-2] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:59:51,812 [http-nio-8080-exec-6] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 21:59:51,884 [http-nio-8080-exec-7] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:00:20,072 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:00:26,168 [http-nio-8080-exec-7] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:01:57,473 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:02:02,068 [http-nio-8080-exec-5] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:02:03,584 [http-nio-8080-exec-5] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:02:12,613 [http-nio-8080-exec-2] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:02:30,427 [http-nio-8080-exec-4] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:06:30,442 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:09:45,041 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:14:32,059 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:18:16,832 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:20:08,854 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:25:50,521 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:26:47,840 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:27:12,453 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2018-08-23 22:27:12,454 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailFactory  - Sending message with account activiation com.chess.spring.models.mail.AccountActivationMail@67f7356e
+INFO    2018-08-23 22:27:12,454 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailServiceImpl  - Message properties set successful
+INFO    2018-08-23 22:27:15,732 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailServiceImpl  - Message sent succesfully
+INFO    2018-08-23 22:27:20,274 [http-nio-8080-exec-3] com.chess.spring.services.register.RegisterService  - The user : 'TestUser' was successful registered in application!
+INFO    2018-08-23 22:28:42,782 [http-nio-8080-exec-5] com.chess.spring.services.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2018-08-23 22:28:42,783 [http-nio-8080-exec-5] com.chess.spring.services.mail.MailFactory  - Sending message with account activiation com.chess.spring.models.mail.AccountActivationMail@56ed5968
+INFO    2018-08-23 22:28:42,784 [http-nio-8080-exec-5] com.chess.spring.services.mail.MailServiceImpl  - Message properties set successful
+INFO    2018-08-23 22:28:44,383 [http-nio-8080-exec-5] com.chess.spring.services.mail.MailServiceImpl  - Message sent succesfully
+INFO    2018-08-23 22:28:47,144 [http-nio-8080-exec-5] com.chess.spring.services.register.RegisterService  - The user : 'testtest' was successful registered in application!
+INFO    2018-08-23 22:28:54,077 [http-nio-8080-exec-3] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:28:57,379 [http-nio-8080-exec-2] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:31:12,618 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:31:39,104 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:32:08,808 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:41:20,410 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:41:47,951 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-23 22:50:40,944 [http-nio-8080-exec-1] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:50:42,847 [http-nio-8080-exec-3] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-08-23 22:50:57,567 [http-nio-8080-exec-9] com.chess.spring.services.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2018-08-23 22:50:57,567 [http-nio-8080-exec-9] com.chess.spring.services.mail.MailFactory  - Sending message with account activiation com.chess.spring.models.mail.AccountActivationMail@5fe0ed22
+INFO    2018-08-23 22:50:57,568 [http-nio-8080-exec-9] com.chess.spring.services.mail.MailServiceImpl  - Message properties set successful
+INFO    2018-08-23 22:50:59,620 [http-nio-8080-exec-9] com.chess.spring.services.mail.MailServiceImpl  - Message sent succesfully
+INFO    2018-08-23 22:50:59,620 [http-nio-8080-exec-9] com.chess.spring.services.register.RegisterService  - The user : 'TestUser' was successful registered in application!
+INFO    2018-08-24 19:04:59,857 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-25 11:05:01,977 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-25 23:41:32,019 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-26 11:42:56,079 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-08-28 22:56:06,315 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized

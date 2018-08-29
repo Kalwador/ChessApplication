@@ -1,23 +1,28 @@
 package com.chess.spring.entities.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
+@Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "account_details")
-public class AccountDetails implements UserDetails {
+public class AccountDetails implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,17 +39,14 @@ public class AccountDetails implements UserDetails {
     @Size(min = 0, max = 50)
     private String email;
 
-    @Getter
     @Column(updatable = false, nullable = false)
     @Size(min = 4, max = 50)
     private String username;
 
-    @Getter
     @Size(min = 4, max = 500)
     @Column(length = 400)
     private String password;
 
-    @Getter
     private boolean enabled;
     private boolean expired;
     private boolean locked;
@@ -52,12 +54,20 @@ public class AccountDetails implements UserDetails {
     @Column(name = "credentials_expired")
     private boolean credentialsExpired;
 
+    @Column(name = "activation_code")
+    private String activationCode;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "account_authority",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority"))
     private Set<Authority> authorities;
+
+    @Min(0)
+    @Max(3)
+    @ColumnDefault("0")
+    private int incorrectLoginCount;
 
     @Override
     public Collection<Authority> getAuthorities() {

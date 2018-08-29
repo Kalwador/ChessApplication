@@ -1,5 +1,6 @@
 package com.chess.spring.configuration.security;
 
+import com.chess.spring.filters.CORSFilter;
 import com.chess.spring.services.security.CustomAuthenticationEntryPoint;
 import com.chess.spring.services.security.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -23,6 +25,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .and().logout().logoutUrl("/security/logout").logoutSuccessHandler(customLogoutSuccessHandler)
@@ -36,7 +39,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and()
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/home**", "/oauth**", "/register/**", "/webjars/**", "/error**")
+                .antMatchers("/", "/h2/**", "/home**", "/oauth**", "/login/**", "/register**", "/register/**", "/webjars/**", "/error**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

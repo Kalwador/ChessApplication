@@ -1,4 +1,4 @@
 export class TokenModel {
-    public acces_token: string;
+    public access_token: string;
     public refresh_token: string;
 }

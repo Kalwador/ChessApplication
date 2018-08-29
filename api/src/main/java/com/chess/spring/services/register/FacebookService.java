@@ -1,22 +1,21 @@
 package com.chess.spring.services.register;
 
-import com.chess.spring.dto.AccountDTO;
+import com.chess.spring.dto.RegisterDTO;
 import com.chess.spring.entities.account.Account;
-import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.entities.register.RegisterAttempt;
-import com.chess.spring.models.register.AccessToken;
-import com.chess.spring.models.register.AccessTokenData;
+import com.chess.spring.models.login.AccessToken;
+import com.chess.spring.models.login.AccessTokenData;
 import com.chess.spring.repositories.AccountDetailsRepository;
 import com.chess.spring.repositories.AccountRepository;
 import com.chess.spring.repositories.RegisterAttemptRepository;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Slf4j
+@Log4j
 @Service
 public class FacebookService extends RegisterService{
     private FacebookConnector facebookConnector;
@@ -51,8 +50,8 @@ public class FacebookService extends RegisterService{
 
                 throw new RuntimeException();
             }
-            AccountDTO accountDTO = facebookConnector.getUserDetailsFromAccessToken(accessToken.getAccess_token());
-            Account account = AccountDTO.map(accountDTO);
+            RegisterDTO registerDTO = facebookConnector.getUserDetailsFromAccessToken(accessToken.getAccess_token());
+//            Account account = RegisterDTO.map(registerDTO);
 
 
             //TODO - FACEBOK REGISTER
