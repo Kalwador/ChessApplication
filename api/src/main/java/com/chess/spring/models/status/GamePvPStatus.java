@@ -1,11 +1,12 @@
 package com.chess.spring.models.status;
 
-import com.chess.spring.exceptions.game.GameStatusException;
+
+import com.chess.spring.exceptions.DataMissmatchException;
 
 public enum GamePvPStatus {
     CHAT, BLACK_MOVE, WHITE_MOVE, OVER;
 
-    public static GamePvPStatus convert(Integer status) {
+    public static GamePvPStatus convert(Integer status) throws DataMissmatchException {
         switch (status){
             case 0: {
                 return CHAT;
@@ -20,6 +21,6 @@ public enum GamePvPStatus {
                 return OVER;
             }
         }
-        throw new GameStatusException();
+        throw new DataMissmatchException();
     }
 }

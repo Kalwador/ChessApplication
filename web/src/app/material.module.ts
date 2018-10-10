@@ -6,7 +6,7 @@ import {
     MatInputModule,
     MatRippleModule,
     MatCardModule,
-    MatSlider,
+    // MatSlider,
 
 } from '@angular/material';
 
@@ -18,7 +18,7 @@ const modules = [
     MatCheckboxModule,
     MatFormFieldModule,
     MatCardModule,
-    MatSlider
+    // MatSlider
 ];
 
 @NgModule({

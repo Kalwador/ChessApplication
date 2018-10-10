@@ -1,6 +1,6 @@
 package com.chess.spring.repositories;
 
-import com.chess.spring.entities.GamePvE;
+import com.chess.spring.entities.game.GamePvE;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

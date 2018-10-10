@@ -8,10 +8,8 @@ import org.springframework.security.web.authentication.AbstractAuthenticationTar
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 /**
@@ -32,23 +30,16 @@ public class CustomLogoutSuccessHandler
     @Override
     public void onLogoutSuccess(HttpServletRequest request,
                                 HttpServletResponse response,
-                                Authentication authentication)
-            throws IOException, ServletException {
+                                Authentication authentication) {
 
         String token = request.getHeader(HEADER_AUTHORIZATION);
-
         if (token != null && token.startsWith(BEARER_AUTHENTICATION)) {
-
             OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token.split(" ")[0]);
 
             if (oAuth2AccessToken != null) {
                 tokenStore.removeAccessToken(oAuth2AccessToken);
             }
-
         }
-
         response.setStatus(HttpServletResponse.SC_OK);
-
     }
-
 }

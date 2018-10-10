@@ -1,6 +1,6 @@
 package com.chess.spring.services.mail;
 
-import com.chess.spring.exceptions.register.EmailValidationException;
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.mail.*;
 import com.chess.spring.utils.EmailValidator;
 import lombok.extern.log4j.Log4j;
@@ -29,12 +29,12 @@ public class MailFactory {
      *
      * @param mail full prepared object, need to contain recipent and subject
      */
-    public void sendMail(Mail mail) throws EmailValidationException {
+    public void sendMail(Mail mail) throws InvalidDataException {
         String content;
         String subject;
 
         if (!EmailValidator.isEmailValid(mail.getRecipient())) {
-            throw new EmailValidationException();
+            throw new InvalidDataException();
         }
 
         switch (mail.getSubject()) {

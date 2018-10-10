@@ -5,6 +5,7 @@ import com.chess.spring.services.security.CustomAuthenticationEntryPoint;
 import com.chess.spring.services.security.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -14,6 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableResourceServer
+@Profile("release")
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -39,7 +41,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and()
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/h2/**", "/home**", "/oauth**", "/login/**", "/register**", "/register/**", "/webjars/**", "/error**")
+                .antMatchers("/", "/h2/**", "/home**", "/oauth**", "/login/**", "/register**", "/register/**", "/webjars/**", "/error**", "/swagger-ui.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

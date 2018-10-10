@@ -13,9 +13,9 @@ export class GameService {
     }
 
     newPvE(color: number, level: number) {
-        this.baseService.get(this.pathPvE + '/new/' + color + '/' + level).pipe(map(response => {
-            response.json().color
-        ));
+        // this.baseService.get(this.pathPvE + '/new/' + color + '/' + level).pipe(map(response => {
+        //     response.json().color
+        // ));
 
     }
 }

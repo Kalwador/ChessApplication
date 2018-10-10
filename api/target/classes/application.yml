@@ -1,0 +1,51 @@
+#SERVER PROPERTIES
+server:
+  port: 8080
+#  error:
+#    whitelabel:
+#      enabled: false
+spring:
+  profiles:
+    active: dev
+  servlet:
+    #MULTIPART
+    multipart:
+      max-file-size: 500KB
+      max-request-size: 500KB
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  #HIBERNATE
+  jpa:
+    show-sql: false
+#    generate-ddl: true
+#    properties:
+#      hibernate:
+#        id:
+#          new_generator_mappings:  false
+#        jdbc:
+#          lob:non_contextual_creation: true
+
+#SWAGGER
+application:
+  project:
+    name: ChessApplication
+    description: ChessApplication
+    version: 1.0
+    host: http://localhost:8080
+
+
+#Mailing System
+email:
+  address: projektzespolowyprojectmanager@gmail.com
+  password: ProjektZespolowyProjectManager123
+  host: smtp.gmail.com
+
+mail:
+  smtp:
+    starttls:
+      enable: true
+    ssl:
+      trust: smtp.gmail.com
+    port: 587
+    auth: true

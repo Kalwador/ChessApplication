@@ -18,8 +18,9 @@ spring:
 
 authentication:
   oauth:
-    clientid: chessapp
-    secret: secret
+    client:
+      id: chessapp
+      secret: secret
     tokenValidityInSeconds: 1800
 
 #Facebook app

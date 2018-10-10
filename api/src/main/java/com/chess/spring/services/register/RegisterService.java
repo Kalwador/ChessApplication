@@ -4,8 +4,7 @@ import com.chess.spring.dto.RegisterDTO;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.entities.account.Authority;
-import com.chess.spring.exceptions.register.EmailValidationException;
-import com.chess.spring.exceptions.register.UserAlreadyExistException;
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.account.AuthorityType;
 import com.chess.spring.models.mail.AccountActivationMail;
 import com.chess.spring.models.mail.MailSubject;
@@ -39,15 +38,15 @@ public class RegisterService {
         this.mailFactory = mailFactory;
     }
 
-    public void createNewAccount(RegisterDTO registerDTO) {
+    public void createNewAccount(RegisterDTO registerDTO) throws InvalidDataException {
 
-        if (!EmailValidator.isEmailValid(registerDTO.getEmail())) throw new EmailValidationException();
+        if (!EmailValidator.isEmailValid(registerDTO.getEmail())) throw new InvalidDataException();
         if (registerDTO.getUsername().length() < 4 || registerDTO.getUsername().length() > 25)
             throw new IllegalArgumentException("The username must be longer than 4 and shorter than 25 letters");
         if (registerDTO.getPassword().length() < 8 || registerDTO.getPassword().length() > 25)
             throw new IllegalArgumentException("The password must be longer than 8 and shorter than 25 letters");
         if (accountDetailsRepository.existsByUsername(registerDTO.getUsername()) || accountDetailsRepository.existsByEmail(registerDTO.getEmail()))
-            throw new UserAlreadyExistException();
+            throw new InvalidDataException();
 
         AccountDetails accountDetails = AccountDetails.builder()
                 .email(registerDTO.getEmail())
@@ -76,7 +75,7 @@ public class RegisterService {
         log.info("The user : '" + accountDetails.getUsername() + "' was successful registered in application!");
     }
 
-    private void sendActivationCodeInMail(AccountDetails accountDetails) throws EmailValidationException {
+    private void sendActivationCodeInMail(AccountDetails accountDetails) throws InvalidDataException {
         AccountActivationMail mail = AccountActivationMail.builder()
                 .activationCode(accountDetails.getActivationCode())
                 .username(accountDetails.getUsername())

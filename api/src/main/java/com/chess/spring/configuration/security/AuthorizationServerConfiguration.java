@@ -22,14 +22,14 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    @Value("${authentication.oauth.clientid}")
-    private String PROP_CLIENTID;
+    @Value("${authentication.oauth.client.id}")
+    private String clientId;
 
-    @Value("${authentication.oauth.secret}")
-    private String PROP_SECRET;
+    @Value("${authentication.oauth.client.secret}")
+    private String clientSecret;
 
     @Value("${authentication.oauth.tokenValidityInSeconds}")
-    private String PROP_TOKEN_VALIDITY_SECONDS;
+    private String tokenValiditySeconds;
 
     @Autowired
     @Qualifier("authenticationManagerBean")
@@ -60,12 +60,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient(PROP_CLIENTID)
+                .withClient(clientId)
                 .scopes("read", "write")
                 .authorities(AuthorityType.ROLE_ADMIN.name(), AuthorityType.ROLE_USER.name())
                 .authorizedGrantTypes("password", "refresh_token")
-                .secret(this.passwordEncoder.encode(PROP_SECRET))
-                .accessTokenValiditySeconds(Integer.valueOf(PROP_TOKEN_VALIDITY_SECONDS))
+                .secret(this.passwordEncoder.encode(clientSecret))
+                .accessTokenValiditySeconds(Integer.valueOf(tokenValiditySeconds))
                 .refreshTokenValiditySeconds(-1);
     }
 }

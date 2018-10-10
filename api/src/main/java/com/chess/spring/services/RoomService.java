@@ -1,6 +1,6 @@
 //package com.chess.spring.services;
 //
-//import com.chess.spring.exceptions.YouJustScrewUpException;
+//import com.chess.spring.exceptions.NotExpectedError;
 //import com.chess.spring.entities.account.Account;
 //import com.chess.spring.entities.Room;
 //import com.chess.spring.exceptions.account.PlayerNotExistException;
@@ -20,7 +20,7 @@
 //
 //    private PlayerRepository playerRepository;
 //    private RoomRepository roomRepository;
-//    private GameService gameService;
+//    private GameUtils gameService;
 //
 //    @Autowired
 //    public RoomService(PlayerRepository playerRepository, RoomRepository roomRepository) {
@@ -77,7 +77,7 @@
 //    private void tryStartGame(Room room) {
 //        int roomSize = room.getPlayers().size();
 //        if (roomSize > 2) {
-//            throw new YouJustScrewUpException("Number of players in room is over 2, u know what that mean!!!!");
+//            throw new NotExpectedError("Number of players in room is over 2, u know what that mean!!!!");
 //        }
 //        if (roomSize == 2) {
 //            room.setStatus(RoomStatus.RUNNING.ordinal());

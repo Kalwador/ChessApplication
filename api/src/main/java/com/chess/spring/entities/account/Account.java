@@ -1,6 +1,6 @@
 package com.chess.spring.entities.account;
 
-import com.chess.spring.entities.GamePvE;
+import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.models.account.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -49,7 +49,7 @@ public class Account implements Serializable {
     @ColumnDefault("true")
     private boolean isFirstLogin;
 
-    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     private Set<GamePvE> pveGames;
 
     @Override

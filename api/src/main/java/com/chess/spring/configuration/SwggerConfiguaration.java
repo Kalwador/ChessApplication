@@ -3,18 +3,24 @@ package com.chess.spring.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import org.springframework.web.bind.annotation.RequestMethod;
+import springfox.documentation.builders.*;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import static springfox.documentation.builders.PathSelectors.regex;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-@EnableSwagger2
 @Configuration
+@EnableSwagger2
 public class SwggerConfiguaration {
 
     @Value("${application.project.name}")
@@ -26,13 +32,30 @@ public class SwggerConfiguaration {
     @Value("${application.project.version}")
     private String version;
 
+    @Value("${application.project.host}")
+    private String host;
+
+    @Value("${authentication.oauth.client.id}")
+    private String clientId;
+
+    @Value("${authentication.oauth.client.secret}")
+    private String clientSecret;
+
+    private static final String securitySchemaOAuth2 = "oauth2";
+    private static final String authorizationScopeGlobal = "global";
+    private static final String authorizationScopeGlobalDesc = "accessEverything";
+
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.chess.spring"))
-                .paths(regex("/.*"))
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
                 .build()
+                .securitySchemes(Collections.singletonList(securitySchema()))
+                .securityContexts(Collections.singletonList(securityContext()))
+                .pathMapping("/")
+                .useDefaultResponseMessages(false)
                 .apiInfo(metaInfo());
     }
 
@@ -46,5 +69,35 @@ public class SwggerConfiguaration {
                 .license("Apache Licence 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
                 .build();
+    }
+
+    private SecurityScheme securitySchema() {
+        GrantType grantType = new AuthorizationCodeGrantBuilder()
+                .tokenEndpoint(new TokenEndpoint(host + "/token", "oauthtoken"))
+                .tokenRequestEndpoint(
+                        new TokenRequestEndpoint(host + "/authorize", clientId, clientSecret))
+                .build();
+
+        SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
+                .grantTypes(Arrays.asList(grantType))
+                .scopes(Arrays.asList(scopes()))
+                .build();
+        return oauth;
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(
+                        Arrays.asList(new SecurityReference("spring_oauth", scopes())))
+                .forPaths(PathSelectors.any())
+                .build();
+    }
+
+    private AuthorizationScope[] scopes() {
+        AuthorizationScope[] scopes = {
+                new AuthorizationScope("read", "for read operations"),
+                new AuthorizationScope("write", "for write operations"),
+                new AuthorizationScope("foo", "Access foo API")};
+        return scopes;
     }
 }
