@@ -21,6 +21,7 @@ export class RegisterService {
                 this.router.navigate(['/']);
                 //TODO-NOTIF-SERVICE
             }, error => {
+                //TODO-ERROR
             });
     }
 

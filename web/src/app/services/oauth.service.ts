@@ -3,7 +3,7 @@ import {Headers, RequestOptions} from '@angular/http';
 import {map} from 'rxjs/operators';
 import {RestService} from './rest.service';
 import {ApplicationCredentialsModel} from '../models/application-credentials.model';
-import {TokenModel} from '../models/token.model';
+import {TokenModel} from '../models/login/token.model';
 import {Router} from '@angular/router';
 import {ProfileService} from '../chess/profile/profile-service/profile.service';
 

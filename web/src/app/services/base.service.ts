@@ -2,8 +2,8 @@ import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {LoginErrorModel} from '../models/login-error.model';
-import {LoginErrorType} from '../models/login-error-type.enum';
+import {LoginErrorModel} from '../models/login/login-error.model';
+import {LoginErrorType} from '../models/login/login-error-type.enum';
 import {AccountModel} from '../models/account.model';
 import {RestService} from './rest.service';
 import {OauthService} from './oauth.service';
@@ -143,8 +143,9 @@ export class BaseService {
 
     private getHeaders() {
         return new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': 'bearer ' + this.oauthService.getAccessToken()
+            'Content-Type': 'application/json'
+            // ,
+            // 'Authorization': 'bearer ' + this.oauthService.getAccessToken()
         });
     }
 

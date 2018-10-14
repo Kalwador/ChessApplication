@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class GamePvEServiceImpl extends GameUtils {
+public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     private GamePvERepository gamePvERepository;
     private AccountService accountService;
     private AccountRepository accountRepository;
@@ -39,7 +39,7 @@ public class GamePvEServiceImpl extends GameUtils {
         this.accountRepository = accountRepository;
     }
 
-    private GamePvE getById(Long gameId) throws InvalidDataException {
+    public GamePvE getById(Long gameId) throws InvalidDataException {
         return gamePvERepository.findById(gameId).orElseThrow(() -> new InvalidDataException("Gra nie odnaleziona"));
     }
 
@@ -49,7 +49,8 @@ public class GamePvEServiceImpl extends GameUtils {
      * @param gamePvEDTO
      * @return
      */
-    public GamePvEDTO startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
+    @Override
+    public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
         Account account = accountService.getDetails();
         if (gamePvEDTO.getLevel() < 1 || gamePvEDTO.getLevel() > 5) {
             throw new DataMissmatchException("Poziom poza skalą");
@@ -60,7 +61,7 @@ public class GamePvEServiceImpl extends GameUtils {
         game = gamePvERepository.save(game);
         account.getPveGames().add(game);
         accountRepository.save(account);
-        return GamePvEDTO.convert(game);
+        return game.getId();
     }
 
     private GamePvE buildGame(GamePvEDTO gamePvEDTO, Account account) {
@@ -75,11 +76,12 @@ public class GamePvEServiceImpl extends GameUtils {
 //                .timePerMove() //TODO-TIMING
                 .board(FenUtilities.createFENFromGame(Board.createStandardBoard()))
                 .moves("")
-                .status(GamePvEStatus.READY)
+                .status(color == PlayerColor.WHITE ? GamePvEStatus.PLAYER_MOVE : GamePvEStatus.READY)
                 .gameStarted(LocalDate.now())
                 .build();
     }
 
+    @Override
     public MoveDTO makeMove(Long gameId, MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError {
         GamePvE game = getById(gameId);
         checkStatus(game.getStatus(), GamePvEStatus.PLAYER_MOVE);
@@ -106,14 +108,15 @@ public class GamePvEServiceImpl extends GameUtils {
         throw new NotExpectedError("nie powinienes sie tu znalezc");
     }
 
+    @Override
     public MoveDTO makeFirstMove(Long gameId) throws InvalidDataException, DataMissmatchException, LockedSourceException {
         GamePvE game = getById(gameId);
         checkStatus(game.getStatus(), GamePvEStatus.READY);
         Board board = FenUtilities.createGameFromFEN(game.getBoard());
         Move move = getBestMove(board, game.getLevel());
-
+        Board boardAfterMove = executeMove(board, move);
         game.setStatus(GamePvEStatus.PLAYER_MOVE);
-        game.setBoard(FenUtilities.createFENFromGame(board));
+        game.setBoard(FenUtilities.createFENFromGame(boardAfterMove));
         gamePvERepository.save(game);
 
         return MoveDTO.map(move);
@@ -145,12 +148,14 @@ public class GamePvEServiceImpl extends GameUtils {
     }
 
 
+    @Override
     public void stopGame(Long gameId) {
 //        GamePvE gamePvE = gamePvE.setStatus(GamePvEStatus.ON_HOLD);
         //TODO zatrzymac timer
 //        gamePvERepository.save(gamePvE);
     }
 
+    @Override
     public void handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException {
         game.setBoard(FenUtilities.createFENFromGame(board));
         game.setStatus(GamePvEStatus.OVER);
@@ -168,7 +173,10 @@ public class GamePvEServiceImpl extends GameUtils {
     }
 
 
+    @Override
     public GameWinner getWinner(Long gameId) throws InvalidDataException {
         return Optional.ofNullable(getById(gameId).getGameWinner()).orElseThrow(InvalidDataException::new);
     }
+
+
 }

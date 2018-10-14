@@ -2,13 +2,12 @@ package com.chess.spring.controllers.game;
 
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
-import com.chess.spring.exceptions.DataMissmatchException;
-import com.chess.spring.exceptions.InvalidDataException;
-import com.chess.spring.exceptions.LockedSourceException;
-import com.chess.spring.exceptions.ResourceNotFoundException;
+import com.chess.spring.entities.game.GamePvE;
+import com.chess.spring.exceptions.*;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.models.status.GameWinner;
-import com.chess.spring.services.game.GamePvEServiceImpl;
+import com.chess.spring.services.game.GamePvEService;
+import com.chess.spring.utils.pgn.FenUtilities;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,37 +18,39 @@ import javax.validation.Valid;
 @Api(value = "GamePvE PVE Controller", description = "Manage game with computer transitions and statuses")
 public class GamePvEController {
 
-    private GamePvEServiceImpl gameService;
+    private GamePvEService gameService;
 
-    public GamePvEController(GamePvEServiceImpl gameService) {
+    public GamePvEController(GamePvEService gameService) {
         this.gameService = gameService;
     }
 
-    @GetMapping
-    public GamePvEDTO getTestGame() {
-        GamePvEDTO gamePvEDTO = new GamePvEDTO();
-        gamePvEDTO.setColor(PlayerColor.BLACK);
-        gamePvEDTO.setLevel(1);
-        return gamePvEDTO;
+    @GetMapping(value = "/{gameId}")
+    public GamePvEDTO getById(@PathVariable Long gameId) throws InvalidDataException {
+        return GamePvEDTO.convert(gameService.getById(gameId));
     }
 
     @PostMapping(value = "/new")
-    public GamePvEDTO startNewGame(@RequestBody @Valid GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
+    public Long startNewGame(@RequestBody @Valid GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
         return gameService.startNewGame(gamePvEDTO);
     }
 
-    @GetMapping(value = "/{gameId}")
+    @GetMapping(value = "/{gameId}/first")
     public MoveDTO getFirstMove(@PathVariable Long gameId) throws InvalidDataException, DataMissmatchException, LockedSourceException {
         return gameService.makeFirstMove(gameId);
     }
 
     @PostMapping(value = "/{gameId}")
-    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException {
+    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError {
         return gameService.makeMove(gameId, moveDTO);
     }
 
     @GetMapping(value = "/{gameId}/winner")
     public GameWinner getWinner(@PathVariable Long gameId) throws InvalidDataException {
         return gameService.getWinner(gameId);
+    }
+
+    @GetMapping(value = "/{gameId}/board")
+    public String getBoard(@PathVariable Long gameId) throws InvalidDataException {
+        return gameService.getById(gameId).toString();
     }
 }

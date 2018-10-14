@@ -1,8 +1,8 @@
 <div>
-    <select [(ngModel)]="color">
-        <option value="1">WHITE</option>
-        <option value="2">BLACK</option>
-        <option value="3">RANDOM</option>
+    <select [(ngModel)]="choosedColor">
+        <ng-container *ngFor="let color of colors">
+            <option value="{{color}}">{{color}}</option>
+        </ng-container>
     </select>
 
     <hr/>
@@ -20,4 +20,4 @@
     <button type="button" class="btn btn-success" (click)="submit()">START GAME</button>
 
 
-</div>1
+</div>
