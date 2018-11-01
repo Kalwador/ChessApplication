@@ -3,9 +3,9 @@ import {Piece} from './piece.model';
 export class Knight extends Piece {
     constructor(isWhite: boolean) {
         if (isWhite) {
-            super('');
+            super('WN.gif');
         } else {
-            super('');
+            super('BN.gif');
         }
     }
 }

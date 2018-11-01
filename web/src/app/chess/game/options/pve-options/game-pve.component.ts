@@ -20,6 +20,7 @@ export class GamePveComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.choosedColor = 'RANDOM';
     }
 
     submit() {

@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -53,7 +54,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
         Account account = accountService.getDetails();
         if (gamePvEDTO.getLevel() < 1 || gamePvEDTO.getLevel() > 5) {
-            throw new DataMissmatchException("Poziom poza skalą");
+            throw new DataMissmatchException("Level out of scale");
         }
 
         GamePvE game = buildGame(gamePvEDTO, account);
@@ -178,5 +179,10 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         return Optional.ofNullable(getById(gameId).getGameWinner()).orElseThrow(InvalidDataException::new);
     }
 
-
+    @Override
+    public List<MoveDTO> getLegateMoves(Long gameId) throws InvalidDataException {
+        GamePvE game = getById(gameId);
+        Board board = FenUtilities.createGameFromFEN(game.getBoard());
+        return MoveDTO.map(board.getAllLegalMoves());
+    }
 }

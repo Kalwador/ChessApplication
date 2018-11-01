@@ -8,6 +8,8 @@ import com.chess.spring.exceptions.*;
 import com.chess.spring.models.status.GameEndStatus;
 import com.chess.spring.models.status.GameWinner;
 
+import java.util.List;
+
 public interface GamePvEService {
 
     GamePvE getById(Long gameId) throws InvalidDataException;
@@ -23,4 +25,6 @@ public interface GamePvEService {
     void handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException;
 
     GameWinner getWinner(Long gameId) throws InvalidDataException;
+
+    List<MoveDTO> getLegateMoves(Long gameId) throws InvalidDataException;
 }

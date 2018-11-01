@@ -7,7 +7,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MaterialModule} from './material.module';
 
 
 const routes: Routes = [
@@ -17,8 +16,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        MaterialModule, //#material design
-        BrowserAnimationsModule, //#material design
+        BrowserAnimationsModule,
         BrowserModule,
         HttpModule,
         FormsModule,

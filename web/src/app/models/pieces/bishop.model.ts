@@ -3,9 +3,9 @@ import {Piece} from './piece.model';
 export class Bishop extends Piece {
     constructor(isWhite: boolean) {
         if (isWhite) {
-            super('');
+            super('WB.gif');
         } else {
-            super('');
+            super('BB.gif');
         }
     }
 }

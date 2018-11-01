@@ -8,7 +8,11 @@ import { GameOptionsComponent } from './options/game-options.component';
 import { GamePlayPveComponent } from './play/play-pve/game-play-pve.component';
 import { GamePvpComponent } from './options/pvp-options/game-pvp.component';
 import { GamePveComponent } from './options/pve-options/game-pve.component';
-import {MaterialModule} from '../../material.module';
+import {TabViewModule} from '../../../../node_modules/primeng/primeng';
+import {SharedModule} from '../../../../node_modules/primeng/shared';
+import {PanelModule} from 'primeng/panel';
+import {TableModule} from 'primeng/table';
+import {DraggableModule} from './play/board/draggable/draggable.module';
 
 const routes: Routes = [
     {
@@ -26,9 +30,13 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forChild(routes),
-        MaterialModule,
         CommonModule,
         FormsModule,
+        TabViewModule,
+        SharedModule,
+        PanelModule,
+        TableModule,
+        DraggableModule
     ],
     declarations: [
         BoardComponent,

@@ -1,5 +1,6 @@
 package com.chess.spring.exceptions;
 
+//404
 public class ResourceNotFoundException extends Exception {
     public ResourceNotFoundException() {
     }

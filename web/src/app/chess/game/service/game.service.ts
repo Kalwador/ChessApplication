@@ -3,13 +3,13 @@ import {BaseService} from '../../../services/base.service';
 import {GamePve} from '../../../models/game/game-pve';
 import {Observable} from 'rxjs';
 import {Field} from '../../../models/game/field.model';
-import {Piece} from '../../../models/pieces/piece.model';
 import {Pawn} from '../../../models/pieces/pawn.model';
 import {Rook} from '../../../models/pieces/rook.model';
 import {Knight} from '../../../models/pieces/knight.model';
 import {Bishop} from '../../../models/pieces/bishop.model';
 import {Queen} from '../../../models/pieces/queen.model';
 import {King} from '../../../models/pieces/king.model';
+import {Move} from '../../../models/game/move';
 
 @Injectable({
     providedIn: 'root'
@@ -31,46 +31,63 @@ export class GameService {
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId));
     }
 
-    public createBoard(fenBoard: string): Array<Array<Field>> {
-        let board = Array<Array<Field>>();
+    public createBoard(fenBoard: string): Array<Field> {
+        let board = Array<Field>();
         let isActualColorWhite = true;
-        let fen = fenBoard.split(' ')[0].split('/');
-        for (let fenRow of fen) {
-            let fieldRow = [];
-            for (let char of fenRow) {
-                if (this.blackPieces.includes(char)) {
-                    fieldRow.push(new Field(isActualColorWhite, this.getPieceByChar(char, false)));
+        let id = 0;
+        let fen = fenBoard.split(' ')[0];
+
+        for (let char of fen) {
+            if (this.blackPieces.includes(char)) {
+                board.push(new Field(id, isActualColorWhite, this.getPieceByChar(char, false)));
+                isActualColorWhite = !isActualColorWhite;
+                id = id + 1;
+            } else if (this.whitePieces.includes(char)) {
+                board.push(new Field(id, isActualColorWhite, this.getPieceByChar(char, true)));
+                isActualColorWhite = !isActualColorWhite;
+                id = id + 1;
+            } else if (char === '/') {
+                isActualColorWhite = !isActualColorWhite;
+            } else {
+                for (let i = 0; i < +char; i++) {
+                    board.push(new Field(id, isActualColorWhite, null));
                     isActualColorWhite = !isActualColorWhite;
-                } else if (this.whitePieces.includes(char)) {
-                    fieldRow.push(new Field(isActualColorWhite, this.getPieceByChar(char, true)));
-                    isActualColorWhite = !isActualColorWhite;
-                } else {
-                    for (let i = 0; i < +char; i++) {
-                        fieldRow.push(new Field(isActualColorWhite, null));
-                        isActualColorWhite = !isActualColorWhite;
-                    }
+                    id = id + 1;
                 }
             }
-            board.push(fieldRow);
-            isActualColorWhite = !isActualColorWhite;
         }
         return board;
+    }
+
+    public makeMove(move: Move, id: number): Observable<Move> {
+        return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/' + id, move));
+    }
+
+    getFirstMove(gameId: number): Observable<Move> {
+        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/first'));
     }
 
     public getPieceByChar(char: string, isWhite: boolean) {
         switch (char) {
             case 'p':
+            case 'P':
                 return new Pawn(isWhite);
             case 'r':
+            case 'R':
                 return new Rook(isWhite);
             case 'n':
+            case 'N':
                 return new Knight(isWhite);
             case 'b':
+            case 'B':
                 return new Bishop(isWhite);
             case 'q':
+            case 'Q':
                 return new Queen(isWhite);
             case 'k':
+            case 'K':
                 return new King(isWhite);
         }
     }
+
 }

@@ -11,6 +11,5 @@ public class InjectData {
 
     @PostConstruct
     public void inject() {
-
     }
 }

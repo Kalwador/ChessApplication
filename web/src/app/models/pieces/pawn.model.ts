@@ -3,9 +3,9 @@ import {Piece} from './piece.model';
 export class Pawn extends Piece {
     constructor(isWhite: boolean) {
         if (isWhite) {
-            super('');
+            super('WP.gif');
         } else {
-            super('');
+            super('BP.gif');
         }
     }
 }

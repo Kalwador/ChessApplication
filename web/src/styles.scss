@@ -16,3 +16,19 @@ body {
     font-size: 1.3em;
     color: #f6f1ed;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+
+@import "~@angular/cdk/overlay";
+@include cdk-overlay();
+
+.draggable {
+    cursor: move;
+    user-select: none;
+}
+
+.movable:not(.dragging) {
+    transition: transform 300ms ease-in-out;
+}

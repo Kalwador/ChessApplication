@@ -1,6 +1,117 @@
-.box {
-  background: #e8d300;
-  border: 1px solid black;
-  padding: 10px 20px;
-  display: inline-block;
+*{box-sizing: border-box}
+.field {
+  max-height: 98.125px;
+  max-width: 98.125px;
+  height: 100%;
+  width: 100%;
+  float: left;
+  margin: 0px;
+  position: relative;
+}
+.blackField {
+  background: #45484d; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #45484d 0%, #000000 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 fix */
+  transition: .2s;
+}
+.blackField:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+  z-index: 10;
+}
+.whiteField {
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-9 fix */
+  transition: .2s;
+}
+.whiteField:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+  z-index: 10;
+}
+.piece img {
+  transform: translate(-50%,-50%);
+  margin-left: 50%;
+  margin-top: 50%;
+}
+
+
+/* Exxxtra large devices (large desktops, 1618px and up) */
+@media (min-width: 1618px) {
+  .custom-container {
+    max-width: 1600px;
+    padding: 0;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1617.98px) {
+  .field {
+    max-height: 67.5px;
+    max-width: 67.5px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .field {
+    max-height: 76.248px;
+    max-width: 76.248px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .field {
+    max-height: 11.9vw;
+    max-width: 12.5%;
+  }
+  .whiteField:hover,
+  .blackField:hover {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+    z-index: 10;
+  }
+  .board {
+    text-align: center;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .field {
+    max-height: 11.9vw;
+    max-width: 12.5%;
+  }
+  .whiteField:hover,
+  .blackField:hover {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+    z-index: 10;
+  }
+  .board {
+    text-align: center;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .field {
+    max-height: 11vw;
+    max-width: 12.5%;
+  }
+  .whiteField:hover,
+  .blackField:hover {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+    z-index: 10;
+  }
+  .board {
+    text-align: center;
+  }
 }
