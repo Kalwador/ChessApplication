@@ -12,19 +12,20 @@ export class BoardComponent {
 
     currentPiece?: Piece;
     @Input() fields: Array<Field> = [];
-    oldField = null;
+    oldFieldDragged: Field = null;
+    oldFieldSelected: Field = null;
 
     @Output() emiter: EventEmitter<Move> = new EventEmitter();
 
     constructor() {
     }
 
-    move(piece: Piece, field: Field) {
-        this.emiter.emit(this.prepareMove(field.id));
+    move(field: Field) {
+        this.emiter.emit(this.prepareMove(this.oldFieldDragged.id, field.id));
     }
 
     remove(field: Field) {
-        this.oldField = field;
+        this.oldFieldDragged = field;
     }
 
     isNewLine(id: number) {
@@ -34,7 +35,17 @@ export class BoardComponent {
         return false;
     }
 
-    prepareMove(destination: number): Move {
-        return new Move(this.oldField.id, destination);
+    prepareMove(source: number, destination: number): Move {
+        return new Move(source, destination, null, null);
     }
+
+    selectField(field: Field) {
+        if (this.oldFieldSelected == null) {
+            this.oldFieldSelected = field;
+        } else {
+            this.emiter.emit(this.prepareMove(this.oldFieldSelected.id, field.id));
+            this.oldFieldSelected = null;
+        }
+    }
+
 }

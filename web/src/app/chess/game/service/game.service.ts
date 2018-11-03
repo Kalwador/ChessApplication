@@ -90,4 +90,7 @@ export class GameService {
         }
     }
 
+    getLegateMoves(gameId: number) {
+        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
+    }
 }

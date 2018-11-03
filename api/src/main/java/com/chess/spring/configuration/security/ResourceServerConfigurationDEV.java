@@ -15,6 +15,9 @@ public class ResourceServerConfigurationDEV extends ResourceServerConfigurerAdap
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                .headers()
+                .frameOptions().disable()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

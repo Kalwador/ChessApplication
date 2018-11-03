@@ -27,4 +27,6 @@ public interface GamePvEService {
     GameWinner getWinner(Long gameId) throws InvalidDataException;
 
     List<MoveDTO> getLegateMoves(Long gameId) throws InvalidDataException;
+
+    void reload() throws ResourceNotFoundException;
 }

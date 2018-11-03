@@ -95,4 +95,10 @@ public class GamePvEController {
     public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws InvalidDataException {
         return gameService.getLegateMoves(gameId);
     }
+
+    //TODO-TEST
+    @GetMapping(value = "/reload")
+    public void reload() throws ResourceNotFoundException {
+        this.gameService.reload();
+    }
 }

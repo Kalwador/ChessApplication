@@ -5,6 +5,7 @@ import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
+import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.exceptions.*;
@@ -184,5 +185,24 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         GamePvE game = getById(gameId);
         Board board = FenUtilities.createGameFromFEN(game.getBoard());
         return MoveDTO.map(board.getAllLegalMoves());
+    }
+
+    @Override
+    public void reload() throws ResourceNotFoundException {
+        this.gamePvERepository.deleteAll();
+        AccountDetails account = accountService.getCurrent();
+
+        //castle move
+        this.gamePvERepository.save(new GamePvE(
+                1L,
+                account.getAccount(),
+                null, PlayerColor.WHITE,
+                2,
+                LocalDate.now(),
+                GamePvEStatus.PLAYER_MOVE,
+                "r1bqkbnr/ppp2ppp/2n5/1B1pp3/8/4PN2/PPPP1PPP/RNBQK2R w KQkq - 0 1",
+                null,
+                null,
+                ""));
     }
 }

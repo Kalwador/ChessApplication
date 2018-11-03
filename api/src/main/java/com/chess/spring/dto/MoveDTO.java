@@ -14,6 +14,7 @@ public class MoveDTO {
     private Integer source;
     private Integer destination;
     private String type;
+    private String moveLog;
 
     public static MoveDTO map(Move move) {
         MoveDTO moveDTO = new MoveDTO();
