@@ -1,32 +1,52 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../service/game.service';
 import {Router} from '@angular/router';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
     selector: 'app-game-pve',
     templateUrl: './game-pve.component.html',
-    styleUrls: ['./game-pve.component.css']
+    styleUrls: ['./game-pve.component.scss']
 })
-export class GamePveComponent implements OnInit {
+export class GamePveComponent {
 
     colors: Array<string>;
-    choosedColor: 'RANDOM';
-    level: number = 3;
+    choosedColor = 'RANDOM';
+
+    autoTicks = false;
+    disabled = false;
+    invert = false;
+    max = 5;
+    min = 1;
+    showTicks = true;
+    step = 1;
+    thumbLabel = true;
+    value = 2;
+    vertical = false;
+    private _tickInterval = 1;
 
     constructor(private gameService: GameService,
                 private router: Router) {
 
         this.colors = ['WHITE', 'BLACK', 'RANDOM'];
-    }
-
-    ngOnInit() {
         this.choosedColor = 'RANDOM';
     }
 
     submit() {
-        this.gameService.newPvE(this.choosedColor, this.level).subscribe(value => {
+        this.gameService.newPvE(this.choosedColor, this.value).subscribe(value => {
             this.router.navigate(['/game/play/pve', value]);
         });
     }
 
+    public chooseColor(color: string) {
+        this.choosedColor = color;
+    }
+
+    get tickInterval(): number | 'auto' {
+        return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
+    }
+
+    set tickInterval(value) {
+        this._tickInterval = coerceNumberProperty(value);
+    }
 }

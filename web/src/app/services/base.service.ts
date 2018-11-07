@@ -8,6 +8,7 @@ import {AccountModel} from '../models/account.model';
 import {RestService} from './rest.service';
 import {OauthService} from './oauth.service';
 import {Router} from '@angular/router';
+import {NotificationService} from "../chess/notifications/notification.service";
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +18,8 @@ export class BaseService {
 
     constructor(private restService: RestService,
                 private oauthService: OauthService,
-                public router: Router) {
+                public router: Router,
+                private notificationService: NotificationService) {
     }
 
     public getUnAuthorized(path: string): Observable<any> {
@@ -113,8 +115,9 @@ export class BaseService {
         this.accountModel = null;
         this.oauthService.clearToken();
         this.router.navigate(['/']);
-        console.log('Wylogowano');//TODO-NOTIF-SERVICE
-        //TODO - need more stuff to do
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        this.notificationService.info('Wylogowano');
     }
 
     private checkResponseStatus(response: Response): LoginErrorType {
@@ -158,8 +161,8 @@ export class BaseService {
     }
 
     public isLoggedIn() {
-        // return this.oauthService.isLoggedIn();
-        return true;
+        return this.oauthService.isLoggedIn();
+        // return true;
     }
 
     public reload() {
@@ -170,10 +173,16 @@ export class BaseService {
         if (this.accountModel === null) {
             this.mapJSON(this.get("/profile")).subscribe(data => {
                 this.accountModel = data;
-                console.log("Pobrano account model");
-                console.log(this.accountModel);
+                this.notificationService.trace("Pobrano account model");
+                this.notificationService.trace(this.accountModel.username);
             });
         }
         return this.accountModel;
+    }
+    public checkStorageForToken(){
+        if(this.oauthService.checkStorageForToken()){
+            this.getAccountModel();
+            this.notificationService.trace("Znaleziono token w storage")
+        }
     }
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseService} from '../../services/base.service';
+import {NotificationService} from "../notifications/notification.service";
 
 @Component({
     selector: 'app-top-bar',
@@ -8,22 +9,23 @@ import {BaseService} from '../../services/base.service';
 })
 export class TopBarComponent {
 
-    constructor(private baseService: BaseService) {
+    constructor(private baseService: BaseService,
+                private notificationService: NotificationService) {
     }
 
     test() {
-        console.log(this.isUserLoggedIn());
+        this.notificationService.trace('status zalogowania: ' + this.isUserLoggedIn());
     }
 
     reload() {
         this.baseService.reload();
     }
 
-    public isUserLoggedIn(): boolean{
+    public isUserLoggedIn(): boolean {
         return this.baseService.isLoggedIn();
     }
 
-    public logout(){
+    public logout() {
         this.baseService.logOut();
     }
 }

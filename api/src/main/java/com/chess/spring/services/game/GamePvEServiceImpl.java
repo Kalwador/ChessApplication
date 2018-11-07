@@ -39,6 +39,11 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         this.accountRepository = accountRepository;
     }
 
+    //TODO-PAGINATION
+    public List<GamePvE> getAll() {
+        return this.gamePvERepository.findAll();
+    }
+
     public GamePvE getById(Long gameId) throws ResourceNotFoundException {
         return gamePvERepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
     }

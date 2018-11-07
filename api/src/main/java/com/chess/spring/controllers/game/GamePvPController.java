@@ -39,6 +39,15 @@
 //        this.messagingTemplate = messagingTemplate;
 //    }
 //
+//
+//@ApiResponses(value = {
+//        @ApiResponse(code = 200, message = "Succes get list of games")
+//})
+//@GetMapping
+//public List<GamePvP> getAll(){
+//        return this.gameService.getAll();
+//        }
+//
 //    @ApiResponses(value = {
 //            @ApiResponse(code = 200, message = "success get game"),
 //            @ApiResponse(code = 400, message = "Game not found, wrong id")

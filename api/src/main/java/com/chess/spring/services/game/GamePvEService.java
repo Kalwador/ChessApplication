@@ -20,4 +20,6 @@ public interface GamePvEService {
     List<MoveDTOPvE> getLegateMoves(Long gameId) throws ResourceNotFoundException;
 
     void reload() throws ResourceNotFoundException;
+
+    List<GamePvE> getAll();
 }

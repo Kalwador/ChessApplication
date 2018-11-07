@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from './home-service/home.service';
 import {ArticleModel} from '../../models/article.model';
+import {NotificationService} from "../notifications/notification.service";
 
 @Component({
     selector: 'app-home',
@@ -12,9 +13,10 @@ export class HomeComponent implements OnInit {
     message: string;
     articles = Array<ArticleModel>();
 
-    constructor(private homeService: HomeService) {
+    constructor(private homeService: HomeService,
+                private notificationService: NotificationService) {
         if (this.homeService.isLogedIn()) {
-            console.log('zalogowany!!!');
+            this.notificationService.trace('zalogowany!!!');
         }
 
         let a1 = new ArticleModel();
@@ -46,7 +48,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.homeService.getGreeting().subscribe(data => {
             this.message = data;
-            console.log(this.message);
+            this.notificationService.trace('Test polaczenia z api: ' + this.message);
         });
     }
 }

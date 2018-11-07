@@ -7,7 +7,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import {MatSnackBarModule} from "@angular/material";
+import {NotificationComponent} from "./chess/notifications/notification.service";
 
 const routes: Routes = [
     {path: '', loadChildren: './chess/chess.module#ChessModule'},
@@ -23,13 +24,18 @@ const routes: Routes = [
         HttpClientModule,
         NgbModule.forRoot(),
         RouterModule.forRoot(routes),
-
+        MatSnackBarModule
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        NotificationComponent
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+        NotificationComponent,
+    ],
+    exports: [ NotificationComponent ]
 })
 export class AppModule {
 }

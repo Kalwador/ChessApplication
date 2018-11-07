@@ -2,8 +2,10 @@ package com.chess.spring.controllers.game;
 
 import com.chess.spring.dto.MoveDTOPvE;
 import com.chess.spring.dto.game.GamePvEDTO;
+import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.services.game.GamePvEService;
+import com.chess.spring.utils.pgn.Game;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -21,6 +23,14 @@ public class GamePvEController {
 
     public GamePvEController(GamePvEService gameService) {
         this.gameService = gameService;
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Succes get list of games")
+    })
+    @GetMapping
+    public List<GamePvE> getAll(){
+        return this.gameService.getAll();
     }
 
     @ApiResponses(value = {

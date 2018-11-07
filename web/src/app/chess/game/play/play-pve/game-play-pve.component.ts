@@ -7,6 +7,7 @@ import {Move} from '../../../../models/game/move';
 import {GameStatus} from '../../../../models/game/game-status.enum';
 import {Queen} from '../../../../models/pieces/queen.model';
 import {PlayerColor} from '../../../../models/game/player-color.enum';
+import {NotificationService} from "../../../notifications/notification.service";
 
 @Component({
     selector: 'app-game-play',
@@ -23,6 +24,7 @@ export class GamePlayPveComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private gameService: GameService,
+                private notificationService: NotificationService,
                 public router: Router) {
     }
 
@@ -42,8 +44,7 @@ export class GamePlayPveComponent implements OnInit {
             }, error => {
                 if (error.status === 400) {
                     this.router.navigate(['/']);
-                    console.log('Wystąpił błąd, nie odnaleziono gry ');
-                    //TODO-NOTIF_SERVICE
+                    this.notificationService.warning("Wystąpił błąd, nie odnaleziono gry")
                 }
             });
         });
@@ -69,17 +70,14 @@ export class GamePlayPveComponent implements OnInit {
 
                 }, error => {
                     if (error.status === 400) {
-                        console.log('bledny ruch');
-                        //TODO-NOTIF_SERVICE
+                        this.notificationService.info("Błędny ruch");
                     }
                     if (error.status === 423) {
-                        console.log('koniec gry');
-                        //TODO-NOTIF_SERVICE
+                        this.notificationService.info("Gra zakończona");
                     }
                 });
             } else {
-                console.log('bledny ruch');
-                //TODO-NOTIF_SERVICE
+                this.notificationService.info("Błędny ruch");
             }
         }
     }
@@ -159,21 +157,20 @@ export class GamePlayPveComponent implements OnInit {
 
     private isGameContinued(status: string): boolean {
         switch (status) {
-            //TODO-NOTIF_SERVICE
             case GameStatus.CHECK: {
-                console.log('Szach');
+                this.notificationService.info("Szach!");
                 return true;
             }
             case GameStatus.DRAW: {
-                console.log('Gra skończona, remis');
+                this.notificationService.info('Gra skończona, remis');
                 return false;
             }
             case GameStatus.BLACK_WIN: {
-                console.log('Gra skończona, wygrały czarne');
+                this.notificationService.info('Gra skończona, wygrały czarne');
                 return false;
             }
             case GameStatus.WHITE_WIN: {
-                console.log('Gra skończona, wygrały białe');
+                this.notificationService.info('Gra skończona, wygrały białe');
                 return false;
             }
             case GameStatus.PLAYER_MOVE: {
@@ -182,7 +179,7 @@ export class GamePlayPveComponent implements OnInit {
             }
             default: {
                 //TODO - do usuniecia
-                console.log('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
+                this.notificationService.danger('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
                 return true;
             }
         }

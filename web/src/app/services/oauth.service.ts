@@ -5,6 +5,7 @@ import {RestService} from './rest.service';
 import {ApplicationCredentialsModel} from '../models/application-credentials.model';
 import {TokenModel} from '../models/login/token.model';
 import {Router} from '@angular/router';
+import {NotificationService} from "../chess/notifications/notification.service";
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +23,8 @@ export class OauthService {
     private token: TokenModel = null;
 
     constructor(private restService: RestService,
-                private router: Router) {
+                private router: Router,
+                private notificationService: NotificationService) {
     }
 
     public login(username: string, password: string): boolean {
@@ -33,21 +35,22 @@ export class OauthService {
             .pipe(map(response => response.json()))
             .subscribe(data => {
                 this.token = data;
+                this.putTokenToStorage(data);
                 this.router.navigate(['/']);
-                console.log('Poprawnie zalogowano');//TODO-NOTIF-SERVICE
+                this.notificationService.trace('Poprawnie zalogowano');
             }, error => {
                 switch (error.status) {
                     case (400): {
-                        console.log('Błędny login i/lub hasło');//TODO-NOTIF-SERVICE
+                        this.notificationService.warning('Błędny login i/lub hasło');
                         return false;
                     }
                     case (401): {
                         this.router.navigate(['/']);
-                        console.log('Brak autoryzacji dla aplikacji');//TODO-NOTIF-SERVICE
+                        this.notificationService.danger('Brak autoryzacji dla aplikacji');
                     }
                     default : {
                         this.router.navigate(['/']);
-                        console.log('Nieznany błąd! ');//TODO-NOTIF-SERVICE
+                        this.notificationService.danger('Nieznany błąd! ');
                     }
                 }
             });
@@ -59,7 +62,7 @@ export class OauthService {
             .pipe(map(response => this.token = response.json()))
             .subscribe(data => {
                 this.token = data;
-                console.log('Przeladowano token');
+                this.notificationService.trace('Przeladowano token');
             }, error => {
                 //TODO NEED MORE WORK
             });
@@ -97,5 +100,22 @@ export class OauthService {
         return this.token != null;
     }
 
+    private putTokenToStorage(token: TokenModel){
+        localStorage.setItem('access_token', token.access_token);
+        localStorage.setItem('refresh_token', token.refresh_token);
+    }
+
+    public checkStorageForToken(): boolean {
+        let access_token = localStorage.getItem('access_token');
+        let refresh_token = localStorage.getItem('refresh_token');
+
+        if (access_token != null && refresh_token != null) {
+            this.token = new TokenModel();
+            this.token.access_token = access_token;
+            this.token.refresh_token = refresh_token;
+            return true;
+        }
+        return false;
+    }
 }
 

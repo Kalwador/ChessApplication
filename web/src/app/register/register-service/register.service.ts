@@ -3,6 +3,7 @@ import {RegisterModel} from '../../models/register.model';
 import {Router} from '@angular/router';
 import {BaseService} from '../../services/base.service';
 import {map} from 'rxjs/operators';
+import {NotificationService} from "../../chess/notifications/notification.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,17 +12,17 @@ export class RegisterService {
     path = '/register';
 
     constructor(private baseService: BaseService,
-                private router: Router) {
+                private router: Router,
+                private notificationService: NotificationService) {
     }
 
     register(registerModel: RegisterModel) {
         this.baseService.postUnAuthorized(this.path, registerModel)
             .subscribe(data => {
-                console.log('Pomyslnie zarejestrowano');
+                this.notificationService.info('Pomyslnie zarejestrowano');
                 this.router.navigate(['/']);
-                //TODO-NOTIF-SERVICE
             }, error => {
-                //TODO-ERROR
+                this.notificationService.danger(error.toString());
             });
     }
 

@@ -37,6 +37,11 @@
 //        this.accountRepository = accountRepository;
 //    }
 //
+////TODO-PAGINATION
+//public List<GamePvE> getAll() {
+//        return this.gamePvERepository.findAll();
+//        }
+
 //    public GamePvP getById(Long gameId) throws InvalidDataException {
 //        return gamePvPRepository.findById(gameId).orElseThrow(() -> new InvalidDataException("Gra nie odnaleziona"));
 //    }
