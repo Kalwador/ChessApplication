@@ -2,8 +2,7 @@ package com.chess.spring.entities.game;
 
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.models.game.PlayerColor;
-import com.chess.spring.models.status.GameWinner;
-import com.chess.spring.models.status.GamePvEStatus;
+import com.chess.spring.models.game.GamePvEStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -38,13 +37,12 @@ public class GamePvE extends Game {
 
     private LocalDate gameStarted;
 
+    @Enumerated(value = EnumType.STRING)
     private GamePvEStatus status;
 
     private String board;
 
     private String moves;
-
-    private GameWinner gameWinner;
 
     private String permalink;
 
@@ -62,13 +60,12 @@ public class GamePvE extends Game {
                 status == gamePvE.status &&
                 Objects.equals(board, gamePvE.board) &&
                 Objects.equals(moves, gamePvE.moves) &&
-                gameWinner == gamePvE.gameWinner &&
                 Objects.equals(permalink, gamePvE.permalink);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, timePerMove, color, level, gameStarted, status, board, moves, gameWinner);
+        return Objects.hash(id, account, timePerMove, color, level, gameStarted, status, board, moves);
     }
 }
 

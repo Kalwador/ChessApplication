@@ -1,4 +1,3 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
@@ -9,6 +8,7 @@ import {ChessComponent} from './chess.component';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {LoginModalComponent} from './top-bar/login/login-modal.component';
 import {FooterComponent} from './footer/footer.component';
+import {CommonModule} from '@angular/common';
 
 const routes: Routes = [
     {
@@ -24,6 +24,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
+        CommonModule,
         HttpModule,
         FormsModule,
         HttpClientModule,

@@ -4,9 +4,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {ProfileComponent} from './profile.component';
 import {ProfileFormComponent} from './profile-form/profile-form.component';
 import {ProfileTableComponent} from './profile-table/profile-table.component';
-import {TopBarComponent} from '../top-bar/top-bar.component';
-import {FooterComponent} from '../footer/footer.component';
-import {LoginModalComponent} from '../top-bar/login/login-modal.component';
 import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [

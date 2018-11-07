@@ -1,25 +1,29 @@
 import {Component, OnInit} from '@angular/core';
 import {GamePve} from '../../../../models/game/game-pve';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GameService} from '../../service/game.service';
 import {Field} from '../../../../models/game/field.model';
 import {Move} from '../../../../models/game/move';
 import {GameStatus} from '../../../../models/game/game-status.enum';
 import {Queen} from '../../../../models/pieces/queen.model';
+import {PlayerColor} from '../../../../models/game/player-color.enum';
 
 @Component({
     selector: 'app-game-play',
     templateUrl: './game-play-pve.component.html',
-    styleUrls: ['./game-play-pve.component.css']
+    styleUrls: ['./game-play-pve.component.scss']
 })
 export class GamePlayPveComponent implements OnInit {
 
     game: GamePve;
     fields: Array<Field>;
     legateMoves: Array<Move>;
+    whitePlayerNick: string;
+    blackPlayerNick: string;
 
     constructor(private route: ActivatedRoute,
-                private gameService: GameService) {
+                private gameService: GameService,
+                public router: Router) {
     }
 
     ngOnInit() {
@@ -27,69 +31,69 @@ export class GamePlayPveComponent implements OnInit {
             this.gameService.getPVEGame(+params['gameId']).subscribe(data => {
                 this.game = data;
                 this.fields = this.gameService.createBoard(this.game.board);
-                if (this.game.status === GameStatus.READY) {
-                    this.executeComputerFirstMove();
+                this.isGameContinued(this.game.status);
+                if(this.game.color === PlayerColor.WHITE) {
+                    this.whitePlayerNick = this.gameService.getAccountModel().username;
+                    this.blackPlayerNick = 'Computer Lv: ' + this.game.level;
+                } else {
+                    this.whitePlayerNick = 'Computer Lv: ' + this.game.level;
+                    this.blackPlayerNick = this.gameService.getAccountModel().username;
                 }
-                this.getLegateMoves();
             }, error => {
                 if (error.status === 400) {
+                    this.router.navigate(['/']);
                     console.log('Wystąpił błąd, nie odnaleziono gry ');
-                    //TODO-NOTIF_SERVICE Wystąpił błąd, nie odnaleziono gry.
-                }
-                if (error.status === 423) {
-                    this.game.status = GameStatus.OVER;
-                    console.log('koniec gry');
                     //TODO-NOTIF_SERVICE
                 }
             });
         });
     }
 
-    private executeComputerFirstMove() {
-        this.gameService.getFirstMove(this.game.gameId).subscribe(data => {
-            this.executeMove(data);
-            this.game.status = GameStatus.PLAYER_MOVE;
-        });
-    }
-
     makeMove(move: Move) {
-        if (this.game.status === GameStatus.PLAYER_MOVE || this.game.status === GameStatus.ON_HOLD) {
+        if (this.game.status === GameStatus.PLAYER_MOVE || this.game.status === GameStatus.ON_HOLD || this.game.status === GameStatus.CHECK) {
             let legateMove = this.getLegateMove(move.source, move.destination);
             if (legateMove !== null) {
-                console.log('Player Move is Legate');
-                this.executeMove(move);
-                this.isSpecialMove(legateMove);
+                if (this.game.status != GameStatus.CHECK) {
+                    this.executeMove(move);
+                }
 
                 this.gameService.makeMove(move, this.game.gameId).subscribe(data => {
-                    console.log('Computer Move');
-                    console.log(data.type);
-                    this.executeMove(data);
-                    this.isSpecialMove(data);
-                    this.getLegateMoves();
+                    if (this.isGameContinued(data.status)) {
+                        if (this.game.status === GameStatus.CHECK) {
+                            this.executeMove(move);
+                        }
+                        this.executeMove(data);
+                    }
+                    this.game.status = data.status;
+                    //TODO replace log
+
                 }, error => {
+                    if (error.status === 400) {
+                        console.log('bledny ruch');
+                        //TODO-NOTIF_SERVICE
+                    }
                     if (error.status === 423) {
                         console.log('koniec gry');
-                        //TODO-NOTIF_SERVICE "Gra zakończona"
+                        //TODO-NOTIF_SERVICE
                     }
                 });
             } else {
-                //TODO - handle not legate move
-
+                console.log('bledny ruch');
+                //TODO-NOTIF_SERVICE
             }
         }
     }
 
+
     private executeMove(move: Move) {
-        console.log('Execute move ' + move.source + ' -> ' + move.destination);
         this.fields[move.destination].piece = this.fields[move.source].piece;
         this.fields[move.source].piece = null;
+        this.isSpecialMove(move);
     }
 
     private getLegateMoves() {
         this.gameService.getLegateMoves(this.game.gameId).subscribe(data => {
             this.legateMoves = data;
-            console.log('Legate Moves');
-            console.log(this.legateMoves);
         });
     }
 
@@ -150,6 +154,37 @@ export class GamePlayPveComponent implements OnInit {
                 break;
             }
             //TODO - bicie w przelocie
+        }
+    }
+
+    private isGameContinued(status: string): boolean {
+        switch (status) {
+            //TODO-NOTIF_SERVICE
+            case GameStatus.CHECK: {
+                console.log('Szach');
+                return true;
+            }
+            case GameStatus.DRAW: {
+                console.log('Gra skończona, remis');
+                return false;
+            }
+            case GameStatus.BLACK_WIN: {
+                console.log('Gra skończona, wygrały czarne');
+                return false;
+            }
+            case GameStatus.WHITE_WIN: {
+                console.log('Gra skończona, wygrały białe');
+                return false;
+            }
+            case GameStatus.PLAYER_MOVE: {
+                this.getLegateMoves();
+                return true;
+            }
+            default: {
+                //TODO - do usuniecia
+                console.log('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
+                return true;
+            }
         }
     }
 }

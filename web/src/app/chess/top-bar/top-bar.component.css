@@ -1,3 +1,8 @@
 .navbar {
-    background: #262216 !important;
+    background: #262216;
+    text-align:center;
+}
+.nav-link {
+    margin-right: 10px;
+    margin-left: 10px;
 }

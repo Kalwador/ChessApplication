@@ -8,7 +8,7 @@ import {RegisterService} from './register-service/register.service';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    private registerModel: RegisterModel;
+    public registerModel: RegisterModel;
     private  facebookRegisterPath: string;
 
     constructor(private registerService: RegisterService) {

@@ -1,3 +1,5 @@
 export enum LoginErrorType {
-    OK, TOKEN_EXPIRED, ERROR
+    OK = 'OK',
+    TOKEN_EXPIRED = 'TOKEN_EXPIRED',
+    ERROR = 'ERROR'
 }

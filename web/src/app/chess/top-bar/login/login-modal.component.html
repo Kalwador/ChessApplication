@@ -1,18 +1,18 @@
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #content let-c="close" let-d="dismiss" class="customModal">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Sign in</h4>
-        <button style="" type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <h4 class="modal-title" id="modal-basic-title">Logowanie</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="username">Username or Email:</label>
+                <label for="username">Username lub Email:</label>
                 <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">Hasło:</label>
                 <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
             </div>
         </form>
@@ -24,4 +24,4 @@
     </div>
 </ng-template>
 
-<a class="nav-link" (click)="open(content)"><span class="fa fa-user"></span> Login</a>
+<a class="nav-link" (click)="open(content)"><span class="fa fa-user"></span> Zaloguj</a>

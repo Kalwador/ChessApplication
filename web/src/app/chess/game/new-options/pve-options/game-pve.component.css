@@ -1,0 +1,18 @@
+.color-piece {
+    width: 50px;
+    height: auto;
+}
+
+.choosedColor {
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255,0,4,1) 0%, rgba(255,0,4,0) 75%, rgba(255,0,4,0) 93%, rgba(255,182,183,0) 98%, rgba(255,219,219,0) 99%, rgba(255,255,255,0) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,0,4,1) 0%,rgba(255,0,4,0) 75%,rgba(255,0,4,0) 93%,rgba(255,182,183,0) 98%,rgba(255,219,219,0) 99%,rgba(255,255,255,0) 100%);
+    background: radial-gradient(ellipse at center, rgba(255,0,4,1) 0%,rgba(255,0,4,0) 75%,rgba(255,0,4,0) 93%,rgba(255,182,183,0) 98%,rgba(255,219,219,0) 99%,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0004', endColorstr='#00ffffff',GradientType=1 );
+}
+
+.hoverColor:hover {
+    background: -moz-radial-gradient(center, ellipse cover, rgba(232,197,0,1) 0%, rgba(232,197,0,0) 75%, rgba(232,197,0,0) 93%, rgba(248,238,182,0) 98%, rgba(252,247,219,0) 99%, rgba(255,255,255,0) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(232,197,0,1) 0%,rgba(232,197,0,0) 75%,rgba(232,197,0,0) 93%,rgba(248,238,182,0) 98%,rgba(252,247,219,0) 99%,rgba(255,255,255,0) 100%);
+    background: radial-gradient(ellipse at center, rgba(232,197,0,1) 0%,rgba(232,197,0,0) 75%,rgba(232,197,0,0) 93%,rgba(248,238,182,0) 98%,rgba(252,247,219,0) 99%,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8c500', endColorstr='#00ffffff',GradientType=1 );
+}

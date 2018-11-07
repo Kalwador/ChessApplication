@@ -1,6 +1,6 @@
 package com.chess.spring.services.game;
 
-import com.chess.spring.dto.MoveDTO;
+import com.chess.spring.dto.MoveDTOPvE;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
@@ -10,9 +10,8 @@ import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.models.game.PlayerColor;
-import com.chess.spring.models.status.GameEndStatus;
-import com.chess.spring.models.status.GameWinner;
-import com.chess.spring.models.status.GamePvEStatus;
+import com.chess.spring.models.game.GameEndStatus;
+import com.chess.spring.models.game.GamePvEStatus;
 import com.chess.spring.repositories.AccountRepository;
 import com.chess.spring.repositories.GamePvERepository;
 import com.chess.spring.services.account.AccountService;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -41,8 +39,8 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         this.accountRepository = accountRepository;
     }
 
-    public GamePvE getById(Long gameId) throws InvalidDataException {
-        return gamePvERepository.findById(gameId).orElseThrow(() -> new InvalidDataException("Gra nie odnaleziona"));
+    public GamePvE getById(Long gameId) throws ResourceNotFoundException {
+        return gamePvERepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
     }
 
     /**
@@ -67,61 +65,60 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     }
 
     private GamePvE buildGame(GamePvEDTO gamePvEDTO, Account account) {
+        Board board = Board.createStandardBoard();
         PlayerColor color = gamePvEDTO.getColor();
         if (gamePvEDTO.getColor().equals(PlayerColor.RANDOM)) {
             color = drawColor();
         }
+
+        if (color == PlayerColor.BLACK) {
+            Move move = getBestMove(board, gamePvEDTO.getLevel());
+            try {
+                board = executeMove(board, move);
+            } catch (InvalidDataException e) {
+                //nie mozliwe, bo pierwszy ruch musi być poprawny
+                throw new RuntimeException("Error during first computer move, quite imposible ... but here we are");
+            }
+        }
+
         return GamePvE.builder()
                 .account(account)
                 .color(color)
                 .level(gamePvEDTO.getLevel())
 //                .timePerMove() //TODO-TIMING
-                .board(FenUtilities.createFENFromGame(Board.createStandardBoard()))
+                .board(FenUtilities.createFENFromGame(board))
                 .moves("")
-                .status(color == PlayerColor.WHITE ? GamePvEStatus.PLAYER_MOVE : GamePvEStatus.READY)
+                .status(GamePvEStatus.PLAYER_MOVE)
                 .gameStarted(LocalDate.now())
                 .build();
     }
 
     @Override
-    public MoveDTO makeMove(Long gameId, MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError {
+    public MoveDTOPvE makeMove(Long gameId, MoveDTOPvE moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException {
         GamePvE game = getById(gameId);
         checkStatus(game.getStatus(), GamePvEStatus.PLAYER_MOVE);
 
-        Board boardAfterPlayerMove = executeMove(game.getBoard(), moveDTO);
+        Board boardAfterPlayerMove = executeMove(game.getBoard(), moveDTOPvE);
 
         GameEndStatus gameEndStatus = checkEndOfGame(boardAfterPlayerMove);
         if (gameEndStatus != null) {
-            handleEndOfGame(game, boardAfterPlayerMove, gameEndStatus, true);
+            return handleEndOfGame(game, boardAfterPlayerMove, gameEndStatus, true);
         } else {
             //Game still in progress
             Move move = getBestMove(boardAfterPlayerMove, game.getLevel());
             Board boardAfterComputerResponse = executeMove(boardAfterPlayerMove, move);
 
             gameEndStatus = checkEndOfGame(boardAfterComputerResponse);
+            game.setBoard(FenUtilities.createFENFromGame(boardAfterComputerResponse));
+
             if (gameEndStatus != null) {
-                handleEndOfGame(game, boardAfterComputerResponse, gameEndStatus, false);
+                return handleEndOfGame(game, boardAfterComputerResponse, gameEndStatus, false);
             } else {
-                game.setBoard(FenUtilities.createFENFromGame(boardAfterComputerResponse));
                 gamePvERepository.save(game);
-                return MoveDTO.map(move);
+                boolean isCheck = boardAfterComputerResponse.currentPlayer().isInCheck();
+                return MoveDTOPvE.map(move, isCheck);
             }
         }
-        throw new NotExpectedError("nie powinienes sie tu znalezc");
-    }
-
-    @Override
-    public MoveDTO makeFirstMove(Long gameId) throws InvalidDataException, DataMissmatchException, LockedSourceException {
-        GamePvE game = getById(gameId);
-        checkStatus(game.getStatus(), GamePvEStatus.READY);
-        Board board = FenUtilities.createGameFromFEN(game.getBoard());
-        Move move = getBestMove(board, game.getLevel());
-        Board boardAfterMove = executeMove(board, move);
-        game.setStatus(GamePvEStatus.PLAYER_MOVE);
-        game.setBoard(FenUtilities.createFENFromGame(boardAfterMove));
-        gamePvERepository.save(game);
-
-        return MoveDTO.map(move);
     }
 
 
@@ -133,7 +130,9 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 
     private void checkStatus(GamePvEStatus gamePvEStatus, GamePvEStatus status) throws DataMissmatchException, LockedSourceException {
         switch (gamePvEStatus) {
-            case OVER:
+            case DRAW:
+            case WHITE_WIN:
+            case BLACK_WIN:
                 throw new LockedSourceException("Gra się zakończyła");
         }
         if (!gamePvEStatus.equals(status)) throw new DataMissmatchException("Nie poprawny status nowej gry");
@@ -157,34 +156,28 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 //        gamePvERepository.save(gamePvE);
     }
 
-    @Override
-    public void handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException {
+    private MoveDTOPvE handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException {
         game.setBoard(FenUtilities.createFENFromGame(board));
-        game.setStatus(GamePvEStatus.OVER);
+        GamePvEStatus status;
         if (gameEndStatus == GameEndStatus.STALE_MATE) {
-            game.setGameWinner(GameWinner.DRAW);
+            status = GamePvEStatus.DRAW;
         } else {
             if (isPlayerMove) {
-                game.setGameWinner(game.getColor() == PlayerColor.WHITE ? GameWinner.WHITE_WIN : GameWinner.BLACK_WIN);
+                status = game.getColor() == PlayerColor.WHITE ? GamePvEStatus.WHITE_WIN : GamePvEStatus.BLACK_WIN;
             } else {
-                game.setGameWinner(game.getColor() == PlayerColor.WHITE ? GameWinner.BLACK_WIN : GameWinner.WHITE_WIN);
+                status = game.getColor() == PlayerColor.WHITE ? GamePvEStatus.BLACK_WIN : GamePvEStatus.WHITE_WIN;
             }
         }
+        game.setStatus(status);
         gamePvERepository.save(game);
-        throw new LockedSourceException("Gra się zakończyła");
-    }
-
-
-    @Override
-    public GameWinner getWinner(Long gameId) throws InvalidDataException {
-        return Optional.ofNullable(getById(gameId).getGameWinner()).orElseThrow(InvalidDataException::new);
+        return new MoveDTOPvE(null, null, null, status, "");
     }
 
     @Override
-    public List<MoveDTO> getLegateMoves(Long gameId) throws InvalidDataException {
+    public List<MoveDTOPvE> getLegateMoves(Long gameId) throws ResourceNotFoundException {
         GamePvE game = getById(gameId);
         Board board = FenUtilities.createGameFromFEN(game.getBoard());
-        return MoveDTO.map(board.getAllLegalMoves());
+        return MoveDTOPvE.map(board.getAllLegalMoves());
     }
 
     @Override
@@ -196,13 +189,40 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         this.gamePvERepository.save(new GamePvE(
                 1L,
                 account.getAccount(),
-                null, PlayerColor.WHITE,
+                null,
+                PlayerColor.WHITE,
                 2,
                 LocalDate.now(),
                 GamePvEStatus.PLAYER_MOVE,
                 "r1bqkbnr/ppp2ppp/2n5/1B1pp3/8/4PN2/PPPP1PPP/RNBQK2R w KQkq - 0 1",
                 null,
+                ""));
+
+        //checkmate - player
+        this.gamePvERepository.save(new GamePvE(
+                2L,
+                account.getAccount(),
+                null,
+                PlayerColor.WHITE,
+                1,
+                LocalDate.now(),
+                GamePvEStatus.PLAYER_MOVE,
+                "1k6/5R1B/6RN/p7/4P2p/P3P2P/2K3P1/8 w - - 0 1",
+                null,
+                ""));
+        //draw
+        this.gamePvERepository.save(new GamePvE(
+                3L,
+                account.getAccount(),
+                null,
+                PlayerColor.WHITE,
+                1,
+                LocalDate.now(),
+                GamePvEStatus.PLAYER_MOVE,
+                "4k3/1Qp5/8/2BP1N2/p7/P3P2P/1PP4P/RN2KB1R w KQ - 0 1",
                 null,
                 ""));
     }
+
+
 }

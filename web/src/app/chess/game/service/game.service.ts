@@ -10,6 +10,8 @@ import {Bishop} from '../../../models/pieces/bishop.model';
 import {Queen} from '../../../models/pieces/queen.model';
 import {King} from '../../../models/pieces/king.model';
 import {Move} from '../../../models/game/move';
+import {GameStatus} from '../../../models/game/game-status.enum';
+import {AccountModel} from '../../../models/account.model';
 
 @Injectable({
     providedIn: 'root'
@@ -92,5 +94,9 @@ export class GameService {
 
     getLegateMoves(gameId: number) {
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
+    }
+
+    public getAccountModel(): AccountModel{
+        return this.baseService.getAccountModel();
     }
 }

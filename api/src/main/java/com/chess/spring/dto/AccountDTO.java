@@ -17,6 +17,7 @@ public class AccountDTO {
     private Gender gender;
     private byte[] avatar;
     private boolean isFirstLogin;
+    private String name;
 
     public static AccountDTO map(Account account) {
         return AccountDTO.builder()
@@ -28,6 +29,7 @@ public class AccountDTO {
                 .firstName(account.getFirstName())
                 .lastName(account.getLastName())
                 .gender(account.getGender())
+                .name(account.getName())
                 .build();
     }
 }

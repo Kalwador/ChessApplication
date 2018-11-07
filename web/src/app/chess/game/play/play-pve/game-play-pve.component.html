@@ -1,1 +1,11 @@
-<app-board [fields]="fields" (emiter)='makeMove($event)'></app-board>
+<div class="game">
+    <div class="head-player">
+        <player-header [data]="blackPlayerNick"></player-header>
+    </div>
+    <div class="board">
+        <app-board [fields]="fields" (emiter)='makeMove($event)'></app-board>
+    </div>
+    <div class="head-player">
+        <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
+    </div>
+</div>

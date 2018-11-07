@@ -1,0 +1,12 @@
+.nav {
+    margin-bottom: 100px;
+}
+.chess {
+    position: relative;
+    min-height: calc(100vh - 215px);
+}
+.footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}

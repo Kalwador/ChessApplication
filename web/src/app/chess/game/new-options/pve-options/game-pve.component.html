@@ -1,0 +1,31 @@
+<div>
+    <select [(ngModel)]="choosedColor">
+        <ng-container *ngFor="let color of colors">
+            <option value="{{color}}">{{color}}</option>
+        </ng-container>
+    </select>
+
+    <hr/>
+    <!--<slider-configurable-example></slider-configurable-example>-->
+
+    <select [(ngModel)]="level">
+        <option value="1">1</option>
+        s
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <hr/>
+    <button mat-fab (click)="submit()">Graj</button>
+
+    <img [class]="choosedColor === 'WHITE' ? 'color-piece choosedColor' : 'color-piece hoverColor'"
+         src="https://toppng.com/public/uploads/preview/pawn-white-chess-piece-11532856224alv1lwm9ml.png">
+    <img [class]="choosedColor === 'BLACK' ? 'color-piece choosedColor' : 'color-piece hoverColor'"
+         src="https://toppng.com/public/uploads/preview/pawn-black-chess-piece-115328562023klzbmx1u1.png">
+    <img [class]="choosedColor === 'RANDOM' ? 'color-piece choosedColor' : 'color-piece hoverColor'" class="color-piece"
+         src="http://yeux.com.mx/ColumnaUniversitaria/wp-content/uploads/2014/03/Signo-interrogacio%CC%81n.gif">
+
+
+</div>

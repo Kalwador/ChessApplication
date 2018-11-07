@@ -14,7 +14,7 @@ export class HomeService {
     }
 
     isLogedIn(): boolean {
-        return this.baseService.isLogedIn();
+        return this.baseService.isLoggedIn();
     }
 }
 

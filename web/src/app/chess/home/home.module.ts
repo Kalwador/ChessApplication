@@ -4,6 +4,7 @@ import {HomeComponent} from './home.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeService} from './home-service/home.service';
 import {FormsModule} from '@angular/forms';
+import { ArticleComponent } from './article/article.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
         FormsModule,
     ],
     declarations: [
-        HomeComponent
+        HomeComponent,
+        ArticleComponent
     ],
     providers: [HomeService]
 })

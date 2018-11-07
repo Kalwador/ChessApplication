@@ -1,6 +1,7 @@
 package com.chess.spring.entities.account;
 
 import com.chess.spring.entities.game.GamePvE;
+import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.models.account.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -52,6 +53,12 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     private Set<GamePvE> pveGames;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    private Set<GamePvP> pvpGames;
+
+    @Column(name = "name")
+    private String name;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,6 +67,7 @@ public class Account implements Serializable {
         return isFirstLogin == account.isFirstLogin &&
                 Objects.equals(firstName, account.firstName) &&
                 Objects.equals(lastName, account.lastName) &&
+                Objects.equals(name, account.name) &&
                 Objects.equals(age, account.age) &&
                 gender == account.gender;
     }

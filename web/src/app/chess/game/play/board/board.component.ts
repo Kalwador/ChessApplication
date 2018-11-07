@@ -36,7 +36,7 @@ export class BoardComponent {
     }
 
     prepareMove(source: number, destination: number): Move {
-        return new Move(source, destination, null, null);
+        return new Move(source, destination, null, null, null);
     }
 
     selectField(field: Field) {

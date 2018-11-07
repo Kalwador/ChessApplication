@@ -3,7 +3,7 @@ enum GenderModel {
     FEMALE
 }
 
-export class AccountModel {
+export class  AccountModel {
     public id: number;
     public username: string;
     public email: string;
@@ -13,4 +13,5 @@ export class AccountModel {
     public gender: GenderModel;
     // public avatar: byte[];
     public isFirstLogin: boolean;
+    public login: string;
 }   

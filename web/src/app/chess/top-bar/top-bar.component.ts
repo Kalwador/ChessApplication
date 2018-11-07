@@ -6,15 +6,24 @@ import {BaseService} from '../../services/base.service';
     templateUrl: './top-bar.component.html',
     styleUrls: ['./top-bar.component.css']
 })
-export class TopBarComponent implements OnInit {
+export class TopBarComponent {
 
     constructor(private baseService: BaseService) {
     }
 
-    ngOnInit() {
+    test() {
+        console.log(this.isUserLoggedIn());
     }
 
-    test() {
-        console.log(this.baseService.isLogedIn());
+    reload() {
+        this.baseService.reload();
+    }
+
+    public isUserLoggedIn(): boolean{
+        return this.baseService.isLoggedIn();
+    }
+
+    public logout(){
+        this.baseService.logOut();
     }
 }

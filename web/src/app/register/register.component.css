@@ -10,10 +10,11 @@ h1.title {
     font-size: 50px;
     font-family: 'Passion One', cursive;
     font-weight: 400;
+    color: #30231d;
 }
 
 hr {
-    color: #fff;
+    color: #30231d;
 }
 
 .form-group {
@@ -22,12 +23,18 @@ hr {
 
 label {
     margin-bottom: 15px;
+    color: #30231d;
 }
 
 input,
 input::-webkit-input-placeholder {
     font-size: 11px;
-    padding-top: 3px;
+}
+
+span {
+    padding-top: 10px;
+    padding-right: 5px;
+    color: #6a5750;
 }
 
 .main-login {
@@ -47,11 +54,17 @@ input::-webkit-input-placeholder {
     padding: 40px 40px;
 }
 
-.login-button {
+.register-button {
     margin-top: 5px;
+    background-color: #30231d;
+    border-color: #262216;
 }
 
-.login-register {
-    font-size: 11px;
+.register-button:active {
+    background-color: #30231d;
+}
+
+.home-page {
+    font-size: 13px;
     text-align: center;
 }

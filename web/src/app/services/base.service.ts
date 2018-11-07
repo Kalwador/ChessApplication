@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
     providedIn: 'root',
 })
 export class BaseService {
-    private accountModel: AccountModel;
+    private accountModel: AccountModel = null;
 
     constructor(private restService: RestService,
                 private oauthService: OauthService,
@@ -157,8 +157,23 @@ export class BaseService {
         return response.pipe(map(response => response.text()));
     }
 
+    public isLoggedIn() {
+        // return this.oauthService.isLoggedIn();
+        return true;
+    }
 
-    isLogedIn() {
-        return this.oauthService.isLogedIn();
+    public reload() {
+        this.get('http://localhost:8080/game/pve/reload');
+    }
+
+    public getAccountModel(): AccountModel {
+        if (this.accountModel === null) {
+            this.mapJSON(this.get("/profile")).subscribe(data => {
+                this.accountModel = data;
+                console.log("Pobrano account model");
+                console.log(this.accountModel);
+            });
+        }
+        return this.accountModel;
     }
 }

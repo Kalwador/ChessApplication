@@ -2,7 +2,7 @@ package com.chess.spring.dto.game;
 
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.models.game.PlayerColor;
-import com.chess.spring.models.status.GamePvEStatus;
+import com.chess.spring.models.game.GamePvEStatus;
 import lombok.Data;
 
 import javax.validation.constraints.Max;

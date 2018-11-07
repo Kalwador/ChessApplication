@@ -5,7 +5,6 @@ import {RestService} from './rest.service';
 import {ApplicationCredentialsModel} from '../models/application-credentials.model';
 import {TokenModel} from '../models/login/token.model';
 import {Router} from '@angular/router';
-import {ProfileService} from '../chess/profile/profile-service/profile.service';
 
 @Injectable({
     providedIn: 'root',
@@ -20,7 +19,7 @@ export class OauthService {
 
     //TODO - get app credentials
     private applicationCredentials: ApplicationCredentialsModel;
-    private token: TokenModel;
+    private token: TokenModel = null;
 
     constructor(private restService: RestService,
                 private router: Router) {
@@ -35,7 +34,6 @@ export class OauthService {
             .subscribe(data => {
                 this.token = data;
                 this.router.navigate(['/']);
-                // .then(() => location.reload());
                 console.log('Poprawnie zalogowano');//TODO-NOTIF-SERVICE
             }, error => {
                 switch (error.status) {
@@ -95,8 +93,9 @@ export class OauthService {
         return this.token.access_token;
     }
 
-    isLogedIn() {
+    public isLoggedIn() {
         return this.token != null;
     }
+
 }
 
