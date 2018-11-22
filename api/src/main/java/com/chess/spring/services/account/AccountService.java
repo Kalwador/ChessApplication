@@ -4,6 +4,8 @@ import com.chess.spring.dto.AccountDTO;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.exceptions.ResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface AccountService {
     AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException;
@@ -13,4 +15,8 @@ public interface AccountService {
     Account getDetails() throws ResourceNotFoundException;
 
     AccountDetails getCurrent() throws ResourceNotFoundException;
+
+    Page<AccountDTO> getAll(Pageable page);
+
+    void edit(AccountDTO accountDTO);
 }

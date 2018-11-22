@@ -1,4 +1,4 @@
-export class GamePve {
+export class GamePvE {
     gameId: number;
     color: string;
     level: number;

@@ -1,6 +1,6 @@
 import {Injectable, Query} from '@angular/core';
 import {BaseService} from '../../../services/base.service';
-import {GamePve} from '../../../models/game/game-pve';
+import {GamePvE} from '../../../models/game/game-pv-e';
 import {Observable} from 'rxjs';
 import {Field} from '../../../models/game/field.model';
 import {Pawn} from '../../../models/pieces/pawn.model';
@@ -10,8 +10,9 @@ import {Bishop} from '../../../models/pieces/bishop.model';
 import {Queen} from '../../../models/pieces/queen.model';
 import {King} from '../../../models/pieces/king.model';
 import {Move} from '../../../models/game/move';
-import {GameStatus} from '../../../models/game/game-status.enum';
 import {AccountModel} from '../../../models/account.model';
+import {GamePvP} from "../../../models/game/game-pvp";
+import {Page} from "../../../models/page.model";
 
 @Injectable({
     providedIn: 'root'
@@ -21,15 +22,16 @@ export class GameService {
     blackPieces = ['p', 'r', 'n', 'b', 'q', 'k'];
     whitePieces = ['P', 'R', 'N', 'B', 'Q', 'K'];
     pathPvE = '/game/pve';
+    pathPvP = '/game/pvp';
 
     constructor(private baseService: BaseService) {
     }
 
     public newPvE(color: string, level: number): Observable<number> {
-        return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/new', new GamePve(color, level)));
+        return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/new', new GamePvE(color, level)));
     }
 
-    public getPVEGame(gameId: number): Observable<GamePve> {
+    public getPVEGame(gameId: number): Observable<GamePvE> {
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId));
     }
 
@@ -65,11 +67,30 @@ export class GameService {
         return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/' + id, move));
     }
 
-    getFirstMove(gameId: number): Observable<Move> {
-        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/first'));
+    // getFirstMove(gameId: number): Observable<Move> {
+    //     return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/first'));
+    // }
+
+    public getLegateMoves(gameId: number) {
+        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
     }
 
-    public getPieceByChar(char: string, isWhite: boolean) {
+    public getAccountModel(): AccountModel {
+        return this.baseService.getAccountModel();
+    }
+
+    public getPvPList(page: number, size: number): Observable<Page> {
+        let paging = this.baseService.getPaging(page, size);
+        return this.baseService.mapJSON(this.baseService.get(this.pathPvP + paging));
+    }
+
+    public getPvEList(page: number, size: number): Observable<Page> {
+        let paging = this.baseService.getPaging(page, size);
+        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + paging));
+    }
+
+
+    private getPieceByChar(char: string, isWhite: boolean) {
         switch (char) {
             case 'p':
             case 'P':
@@ -90,13 +111,5 @@ export class GameService {
             case 'K':
                 return new King(isWhite);
         }
-    }
-
-    getLegateMoves(gameId: number) {
-        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
-    }
-
-    public getAccountModel(): AccountModel{
-        return this.baseService.getAccountModel();
     }
 }

@@ -1,14 +1,14 @@
 package com.chess.spring.controllers.game;
 
-import com.chess.spring.dto.MoveDTOPvE;
+import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
-import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.services.game.GamePvEService;
-import com.chess.spring.utils.pgn.Game;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,11 +26,11 @@ public class GamePvEController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Succes get list of games")
+            @ApiResponse(code = 200, message = "Success get list of games")
     })
     @GetMapping
-    public List<GamePvE> getAll(){
-        return this.gameService.getAll();
+    public Page<GamePvEDTO> getAll(Pageable page){
+        return this.gameService.getAll(page);
     }
 
     @ApiResponses(value = {
@@ -39,7 +39,7 @@ public class GamePvEController {
     })
     @GetMapping(value = "/{gameId}")
     public GamePvEDTO getById(@PathVariable Long gameId) throws ResourceNotFoundException {
-        return GamePvEDTO.convert(gameService.getById(gameId));
+        return GamePvEDTO.map(gameService.getById(gameId));
     }
 
     @ApiResponses(value = {
@@ -61,7 +61,7 @@ public class GamePvEController {
             @ApiResponse(code = 500, message = "Not recognized error")
     })
     @PostMapping(value = "/{gameId}")
-    public MoveDTOPvE makeMove(@PathVariable Long gameId, @RequestBody MoveDTOPvE moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
+    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
         return gameService.makeMove(gameId, moveDTOPvE);
     }
 
@@ -79,8 +79,17 @@ public class GamePvEController {
             @ApiResponse(code = 404, message = "Game not found, wrong id")
     })
     @GetMapping(value = "/{gameId}/legate")
-    public List<MoveDTOPvE> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException {
+    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException {
         return gameService.getLegateMoves(gameId);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Game forfeited successfully"),
+            @ApiResponse(code = 404, message = "Game not found, wrong id")
+    })
+    @GetMapping(value = "/{gameId}/forfeited")
+    public void forfeit(@PathVariable Long gameId) throws ResourceNotFoundException {
+         gameService.forfeit(gameId);
     }
 
     //TODO-TEST

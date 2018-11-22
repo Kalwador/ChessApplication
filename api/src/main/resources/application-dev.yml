@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   h2:
     console:
@@ -12,8 +14,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-  jackson:
-    serialization:F
 
 
 authentication:
@@ -21,7 +21,12 @@ authentication:
     client:
       id: chessapp
       secret: secret
-    tokenValidityInSeconds: 1800
+    tokenValidityInSeconds: 180000
+
+application:
+  project:
+    host-api: http://localhost:8080
+    host-web: http://localhost:4200
 
 #Facebook app
 REDIRECT_URI: http://localhost:8080/login/facebook

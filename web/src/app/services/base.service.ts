@@ -179,10 +179,19 @@ export class BaseService {
         }
         return this.accountModel;
     }
-    public checkStorageForToken(){
-        if(this.oauthService.checkStorageForToken()){
+
+    public checkStorageForToken() {
+        if (this.oauthService.checkStorageForToken()) {
             this.getAccountModel();
             this.notificationService.trace("Znaleziono token w storage")
         }
+    }
+
+    public getPaging(page: number, size: number) {
+        return '?page=' + page + '&size=' + size;
+    }
+
+    public getPagingAndSorting(page: number, size: number, sort: string, sortType: string) {
+        return '?page=' + page + '&size=' + size + '&sort=' + sort + ',' + sortType;
     }
 }

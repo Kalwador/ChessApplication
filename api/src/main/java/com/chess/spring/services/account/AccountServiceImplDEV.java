@@ -5,8 +5,11 @@ import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.repositories.AccountDetailsRepository;
+import com.chess.spring.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +20,15 @@ import org.springframework.stereotype.Service;
 @Profile("dev")
 public class AccountServiceImplDEV implements AccountService {
 
-
+    private AccountRepository accountRepository;
     private AccountDetailsRepository accountDetailsRepository;
 
     @Autowired
-    public AccountServiceImplDEV(AccountDetailsRepository accountDetailsRepository) {
+    public AccountServiceImplDEV(
+            AccountDetailsRepository accountDetailsRepository,
+            AccountRepository accountRepository) {
         this.accountDetailsRepository = accountDetailsRepository;
+        this.accountRepository = accountRepository;
     }
 
     public AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException {
@@ -39,5 +45,15 @@ public class AccountServiceImplDEV implements AccountService {
 
     public AccountDetails getCurrent() throws ResourceNotFoundException {
         return getAccountDetailsByUsername("user");
+    }
+
+    @Override
+    public Page<AccountDTO> getAll(Pageable page) {
+        return AccountDTO.map(this.accountRepository.findAll(page));
+    }
+
+    @Override
+    public void edit(AccountDTO accountDTO) {
+
     }
 }

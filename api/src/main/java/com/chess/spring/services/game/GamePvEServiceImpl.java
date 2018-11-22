@@ -1,6 +1,6 @@
 package com.chess.spring.services.game;
 
-import com.chess.spring.dto.MoveDTOPvE;
+import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
@@ -18,6 +18,8 @@ import com.chess.spring.services.account.AccountService;
 import com.chess.spring.utils.pgn.FenUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -39,9 +41,9 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         this.accountRepository = accountRepository;
     }
 
-    //TODO-PAGINATION
-    public List<GamePvE> getAll() {
-        return this.gamePvERepository.findAll();
+    @Override
+    public Page<GamePvEDTO> getAll(Pageable page) {
+        return GamePvEDTO.map(this.gamePvERepository.findAll(page), page);
     }
 
     public GamePvE getById(Long gameId) throws ResourceNotFoundException {
@@ -99,7 +101,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     }
 
     @Override
-    public MoveDTOPvE makeMove(Long gameId, MoveDTOPvE moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException {
+    public MoveDTO makeMove(Long gameId, MoveDTO moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException {
         GamePvE game = getById(gameId);
         checkStatus(game.getStatus(), GamePvEStatus.PLAYER_MOVE);
 
@@ -121,7 +123,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
             } else {
                 gamePvERepository.save(game);
                 boolean isCheck = boardAfterComputerResponse.currentPlayer().isInCheck();
-                return MoveDTOPvE.map(move, isCheck);
+                return MoveDTO.map(move, isCheck);
             }
         }
     }
@@ -161,7 +163,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 //        gamePvERepository.save(gamePvE);
     }
 
-    private MoveDTOPvE handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException {
+    private MoveDTO handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException {
         game.setBoard(FenUtilities.createFENFromGame(board));
         GamePvEStatus status;
         if (gameEndStatus == GameEndStatus.STALE_MATE) {
@@ -175,14 +177,23 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         }
         game.setStatus(status);
         gamePvERepository.save(game);
-        return new MoveDTOPvE(null, null, null, status, "");
+        return new MoveDTO(null, null, null, false, status, null, null);
     }
 
     @Override
-    public List<MoveDTOPvE> getLegateMoves(Long gameId) throws ResourceNotFoundException {
+    public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException {
         GamePvE game = getById(gameId);
         Board board = FenUtilities.createGameFromFEN(game.getBoard());
-        return MoveDTOPvE.map(board.getAllLegalMoves());
+        return MoveDTO.map(board.getAllLegalMoves());
+    }
+
+    @Override
+    public void forfeit(Long gameId) throws ResourceNotFoundException {
+        GamePvE game = getById(gameId);
+
+        game.setStatus(game.getColor() == PlayerColor.WHITE ? GamePvEStatus.BLACK_WIN : GamePvEStatus.WHITE_WIN);
+        gamePvERepository.save(game);
+        //TODO-STATISTICS
     }
 
     @Override

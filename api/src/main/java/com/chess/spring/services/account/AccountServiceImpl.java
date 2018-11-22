@@ -5,8 +5,11 @@ import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.repositories.AccountDetailsRepository;
+import com.chess.spring.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +20,25 @@ import org.springframework.stereotype.Service;
 @Profile("release")
 public class AccountServiceImpl implements AccountService {
 
-
+    private AccountRepository accountRepository;
     private AccountDetailsRepository accountDetailsRepository;
 
     @Autowired
-    public AccountServiceImpl(AccountDetailsRepository accountDetailsRepository) {
+    public AccountServiceImpl(
+            AccountDetailsRepository accountDetailsRepository,
+            AccountRepository accountRepository) {
         this.accountDetailsRepository = accountDetailsRepository;
+        this.accountRepository = accountRepository;
+    }
+
+    @Override
+    public Page<AccountDTO> getAll(Pageable page) {
+        return AccountDTO.map(this.accountRepository.findAll(page));
+    }
+
+    @Override
+    public void edit(AccountDTO accountDTO) {
+        throw new IllegalArgumentException("to do");
     }
 
     @Override
@@ -51,4 +67,5 @@ public class AccountServiceImpl implements AccountService {
             throw new ResourceNotFoundException("Gra nie odnaleziona");
         }
     }
+
 }

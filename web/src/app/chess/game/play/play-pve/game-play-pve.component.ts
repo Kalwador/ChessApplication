@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GamePve} from '../../../../models/game/game-pve';
+import {GamePvE} from '../../../../models/game/game-pv-e';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GameService} from '../../service/game.service';
 import {Field} from '../../../../models/game/field.model';
@@ -16,7 +16,7 @@ import {NotificationService} from "../../../notifications/notification.service";
 })
 export class GamePlayPveComponent implements OnInit {
 
-    game: GamePve;
+    game: GamePvE;
     fields: Array<Field>;
     legateMoves: Array<Move>;
     whitePlayerNick: string;

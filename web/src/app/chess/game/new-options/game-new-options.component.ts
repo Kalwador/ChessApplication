@@ -11,11 +11,8 @@ export class GameNewOptionsComponent implements OnInit {
 
     constructor(private gameService: GameService,
                 private router: Router) {
-
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
 }

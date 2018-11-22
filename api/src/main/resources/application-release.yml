@@ -8,6 +8,11 @@
 #  jpa:
 #    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+server:
+  error:
+    whitelabel:
+      enabled: false
+
 spring:
   h2:
     console:
@@ -22,6 +27,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
   jackson:
     serialization:F
 
@@ -32,6 +38,11 @@ authentication:
       id: chessapp
       secret: secret
     tokenValidityInSeconds: 1800
+
+application:
+  project:
+    host-api: http://localhost:8080
+    host-web: http://localhost:4200
 
 #Facebook app
 REDIRECT_URI: http://localhost:8080/login/facebook

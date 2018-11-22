@@ -28,7 +28,7 @@ public class Account implements Serializable {
     private Long id;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_details", nullable = false)
     private AccountDetails accountDetails;
 
@@ -50,10 +50,10 @@ public class Account implements Serializable {
     @ColumnDefault("true")
     private boolean isFirstLogin;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private Set<GamePvE> pveGames;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private Set<GamePvP> pvpGames;
 
     @Column(name = "name")

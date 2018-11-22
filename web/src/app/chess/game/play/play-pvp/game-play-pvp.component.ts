@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+
+declare function startSocket(): any;
+
 @Component({
   selector: 'app-play-pvp',
   templateUrl: './game-play-pvp.component.html',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamePlayPvpComponent implements OnInit {
 
-  constructor() { }
+    constructor(){ }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        startSocket();
+    }
+
+    sendMessage() {
+
+    }
 
 }

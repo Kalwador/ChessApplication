@@ -42,6 +42,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    //500
     @ExceptionHandler(value = InstantiationException.class)
     protected ResponseEntity<Object> handleInstantiationException(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);

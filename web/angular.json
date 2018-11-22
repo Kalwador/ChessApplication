@@ -31,7 +31,13 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/sockjs.min.js",
+              "src/assets/js/stomp.min.js",
+              "src/assets/js/js.cookie.js",
+              "src/assets/js/socket.js"
+            ]
           },
           "configurations": {
             "production": {

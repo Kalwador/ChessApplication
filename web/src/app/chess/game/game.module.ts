@@ -20,6 +20,7 @@ import { GamePvpListComponent } from './games/games-pvp/game-pvp-list.component'
 import { GamePveListComponent } from './games/games-pve/game-pve-list.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatTableModule} from '@angular/material/table';
 
 const routes: Routes = [
     {
@@ -48,7 +49,8 @@ const routes: Routes = [
         TableModule,
         DraggableModule,
         MatButtonModule,
-        MatSliderModule
+        MatSliderModule,
+        MatTableModule
     ],
     declarations: [
         BoardComponent,

@@ -1,6 +1,6 @@
 package com.chess.spring.services.game;
 
-import com.chess.spring.dto.MoveDTOPvE;
+import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.engine.classic.board.MoveTransition;
@@ -20,9 +20,9 @@ public abstract class GameUtils {
         return new Random(System.currentTimeMillis()).nextInt() > 0.5 ? PlayerColor.WHITE : PlayerColor.BLACK;
     }
 
-    public Board executeMove(String fenBoard, MoveDTOPvE moveDTOPvE) throws InvalidDataException {
+    public Board executeMove(String fenBoard, MoveDTO moveDTO) throws InvalidDataException {
         Board board = FenUtilities.createGameFromFEN(fenBoard);
-        final Move move = Move.MoveFactory.createMove(board, moveDTOPvE.getSource(), moveDTOPvE.getDestination());
+        final Move move = Move.MoveFactory.createMove(board, moveDTO.getSource(), moveDTO.getDestination());
         return executeMove(board, move);
     }
     public Board executeMove(String fenBoard, Move move) throws InvalidDataException {

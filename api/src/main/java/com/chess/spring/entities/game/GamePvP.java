@@ -23,12 +23,12 @@ public class GamePvP extends Game {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "black_id")
     @ApiModelProperty(notes = "player in current game")
     private Account blackPlayer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "white_id")
     @ApiModelProperty(notes = "player in current game")
     private Account whitePlayer;
@@ -37,8 +37,6 @@ public class GamePvP extends Game {
 
     @Enumerated(EnumType.STRING)
     private PlayerColor color;
-
-    private Integer level;
 
     private LocalDate gameStarted;
 
@@ -60,7 +58,6 @@ public class GamePvP extends Game {
                 Objects.equals(blackPlayer, gamePvP.blackPlayer) &&
                 Objects.equals(timePerMove, gamePvP.timePerMove) &&
                 color == gamePvP.color &&
-                Objects.equals(level, gamePvP.level) &&
                 Objects.equals(gameStarted, gamePvP.gameStarted) &&
                 status == gamePvP.status &&
                 Objects.equals(board, gamePvP.board) &&
@@ -70,7 +67,7 @@ public class GamePvP extends Game {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, whitePlayer, blackPlayer, timePerMove, color, level, gameStarted, status, board, moves);
+        return Objects.hash(id, whitePlayer, blackPlayer, timePerMove, color, gameStarted, status, board, moves);
     }
 }
 

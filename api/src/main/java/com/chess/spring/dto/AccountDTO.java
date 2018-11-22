@@ -4,6 +4,11 @@ import com.chess.spring.entities.account.Account;
 import com.chess.spring.models.account.Gender;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -31,5 +36,11 @@ public class AccountDTO {
                 .gender(account.getGender())
                 .name(account.getName())
                 .build();
+    }
+
+    public static Page<AccountDTO> map(Page<Account> all) {
+        return new PageImpl<>(all.getContent().stream()
+                .map(AccountDTO::map)
+                .collect(Collectors.toList()));
     }
 }

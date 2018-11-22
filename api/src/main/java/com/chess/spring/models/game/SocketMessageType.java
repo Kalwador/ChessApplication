@@ -1,5 +1,5 @@
 package com.chess.spring.models.game;
 
-public enum SocketResponseType {
+public enum SocketMessageType {
     JOIN, LEAVE, CHAT, MOVE
 }

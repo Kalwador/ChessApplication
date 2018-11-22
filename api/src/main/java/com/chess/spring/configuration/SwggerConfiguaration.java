@@ -32,8 +32,8 @@ public class SwggerConfiguaration {
     @Value("${application.project.version}")
     private String version;
 
-    @Value("${application.project.host}")
-    private String host;
+    @Value("${application.project.host-api}")
+    private String hostApi;
 
     @Value("${authentication.oauth.client.id}")
     private String clientId;
@@ -73,9 +73,9 @@ public class SwggerConfiguaration {
 
     private SecurityScheme securitySchema() {
         GrantType grantType = new AuthorizationCodeGrantBuilder()
-                .tokenEndpoint(new TokenEndpoint(host + "/token", "oauthtoken"))
+                .tokenEndpoint(new TokenEndpoint(hostApi + "/token", "oauthtoken"))
                 .tokenRequestEndpoint(
-                        new TokenRequestEndpoint(host + "/authorize", clientId, clientSecret))
+                        new TokenRequestEndpoint(hostApi + "/authorize", clientId, clientSecret))
                 .build();
 
         SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")

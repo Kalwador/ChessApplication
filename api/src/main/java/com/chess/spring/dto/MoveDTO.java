@@ -4,6 +4,7 @@ import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.models.game.GamePvEStatus;
 import com.chess.spring.models.game.GamePvPStatus;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,30 +18,38 @@ import java.util.stream.StreamSupport;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MoveDTOPvP {
+public class MoveDTO {
     private Integer source;
     private Integer destination;
     private String type;
     private boolean isInCheck;
-    private GamePvPStatus status;
+
+    @JsonAlias(value = "status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private GamePvEStatus statusPve;
+
+    @JsonAlias(value = "status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private GamePvPStatus statusPvP;
+
     private String moveLog;
 
-    public static MoveDTOPvP map(Move move, boolean isInCheck) {
-        MoveDTOPvP moveDTO = new MoveDTOPvP();
+    public static MoveDTO map(Move move, boolean isInCheck) {
+        MoveDTO moveDTO = new MoveDTO();
         moveDTO.setSource(move.getCurrentCoordinate());
         moveDTO.setDestination(move.getDestinationCoordinate());
         moveDTO.setType(move.getClass().getSimpleName());
         return moveDTO;
     }
 
-    private static MoveDTOPvP mapSimple(Move move) {
-        MoveDTOPvP moveDTO = new MoveDTOPvP();
+    private static MoveDTO mapSimple(Move move) {
+        MoveDTO moveDTO = new MoveDTO();
         moveDTO.setSource(move.getCurrentCoordinate());
         moveDTO.setDestination(move.getDestinationCoordinate());
         return moveDTO;
     }
 
-    public static List<MoveDTOPvP> map(Iterable<Move> moves) {
-        return StreamSupport.stream(moves.spliterator(), false).map(MoveDTOPvP::mapSimple).collect(Collectors.toList());
+    public static List<MoveDTO> map(Iterable<Move> moves) {
+        return StreamSupport.stream(moves.spliterator(), false).map(MoveDTO::mapSimple).collect(Collectors.toList());
     }
 }
