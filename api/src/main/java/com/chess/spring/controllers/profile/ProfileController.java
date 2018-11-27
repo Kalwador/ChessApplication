@@ -30,15 +30,25 @@ public class ProfileController {
         System.out.println(file.getOriginalFilename());
     }
 
+    @GetMapping
+    public AccountDTO getAccountProfile() throws ResourceNotFoundException {
+        return this.accountService.getCurrentAccount();
+    }
+
     //TODO-SECURITY
     @GetMapping(path = "/all")
     public Page<AccountDTO> getAll(@RequestParam Pageable page){
         return this.accountService.getAll(page);
     }
 
-    @GetMapping
-    public AccountDTO getProfile() throws ResourceNotFoundException {
-        return this.accountService.getCurrentAccount();
+    @GetMapping(path = "/{id}")
+    public AccountDTO getProfile(@PathVariable Long id) throws ResourceNotFoundException {
+        return this.accountService.getProfile(id);
+    }
+
+    @GetMapping(path = "/nick/{id}")
+    public String getProfileNick(@PathVariable Long id) throws ResourceNotFoundException {
+        return this.accountService.getNickName(id);
     }
 
     @PutMapping

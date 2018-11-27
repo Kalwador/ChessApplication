@@ -1,0 +1,7 @@
+<div *ngIf="gameType == GameType.PVP">
+    {{gamePvP.black}}
+    {{gamePvP.white}}
+</div>
+<div *ngIf="gameType === GameType.PVE">
+    {{gamePvE.board}}
+</div>

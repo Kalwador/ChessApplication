@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import javax.validation.Valid;
+
 import static java.lang.String.format;
+
 
 @Slf4j
 @RestController
@@ -57,30 +60,20 @@ public class GamePvPController {
         return GamePvPDTO.map(gameService.getById(gameId));
     }
 
-    /**
-     * Send message, to other users
-     */
-    @MessageMapping("/chat/{roomId}/sendMessage")
-    public void sendMessage(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage) {
-        messagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
+    @GetMapping(path = "/test/{message}")
+    public void test(@PathVariable String message) {
+        this.distributeChatMessage("1", new SocketMessageDTO(SocketMessageType.CHAT,null,message,"SEFVER"));
     }
 
-    /**
-     * User enter the chat, send info about joinning to other users
-     * here u cna count nouber of observers of game
-     */
-    @MessageMapping("/chat/{roomId}/addUser")
-    public void addUser(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage,
-                        SimpMessageHeaderAccessor headerAccessor) {
-        String currentRoomId = (String) headerAccessor.getSessionAttributes().put("room_id", roomId);
-        if (currentRoomId != null) {
-            SocketMessageDTO leaveMessage = new SocketMessageDTO();
 
-            chatMessage.setType(SocketMessageType.JOIN);
-            messagingTemplate.convertAndSend(format("/channel/%s", currentRoomId), leaveMessage);
-        }
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        messagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Game found"),
+            @ApiResponse(code = 404, message = "User not logged in"),
+            @ApiResponse(code = 409, message = "Level out of scale")
+    })
+    @PostMapping(value = "/find")
+    public Long findGame(@RequestBody @Valid GamePvPDTO gamePvEDTO) throws ResourceNotFoundException {
+        return gameService.findGame(gamePvEDTO);
     }
 
     /**
@@ -92,6 +85,40 @@ public class GamePvPController {
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         log.info("Received a new web socket connection.");
+    }
+
+    /**
+     * Send message, to other users
+     */
+    @MessageMapping("/channel/game/{roomId}/chat")
+    public void distributeChatMessage(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage) {
+        messagingTemplate.convertAndSend(format("/channel/game/%s", roomId), chatMessage);
+    }
+
+    /**
+     * Send message, to other users
+     */
+    @MessageMapping("/channel/game/{roomId}/move")
+    public void makeMove(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage) {
+        System.out.println(chatMessage);
+    }
+
+    /**
+     * User enter the chat, send info about joinning to other users
+     * here u cna count nouber of observers of game
+     */
+    @MessageMapping("/channel/game/{roomId}/join")
+    public void addUser(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage,
+                        SimpMessageHeaderAccessor headerAccessor) {
+        String currentRoomId = (String) headerAccessor.getSessionAttributes().put("room_id", roomId);
+        if (currentRoomId != null) {
+            SocketMessageDTO leaveMessage = new SocketMessageDTO();
+
+            chatMessage.setType(SocketMessageType.JOIN);
+            messagingTemplate.convertAndSend(format("/channel/%s", currentRoomId), leaveMessage);
+        }
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        messagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
     }
 
     /**

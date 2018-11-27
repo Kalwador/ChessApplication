@@ -7,6 +7,12 @@
     border-top: 1px solid #DDDDDD;
 }
 
+.container{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
 .bg-circle {
     background-color: #97743a !important;
     display: inline-block;
@@ -25,9 +31,15 @@
     border-radius: 50%;
 }
 
+h4 {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
 .header-font {
     font-family: "Josefin Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #fd1506;
+    color: #97743a;
+    font-size: 18px;
 }
 
 .bg-circle a, a:hover, .media a:focus {

@@ -1,44 +1,42 @@
 package com.chess.spring.dto.game;
 
+import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.models.game.GamePvPStatus;
-import com.chess.spring.models.game.PlayerColor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GamePvPDTO {
-    private Long gameId;
-
-    @NotNull
-    private PlayerColor color;
-
-    @NotNull
-    @Min(1)
-    @Max(10)
-    private Integer level;
-
+    private Long id;
+    private Long white;
+    private Long black;
     private String board;
     private String moves;
     private GamePvPStatus status;
 
+
     public static GamePvPDTO map(GamePvP game) {
-        GamePvPDTO gamePvPDTO = new GamePvPDTO();
-        gamePvPDTO.setGameId(game.getId());
-        gamePvPDTO.setColor(game.getColor());
-        gamePvPDTO.setMoves(game.getMoves());
-        gamePvPDTO.setBoard(game.getBoard());
-        gamePvPDTO.setStatus(game.getStatus());
-//        gamePvEDTO.set(game.getTimePerMove());//TODO-TIMING
-        return gamePvPDTO;
+        return GamePvPDTO.builder()
+                .id(game.getId())
+                .white(Optional.ofNullable(game.getWhitePlayer()).map(Account::getId).orElse(null))
+                .black(Optional.ofNullable(game.getBlackPlayer()).map(Account::getId).orElse(null))
+                .board(game.getBoard())
+                .moves(game.getMoves())
+                .status(game.getStatus())
+                .build();
     }
 
     public static Page<GamePvPDTO> map(Page<GamePvP> all, Pageable page) {

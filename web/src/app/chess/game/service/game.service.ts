@@ -1,18 +1,21 @@
-import {Injectable, Query} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseService} from '../../../services/base.service';
-import {GamePvE} from '../../../models/game/game-pv-e';
 import {Observable} from 'rxjs';
-import {Field} from '../../../models/game/field.model';
+import {Field} from '../../../models/chess/field.model';
 import {Pawn} from '../../../models/pieces/pawn.model';
 import {Rook} from '../../../models/pieces/rook.model';
 import {Knight} from '../../../models/pieces/knight.model';
 import {Bishop} from '../../../models/pieces/bishop.model';
 import {Queen} from '../../../models/pieces/queen.model';
 import {King} from '../../../models/pieces/king.model';
-import {Move} from '../../../models/game/move';
-import {AccountModel} from '../../../models/account.model';
-import {GamePvP} from "../../../models/game/game-pvp";
+import {Move} from '../../../models/chess/move';
+import {AccountModel} from '../../../models/profile/account.model';
 import {Page} from "../../../models/page.model";
+import {GameType} from "../../../models/chess/game/game-type.enum";
+import {NotificationService} from "../../notifications/notification.service";
+import {GamePvp} from "../../../models/chess/game/game-pvp";
+import {Game} from "../../../models/chess/game/game.model";
+import {GamePveModel} from "../../../models/chess/game/game-pve.model";
 
 @Injectable({
     providedIn: 'root'
@@ -21,18 +24,27 @@ export class GameService {
 
     blackPieces = ['p', 'r', 'n', 'b', 'q', 'k'];
     whitePieces = ['P', 'R', 'N', 'B', 'Q', 'K'];
-    pathPvE = '/game/pve';
-    pathPvP = '/game/pvp';
+    public pathPvE = '/game/pve';
+    public pathPvP = '/game/pvp';
 
-    constructor(private baseService: BaseService) {
+
+    constructor(private baseService: BaseService,
+                private notificationService: NotificationService) {
     }
 
-    public newPvE(color: string, level: number): Observable<number> {
-        return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/new', new GamePvE(color, level)));
+    public newPvE(game: GamePveModel): Observable<number> {
+        return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/new', game));
     }
 
-    public getPVEGame(gameId: number): Observable<GamePvE> {
-        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId));
+    public newPvP(game: GamePvp): Observable<number> {
+        return this.baseService.mapJSON(this.baseService.post(this.pathPvP + '/find', game));
+    }
+
+    public getGame(gameId: number, type: GameType): Observable<Game> {
+        let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
+        path += '/' + gameId;
+        this.notificationService.trace('get game, path: ' + path);
+        return this.baseService.mapJSON(this.baseService.get(path));
     }
 
     public createBoard(fenBoard: string): Array<Field> {
@@ -63,13 +75,10 @@ export class GameService {
         return board;
     }
 
-    public makeMove(move: Move, id: number): Observable<Move> {
-        return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/' + id, move));
+    public makeMove(move: Move, id: number, type: GameType): Observable<Move> {
+        let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
+        return this.baseService.mapJSON(this.baseService.post(path + '/' + id, move));
     }
-
-    // getFirstMove(gameId: number): Observable<Move> {
-    //     return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/first'));
-    // }
 
     public getLegateMoves(gameId: number) {
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
@@ -88,7 +97,6 @@ export class GameService {
         let paging = this.baseService.getPaging(page, size);
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + paging));
     }
-
 
     private getPieceByChar(char: string, isWhite: boolean) {
         switch (char) {
@@ -111,5 +119,9 @@ export class GameService {
             case 'K':
                 return new King(isWhite);
         }
+    }
+
+    public getBasePath(): string {
+        return this.baseService.getBasePath();
     }
 }

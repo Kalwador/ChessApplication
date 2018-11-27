@@ -1,12 +1,11 @@
-export class GamePvE {
-    gameId: number;
+import {Game} from "./game.model";
+
+export class GamePveModel extends Game{
     color: string;
     level: number;
-    board: string;
-    moves: string;
-    status: string;
 
     constructor (color: string, level: number) {
+        super();
         this.color = color;
         this.level = level;
     }

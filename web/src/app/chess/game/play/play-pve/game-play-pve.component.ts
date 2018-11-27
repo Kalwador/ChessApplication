@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {GamePvE} from '../../../../models/game/game-pv-e';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GameService} from '../../service/game.service';
-import {Field} from '../../../../models/game/field.model';
-import {Move} from '../../../../models/game/move';
-import {GameStatus} from '../../../../models/game/game-status.enum';
-import {Queen} from '../../../../models/pieces/queen.model';
-import {PlayerColor} from '../../../../models/game/player-color.enum';
+import {Move} from '../../../../models/chess/move';
+import {GameStatus} from '../../../../models/chess/game/game-status.enum';
+import {PlayerColor} from '../../../../models/chess/player-color.enum';
 import {NotificationService} from "../../../notifications/notification.service";
+import {CurrentGameService} from "../../service/current-game.service";
+import {GameType} from "../../../../models/chess/game/game-type.enum";
 
 @Component({
     selector: 'app-game-play',
@@ -16,31 +15,25 @@ import {NotificationService} from "../../../notifications/notification.service";
 })
 export class GamePlayPveComponent implements OnInit {
 
-    game: GamePvE;
-    fields: Array<Field>;
-    legateMoves: Array<Move>;
     whitePlayerNick: string;
     blackPlayerNick: string;
 
+    isGameContinued: boolean
+
     constructor(private route: ActivatedRoute,
                 private gameService: GameService,
+                public currentGameService: CurrentGameService,
                 private notificationService: NotificationService,
                 public router: Router) {
     }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.gameService.getPVEGame(+params['gameId']).subscribe(data => {
-                this.game = data;
-                this.fields = this.gameService.createBoard(this.game.board);
-                this.isGameContinued(this.game.status);
-                if(this.game.color === PlayerColor.WHITE) {
-                    this.whitePlayerNick = this.gameService.getAccountModel().username;
-                    this.blackPlayerNick = 'Computer Lv: ' + this.game.level;
-                } else {
-                    this.whitePlayerNick = 'Computer Lv: ' + this.game.level;
-                    this.blackPlayerNick = this.gameService.getAccountModel().username;
-                }
+            this.gameService.getGame(+params['id'], GameType.PVE).subscribe(data => {
+                this.currentGameService.game = data;
+                this.currentGameService.fields = this.gameService.createBoard(this.currentGameService.game.board);
+                this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status);
+                this.setPlayersInfo();
             }, error => {
                 if (error.status === 400) {
                     this.router.navigate(['/']);
@@ -51,23 +44,22 @@ export class GamePlayPveComponent implements OnInit {
     }
 
     makeMove(move: Move) {
-        if (this.game.status === GameStatus.PLAYER_MOVE || this.game.status === GameStatus.ON_HOLD || this.game.status === GameStatus.CHECK) {
-            let legateMove = this.getLegateMove(move.source, move.destination);
+        if (this.currentGameService.game.status === GameStatus.PLAYER_MOVE
+            || this.currentGameService.game.status === GameStatus.ON_HOLD
+            || this.currentGameService.game.status === GameStatus.CHECK) {
+            let legateMove = this.currentGameService.getLegateMove(move.source, move.destination);
             if (legateMove !== null) {
-                if (this.game.status != GameStatus.CHECK) {
-                    this.executeMove(move);
+                if (this.currentGameService.game.status != GameStatus.CHECK) {
+                    this.currentGameService.executeMove(move);
                 }
-
-                this.gameService.makeMove(move, this.game.gameId).subscribe(data => {
-                    if (this.isGameContinued(data.status)) {
-                        if (this.game.status === GameStatus.CHECK) {
-                            this.executeMove(move);
+                this.gameService.makeMove(move, this.currentGameService.game.id, GameType.PVE).subscribe(data => {
+                    if (this.currentGameService.checkIfGameContinued(data.status)) {
+                        if (this.currentGameService.game.status === GameStatus.CHECK) {
+                            this.currentGameService.executeMove(move);
                         }
-                        this.executeMove(data);
+                        this.currentGameService.executeMove(data);
                     }
-                    this.game.status = data.status;
                     //TODO replace log
-
                 }, error => {
                     if (error.status === 400) {
                         this.notificationService.info("Błędny ruch");
@@ -82,106 +74,13 @@ export class GamePlayPveComponent implements OnInit {
         }
     }
 
-
-    private executeMove(move: Move) {
-        this.fields[move.destination].piece = this.fields[move.source].piece;
-        this.fields[move.source].piece = null;
-        this.isSpecialMove(move);
-    }
-
-    private getLegateMoves() {
-        this.gameService.getLegateMoves(this.game.gameId).subscribe(data => {
-            this.legateMoves = data;
-        });
-    }
-
-    private getLegateMove(source: number, destination: number): Move {
-        for (let move of this.legateMoves) {
-            if (move.source === source && move.destination === destination) {
-                return move;
-            }
-        }
-        return null;
-    }
-
-    private isSpecialMove(move: Move) {
-        switch (move.type) {
-            case 'KingSideCastleMove': {
-                switch (move.destination) {
-                    //BLACK
-                    case 6: {
-                        this.fields[5].piece = this.fields[7].piece;
-                        this.fields[7].piece = null;
-                        break;
-                    }
-                    //WHITE
-                    case 62: {
-                        this.fields[61].piece = this.fields[63].piece;
-                        this.fields[63].piece = null;
-                        break;
-                    }
-                }
-                break;
-            }
-            case 'QueenSideCastleMove': {
-                switch (move.destination) {
-                    //BLACK
-                    case 2: {
-                        this.fields[3].piece = this.fields[0].piece;
-                        this.fields[0].piece = null;
-                        break;
-                    }
-                    //WHITE
-                    case 58: {
-                        this.fields[59].piece = this.fields[56].piece;
-                        this.fields[59].piece = null;
-                        break;
-                    }
-                }
-                break;
-            }
-            case 'PawnPromotion': {
-                //BLACK
-                if (move.destination < 8) {
-                    this.fields[move.destination].piece = new Queen(true);
-                }
-                //WHITE
-                if (move.destination > 55) {
-                    this.fields[move.destination].piece = new Queen(false);
-                }
-                break;
-            }
-            //TODO - bicie w przelocie
-        }
-    }
-
-    private isGameContinued(status: string): boolean {
-        switch (status) {
-            case GameStatus.CHECK: {
-                this.notificationService.info("Szach!");
-                return true;
-            }
-            case GameStatus.DRAW: {
-                this.notificationService.info('Gra skończona, remis');
-                return false;
-            }
-            case GameStatus.BLACK_WIN: {
-                this.notificationService.info('Gra skończona, wygrały czarne');
-                return false;
-            }
-            case GameStatus.WHITE_WIN: {
-                this.notificationService.info('Gra skończona, wygrały białe');
-                return false;
-            }
-            case GameStatus.PLAYER_MOVE: {
-                this.getLegateMoves();
-                return true;
-            }
-            default: {
-                //TODO - do usuniecia
-                this.notificationService.danger('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
-                return true;
-            }
+    private setPlayersInfo() {
+        if (this.currentGameService.game.color === PlayerColor.WHITE) {
+            this.whitePlayerNick = this.gameService.getAccountModel().username;
+            this.blackPlayerNick = 'Computer Lv: ' + this.currentGameService.game.level;
+        } else {
+            this.whitePlayerNick = 'Computer Lv: ' + this.currentGameService.game.level;
+            this.blackPlayerNick = this.gameService.getAccountModel().username;
         }
     }
 }

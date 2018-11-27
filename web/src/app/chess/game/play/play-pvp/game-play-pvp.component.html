@@ -1,0 +1,17 @@
+<div class="custom-container">
+    <section class="game" style="width: 60%; float: left">
+        <div class="head-player">
+            <player-header [data]="blackPlayerNick"></player-header>
+        </div>
+        <div class="board">
+            <app-board [fields]="currentGameService.fields" [isPlayable]="isPlayerPlaying" (moveEventEmitter)="makeMove($event)"></app-board>
+        </div>
+        <div class="head-player">
+            <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
+        </div>
+    </section>
+    <section class="chat" style="float: left">
+        <app-chat (chatMessageEmitter)="sendChatMessage($event)"
+                  [chatMessageReceiver]="chatMessageReceivedEmitter.asObservable()"></app-chat>
+    </section>
+</div>

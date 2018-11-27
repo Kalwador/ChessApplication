@@ -32,11 +32,9 @@
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [
-              "src/assets/js/jquery.min.js",
-              "src/assets/js/sockjs.min.js",
-              "src/assets/js/stomp.min.js",
-              "src/assets/js/js.cookie.js",
-              "src/assets/js/socket.js"
+                            "src/assets/js/jquery.min.js",
+                            "src/assets/js/sockjs.min.js",
+                            "src/assets/js/stomp.min.js"
             ]
           },
           "configurations": {

@@ -50,12 +50,6 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         return gamePvERepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
     }
 
-    /**
-     * Create new game pve
-     *
-     * @param gamePvEDTO
-     * @return
-     */
     @Override
     public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
         Account account = accountService.getDetails();
@@ -122,17 +116,16 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
                 return handleEndOfGame(game, boardAfterComputerResponse, gameEndStatus, false);
             } else {
                 gamePvERepository.save(game);
-                boolean isCheck = boardAfterComputerResponse.currentPlayer().isInCheck();
-                return MoveDTO.map(move, isCheck);
+
+                return MoveDTO.builder()
+                        .source(move.getCurrentCoordinate())
+                        .destination(move.getDestinationCoordinate())
+                        .isInCheck(boardAfterComputerResponse. currentPlayer().isInCheck())
+                        .type(move.getClass().getSimpleName())
+                        .statusPve(GamePvEStatus.PLAYER_MOVE)
+                        .build();
             }
         }
-    }
-
-
-    private Move getBestMove(Board board, int level) {
-        final StockAlphaBeta strategy = new StockAlphaBeta(level);
-//        strategy.addObserver(Table.get().getDebugPanel());
-        return strategy.execute(board);
     }
 
     private void checkStatus(GamePvEStatus gamePvEStatus, GamePvEStatus status) throws DataMissmatchException, LockedSourceException {
@@ -143,16 +136,6 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
                 throw new LockedSourceException("Gra się zakończyła");
         }
         if (!gamePvEStatus.equals(status)) throw new DataMissmatchException("Nie poprawny status nowej gry");
-    }
-
-    private GameEndStatus checkEndOfGame(Board board) {
-        if (board.currentPlayer().isInCheckMate()) {
-            return GameEndStatus.CHECKMATE;
-        }
-        if (board.currentPlayer().isInStaleMate()) {
-            return GameEndStatus.STALE_MATE;
-        }
-        return null;
     }
 
 
@@ -177,7 +160,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         }
         game.setStatus(status);
         gamePvERepository.save(game);
-        return new MoveDTO(null, null, null, false, status, null, null);
+        return new MoveDTO(null, null, null, false, status, null, null, null);
     }
 
     @Override
@@ -195,50 +178,4 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         gamePvERepository.save(game);
         //TODO-STATISTICS
     }
-
-    @Override
-    public void reload() throws ResourceNotFoundException {
-        this.gamePvERepository.deleteAll();
-        AccountDetails account = accountService.getCurrent();
-
-        //castle move
-        this.gamePvERepository.save(new GamePvE(
-                1L,
-                account.getAccount(),
-                null,
-                PlayerColor.WHITE,
-                2,
-                LocalDate.now(),
-                GamePvEStatus.PLAYER_MOVE,
-                "r1bqkbnr/ppp2ppp/2n5/1B1pp3/8/4PN2/PPPP1PPP/RNBQK2R w KQkq - 0 1",
-                null,
-                ""));
-
-        //checkmate - player
-        this.gamePvERepository.save(new GamePvE(
-                2L,
-                account.getAccount(),
-                null,
-                PlayerColor.WHITE,
-                1,
-                LocalDate.now(),
-                GamePvEStatus.PLAYER_MOVE,
-                "1k6/5R1B/6RN/p7/4P2p/P3P2P/2K3P1/8 w - - 0 1",
-                null,
-                ""));
-        //draw
-        this.gamePvERepository.save(new GamePvE(
-                3L,
-                account.getAccount(),
-                null,
-                PlayerColor.WHITE,
-                1,
-                LocalDate.now(),
-                GamePvEStatus.PLAYER_MOVE,
-                "4k3/1Qp5/8/2BP1N2/p7/P3P2P/1PP4P/RN2KB1R w KQ - 0 1",
-                null,
-                ""));
-    }
-
-
 }

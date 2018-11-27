@@ -8,6 +8,11 @@
 #  jpa:
 #    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+server:
+  error:
+    whitelabel:
+      enabled: false
+
 spring:
   h2:
     console:

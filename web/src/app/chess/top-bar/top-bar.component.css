@@ -1,8 +1,32 @@
 .navbar {
     background: #262216 !important;
-    text-align:center;
+    text-align: center;
 }
+
+.icon {
+    margin-left: 10px;
+    margin-right: 4px;
+    margin-bottom: 5px;
+}
+
+.navbar-brand {
+    font-size: 1.1em;
+}
+
+.navbar-brand-1 {
+    font-size: 1.15em;
+}
+
+.navbar-brand-2 {
+    color: #b5a397;
+    font-size: 1.15em;
+}
+
 .nav-link {
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.fa-icon {
+    font-size:22px;
 }

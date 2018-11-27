@@ -1,13 +1,25 @@
-<div class="board">
+<div *ngIf="isPlayable" class="board">
     <div *ngFor="let field of fields">
         <div [class]="field.isWhite ? 'field whiteField' : 'field blackField'"
              appDropzone
              (drop)="move(field)"
              (remove)="remove(field)"
              (click)="selectField(field)">
-            <!--<div style="color: #c7254e;font-size: 10px;">{{field.id}}</div>-->
+            <div *ngIf="this.baseService.isDEVProfile" style="color: #c7254e;font-size: 10px;">{{field.id}}</div>
             <div *ngIf="field.piece !== null" class="piece" appDroppable (dragStart)="currentPiece = field.piece">
                 <div *appDraggableHelper></div>
+                <img [src]="'assets/simple/'+ field.piece.img">
+            </div>
+        </div>
+        <div *ngIf="isNewLine(field.id)" style="clear:left"></div>
+    </div>
+</div>
+
+<div *ngIf="!isPlayable" class="board">
+    <div *ngFor="let field of fields">
+        <div [class]="field.isWhite ? 'field whiteField' : 'field blackField'">
+            <div *ngIf="this.baseService.isDEVProfile" style="color: #c7254e;font-size: 10px;">{{field.id}}</div>
+            <div *ngIf="field.piece !== null" class="piece">
                 <img [src]="'assets/simple/'+ field.piece.img">
             </div>
         </div>

@@ -9,9 +9,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,11 +45,12 @@ public class GamePvEController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "New game created"),
+            @ApiResponse(code = 201, message = "New game created"),
             @ApiResponse(code = 404, message = "User not logged in"),
             @ApiResponse(code = 409, message = "Level out of scale")
     })
     @PostMapping(value = "/new")
+    @ResponseStatus(HttpStatus.CREATED)
     public Long startNewGame(@RequestBody @Valid GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
         return gameService.startNewGame(gamePvEDTO);
     }
@@ -80,21 +83,18 @@ public class GamePvEController {
     })
     @GetMapping(value = "/{gameId}/legate")
     public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException {
-        return gameService.getLegateMoves(gameId);
+        List<MoveDTO> list = gameService.getLegateMoves(gameId);
+        return list;
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Game forfeited successfully"),
+            @ApiResponse(code = 204, message = "Game forfeited successfully"),
             @ApiResponse(code = 404, message = "Game not found, wrong id")
     })
     @GetMapping(value = "/{gameId}/forfeited")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void forfeit(@PathVariable Long gameId) throws ResourceNotFoundException {
          gameService.forfeit(gameId);
     }
 
-    //TODO-TEST
-    @GetMapping(value = "/reload")
-    public void reload() throws ResourceNotFoundException {
-        this.gameService.reload();
-    }
 }

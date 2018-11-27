@@ -3,12 +3,8 @@ package com.chess.spring.dto;
 import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.models.game.GamePvEStatus;
 import com.chess.spring.models.game.GamePvPStatus;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +12,7 @@ import java.util.stream.StreamSupport;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MoveDTO {
@@ -24,13 +21,13 @@ public class MoveDTO {
     private String type;
     private boolean isInCheck;
 
-    @JsonAlias(value = "status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     private GamePvEStatus statusPve;
 
-    @JsonAlias(value = "status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     private GamePvPStatus statusPvP;
+
+    private String status;
 
     private String moveLog;
 
@@ -39,6 +36,7 @@ public class MoveDTO {
         moveDTO.setSource(move.getCurrentCoordinate());
         moveDTO.setDestination(move.getDestinationCoordinate());
         moveDTO.setType(move.getClass().getSimpleName());
+        moveDTO.setInCheck(isInCheck);
         return moveDTO;
     }
 
@@ -46,10 +44,21 @@ public class MoveDTO {
         MoveDTO moveDTO = new MoveDTO();
         moveDTO.setSource(move.getCurrentCoordinate());
         moveDTO.setDestination(move.getDestinationCoordinate());
+        moveDTO.setStatus("");
         return moveDTO;
     }
 
     public static List<MoveDTO> map(Iterable<Move> moves) {
         return StreamSupport.stream(moves.spliterator(), false).map(MoveDTO::mapSimple).collect(Collectors.toList());
+    }
+
+
+    @JsonGetter
+    public String getStatus() {
+        if (status != null) {
+            return status;
+        } else {
+            return this.statusPvP != null ? this.statusPvP.name() : this.statusPve.name();
+        }
     }
 }

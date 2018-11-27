@@ -31,6 +31,10 @@ public class AccountServiceImpl implements AccountService {
         this.accountRepository = accountRepository;
     }
 
+    private Account getById(Long id) throws ResourceNotFoundException {
+        return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profil nie odnaleziony"));
+    }
+
     @Override
     public Page<AccountDTO> getAll(Pageable page) {
         return AccountDTO.map(this.accountRepository.findAll(page));
@@ -68,4 +72,31 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public AccountDTO getProfile(Long accountId) throws ResourceNotFoundException {
+        return AccountDTO.mapSimple(getById(accountId));
+    }
+
+    @Override
+    public String getNickName(Long accountId) throws ResourceNotFoundException {
+        return this.getById(accountId).getNick();
+    }
+
+    @Override
+    public String createNickName(Account account) {
+        if (!account.getNick().isEmpty()) {
+            return account.getNick();
+        }
+        if (!account.getFirstName().isEmpty() || !account.getLastName().isEmpty()) {
+            String nickName = "";
+            if (!account.getFirstName().isEmpty()) {
+                nickName += account.getFirstName();
+            }
+            if (!account.getLastName().isEmpty()) {
+                nickName += account.getLastName();
+            }
+            return nickName;
+        }
+        return account.getAccountDetails().getUsername();
+    }
 }

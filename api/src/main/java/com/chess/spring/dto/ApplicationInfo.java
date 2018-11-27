@@ -13,4 +13,5 @@ public class ApplicationInfo {
     private String projectName;
     private String projectDescription;
     private String version;
+    private String profile;
 }

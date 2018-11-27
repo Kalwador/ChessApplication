@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
@@ -22,7 +21,8 @@ public class AccountDTO {
     private Gender gender;
     private byte[] avatar;
     private boolean isFirstLogin;
-    private String name;
+    private String nick;
+    private StatisticsDTO statisticsDTO;
 
     public static AccountDTO map(Account account) {
         return AccountDTO.builder()
@@ -34,7 +34,7 @@ public class AccountDTO {
                 .firstName(account.getFirstName())
                 .lastName(account.getLastName())
                 .gender(account.getGender())
-                .name(account.getName())
+                .nick(account.getNick())
                 .build();
     }
 
@@ -42,5 +42,17 @@ public class AccountDTO {
         return new PageImpl<>(all.getContent().stream()
                 .map(AccountDTO::map)
                 .collect(Collectors.toList()));
+    }
+
+    public static AccountDTO mapSimple(Account account) {
+        return AccountDTO.builder()
+                .nick(account.getNick())
+                .firstName(account.getFirstName())
+                .lastName(account.getLastName())
+                .gender(account.getGender())
+                .age(account.getAge())
+                .avatar(account.getAvatar())
+                .statisticsDTO(StatisticsDTO.map(account.getStatistics()))
+                .build();
     }
 }

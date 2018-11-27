@@ -3,7 +3,10 @@ package com.chess.spring.dto.game;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.models.game.GamePvEStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +18,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GamePvEDTO {
 
-    private Long gameId;
+    private Long id;
 
     @NotNull
     private PlayerColor color;
@@ -32,23 +38,23 @@ public class GamePvEDTO {
     private GamePvEStatus status;
 
     public static GamePvEDTO map(GamePvE game) {
-        GamePvEDTO gamePvEDTO = new GamePvEDTO();
-        gamePvEDTO.setGameId(game.getId());
-        gamePvEDTO.setLevel(game.getLevel());
-        gamePvEDTO.setColor(game.getColor());
-        gamePvEDTO.setMoves(game.getMoves());
-        gamePvEDTO.setBoard(game.getBoard());
-        gamePvEDTO.setStatus(game.getStatus());
-//        gamePvEDTO.set(game.getTimePerMove());//TODO-TIMING
-        return gamePvEDTO;
+        return GamePvEDTO.builder()
+                .id(game.getId())
+                .level(game.getLevel())
+                .color(game.getColor())
+                .moves(game.getMoves())
+                .board(game.getBoard())
+                .status(game.getStatus())
+//                .(game.)//TODO-TIMING
+                .build();
     }
 
-    public static Page<GamePvE> map(List<GamePvE> list){
+    public static Page<GamePvE> map(List<GamePvE> list) {
         return new PageImpl<>(list);
     }
 
     public static Page<GamePvEDTO> map(Page<GamePvE> all, Pageable page) {
         List<GamePvEDTO> games = all.getContent().stream().map(GamePvEDTO::map).collect(Collectors.toList());
-        return new PageImpl<>(games,page, games.size());
+        return new PageImpl<>(games, page, games.size());
     }
 }

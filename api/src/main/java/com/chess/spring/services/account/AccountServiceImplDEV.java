@@ -10,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +25,10 @@ public class AccountServiceImplDEV implements AccountService {
             AccountRepository accountRepository) {
         this.accountDetailsRepository = accountDetailsRepository;
         this.accountRepository = accountRepository;
+    }
+
+    private Account getById(Long id) throws ResourceNotFoundException {
+        return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profil nie odnaleziony"));
     }
 
     public AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException {
@@ -55,5 +55,32 @@ public class AccountServiceImplDEV implements AccountService {
     @Override
     public void edit(AccountDTO accountDTO) {
 
+    }
+    @Override
+    public AccountDTO getProfile(Long accountId) throws ResourceNotFoundException {
+        return AccountDTO.mapSimple(getById(accountId));
+    }
+
+    @Override
+    public String getNickName(Long accountId) throws ResourceNotFoundException {
+        return this.getById(accountId).getNick();
+    }
+
+    @Override
+    public String createNickName(Account account) {
+        if (!account.getNick().isEmpty()) {
+            return account.getNick();
+        }
+        if (!account.getFirstName().isEmpty() || !account.getLastName().isEmpty()) {
+            String nickName = "";
+            if (!account.getFirstName().isEmpty()) {
+                nickName += account.getFirstName();
+            }
+            if (!account.getLastName().isEmpty()) {
+                nickName += account.getLastName();
+            }
+            return nickName;
+        }
+        return account.getAccountDetails().getUsername();
     }
 }

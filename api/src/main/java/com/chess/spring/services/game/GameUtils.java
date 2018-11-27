@@ -4,7 +4,9 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.engine.classic.board.MoveTransition;
+import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
 import com.chess.spring.exceptions.InvalidDataException;
+import com.chess.spring.models.game.GameEndStatus;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.utils.pgn.FenUtilities;
 
@@ -38,5 +40,21 @@ public abstract class GameUtils {
             throw new InvalidDataException("Nie poprawny ruch");
         }
         return board;
+    }
+
+     protected GameEndStatus checkEndOfGame(Board board) {
+        if (board.currentPlayer().isInCheckMate()) {
+            return GameEndStatus.CHECKMATE;
+        }
+        if (board.currentPlayer().isInStaleMate()) {
+            return GameEndStatus.STALE_MATE;
+        }
+        return null;
+    }
+
+    protected Move getBestMove(Board board, int level) {
+        final StockAlphaBeta strategy = new StockAlphaBeta(level);
+//        strategy.addObserver(Table.get().getDebugPanel());
+        return strategy.execute(board);
     }
 }

@@ -22,8 +22,6 @@ public interface GamePvEService {
 
     List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException;
 
-    void reload() throws ResourceNotFoundException;
-
     Page<GamePvEDTO> getAll(Pageable pageable);
 
     void forfeit(Long gameId) throws ResourceNotFoundException;

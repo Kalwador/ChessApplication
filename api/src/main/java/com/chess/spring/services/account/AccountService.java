@@ -19,4 +19,10 @@ public interface AccountService {
     Page<AccountDTO> getAll(Pageable page);
 
     void edit(AccountDTO accountDTO);
+
+    AccountDTO getProfile(Long accountId) throws ResourceNotFoundException;
+
+    String getNickName(Long accountId) throws ResourceNotFoundException;
+
+    String createNickName(Account account);
 }

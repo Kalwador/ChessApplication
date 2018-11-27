@@ -35,11 +35,9 @@ public class GamePvP extends Game {
 
     private Long timePerMove;
 
-    @Enumerated(EnumType.STRING)
-    private PlayerColor color;
-
     private LocalDate gameStarted;
 
+    @Enumerated(value = EnumType.STRING)
     private GamePvPStatus status;
 
     private String board;
@@ -57,7 +55,6 @@ public class GamePvP extends Game {
                 Objects.equals(whitePlayer, gamePvP.whitePlayer) &&
                 Objects.equals(blackPlayer, gamePvP.blackPlayer) &&
                 Objects.equals(timePerMove, gamePvP.timePerMove) &&
-                color == gamePvP.color &&
                 Objects.equals(gameStarted, gamePvP.gameStarted) &&
                 status == gamePvP.status &&
                 Objects.equals(board, gamePvP.board) &&
@@ -67,7 +64,7 @@ public class GamePvP extends Game {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, whitePlayer, blackPlayer, timePerMove, color, gameStarted, status, board, moves);
+        return Objects.hash(id, whitePlayer, blackPlayer, timePerMove, gameStarted, status, board, moves);
     }
 }
 

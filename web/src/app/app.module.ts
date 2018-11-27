@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from "@angular/material";
 import {NotificationComponent} from "./chess/notifications/notification.service";
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 const routes: Routes = [
     {path: '', loadChildren: './chess/chess.module#ChessModule'},
@@ -24,7 +25,8 @@ const routes: Routes = [
         HttpClientModule,
         NgbModule.forRoot(),
         RouterModule.forRoot(routes),
-        MatSnackBarModule
+        MatSnackBarModule,
+        AngularFontAwesomeModule
     ],
     declarations: [
         AppComponent,

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseService} from '../../services/base.service';
 import {NotificationService} from "../notifications/notification.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-top-bar',
@@ -9,12 +10,16 @@ import {NotificationService} from "../notifications/notification.service";
 })
 export class TopBarComponent {
 
-    constructor(private baseService: BaseService,
-                private notificationService: NotificationService) {
+    isAvatarAvailable : boolean = false;
+
+    constructor(public baseService: BaseService,
+                private notificationService: NotificationService,
+                private router: Router) {
     }
 
     test() {
         this.notificationService.trace('status zalogowania: ' + this.isUserLoggedIn());
+        this.router.navigate(['/game/play/pvp', 1]);
     }
 
     reload() {
@@ -28,4 +33,7 @@ export class TopBarComponent {
     public logout() {
         this.baseService.logOut();
     }
+
+
+
 }

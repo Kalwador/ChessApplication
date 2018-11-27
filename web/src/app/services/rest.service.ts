@@ -6,7 +6,7 @@ import {Http, RequestOptions} from '@angular/http';
     providedIn: 'root',
 })
 export class RestService {
-    private basicPath = 'http://localhost:8080';
+    public basicPath = 'http://localhost:8080';
 
     constructor(private http: Http) {
     }

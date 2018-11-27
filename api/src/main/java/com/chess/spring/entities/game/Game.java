@@ -1,4 +1,4 @@
 package com.chess.spring.entities.game;
 
-public class Game {
+public abstract class Game {
 }

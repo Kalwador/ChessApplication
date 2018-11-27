@@ -15,11 +15,15 @@ public class ApplicationService {
     @Value("${application.project.version}")
     private String version;
 
+    @Value("${spring.profiles.active}")
+    private String profile;
+
     public ApplicationInfo getInfo() {
         return ApplicationInfo.builder()
                 .version(version)
                 .projectName(projectName)
                 .projectDescription(projectDescription)
+                .profile(profile)
                 .build();
     }
 

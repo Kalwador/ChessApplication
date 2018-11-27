@@ -1,27 +1,30 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Field} from '../../../../models/game/field.model';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Field} from '../../../../models/chess/field.model';
 import {Piece} from '../../../../models/pieces/piece.model';
-import {Move} from '../../../../models/game/move';
+import {Move} from '../../../../models/chess/move';
+import {BaseService} from "../../../../services/base.service";
 
 @Component({
     selector: 'app-board',
     templateUrl: './board.component.html',
-    styleUrls: ['./board.component.css']
+    styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
 
-    currentPiece?: Piece;
     @Input() fields: Array<Field> = [];
+    @Input() isPlayable: boolean = true;
+    currentPiece?: Piece;
+
     oldFieldDragged: Field = null;
     oldFieldSelected: Field = null;
 
-    @Output() emiter: EventEmitter<Move> = new EventEmitter();
+    @Output() moveEventEmitter: EventEmitter<Move> = new EventEmitter();
 
-    constructor() {
+    constructor(public baseService: BaseService) {
     }
 
     move(field: Field) {
-        this.emiter.emit(this.prepareMove(this.oldFieldDragged.id, field.id));
+        this.moveEventEmitter.emit(this.prepareMove(this.oldFieldDragged.id, field.id));
     }
 
     remove(field: Field) {
@@ -43,7 +46,7 @@ export class BoardComponent {
         if (this.oldFieldSelected == null) {
             this.oldFieldSelected = field;
         } else {
-            this.emiter.emit(this.prepareMove(this.oldFieldSelected.id, field.id));
+            this.moveEventEmitter.emit(this.prepareMove(this.oldFieldSelected.id, field.id));
             this.oldFieldSelected = null;
         }
     }

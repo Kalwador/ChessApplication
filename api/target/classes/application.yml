@@ -1,9 +1,4 @@
 #SERVER PROPERTIES
-server:
-  port: 8080
-#  error:
-#    whitelabel:
-#      enabled: false
 spring:
   profiles:
     active: dev
@@ -32,7 +27,6 @@ application:
     name: ChessApplication
     description: ChessApplication
     version: 1.0
-    host: http://localhost:8080
 
 
 #Mailing System

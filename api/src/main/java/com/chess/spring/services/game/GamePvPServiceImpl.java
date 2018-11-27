@@ -14,13 +14,24 @@ import com.chess.spring.services.account.AccountService;
 import com.chess.spring.utils.pgn.FenUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.String.format;
 
 @Slf4j
 @Service
@@ -29,10 +40,12 @@ public class GamePvPServiceImpl extends GameUtils {
     private AccountService accountService;
     private AccountRepository accountRepository;
 
+
     @Autowired
     public GamePvPServiceImpl(GamePvPRepository gamePvPRepository,
                               AccountService accountService,
-                              AccountRepository accountRepository) {
+                              AccountRepository accountRepository,
+                              SimpMessageSendingOperations messagingTemplate) {
         this.gamePvPRepository = gamePvPRepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
@@ -47,7 +60,7 @@ public class GamePvPServiceImpl extends GameUtils {
         return gamePvPRepository.findById(gameId).orElseThrow(() -> new InvalidDataException("Gra nie odnaleziona"));
     }
 
-    public GamePvP findGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
+    public Long findGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
         Account account = accountService.getDetails();
         GamePvP game = null;
         Optional<GamePvP> optionalGamePvP = gamePvPRepository.findFirstByStatus(GamePvPStatus.ROOM);
@@ -62,10 +75,10 @@ public class GamePvPServiceImpl extends GameUtils {
             game = startNewGame(gamePvPDTO, account);
         }
         //TODO - inform other player about game start
-        return game;
+        return game.getId();
     }
 
-    private GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
+    public GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
         GamePvP game = buildGame(gamePvPDTO, account);
         game = gamePvPRepository.save(game);
         account.getPvpGames().add(game);
@@ -147,16 +160,6 @@ public class GamePvPServiceImpl extends GameUtils {
         }
     }
 
-    private GameEndStatus checkEndOfGame(Board board) {
-        if (board.currentPlayer().isInCheckMate()) {
-            return GameEndStatus.CHECKMATE;
-        }
-        if (board.currentPlayer().isInStaleMate()) {
-            return GameEndStatus.STALE_MATE;
-        }
-        return null;
-    }
-
     private GamePvPStatus handleEndOfGame(SocketMessageDTO message, GamePvP game, GameEndStatus gameEndStatus) {
         GamePvPStatus status = null;
         if (gameEndStatus == GameEndStatus.STALE_MATE) {
@@ -180,4 +183,6 @@ public class GamePvPServiceImpl extends GameUtils {
         Board board = FenUtilities.createGameFromFEN(game.getBoard());
         return MoveDTO.map(board.getAllLegalMoves());
     }
+
+
 }

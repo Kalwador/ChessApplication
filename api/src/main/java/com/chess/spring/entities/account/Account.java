@@ -56,8 +56,13 @@ public class Account implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private Set<GamePvP> pvpGames;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "nick", nullable = false)
+    private String nick;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "statistics_id")
+    private Statistics statistics;
 
     @Override
     public boolean equals(Object o) {
@@ -67,7 +72,7 @@ public class Account implements Serializable {
         return isFirstLogin == account.isFirstLogin &&
                 Objects.equals(firstName, account.firstName) &&
                 Objects.equals(lastName, account.lastName) &&
-                Objects.equals(name, account.name) &&
+                Objects.equals(nick, account.nick) &&
                 Objects.equals(age, account.age) &&
                 gender == account.gender;
     }

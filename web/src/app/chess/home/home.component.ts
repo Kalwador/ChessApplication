@@ -46,9 +46,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.homeService.getGreeting().subscribe(data => {
-            this.message = data;
-            this.notificationService.trace('Test polaczenia z api: ' + this.message);
-        });
+        // this.homeService.getGreeting().subscribe(data => {
+        //     this.message = data;
+        //     this.notificationService.trace('Test polaczenia z api: ' + this.message);
+        // });
     }
 }

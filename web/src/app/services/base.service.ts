@@ -1,20 +1,25 @@
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {Headers, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {LoginErrorModel} from '../models/login/login-error.model';
 import {LoginErrorType} from '../models/login/login-error-type.enum';
-import {AccountModel} from '../models/account.model';
+import {AccountModel} from '../models/profile/account.model';
 import {RestService} from './rest.service';
 import {OauthService} from './oauth.service';
 import {Router} from '@angular/router';
 import {NotificationService} from "../chess/notifications/notification.service";
+import {AppInfoModel} from "../models/app-info/app-info.model";
 
 @Injectable({
     providedIn: 'root',
 })
 export class BaseService {
     private accountModel: AccountModel = null;
+    public appInfo: AppInfoModel;
+
+    public isDEVProfile: boolean = false;
+    public isAvatarAvailable: boolean = false;
 
     constructor(private restService: RestService,
                 private oauthService: OauthService,
@@ -31,6 +36,7 @@ export class BaseService {
     }
 
     public get(path: string): Observable<any> {
+        this.notificationService.trace('get path: ' + path);
         return this.restService.get(path, this.getOptions()).pipe(map(response => {
                 switch (this.checkResponseStatus(response)) {
                     case LoginErrorType.OK: {
@@ -124,6 +130,12 @@ export class BaseService {
         if (response.status === 200) {
             return LoginErrorType.OK;
         }
+        if (response.status === 201) {
+            return LoginErrorType.OK;
+        }
+        if (response.status === 204) {
+            return LoginErrorType.OK;
+        }
         if (response.status === 401) {
             return this.checkToken(response.json());
         } else {
@@ -162,7 +174,6 @@ export class BaseService {
 
     public isLoggedIn() {
         return this.oauthService.isLoggedIn();
-        // return true;
     }
 
     public reload() {
@@ -193,5 +204,9 @@ export class BaseService {
 
     public getPagingAndSorting(page: number, size: number, sort: string, sortType: string) {
         return '?page=' + page + '&size=' + size + '&sort=' + sort + ',' + sortType;
+    }
+
+    public getBasePath() {
+        return this.restService.basicPath;
     }
 }

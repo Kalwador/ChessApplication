@@ -10,6 +10,7 @@ import com.chess.spring.models.mail.AccountActivationMail;
 import com.chess.spring.models.mail.MailSubject;
 import com.chess.spring.repositories.AccountDetailsRepository;
 import com.chess.spring.repositories.AccountRepository;
+import com.chess.spring.services.account.AccountService;
 import com.chess.spring.services.mail.MailFactory;
 import com.chess.spring.utils.ActivationCodeGenerator;
 import com.chess.spring.utils.BCryptEncoder;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class RegisterService {
 
     private AccountRepository accountRepository;
+    private AccountService accountService;
     private AccountDetailsRepository accountDetailsRepository;
     private MailFactory mailFactory;
 
@@ -67,7 +69,7 @@ public class RegisterService {
                 .isFirstLogin(true)
                 .build();
 
-//        accountDetails.setAccount(account);
+        account.setNick(accountService.createNickName(account));
 
         this.accountRepository.save(account);
 
