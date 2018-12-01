@@ -16,17 +16,22 @@
                 <a class="nav-link" (click)="reload()">Przeładuj</a>
             </li>
             <li class="nav-item dropdown" *ngIf="isUserLoggedIn()">
-                <a class="nav-link dropdown-toggle" routerLink="/game" id="navbarDropdown" role="button"
+                <a class="nav-link dropdown-toggle"
+                   routerLink="/game"
+                   id="navbarDropdown"
+                   role="button"
                    data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Graj
+                   aria-haspopup="true" aria-expanded="false">Lista gier
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/game/list-pve">Gry PvE</a>
-                    <a class="dropdown-item" routerLink="/game/list-pvp">Gry PvP</a>
-                    <a class="dropdown-item" routerLink="/game/new-options">Nowa gra</a>
+                    <a class="dropdown-item" routerLink="/game/list/pve">Gry PvE</a>
+                    <a class="dropdown-item" routerLink="/game/list/pvp">Gry PvP</a>
                 </div>
             </li>
+            <li *ngIf="isUserLoggedIn()">
+                <a class="nav-link" routerLink="/game/new-options">Nowa gra</a>
+            </li>
+
             <li *ngIf="isUserLoggedIn()">
                 <a class="nav-link">Moje Statystyki</a>
             </li>
@@ -41,9 +46,10 @@
             </li>
             <li class="nav-item" *ngIf="isUserLoggedIn()">
                 <a class="nav-link" routerLink="/profile">
-                    <!--<img *ngIf="baseService.isAvatarAvailable" [src]="baseService.getAccountModel().avatar">-->
+                    <!--<img *ngIf="baseService.isAvatarAvailable" [src]="baseService.getUserProfile().avatar">-->
                     <!--<i *ngIf="!baseService.isAvatarAvailable" class="fa-icon fa fa-user-circle-o"></i>-->
-                    Profil
+                    <span *ngIf="this.baseService.accountModel != null">{{baseService.accountModel.nick}} - </span>
+                    Mój Profil
                 </a>
             </li>
             <li class="nav-item" *ngIf="isUserLoggedIn()">

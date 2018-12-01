@@ -7,6 +7,7 @@ import {GameService} from "./game.service";
 import {Field} from "../../../models/chess/field.model";
 import {PlayerColor} from "../../../models/chess/player-color.enum";
 import {st} from "../../../../../node_modules/@angular/core/src/render3";
+import {GameType} from "../../../models/chess/game/game-type.enum";
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +15,6 @@ import {st} from "../../../../../node_modules/@angular/core/src/render3";
 export class CurrentGameService {
 
     game: any;
-    currentColor = PlayerColor;
-
     legateMoves: Array<Move>;
     fields: Array<Field>;
 
@@ -26,16 +25,17 @@ export class CurrentGameService {
     checkIfGameContinued(status): boolean {
         switch (status) {
             case GameStatus.PLAYER_MOVE: {
-                this.getLegateMoves();
+                this.getLegateMoves(GameType.PVE);
                 return true;
             }
             case GameStatus.WHITE_MOVE:
             case GameStatus.BLACK_MOVE: {
-                //todo
+                this.getLegateMoves(GameType.PVP);
+                return true;
             }
-
             case GameStatus.ROOM: {
-                //todo
+                this.notificationService.info("Oczekiwanie na drugiego gracza");
+                return false;
             }
             case GameStatus.CHECK: {
                 this.notificationService.info("Szach!");
@@ -56,13 +56,13 @@ export class CurrentGameService {
             default: {
                 //TODO - do usuniecia
                 this.notificationService.danger('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
-                return true;
+                return false;
             }
         }
     }
 
-    private getLegateMoves() {
-        this.gameService.getLegateMoves(this.game.id).subscribe(data => {
+    private getLegateMoves(type: GameType) {
+        this.gameService.getLegateMoves(this.game.id, type).subscribe(data => {
             this.legateMoves = data;
         });
     }
@@ -137,7 +137,7 @@ export class CurrentGameService {
     executeMove(move: Move) {
         this.fields[move.destination].piece = this.fields[move.source].piece;
         this.fields[move.source].piece = null;
-        if(this.isSpecialMove(move.type)){
+        if (this.isSpecialMove(move.type)) {
             this.specialMoveExecutor(move);
         }
     }

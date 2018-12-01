@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseService} from '../../services/base.service';
+import {AppService} from '../../services/app.service';
 import {NotificationService} from "../notifications/notification.service";
 import {Router} from "@angular/router";
 
@@ -10,9 +10,7 @@ import {Router} from "@angular/router";
 })
 export class TopBarComponent {
 
-    isAvatarAvailable : boolean = false;
-
-    constructor(public baseService: BaseService,
+    constructor(public baseService: AppService,
                 private notificationService: NotificationService,
                 private router: Router) {
     }
@@ -33,7 +31,4 @@ export class TopBarComponent {
     public logout() {
         this.baseService.logOut();
     }
-
-
-
 }

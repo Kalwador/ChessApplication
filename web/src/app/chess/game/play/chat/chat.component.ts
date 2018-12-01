@@ -3,7 +3,7 @@ import {NotificationService} from "../../../notifications/notification.service";
 import {Observable} from "rxjs";
 import {SocketMessage} from "../../../../models/socket/socket-message.model";
 import {SocketMessageType} from "../../../../models/socket/socket-message-type.enum";
-import {BaseService} from "../../../../services/base.service";
+import {AppService} from "../../../../services/app.service";
 
 @Component({
     selector: 'app-chat',
@@ -16,7 +16,7 @@ export class ChatComponent implements OnInit {
     @Output() chatMessageEmitter: EventEmitter<SocketMessage> = new EventEmitter();
     @Input() chatMessageReceiver: Observable<SocketMessage>;
 
-    constructor(private baseService: BaseService,
+    constructor(private baseService: AppService,
         private notificationService: NotificationService) {
     }
 
@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
         message.type = SocketMessageType.CHAT;
         message.chatMessage = this.textMessage;
         message.date = Date.now().toString();
-        message.sender = this.baseService.getAccountModel().nick;
+        message.sender = this.baseService.accountModel.nick;
         this.chatMessageEmitter.emit(message);
     }
 

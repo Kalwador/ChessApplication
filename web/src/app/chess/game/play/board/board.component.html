@@ -1,12 +1,18 @@
-<div *ngIf="isPlayable" class="board">
+<!--{{size}}-->
+<!--{{isPlayerPlaying}} && {{isGameContinued}}-->
+
+<div class="clearfix-custom" style="clear:both"></div>
+
+<div *ngIf="isPlayerPlaying && isGameContinued" class="board-{{size}}">
+    <!--<div>Szachownica do grania</div>-->
     <div *ngFor="let field of fields">
-        <div [class]="field.isWhite ? 'field whiteField' : 'field blackField'"
+        <div [class]="field.isWhite ? 'field field-'+ size + ' whiteField' : 'field field-' + size + ' blackField'"
              appDropzone
              (drop)="move(field)"
              (remove)="remove(field)"
              (click)="selectField(field)">
             <div *ngIf="this.baseService.isDEVProfile" style="color: #c7254e;font-size: 10px;">{{field.id}}</div>
-            <div *ngIf="field.piece !== null" class="piece" appDroppable (dragStart)="currentPiece = field.piece">
+            <div *ngIf="field.piece !== null" class="piece-{{size}}" appDroppable (dragStart)="currentPiece = field.piece">
                 <div *appDraggableHelper></div>
                 <img [src]="'assets/simple/'+ field.piece.img">
             </div>
@@ -15,15 +21,16 @@
     </div>
 </div>
 
-<div *ngIf="!isPlayable" class="board">
+<div *ngIf="!(isPlayerPlaying && isGameContinued)" class="board-{{size}}">
+    <!--<div>Szachownica do ogladania</div>-->
     <div *ngFor="let field of fields">
-        <div [class]="field.isWhite ? 'field whiteField' : 'field blackField'">
+        <div [class]="field.isWhite ? 'field field-'+ size + ' whiteField' : 'field field-' + size + ' blackField'">
             <div *ngIf="this.baseService.isDEVProfile" style="color: #c7254e;font-size: 10px;">{{field.id}}</div>
-            <div *ngIf="field.piece !== null" class="piece">
+            <div *ngIf="field.piece !== null" class="piece-{{size}}">
                 <img [src]="'assets/simple/'+ field.piece.img">
             </div>
         </div>
         <div *ngIf="isNewLine(field.id)" style="clear:left"></div>
     </div>
 </div>
-<div style="clear:left"></div>
+<div style="clear:both"></div>

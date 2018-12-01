@@ -1,12 +1,12 @@
 import {Observable} from 'rxjs/internal/Observable';
 import {Injectable} from '@angular/core';
-import {BaseService} from '../../../services/base.service';
+import {AppService} from '../../../services/app.service';
 
 @Injectable()
 export class HomeService {
     localPath = '/home';
 
-    constructor(private baseService: BaseService) {
+    constructor(private baseService: AppService) {
     }
 
     getGreeting(): Observable<string> {

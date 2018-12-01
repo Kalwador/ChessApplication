@@ -2,7 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Field} from '../../../../models/chess/field.model';
 import {Piece} from '../../../../models/pieces/piece.model';
 import {Move} from '../../../../models/chess/move';
-import {BaseService} from "../../../../services/base.service";
+import {AppService} from "../../../../services/app.service";
+import {FieldSize} from "../../../../models/chess/field-size.eum";
 
 @Component({
     selector: 'app-board',
@@ -12,15 +13,20 @@ import {BaseService} from "../../../../services/base.service";
 export class BoardComponent {
 
     @Input() fields: Array<Field> = [];
-    @Input() isPlayable: boolean = true;
+    @Input() size: FieldSize = FieldSize.BIG;
+    @Input() isPlayerPlaying: boolean = false;
+    @Input() isGameContinued: boolean = false;
+
     currentPiece?: Piece;
 
     oldFieldDragged: Field = null;
     oldFieldSelected: Field = null;
 
+    FieldSize = FieldSize;
+
     @Output() moveEventEmitter: EventEmitter<Move> = new EventEmitter();
 
-    constructor(public baseService: BaseService) {
+    constructor(public baseService: AppService) {
     }
 
     move(field: Field) {

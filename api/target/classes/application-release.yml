@@ -12,7 +12,6 @@ server:
   error:
     whitelabel:
       enabled: false
-
 spring:
   h2:
     console:
@@ -28,8 +27,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
-  jackson:
-    serialization:F
 
 
 authentication:
@@ -37,7 +34,7 @@ authentication:
     client:
       id: chessapp
       secret: secret
-    tokenValidityInSeconds: 1800
+    tokenValidityInSeconds: 180000
 
 application:
   project:

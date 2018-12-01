@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NotificationService} from "./notifications/notification.service";
-import {BaseService} from "../services/base.service";
+import {AppService} from "../services/app.service";
 
 @Component({
     selector: 'app-chess',
@@ -10,7 +10,7 @@ import {BaseService} from "../services/base.service";
 export class ChessComponent {
     constructor(
         private notificationService: NotificationService,
-        private baseService: BaseService) {
+        private baseService: AppService) {
 
         this.baseService.checkStorageForToken();
     }

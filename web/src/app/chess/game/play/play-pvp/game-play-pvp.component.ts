@@ -46,9 +46,7 @@ export class GamePlayPvpComponent implements OnInit {
                 this.currentGameService.game = data;
                 this.currentGameService.fields = this.gameService.createBoard(this.currentGameService.game.board);
                 this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status);
-
                 this.getPlayersInfo();
-
                 this.initializeWebSocketConnection();
             }, error => {
                 if (error.status === 400) {
@@ -90,7 +88,7 @@ export class GamePlayPvpComponent implements OnInit {
     }
 
     makeMove(move: Move) {
-        if (this.isPlayerPlaying) {
+        if (this.isPlayerPlaying && this.isGameContinued) {
             if (this.currentGameService.game.status === GameStatus.PLAYER_MOVE
                 || this.currentGameService.game.status === GameStatus.ON_HOLD
                 || this.currentGameService.game.status === GameStatus.CHECK) {
@@ -107,14 +105,6 @@ export class GamePlayPvpComponent implements OnInit {
                             }
                             //TODO - nie potrzebny jest ruch komputera
                             //TODO trzeba to zoptymalizować
-
-                            // let message = new SocketMessage();
-                            // message. = ;
-                            // message. = ;
-                            // message. = ;
-                            // message. = ;
-                            // message. = ;
-
                         }
                         //TODO replace log
                     }, error => {

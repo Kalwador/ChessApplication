@@ -1,5 +1,6 @@
 package com.chess.spring.services.game;
 
+import com.chess.spring.controllers.game.SocketController;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvPDTO;
 import com.chess.spring.dto.game.SocketMessageDTO;
@@ -14,20 +15,20 @@ import com.chess.spring.services.account.AccountService;
 import com.chess.spring.utils.pgn.FenUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.messaging.SessionConnectedEvent;
-import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,16 +40,20 @@ public class GamePvPServiceImpl extends GameUtils {
     private GamePvPRepository gamePvPRepository;
     private AccountService accountService;
     private AccountRepository accountRepository;
-
+    private SocketController socketController;
+    private final EntityManager entityManager;
 
     @Autowired
     public GamePvPServiceImpl(GamePvPRepository gamePvPRepository,
                               AccountService accountService,
                               AccountRepository accountRepository,
-                              SimpMessageSendingOperations messagingTemplate) {
+                              SocketController socketController,
+                              EntityManager entityManager) {
         this.gamePvPRepository = gamePvPRepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
+        this.socketController = socketController;
+        this.entityManager = entityManager;
     }
 
     //TODO-PAGINATION
@@ -63,7 +68,7 @@ public class GamePvPServiceImpl extends GameUtils {
     public Long findGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
         Account account = accountService.getDetails();
         GamePvP game = null;
-        Optional<GamePvP> optionalGamePvP = gamePvPRepository.findFirstByStatus(GamePvPStatus.ROOM);
+        Optional<GamePvP> optionalGamePvP = this.getEmptyRoom(account);
         if (optionalGamePvP.isPresent()) {
             game = optionalGamePvP.get();
             if (game.getWhitePlayer() == null) {
@@ -71,6 +76,14 @@ public class GamePvPServiceImpl extends GameUtils {
             } else {
                 game.setBlackPlayer(account);
             }
+            game.setStatus(GamePvPStatus.WHITE_MOVE);
+            game.setGameStarted(LocalDate.now());
+            this.gamePvPRepository.save(game);
+            SocketMessageDTO messageDTO = SocketMessageDTO.builder()
+                    .type(SocketMessageType.START_GAME)
+                    .sender("SERVER")
+                    .build();
+            this.socketController.distributeChatMessage(game.getId().toString(), messageDTO);
         } else {
             game = startNewGame(gamePvPDTO, account);
         }
@@ -78,7 +91,7 @@ public class GamePvPServiceImpl extends GameUtils {
         return game.getId();
     }
 
-    public GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
+    private GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
         GamePvP game = buildGame(gamePvPDTO, account);
         game = gamePvPRepository.save(game);
         account.getPvpGames().add(game);
@@ -94,8 +107,8 @@ public class GamePvPServiceImpl extends GameUtils {
 //                .timePerMove() //TODO-TIMING
                 .board(FenUtilities.createFENFromGame(Board.createStandardBoard()))
                 .moves("")
-                .status(GamePvPStatus.WHITE_MOVE)
-                .gameStarted(LocalDate.now())
+                .status(GamePvPStatus.ROOM)
+                .gameStarted(null)
                 .build();
     }
 
@@ -184,5 +197,28 @@ public class GamePvPServiceImpl extends GameUtils {
         return MoveDTO.map(board.getAllLegalMoves());
     }
 
+    private Optional<GamePvP> getEmptyRoom(Account account) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<GamePvP> cq = cb.createQuery(GamePvP.class);
 
+        Root<GamePvP> root = cq.from(GamePvP.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(cb.equal(root.get("status"), GamePvPStatus.ROOM));
+
+        Predicate emptySeat = cb.and(cb.isNull(root.get("whitePlayer")), cb.notEqual(root.get("blackPlayer"), account));
+        Predicate notInGame = cb.and(cb.isNull(root.get("blackPlayer")), cb.notEqual(root.get("whitePlayer"), account));
+        Predicate join = cb.or(emptySeat, notInGame);
+        predicates.add(join);
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.asc(root.get("id")));
+
+        List<GamePvP> results = entityManager.createQuery(cq).getResultList();
+        if (results.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(results.get(0));
+        }
+    }
 }

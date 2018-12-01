@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {RegisterModel} from '../../models/register.model';
 import {Router} from '@angular/router';
-import {BaseService} from '../../services/base.service';
+import {AppService} from '../../services/app.service';
 import {map} from 'rxjs/operators';
 import {NotificationService} from "../../chess/notifications/notification.service";
 
@@ -11,7 +11,7 @@ import {NotificationService} from "../../chess/notifications/notification.servic
 export class RegisterService {
     path = '/register';
 
-    constructor(private baseService: BaseService,
+    constructor(private baseService: AppService,
                 private router: Router,
                 private notificationService: NotificationService) {
     }

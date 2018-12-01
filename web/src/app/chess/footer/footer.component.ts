@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseService} from "../../services/base.service";
+import {AppService} from "../../services/app.service";
 
 @Component({
     selector: 'app-footer',
@@ -10,7 +10,7 @@ export class FooterComponent implements OnInit {
 
     appInfo: string;
 
-    constructor(private baseService: BaseService) {
+    constructor(private baseService: AppService) {
     }
 
     ngOnInit() {

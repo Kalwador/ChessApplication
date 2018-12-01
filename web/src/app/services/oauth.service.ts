@@ -6,6 +6,7 @@ import {ApplicationCredentialsModel} from '../models/application-credentials.mod
 import {TokenModel} from '../models/login/token.model';
 import {Router} from '@angular/router';
 import {NotificationService} from "../chess/notifications/notification.service";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root',
@@ -20,41 +21,19 @@ export class OauthService {
 
     //TODO - get app credentials
     private applicationCredentials: ApplicationCredentialsModel;
-    private token: TokenModel = null;
+    public token: TokenModel = null;
 
     constructor(private restService: RestService,
                 private router: Router,
                 private notificationService: NotificationService) {
     }
 
-    public login(username: string, password: string): boolean {
-        this.restService.post(this.OAUTH_TOKEN
+    public login(username: string, password: string): Observable<TokenModel> {
+        return this.restService.post(this.OAUTH_TOKEN
             + this.OAUTH_USERNAME + username
             + this.OAUTH_PASSWORD + password
             + this.OAUTH_GRANT_TYPE, null, this.getOptionsForToken())
-            .pipe(map(response => response.json()))
-            .subscribe(data => {
-                this.token = data;
-                this.putTokenToStorage(data);
-                this.router.navigate(['/']);
-                this.notificationService.trace('Poprawnie zalogowano');
-            }, error => {
-                switch (error.status) {
-                    case (400): {
-                        this.notificationService.warning('Błędny login i/lub hasło');
-                        return false;
-                    }
-                    case (401): {
-                        this.router.navigate(['/']);
-                        this.notificationService.danger('Brak autoryzacji dla aplikacji');
-                    }
-                    default : {
-                        this.router.navigate(['/']);
-                        this.notificationService.danger('Nieznany błąd! ');
-                    }
-                }
-            });
-        return true;
+            .pipe(map(response => response.json()));
     }
 
     public refreshToken() {
@@ -63,8 +42,10 @@ export class OauthService {
             .subscribe(data => {
                 this.token = data;
                 this.notificationService.trace('Przeladowano token');
+                return true;
             }, error => {
-                //TODO NEED MORE WORK
+                this.notificationService.trace('Blad podczas przeladowania tokenu');
+                return false;
             });
     }
 
@@ -100,7 +81,7 @@ export class OauthService {
         return this.token != null;
     }
 
-    private putTokenToStorage(token: TokenModel){
+    public putTokenToStorage(token: TokenModel) {
         localStorage.setItem('access_token', token.access_token);
         localStorage.setItem('refresh_token', token.refresh_token);
     }

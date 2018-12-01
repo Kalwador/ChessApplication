@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from '../../../services/base.service';
+import {AppService} from '../../../services/app.service';
 import {Observable} from 'rxjs';
 import {Field} from '../../../models/chess/field.model';
 import {Pawn} from '../../../models/pieces/pawn.model';
@@ -15,7 +15,8 @@ import {GameType} from "../../../models/chess/game/game-type.enum";
 import {NotificationService} from "../../notifications/notification.service";
 import {GamePvp} from "../../../models/chess/game/game-pvp";
 import {Game} from "../../../models/chess/game/game.model";
-import {GamePveModel} from "../../../models/chess/game/game-pve.model";
+import {GameStatus} from "../../../models/chess/game/game-status.enum";
+import {GamePve} from "../../../models/chess/game/game-pve";
 
 @Injectable({
     providedIn: 'root'
@@ -28,11 +29,11 @@ export class GameService {
     public pathPvP = '/game/pvp';
 
 
-    constructor(private baseService: BaseService,
+    constructor(private baseService: AppService,
                 private notificationService: NotificationService) {
     }
 
-    public newPvE(game: GamePveModel): Observable<number> {
+    public newPvE(game: GamePve): Observable<number> {
         return this.baseService.mapJSON(this.baseService.post(this.pathPvE + '/new', game));
     }
 
@@ -80,12 +81,14 @@ export class GameService {
         return this.baseService.mapJSON(this.baseService.post(path + '/' + id, move));
     }
 
-    public getLegateMoves(gameId: number) {
+    public getLegateMoves(gameId: number, type: GameType) {
+        let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
     }
 
     public getAccountModel(): AccountModel {
-        return this.baseService.getAccountModel();
+        console.log("game service");
+        return this.baseService.accountModel;
     }
 
     public getPvPList(page: number, size: number): Observable<Page> {
@@ -123,5 +126,40 @@ export class GameService {
 
     public getBasePath(): string {
         return this.baseService.getBasePath();
+    }
+
+    public translateStatus(status: string): string {
+        switch (status) {
+            case GameStatus.PLAYER_MOVE: {
+                return " Twój ruch";
+            }
+            case GameStatus.BLACK_MOVE: {
+                return "Ruch czarnych";
+            }
+            case GameStatus.WHITE_MOVE: {
+                return "Ruch białych";
+            }
+            case GameStatus.ON_HOLD: {
+                return "Gra zatrzymana";
+            }
+            case GameStatus.ROOM: {
+                return "Oczekiwanie na drugieo gracza";
+            }
+            case GameStatus.CHECK: {
+                return "Szach!";
+            }
+            case GameStatus.WHITE_WIN: {
+                return "Wygrały czarne";
+            }
+            case GameStatus.BLACK_WIN: {
+                return "Wygrały białe";
+            }
+            case GameStatus.DRAW: {
+                return "Remis";
+            }
+            default: {
+                return "";
+            }
+        }
     }
 }

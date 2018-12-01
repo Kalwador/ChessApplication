@@ -38,3 +38,6 @@ INSERT INTO game_pvp (white_id,black_id,board,game_started,moves,permalink,statu
 
 INSERT INTO game_pvp (white_id,black_id,board,game_started,moves,permalink,status,time_per_move)
   VALUES (2,null,'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1','2018-11-25',null,null,'ROOM',null);
+
+INSERT INTO game_pvp (white_id,black_id,board,game_started,moves,permalink,status,time_per_move)
+  VALUES (null,2,'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1','2018-11-25',null,null,'ROOM',null);

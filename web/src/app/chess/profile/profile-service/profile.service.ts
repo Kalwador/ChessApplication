@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
-import {BaseService} from '../../../services/base.service';
+import {AppService} from '../../../services/app.service';
 import {AccountModel} from '../../../models/profile/account.model';
+import {NotificationService} from "../../notifications/notification.service";
 
 @Injectable({
     providedIn: 'root'
@@ -10,16 +11,15 @@ export class ProfileService {
     path = '/profile';
     profile: AccountModel;
 
-    constructor(private baseService: BaseService) {
+    constructor(private baseService: AppService,
+                private notificationService: NotificationService) {
     }
 
-    getUserProfile() {
-        this.baseService.get(this.path).subscribe(data => {
-            this.profile = data.json();
-        })
+    getUserProfile(): AccountModel {
+        return this.baseService.accountModel;
     }
 
-    getProfile(id: number): Observable<AccountModel> {
+    getProfileById(id: number): Observable<AccountModel> {
         return this.baseService.mapJSON(this.baseService.get(this.path + '/' + id));
     }
 

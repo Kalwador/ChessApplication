@@ -4,7 +4,7 @@
             <player-header [data]="blackPlayerNick"></player-header>
         </div>
         <div class="board">
-            <app-board [fields]="currentGameService.fields" [isPlayable]="isPlayerPlaying" (moveEventEmitter)="makeMove($event)"></app-board>
+            <app-board [fields]="currentGameService.fields" [isPlayerPlaying]="isPlayerPlaying" [isGameContinued]="isGameContinued" (moveEventEmitter)="makeMove($event)"></app-board>
         </div>
         <div class="head-player">
             <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
@@ -14,4 +14,5 @@
         <app-chat (chatMessageEmitter)="sendChatMessage($event)"
                   [chatMessageReceiver]="chatMessageReceivedEmitter.asObservable()"></app-chat>
     </section>
+    <div style="clear: both"></div>
 </div>

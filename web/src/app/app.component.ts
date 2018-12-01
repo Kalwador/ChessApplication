@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseService} from "./services/base.service";
+import {AppService} from "./services/app.service";
 import {NotificationService} from "./chess/notifications/notification.service";
 import {AppProfile} from "./models/app-info/app-profile.enum";
 
@@ -10,23 +10,22 @@ import {AppProfile} from "./models/app-info/app-profile.enum";
 })
 export class AppComponent implements OnInit {
 
-    constructor(private baseService: BaseService,
+    constructor(private baseService: AppService,
                 private notificationService: NotificationService) {
     }
 
     ngOnInit() {
-        this.baseService.mapJSON(this.baseService.get('/info')).subscribe(data => {
+        this.baseService.mapJSON(this.baseService.getUnAuthorized('/info')).subscribe(data => {
             //app info i profil aplikacji
             this.baseService.appInfo = data;
-            this.baseService.isDEVProfile = this.baseService.appInfo.profile === AppProfile.DEV;
-            this.notificationService.isDevProfile = this.baseService.isDEVProfile;
+            // let isDev = this.baseService.appInfo.profile === AppProfile.DEV;
 
-            //avatar
-            if (this.baseService.getAccountModel() !== null) {
-                if (this.baseService.getAccountModel().avatar !== null) {
-                    this.baseService.isAvatarAvailable = true;
-                }
-            }
+            let isDev = true;
+            this.baseService.appInfo.profile = AppProfile.DEV;
+
+            this.baseService.isDEVProfile = isDev;
+            this.notificationService.isDevProfile = isDev;
+
         });
     }
 }

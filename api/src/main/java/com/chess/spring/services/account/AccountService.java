@@ -7,7 +7,11 @@ import com.chess.spring.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 public interface AccountService {
+    Account getById(Long id) throws ResourceNotFoundException;
+
     AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException;
 
     AccountDTO getCurrentAccount() throws ResourceNotFoundException;

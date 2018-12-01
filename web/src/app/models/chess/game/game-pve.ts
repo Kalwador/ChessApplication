@@ -1,6 +1,6 @@
 import {Game} from "./game.model";
 
-export class GamePveModel extends Game{
+export class GamePve extends Game{
     color: string;
     level: number;
 

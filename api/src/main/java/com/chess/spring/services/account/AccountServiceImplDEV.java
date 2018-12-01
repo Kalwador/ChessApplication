@@ -27,7 +27,8 @@ public class AccountServiceImplDEV implements AccountService {
         this.accountRepository = accountRepository;
     }
 
-    private Account getById(Long id) throws ResourceNotFoundException {
+    @Override
+    public Account getById(Long id) throws ResourceNotFoundException {
         return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profil nie odnaleziony"));
     }
 

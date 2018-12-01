@@ -6,7 +6,7 @@ import {NotificationService} from "../../notifications/notification.service";
 // @Component({
 //   selector: 'app-profile-panel',
 //   templateUrl: './profile-game-panel.component.html',
-//   styleUrls: ['./profile-game-panel.component.css']
+//   styleUrls: ['./profile-game-panel.component.scss']
 // })
 export class ProfilePanelComponent implements OnInit {
 

@@ -7,6 +7,7 @@ import {PlayerColor} from '../../../../models/chess/player-color.enum';
 import {NotificationService} from "../../../notifications/notification.service";
 import {CurrentGameService} from "../../service/current-game.service";
 import {GameType} from "../../../../models/chess/game/game-type.enum";
+import {FieldSize} from "../../../../models/chess/field-size.eum";
 
 @Component({
     selector: 'app-game-play',
@@ -18,7 +19,8 @@ export class GamePlayPveComponent implements OnInit {
     whitePlayerNick: string;
     blackPlayerNick: string;
 
-    isGameContinued: boolean
+    isGameContinued: boolean;
+    FieldSize = FieldSize;
 
     constructor(private route: ActivatedRoute,
                 private gameService: GameService,
