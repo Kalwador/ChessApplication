@@ -12,12 +12,11 @@ export class RegisterComponent implements OnInit {
     private  facebookRegisterPath: string;
 
     constructor(private registerService: RegisterService) {
+        this.facebookRegisterPath = this.registerService.getFacebookPath();
     }
 
     ngOnInit() {
         this.registerModel = new RegisterModel();
-        this.facebookRegisterPath = this.registerService.getFacebookPath();
-
     }
 
     submit() {

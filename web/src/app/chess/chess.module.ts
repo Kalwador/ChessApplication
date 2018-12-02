@@ -17,6 +17,7 @@ const routes: Routes = [
         children: [
             {path: '', loadChildren: './home/home.module#HomeModule'},
             {path: 'game', loadChildren: './game/game.module#GameModule'},
+            {path: 'game:type', loadChildren: './game/game.module#GameModule'},
             {path: 'profile', loadChildren: './profile/profile.module#ProfileModule'}
         ]
     }

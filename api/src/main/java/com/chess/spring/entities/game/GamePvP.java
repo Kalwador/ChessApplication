@@ -2,7 +2,6 @@ package com.chess.spring.entities.game;
 
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.models.game.GamePvPStatus;
-import com.chess.spring.models.game.PlayerColor;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -23,14 +22,14 @@ public class GamePvP extends Game {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "black_id")
-    @ApiModelProperty(notes = "player in current game")
+    @ApiModelProperty(notes = "black player in current game")
     private Account blackPlayer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "white_id")
-    @ApiModelProperty(notes = "player in current game")
+    @ApiModelProperty(notes = "white player in current game")
     private Account whitePlayer;
 
     private Long timePerMove;
@@ -67,4 +66,5 @@ public class GamePvP extends Game {
         return Objects.hash(id, whitePlayer, blackPlayer, timePerMove, gameStarted, status, board, moves);
     }
 }
+
 

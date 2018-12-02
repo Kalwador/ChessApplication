@@ -18,6 +18,8 @@ import java.util.stream.StreamSupport;
 public class MoveDTO {
     private Integer source;
     private Integer destination;
+
+    //moveType - simple name of engine class
     private String type;
     private boolean isInCheck;
 

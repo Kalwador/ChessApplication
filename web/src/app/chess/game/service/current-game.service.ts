@@ -5,8 +5,6 @@ import {Queen} from "../../../models/pieces/queen.model";
 import {NotificationService} from "../../notifications/notification.service";
 import {GameService} from "./game.service";
 import {Field} from "../../../models/chess/field.model";
-import {PlayerColor} from "../../../models/chess/player-color.enum";
-import {st} from "../../../../../node_modules/@angular/core/src/render3";
 import {GameType} from "../../../models/chess/game/game-type.enum";
 
 @Injectable({
@@ -22,57 +20,59 @@ export class CurrentGameService {
                 private notificationService: NotificationService) {
     }
 
-    checkIfGameContinued(status): boolean {
+    checkIfGameContinued(status, notify: boolean): boolean {
         switch (status) {
             case GameStatus.PLAYER_MOVE: {
-                this.getLegateMoves(GameType.PVE);
                 return true;
             }
             case GameStatus.WHITE_MOVE:
             case GameStatus.BLACK_MOVE: {
-                this.getLegateMoves(GameType.PVP);
                 return true;
             }
             case GameStatus.ROOM: {
-                this.notificationService.info("Oczekiwanie na drugiego gracza");
+                if (notify === true) this.notificationService.info("Oczekiwanie na drugiego gracza");
                 return false;
             }
             case GameStatus.CHECK: {
-                this.notificationService.info("Szach!");
+                if (notify === true) this.notificationService.info("Szach!");
                 return true;
             }
-            case GameStatus.DRAW: {
-                this.notificationService.info('Gra skończona, remis');
-                return false;
+            case GameStatus.ON_HOLD: {
+                return true;
             }
             case GameStatus.BLACK_WIN: {
-                this.notificationService.info('Gra skończona, wygrały czarne');
+                if (notify === true) this.notificationService.info('Gra skończona, wygrały czarne');
                 return false;
             }
             case GameStatus.WHITE_WIN: {
-                this.notificationService.info('Gra skończona, wygrały białe');
+                if (notify === true) this.notificationService.info('Gra skończona, wygrały białe');
+                return false;
+            }
+            case GameStatus.DRAW: {
+                if (notify === true) this.notificationService.info('Gra skończona, remis');
                 return false;
             }
             default: {
-                //TODO - do usuniecia
-                this.notificationService.danger('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
+                if (notify === true) this.notificationService.danger('!!! BARDZO ZLE - nic nie pasuje, status= ' + status);
                 return false;
             }
         }
     }
 
-    private getLegateMoves(type: GameType) {
+    public getLegateMoves(type: GameType) {
         this.gameService.getLegateMoves(this.game.id, type).subscribe(data => {
             this.legateMoves = data;
         });
     }
 
     getLegateMove(source: number, destination: number): Move {
+        console.log("4.1");
         for (let move of this.legateMoves) {
             if (move.source === source && move.destination === destination) {
                 return move;
             }
         }
+        console.log(4.9);
         return null;
     }
 

@@ -79,8 +79,5 @@ export class LoginModalComponent {
                 }
             }
         });
-
-
-        //
     }
 }

@@ -4,7 +4,7 @@ import {BoardComponent} from './play/board/board.component';
 import {GameComponent} from './game.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {GameNewOptionsComponent} from './new-options/game-new-options.component';
+import {GameNewComponent} from './game-new/game-new.component';
 import {GamePlayPveComponent} from './play/play-pve/game-play-pve.component';
 import {TabViewModule} from '../../../../node_modules/primeng/primeng';
 import {SharedModule} from '../../../../node_modules/primeng/shared';
@@ -13,23 +13,26 @@ import {TableModule} from 'primeng/table';
 import {DraggableModule} from './play/board/draggable/draggable.module';
 import {PlayerHeaderComponent} from './play/player-header/player-header.component';
 import {GamePlayPvpComponent} from './play/play-pvp/game-play-pvp.component';
-import {MyGamesComponent} from './my-games/my-games.component';
+import {GameListComponent} from './game-list/game-list.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
-import {GamePanelComponent} from './my-games/game-panel/game-panel.component';
+import {GamePanelComponent} from './game-list/game-panel/game-panel.component';
 import {ChatComponent} from './play/chat/chat.component';
-import {GameListComponent} from "./my-games/games-list/game-list.component";
+import {GameListTableComponent} from "./game-list/games-list-table/game-list-table.component";
+import {GameNewPvpComponent} from './game-new/pvp-options/game-new-pvp.component';
+import {GameNewPveComponent} from './game-new/pve-options/game-new-pve.component';
+import { TimeBlockComponent } from './game-new/pvp-options/time-block/time-block.component';
 
 const routes: Routes = [
     {
         path: '',
         component: GameComponent,
         children: [
-            {path: '', component: MyGamesComponent},
-            {path: 'list', component: MyGamesComponent},
-            {path: 'list/:type', component: GameListComponent},
-            {path: 'new-options', component: GameNewOptionsComponent},
+            {path: '', component: GameListComponent},
+            {path: 'list', component: GameListComponent},
+            {path: 'list/:type', component: GameListTableComponent},
+            {path: 'new-options', component: GameNewComponent},
             {path: 'play/pve/:id', component: GamePlayPveComponent},
             {path: 'play/pvp/:id', component: GamePlayPvpComponent},
         ]
@@ -51,18 +54,22 @@ const routes: Routes = [
         MatTableModule
     ],
     declarations: [
-        BoardComponent,
         GameComponent,
         GameListComponent,
-        GameNewOptionsComponent,
+        GameListTableComponent,
+        GameNewComponent,
+        GameNewPveComponent,
+        GameNewPvpComponent,
         GamePlayPveComponent,
-        PlayerHeaderComponent,
         GamePlayPvpComponent,
-        MyGamesComponent,
-        GameListComponent,
-        GameListComponent,
+        PlayerHeaderComponent,
         GamePanelComponent,
-        ChatComponent]
+        ChatComponent,
+        BoardComponent,
+        TimeBlockComponent
+    ],
+    exports: [
+    ]
 })
 
 export class GameModule {

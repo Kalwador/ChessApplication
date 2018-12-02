@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../services/app.service';
-import {NotificationService} from "../notifications/notification.service";
-import {Router} from "@angular/router";
+import {NotificationService} from '../notifications/notification.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-top-bar',

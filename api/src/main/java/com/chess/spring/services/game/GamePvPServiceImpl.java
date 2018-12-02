@@ -5,7 +5,10 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvPDTO;
 import com.chess.spring.dto.game.SocketMessageDTO;
 import com.chess.spring.engine.classic.board.Board;
+import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.entities.account.Account;
+import com.chess.spring.entities.account.Statistics;
+import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.models.game.*;
@@ -16,19 +19,17 @@ import com.chess.spring.utils.pgn.FenUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,17 +57,21 @@ public class GamePvPServiceImpl extends GameUtils {
         this.entityManager = entityManager;
     }
 
-    //TODO-PAGINATION
     public Page<GamePvPDTO> getAll(Pageable page) {
-        return GamePvPDTO.map(this.gamePvPRepository.findAll(page), page);
+        List<GamePvPStatus> statuses = Arrays.asList(GamePvPStatus.BLACK_WIN, GamePvPStatus.WHITE_WIN, GamePvPStatus.DRAW);
+        return GamePvPDTO.map(this.gamePvPRepository.findByStatusNotIn(page, statuses), page);
     }
 
-    public GamePvP getById(Long gameId) throws InvalidDataException {
-        return gamePvPRepository.findById(gameId).orElseThrow(() -> new InvalidDataException("Gra nie odnaleziona"));
+    public GamePvP getById(Long gameId) throws ResourceNotFoundException {
+        return gamePvPRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
+    }
+
+    public String getBoardById(Long gameId) throws ResourceNotFoundException {
+        return gamePvPRepository.getBoardByGameId(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
     }
 
     public Long findGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
-        Account account = accountService.getDetails();
+        Account account = accountService.getCurrent();
         GamePvP game = null;
         Optional<GamePvP> optionalGamePvP = this.getEmptyRoom(account);
         if (optionalGamePvP.isPresent()) {
@@ -91,28 +96,8 @@ public class GamePvPServiceImpl extends GameUtils {
         return game.getId();
     }
 
-    private GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
-        GamePvP game = buildGame(gamePvPDTO, account);
-        game = gamePvPRepository.save(game);
-        account.getPvpGames().add(game);
-        accountRepository.save(account);
-        return game;
-    }
 
-    private GamePvP buildGame(GamePvPDTO gamePvPDTO, Account account) {
-        PlayerColor color = drawColor();
-        return GamePvP.builder()
-                .whitePlayer(color == PlayerColor.WHITE ? account : null)
-                .blackPlayer(color == PlayerColor.BLACK ? account : null)
-//                .timePerMove() //TODO-TIMING
-                .board(FenUtilities.createFENFromGame(Board.createStandardBoard()))
-                .moves("")
-                .status(GamePvPStatus.ROOM)
-                .gameStarted(null)
-                .build();
-    }
-
-    public SocketMessageDTO handleResponse(Long gameId, SocketMessageDTO response) throws DataMissmatchException, LockedSourceException, InvalidDataException, NotExpectedError {
+    public SocketMessageDTO handleResponse(Long gameId, SocketMessageDTO response) throws DataMissmatchException, LockedSourceException, InvalidDataException, NotExpectedError, ResourceNotFoundException {
         switch (response.getType()) {
             case JOIN: {
                 //TODO zwieksz liczbe graczy obserwujacych gre
@@ -123,7 +108,7 @@ public class GamePvPServiceImpl extends GameUtils {
                 break;
             }
             case MOVE: {
-                response = executeMove(gameId, response);
+//                response = executeMove(gameId, response);
             }
             case CHAT: {
 
@@ -132,69 +117,56 @@ public class GamePvPServiceImpl extends GameUtils {
         return response;
     }
 
-    public SocketMessageDTO executeMove(Long gameId, SocketMessageDTO message) throws
-            InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError {
-        GamePvP game = getById(gameId);
-        validateGame(game.getStatus());
+    //    @Override
+    public void makeMove(Long gameId, MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException {
+        SocketMessageDTO message = new SocketMessageDTO();
+        message.setSender(this.accountService.getCurrent().getId().toString());
+        message.setMoveDTO(new MoveDTO());
 
-        Board boardAfterPlayerMove = executeMove(game.getBoard(), message.getMoveDTO());
+        GamePvP game = getById(gameId);
+        validateGameStatus(game.getStatus());
+        Board boardAfterPlayerMove = executeMove(game.getBoard(), moveDTO);
 
         GameEndStatus gameEndStatus = checkEndOfGame(boardAfterPlayerMove);
         if (gameEndStatus != null) {
-            GamePvPStatus status = handleEndOfGame(message, game, gameEndStatus);
+            GamePvPStatus status = handleEndOfGame(moveDTO, game, gameEndStatus);
             game.setStatus(status);
             message.getMoveDTO().setStatusPvP(status);
+            message.setType(SocketMessageType.END_GAME);
+        } else {
+            message.setType(SocketMessageType.MOVE);
+            message.getMoveDTO().setStatusPvP(game.getWhitePlayer() == accountService.getCurrent() ? GamePvPStatus.BLACK_MOVE : GamePvPStatus.WHITE_MOVE);
+            message.getMoveDTO().setInCheck(boardAfterPlayerMove.currentPlayer().isInCheck());
+            message.getMoveDTO().setType(map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
         }
+
+        message.getMoveDTO().setSource(moveDTO.getSource());
+        message.getMoveDTO().setDestination(moveDTO.getDestination());
 
         game.setBoard(FenUtilities.createFENFromGame(boardAfterPlayerMove));
         game.setMoves(null); //TODO-movelog
+        gamePvPRepository.save(game);
 
-        message.setType(SocketMessageType.MOVE);
-        message.getMoveDTO().setStatusPvP(message.getMoveDTO().getStatusPvP().equals(GamePvPStatus.WHITE_MOVE) ? GamePvPStatus.BLACK_MOVE : GamePvPStatus.WHITE_MOVE);
-        return message;
+        this.socketController.distributeMoveMessage(gameId.toString(), message);
     }
 
-    private void validateGame(GamePvPStatus status) throws
-            DataMissmatchException, LockedSourceException {
-        switch (status) {
-            case ROOM:
-            case WHITE_MOVE:
-            case BLACK_MOVE: {
-                break;
-            }
-            case DRAW:
-            case WHITE_WIN:
-            case BLACK_WIN: {
-                throw new LockedSourceException("Gra się zakończyła");
-            }
-            default: {
-                throw new DataMissmatchException("Nie poprawny status nowej gry");
-            }
-        }
-    }
 
-    private GamePvPStatus handleEndOfGame(SocketMessageDTO message, GamePvP game, GameEndStatus gameEndStatus) {
-        GamePvPStatus status = null;
-        if (gameEndStatus == GameEndStatus.STALE_MATE) {
-            status = GamePvPStatus.DRAW;
-        }
-        switch (message.getMoveDTO().getStatusPvP()) {
-            case WHITE_MOVE: {
-                status = GamePvPStatus.WHITE_WIN;
-                break;
-            }
-            case BLACK_MOVE: {
-                status = GamePvPStatus.BLACK_WIN;
-                break;
-            }
-        }
-        return status;
-    }
-
-    public List<MoveDTO> getLegateMoves(Long gameId) throws InvalidDataException {
-        GamePvP game = getById(gameId);
-        Board board = FenUtilities.createGameFromFEN(game.getBoard());
+    public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException {
+        Board board = FenUtilities.createGameFromFEN(getBoardById(gameId));
         return MoveDTO.map(board.getAllLegalMoves());
+    }
+
+
+    public void forfeit(Long gameId) throws ResourceNotFoundException {
+        GamePvP game = getById(gameId);
+        if (game.getWhitePlayer() == accountService.getCurrent()) {
+            game.setStatus(GamePvPStatus.BLACK_WIN);
+        }
+        if (game.getBlackPlayer() == accountService.getCurrent()) {
+            game.setStatus(GamePvPStatus.WHITE_WIN);
+        }
+        gamePvPRepository.save(game);
+        //TODO inform other palyers of end of game
     }
 
     private Optional<GamePvP> getEmptyRoom(Account account) {
@@ -220,5 +192,63 @@ public class GamePvPServiceImpl extends GameUtils {
         } else {
             return Optional.of(results.get(0));
         }
+    }
+
+    private GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
+        GamePvP game = buildGame(gamePvPDTO, account);
+        game = gamePvPRepository.save(game);
+        account.getPvpGames().add(game);
+        accountRepository.save(account);
+        return game;
+    }
+
+    private GamePvP buildGame(GamePvPDTO gamePvPDTO, Account account) {
+        PlayerColor color = drawColor();
+        return GamePvP.builder()
+                .whitePlayer(color == PlayerColor.WHITE ? account : null)
+                .blackPlayer(color == PlayerColor.BLACK ? account : null)
+//                .timePerMove() //TODO-TIMING
+                .board(FenUtilities.createFENFromGame(Board.createStandardBoard()))
+                .moves("")
+                .status(GamePvPStatus.ROOM)
+                .gameStarted(LocalDate.now())
+                .build();
+    }
+
+    private void validateGameStatus(GamePvPStatus status) throws
+            DataMissmatchException, LockedSourceException {
+        switch (status) {
+            case ROOM:
+            case WHITE_MOVE:
+            case BLACK_MOVE: {
+                break;
+            }
+            case DRAW:
+            case WHITE_WIN:
+            case BLACK_WIN: {
+                throw new LockedSourceException("Gra się zakończyła");
+            }
+            default: {
+                throw new DataMissmatchException("Nie poprawny status nowej gry");
+            }
+        }
+    }
+
+    private GamePvPStatus handleEndOfGame(MoveDTO moveDTO, GamePvP game, GameEndStatus gameEndStatus) {
+        GamePvPStatus status = null;
+        if (gameEndStatus == GameEndStatus.STALE_MATE) {
+            status = GamePvPStatus.DRAW;
+        }
+        switch (moveDTO.getStatusPvP()) {
+            case WHITE_MOVE: {
+                status = GamePvPStatus.WHITE_WIN;
+                break;
+            }
+            case BLACK_MOVE: {
+                status = GamePvPStatus.BLACK_WIN;
+                break;
+            }
+        }
+        return status;
     }
 }

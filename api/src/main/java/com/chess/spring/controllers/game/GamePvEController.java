@@ -64,8 +64,8 @@ public class GamePvEController {
             @ApiResponse(code = 500, message = "Not recognized error")
     })
     @PostMapping(value = "/{gameId}")
-    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
-        return gameService.makeMove(gameId, moveDTOPvE);
+    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
+        return gameService.makeMove(gameId, moveDTO);
     }
 
     @ApiResponses(value = {
@@ -91,7 +91,7 @@ public class GamePvEController {
             @ApiResponse(code = 204, message = "Game forfeited successfully"),
             @ApiResponse(code = 404, message = "Game not found, wrong id")
     })
-    @GetMapping(value = "/{gameId}/forfeited")
+    @DeleteMapping(value = "/forfeit/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void forfeit(@PathVariable Long gameId) throws ResourceNotFoundException {
          gameService.forfeit(gameId);

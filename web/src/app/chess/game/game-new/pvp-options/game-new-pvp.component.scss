@@ -1,0 +1,29 @@
+h3 {
+  text-align: center;
+}
+
+.submit {
+  width: 50%;
+  margin: auto;
+
+  button {
+    margin-top: 10%;
+    width: 200px;
+    height: auto;
+    background-color: #6a5750;
+  }
+}
+
+.time-blocks {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 15%;
+  margin-bottom: 15%;
+  width: 100px * 4;
+  height: 85px * 3;
+}
+
+.time-block {
+  float: left;
+  margin: 1.5%;
+}

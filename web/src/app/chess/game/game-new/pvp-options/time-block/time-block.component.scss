@@ -1,0 +1,27 @@
+.time-block {
+    border: 1px solid #312824;
+    width: 85px;
+    height: 85px;
+    text-align: center;
+    padding-top: 30%;
+    background-color: #6a5750;
+}
+
+.time-block:hover {
+    transform: scale(1.1,1.1);
+    background-color: #735e57;
+    box-shadow: 0 0 10px -1px rgba(233, 233, 59, 0.6);
+}
+
+.time-block:active {
+    transform: scale(1.1,1.1);
+    background-color: #734a44;
+}
+
+.active {
+    box-shadow: 0 0 15px -1px rgba(233, 69, 79, 0.6);
+}
+
+.not-active {
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}

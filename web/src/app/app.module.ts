@@ -9,7 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from "@angular/material";
 import {NotificationComponent} from "./chess/notifications/notification.service";
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 const routes: Routes = [
     {path: '', loadChildren: './chess/chess.module#ChessModule'},
@@ -30,14 +30,14 @@ const routes: Routes = [
     ],
     declarations: [
         AppComponent,
-        NotificationComponent
+        NotificationComponent,
     ],
     providers: [],
     bootstrap: [AppComponent],
     entryComponents: [
         NotificationComponent,
     ],
-    exports: [ NotificationComponent ]
+    exports: [NotificationComponent]
 })
 export class AppModule {
 }

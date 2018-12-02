@@ -14,11 +14,11 @@ public interface AccountService {
 
     AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException;
 
-    AccountDTO getCurrentAccount() throws ResourceNotFoundException;
+    AccountDTO getCurrentDTO() throws ResourceNotFoundException;
 
-    Account getDetails() throws ResourceNotFoundException;
+    Account getCurrent() throws ResourceNotFoundException;
 
-    AccountDetails getCurrent() throws ResourceNotFoundException;
+    AccountDetails getCurrentDetails() throws ResourceNotFoundException;
 
     Page<AccountDTO> getAll(Pageable page);
 

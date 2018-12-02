@@ -106,6 +106,8 @@ export class AppService {
         if (this.oauthService.checkStorageForToken()) {
             this.getUserProfile();
             this.notificationService.trace("Znaleziono token w storage")
+        } else {
+            this.logOut();
         }
     }
 

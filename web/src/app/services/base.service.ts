@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {RestService} from "./rest.service";
-import {HttpMethodType} from "../models/http-method-type.enum";
-import {Observable} from "rxjs";
-import {catchError, map} from "rxjs/operators";
-import {ServerResponseType} from "../models/login/login-error-type.enum";
-import {Headers, RequestOptions} from "@angular/http";
-import {Router} from "@angular/router";
-import {NotificationService} from "../chess/notifications/notification.service";
-import {LoginErrorModel} from "../models/login/login-error.model";
-import {OauthService} from "./oauth.service";
-import {HttpErrorResponse} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {RestService} from './rest.service';
+import {HttpMethodType} from '../models/http-method-type.enum';
+import {Observable} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {ServerResponseType} from '../models/login/login-error-type.enum';
+import {Headers, RequestOptions} from '@angular/http';
+import {Router} from '@angular/router';
+import {NotificationService} from '../chess/notifications/notification.service';
+import {LoginErrorModel} from '../models/login/login-error.model';
+import {OauthService} from './oauth.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',
@@ -32,7 +32,6 @@ export class BaseService {
                     catchError(err => this.handleError(err, HttpMethodType.GET, path)));
             }
             case HttpMethodType.POST: {
-                console.log("jestem w poscie 1");
                 return this.restService.post(path, body, this.getOptions()).pipe(
                     map(response => response),
                     catchError(err => this.handleError(err, HttpMethodType.PUT, path, body)));
@@ -51,12 +50,11 @@ export class BaseService {
     }
 
     private handleServerErrorResponse(method: HttpMethodType, response: ServerResponseType, path: string, body?: any): Observable<any> {
-        console.log("3 handle error response");
         switch (response) {
             case ServerResponseType.TOKEN_EXPIRED: {
                 if (this.triesOfReloadToken < 2) {
                     this.triesOfReloadToken = this.triesOfReloadToken + 1;
-                    this.notificationService.trace("Próba przeladowania tokenu.");
+                    this.notificationService.trace('Próba przeladowania tokenu.');
                     if (this.oauthService.refreshToken()) {
                         switch (method) {
                             case HttpMethodType.GET: {
@@ -77,7 +75,7 @@ export class BaseService {
             }
             case ServerResponseType.ERROR:
             default: {
-                this.notificationService.warning("Sesja wygasła, prosimy zalogować się ponownie");
+                this.notificationService.warning('Sesja wygasła, prosimy zalogować się ponownie');
                 this.logOut();
             }
         }
@@ -95,9 +93,6 @@ export class BaseService {
     }
 
     private checkResponseStatus(response: any): ServerResponseType {
-        console.log("1.5.1 check reponse");
-        console.log(response.status);
-        console.log(response.json().error_description);
         switch (response.status) {
             case 200 :
             case 201 :
@@ -108,7 +103,7 @@ export class BaseService {
                 return this.checkToken(response.json());
             }
             default : {
-                this.notificationService.trace("Error to: ");
+                this.notificationService.trace('Error to: ');
                 this.notificationService.trace(response);
                 return ServerResponseType.ERROR;
             }
@@ -133,8 +128,13 @@ export class BaseService {
     }
 
     private handleError(error: HttpErrorResponse, method: HttpMethodType, path: string, body?: any) {
+        // console.log(error);
+        // let temp = this.checkResponseStatus(error);
+        if (error.status === 401) {
+            this.logOut();
+        }
+        console.log("handle error ");
         console.log(error);
-        let temp = this.checkResponseStatus(error);
 
         return undefined;
     }

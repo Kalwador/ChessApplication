@@ -32,7 +32,7 @@ public class ProfileController {
 
     @GetMapping
     public AccountDTO getAccountProfile() throws ResourceNotFoundException {
-        return this.accountService.getCurrentAccount();
+        return this.accountService.getCurrentDTO();
     }
 
     //TODO-SECURITY

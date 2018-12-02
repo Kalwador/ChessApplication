@@ -12,9 +12,7 @@ export class AppComponent implements OnInit {
 
     constructor(private baseService: AppService,
                 private notificationService: NotificationService) {
-    }
 
-    ngOnInit() {
         this.baseService.mapJSON(this.baseService.getUnAuthorized('/info')).subscribe(data => {
             //app info i profil aplikacji
             this.baseService.appInfo = data;
@@ -27,5 +25,9 @@ export class AppComponent implements OnInit {
             this.notificationService.isDevProfile = isDev;
 
         });
+    }
+
+    ngOnInit() {
+
     }
 }

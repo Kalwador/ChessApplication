@@ -83,11 +83,10 @@ export class GameService {
 
     public getLegateMoves(gameId: number, type: GameType) {
         let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
-        return this.baseService.mapJSON(this.baseService.get(this.pathPvE + '/' + gameId + '/legate'));
+        return this.baseService.mapJSON(this.baseService.get(path + '/' + gameId + '/legate'));
     }
 
     public getAccountModel(): AccountModel {
-        console.log("game service");
         return this.baseService.accountModel;
     }
 
@@ -161,5 +160,12 @@ export class GameService {
                 return "";
             }
         }
+    }
+
+    public forfeit(gameId: number, type: GameType): Observable<string> {
+        let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
+        path += '/forfeit/' + gameId;
+        this.notificationService.trace('forfeit game, path: ' + path);
+        return this.baseService.delete(path);
     }
 }

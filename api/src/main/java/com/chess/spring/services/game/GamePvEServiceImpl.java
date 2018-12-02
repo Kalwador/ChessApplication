@@ -4,10 +4,9 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
-import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
+import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.models.game.GameEndStatus;
@@ -22,7 +21,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -43,22 +44,26 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 
     @Override
     public Page<GamePvEDTO> getAll(Pageable page) {
-        return GamePvEDTO.map(this.gamePvERepository.findAll(page), page);
+        List<GamePvEStatus> statuses = Arrays.asList(GamePvEStatus.BLACK_WIN, GamePvEStatus.WHITE_WIN, GamePvEStatus.DRAW);
+        return GamePvEDTO.map(this.gamePvERepository.findByStatusNotIn(page, statuses), page);
     }
 
     public GamePvE getById(Long gameId) throws ResourceNotFoundException {
         return gamePvERepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
     }
 
+    public String getBoardById(Long gameId) throws ResourceNotFoundException {
+        return gamePvERepository.getBoardByGameId(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
+    }
+
     @Override
     public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
-        Account account = accountService.getDetails();
+        Account account = accountService.getCurrent();
         if (gamePvEDTO.getLevel() < 1 || gamePvEDTO.getLevel() > 5) {
             throw new DataMissmatchException("Level out of scale");
         }
 
         GamePvE game = buildGame(gamePvEDTO, account);
-
         game = gamePvERepository.save(game);
         account.getPveGames().add(game);
         accountRepository.save(account);
@@ -165,17 +170,14 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 
     @Override
     public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException {
-        GamePvE game = getById(gameId);
-        Board board = FenUtilities.createGameFromFEN(game.getBoard());
+        Board board = FenUtilities.createGameFromFEN(getBoardById(gameId));
         return MoveDTO.map(board.getAllLegalMoves());
     }
 
     @Override
     public void forfeit(Long gameId) throws ResourceNotFoundException {
         GamePvE game = getById(gameId);
-
         game.setStatus(game.getColor() == PlayerColor.WHITE ? GamePvEStatus.BLACK_WIN : GamePvEStatus.WHITE_WIN);
         gamePvERepository.save(game);
-        //TODO-STATISTICS
     }
 }

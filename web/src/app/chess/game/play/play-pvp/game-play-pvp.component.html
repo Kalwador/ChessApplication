@@ -1,13 +1,26 @@
 <div class="custom-container">
     <section class="game" style="width: 60%; float: left">
         <div class="head-player">
-            <player-header [data]="blackPlayerNick"></player-header>
+            <div *ngIf="whitePlayerNick !== undefined">
+                <player-header [data]="blackPlayerNick"></player-header>
+            </div>
         </div>
         <div class="board">
-            <app-board [fields]="currentGameService.fields" [isPlayerPlaying]="isPlayerPlaying" [isGameContinued]="isGameContinued" (moveEventEmitter)="makeMove($event)"></app-board>
+            <app-board
+                    [fields]="currentGameService.fields"
+                    [isPlayerPlaying]="isPlayerPlaying"
+                    [isGameContinued]="isGameContinued"
+                    (moveEventEmitter)="makeMove($event)">
+
+            </app-board>
         </div>
         <div class="head-player">
-            <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
+            <div *ngIf="whitePlayerNick !== undefined">
+                <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
+            </div>
+        </div>
+        <div class="head-player">
+            <player-header class="bottom-player" [data]="currentGameService.game.status"></player-header>
         </div>
     </section>
     <section class="chat" style="float: left">

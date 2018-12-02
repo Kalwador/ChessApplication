@@ -1,7 +1,7 @@
 #SERVER PROPERTIES
 spring:
-#  profiles:
-#    active: release
+  profiles:
+    active: release
   servlet:
     #MULTIPART
     multipart:

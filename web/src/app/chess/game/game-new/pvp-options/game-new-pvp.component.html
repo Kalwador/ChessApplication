@@ -1,0 +1,20 @@
+<div>
+    <h3>Gra z przeciwnikiem</h3>
+
+    <section class="time-blocks">
+        <div *ngFor="let timeBlock of timeBlocks">
+            <app-time-block class="time-block"
+                            [timeType]="timeBlock"
+                            (emiter)="setTimePerMove($event)"
+                            [activeBlockReciver]="timeBlockActiveEmitter.asObservable()">
+
+            </app-time-block>
+        </div>
+    </section>
+
+
+    <hr/>
+    <div class="submit">
+        <button mat-fab (click)="submit()">Znajdź grę</button>
+    </div>
+</div>

@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("release")
 public class AccountServiceImpl implements AccountService {
 
     private AccountRepository accountRepository;
@@ -52,17 +51,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO getCurrentAccount() throws ResourceNotFoundException {
-        return AccountDTO.map(getDetails());
+    public AccountDTO getCurrentDTO() throws ResourceNotFoundException {
+        return AccountDTO.map(getCurrent());
     }
 
     @Override
-    public Account getDetails() throws ResourceNotFoundException {
-        return getCurrent().getAccount();
+    public Account getCurrent() throws ResourceNotFoundException {
+        return getCurrentDetails().getAccount();
     }
 
     @Override
-    public AccountDetails getCurrent() throws ResourceNotFoundException {
+    public AccountDetails getCurrentDetails() throws ResourceNotFoundException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetails =

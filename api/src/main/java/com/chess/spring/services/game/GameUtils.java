@@ -16,22 +16,33 @@ public abstract class GameUtils {
 
     /**
      * Draw a random color
+     *
      * @return random player color
      */
-    protected PlayerColor drawColor(){
+    PlayerColor drawColor() {
         return new Random(System.currentTimeMillis()).nextInt() > 0.5 ? PlayerColor.WHITE : PlayerColor.BLACK;
     }
 
-    public Board executeMove(String fenBoard, MoveDTO moveDTO) throws InvalidDataException {
-        Board board = FenUtilities.createGameFromFEN(fenBoard);
-        final Move move = Move.MoveFactory.createMove(board, moveDTO.getSource(), moveDTO.getDestination());
+    protected Board map(String fenBoard) {
+        return FenUtilities.createGameFromFEN(fenBoard);
+    }
+
+    protected Move map(Board board, MoveDTO moveDTO) {
+        return Move.MoveFactory.createMove(board, moveDTO.getSource(), moveDTO.getDestination());
+    }
+
+    Board executeMove(String fenBoard, MoveDTO moveDTO) throws InvalidDataException {
+        Board board = map(fenBoard);
+        final Move move = map(board, moveDTO);
         return executeMove(board, move);
     }
-    public Board executeMove(String fenBoard, Move move) throws InvalidDataException {
-        Board board = FenUtilities.createGameFromFEN(fenBoard);
+
+    protected Board executeMove(String fenBoard, Move move) throws InvalidDataException {
+        Board board = map(fenBoard);
         return executeMove(board, move);
     }
-    public Board executeMove(Board board, Move move) throws InvalidDataException {
+
+    Board executeMove(Board board, Move move) throws InvalidDataException {
         final MoveTransition transition = board.currentPlayer().makeMove(move);
         if (transition.getMoveStatus().isDone()) {
             board = transition.getToBoard();
@@ -42,7 +53,7 @@ public abstract class GameUtils {
         return board;
     }
 
-     protected GameEndStatus checkEndOfGame(Board board) {
+    GameEndStatus checkEndOfGame(Board board) {
         if (board.currentPlayer().isInCheckMate()) {
             return GameEndStatus.CHECKMATE;
         }
@@ -52,7 +63,7 @@ public abstract class GameUtils {
         return null;
     }
 
-    protected Move getBestMove(Board board, int level) {
+    Move getBestMove(Board board, int level) {
         final StockAlphaBeta strategy = new StockAlphaBeta(level);
 //        strategy.addObserver(Table.get().getDebugPanel());
         return strategy.execute(board);

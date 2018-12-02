@@ -45,7 +45,7 @@ export class GamePlayPvpComponent implements OnInit {
             this.gameService.getGame(+params['id'], GameType.PVP).subscribe(data => {
                 this.currentGameService.game = data;
                 this.currentGameService.fields = this.gameService.createBoard(this.currentGameService.game.board);
-                this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status);
+                this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status, true);
                 this.getPlayersInfo();
                 this.initializeWebSocketConnection();
             }, error => {
@@ -83,29 +83,36 @@ export class GamePlayPvpComponent implements OnInit {
                 this.chatMessageReceivedEmitter.next(message);
                 break;
             }
-
         }
     }
 
     makeMove(move: Move) {
+        console.log("move 2");
+        console.log(move);
         if (this.isPlayerPlaying && this.isGameContinued) {
-            if (this.currentGameService.game.status === GameStatus.PLAYER_MOVE
+            console.log("move 3");
+            if (this.currentGameService.game.status === GameStatus.WHITE_MOVE
+                || this.currentGameService.game.status === GameStatus.BLACK_MOVE
                 || this.currentGameService.game.status === GameStatus.ON_HOLD
                 || this.currentGameService.game.status === GameStatus.CHECK) {
+                console.log("move 4");
                 let legateMove = this.currentGameService.getLegateMove(move.source, move.destination);
                 if (legateMove !== null) {
+                    console.log("move 5");
                     if (this.currentGameService.game.status === GameStatus.CHECK) {
+                        console.log("move 5.5");
                         this.currentGameService.executeMove(move);
                     }
-
+                    console.log("6");
                     this.gameService.makeMove(move, this.currentGameService.game.id, GameType.PVP).subscribe(data => {
-                        if (this.currentGameService.checkIfGameContinued(data.status)) {
-                            if (this.currentGameService.game.status === GameStatus.CHECK) {
-                                this.currentGameService.executeMove(move);
-                            }
-                            //TODO - nie potrzebny jest ruch komputera
-                            //TODO trzeba to zoptymalizować
+                        if (this.currentGameService.checkIfGameContinued(data.status, true)) {
+                            this.currentGameService.getLegateMoves(GameType.PVP);
                         }
+                        if (this.currentGameService.game.status === GameStatus.CHECK) {
+                            this.currentGameService.executeMove(move);
+                        }
+                        //TODO - nie potrzebny jest ruch komputera
+                        //TODO trzeba to zoptymalizować
                         //TODO replace log
                     }, error => {
                         if (error.status === 400) {
@@ -141,6 +148,12 @@ export class GamePlayPvpComponent implements OnInit {
     private isPlayerInGame(nick: string) {
         if (this.gameService.getAccountModel().nick === nick) {
             this.isPlayerPlaying = true;
+            if (this.isGameContinued) {
+                console.log("pobrano legalne ruchy");
+                this.currentGameService.getLegateMoves(GameType.PVP);
+                console.log("legalne ruchy to:");
+                console.log(this.currentGameService.legateMoves);
+            }
         }
         this.notificationService.trace('game-play-pvp:isPlayerInGame() ' + this.isPlayerPlaying);
     }

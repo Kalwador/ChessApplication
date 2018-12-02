@@ -39,16 +39,16 @@ public class SocketController {
      * Send message, to other users
      */
     @MessageMapping("/channel/game/{roomId}/chat")
-    public void distributeChatMessage(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage) {
-        messagingTemplate.convertAndSend(format("/channel/game/%s", roomId), chatMessage);
+    public void distributeChatMessage(@DestinationVariable String roomId, @Payload SocketMessageDTO message) {
+        messagingTemplate.convertAndSend(format("/channel/game/%s/chat", roomId), message);
     }
 
     /**
      * Send message, to other users
      */
     @MessageMapping("/channel/game/{roomId}/move")
-    public void makeMove(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage) {
-        System.out.println(chatMessage);
+    public void distributeMoveMessage(@DestinationVariable String roomId, @Payload SocketMessageDTO message) {
+        messagingTemplate.convertAndSend(format("/channel/game/%s/move", roomId), message);
     }
 
     /**
@@ -58,15 +58,6 @@ public class SocketController {
     @MessageMapping("/channel/game/{roomId}/join")
     public void addUser(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage,
                         SimpMessageHeaderAccessor headerAccessor) {
-        String currentRoomId = (String) headerAccessor.getSessionAttributes().put("room_id", roomId);
-        if (currentRoomId != null) {
-            SocketMessageDTO leaveMessage = new SocketMessageDTO();
-
-            chatMessage.setType(SocketMessageType.JOIN);
-            messagingTemplate.convertAndSend(format("/channel/%s", currentRoomId), leaveMessage);
-        }
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        messagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
     }
 
     /**
@@ -74,18 +65,5 @@ public class SocketController {
      */
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
-        String roomId = (String) headerAccessor.getSessionAttributes().get("room_id");
-        if (username != null) {
-            log.info("User Disconnected: " + username);
-
-            SocketMessageDTO chatMessage = new SocketMessageDTO();
-            chatMessage.setType(SocketMessageType.LEAVE);
-            chatMessage.setSender(username);
-
-            messagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
-        }
     }
 }
