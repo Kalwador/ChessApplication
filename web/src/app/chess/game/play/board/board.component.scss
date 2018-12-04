@@ -6,14 +6,25 @@ $size-small: 18.125px;
   box-sizing: border-box
 }
 
+.board {
+  background: black;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
 .board-size-big {
-  width: $size-big * 8;
+  width: $size-big * 8 + 10px;
+  height: $size-big * 8 + 10px;
 }
+
 .board-size-medium {
-  width: $size-medium * 8;
+  width: $size-medium * 8 + 10px;
+  height: $size-medium * 8 + 10px;
 }
+
 .board-size-small {
-  width: $size-small * 8;
+  width: $size-small * 8+ 10px;
+  height: $size-small * 8+ 10px;
 }
 
 .field-size-big {
@@ -97,26 +108,16 @@ $size-small: 18.125px;
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) and (max-width: 1617.98px) {
-  .field {
-    max-height: 67.5px;
-    max-width: 67.5px;
-  }
+
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .field {
-    max-height: 76.248px;
-    max-width: 76.248px;
-  }
+
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .field {
-    max-height: 11.9vw;
-    max-width: 12.5%;
-  }
   .whiteField:hover,
   .blackField:hover {
     transform: scale(1);
@@ -130,10 +131,6 @@ $size-small: 18.125px;
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .field {
-    max-height: 11.9vw;
-    max-width: 12.5%;
-  }
   .whiteField:hover,
   .blackField:hover {
     transform: scale(1);
@@ -147,10 +144,6 @@ $size-small: 18.125px;
 
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-  .field {
-    max-height: 11vw;
-    max-width: 12.5%;
-  }
   .whiteField:hover,
   .blackField:hover {
     transform: scale(1);

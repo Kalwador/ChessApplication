@@ -44,10 +44,7 @@ class MailServiceImpl implements MailService {
         Session session = Session.getDefaultInstance(prop);
         MimeMessage message = new MimeMessage(session);
         try {
-            message.setFrom(new InternetAddress(mailingSystemConfiguration.getEmail()));
-            InternetAddress toAddress = new InternetAddress(recipient);
-            message.setRecipient(Message.RecipientType.TO, toAddress);
-            message.setSubject(subject);
+            setMessageDetails(recipient, subject, message);
             message.setContent(content, "text/html; charset=utf-8");
             send(message, session);
         } catch (MessagingException e) {
@@ -70,10 +67,7 @@ class MailServiceImpl implements MailService {
         Session session = Session.getDefaultInstance(properties);
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(mailingSystemConfiguration.getEmail()));
-            InternetAddress toAddress = new InternetAddress(recipient);
-            message.setRecipient(Message.RecipientType.TO, toAddress);
-            message.setSubject(subject);
+            setMessageDetails(recipient, subject, message);
 
             Multipart multipart = new MimeMultipart();
             MimeBodyPart messageBodyPart = new MimeBodyPart();
@@ -91,6 +85,13 @@ class MailServiceImpl implements MailService {
             e.printStackTrace();
             log.error("messagign exception message = " + recipient + content + subject + file.toString());
         }
+    }
+
+    private void setMessageDetails(String recipient, String subject, MimeMessage message) throws MessagingException {
+        message.setFrom(new InternetAddress(mailingSystemConfiguration.getEmail()));
+        InternetAddress toAddress = new InternetAddress(recipient);
+        message.setRecipient(Message.RecipientType.TO, toAddress);
+        message.setSubject(subject);
     }
 
     /**

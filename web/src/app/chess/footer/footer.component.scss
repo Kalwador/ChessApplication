@@ -12,7 +12,6 @@
     padding-bottom: 5px;
 }
 
-
 .bg-circle {
     background-color: #97743a !important;
     display: inline-block;
@@ -79,4 +78,24 @@ h4 {
 
 .bg-primary:hover {
     background-color: #262216 !important;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .bg-circle {
+        display: none;
+    }
+    .container {
+        text-align: center;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .bg-circle {
+        display: none;
+    }
+    .container {
+        text-align: center;
+    }
 }

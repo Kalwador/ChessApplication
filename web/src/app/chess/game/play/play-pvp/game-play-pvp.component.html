@@ -11,7 +11,6 @@
                     [isPlayerPlaying]="isPlayerPlaying"
                     [isGameContinued]="isGameContinued"
                     (moveEventEmitter)="makeMove($event)">
-
             </app-board>
         </div>
         <div class="head-player">
@@ -19,11 +18,8 @@
                 <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
             </div>
         </div>
-        <div class="head-player">
-            <player-header class="bottom-player" [data]="currentGameService.game.status"></player-header>
-        </div>
     </section>
-    <section class="chat" style="float: left">
+    <section class="chat">
         <app-chat (chatMessageEmitter)="sendChatMessage($event)"
                   [chatMessageReceiver]="chatMessageReceivedEmitter.asObservable()"></app-chat>
     </section>

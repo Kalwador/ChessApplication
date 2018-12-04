@@ -30,6 +30,12 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
+    //412
+    @ExceptionHandler(value = PreconditionFailedException.class)
+    protected ResponseEntity<Object> handlePreconditionFailed(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.PRECONDITION_FAILED, request);
+    }
+
     //423
     @ExceptionHandler(value = LockedSourceException.class)
     protected ResponseEntity<Object> handleLockedSource(Exception ex, WebRequest request) {

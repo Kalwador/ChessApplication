@@ -27,7 +27,7 @@ export class GamePlayPvpComponent implements OnInit {
     isPlayerPlaying: boolean = false;
     isGameContinued: boolean = false;
 
-    chatMessageReceivedEmitter: Subject<SocketMessage> = new Subject<SocketMessage>();
+    chatMessageReceivedEmitter: Subject<string> = new Subject<string>();
 
     private stompClient;
     private socket = null;
@@ -44,6 +44,7 @@ export class GamePlayPvpComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.gameService.getGame(+params['id'], GameType.PVP).subscribe(data => {
                 this.currentGameService.game = data;
+                this.loadChatConversation();
                 this.currentGameService.fields = this.gameService.createBoard(this.currentGameService.game.board);
                 this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status, true);
                 this.getPlayersInfo();
@@ -52,6 +53,30 @@ export class GamePlayPvpComponent implements OnInit {
                 if (error.status === 400) {
                     this.router.navigate(['/']);
                     this.notificationService.warning("Wystąpił błąd, nie odnaleziono gry")
+                }
+            });
+        });
+    }
+
+    reloadGame() {
+        this.gameService.getGame(this.currentGameService.game.id, GameType.PVP).subscribe(data => {
+            this.currentGameService.game = data;
+            this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status, true);
+            this.getPlayersInfo();
+            this.notificationService.info("Gracz " + '//TODO ' + " dołaczył do gry!");
+        }, error => {
+            if (error.status === 400) {
+                this.router.navigate(['/']);
+                this.notificationService.warning("Wystąpił błąd, nie odnaleziono gry")
+            }
+        });
+    }
+
+    loadChatConversation() {
+        this.currentGameService.getChatConversation().subscribe(data => {
+            data.conversation.forEach(message => {
+                if (message !== '') {
+                    this.chatMessageReceivedEmitter.next(message);
                 }
             });
         });
@@ -80,7 +105,17 @@ export class GamePlayPvpComponent implements OnInit {
                 break;
             }
             case SocketMessageType.CHAT : {
-                this.chatMessageReceivedEmitter.next(message);
+                this.chatMessageReceivedEmitter.next(message.chatMessage);
+                break;
+            }
+            case SocketMessageType.START_GAME : {
+                this.reloadGame();
+                this.notificationService.info(message.chatMessage);
+                break;
+            }
+            case SocketMessageType.END_GAME : {
+                this.isGameContinued = false;
+                this.notificationService.info(message.chatMessage);
                 break;
             }
         }
@@ -149,10 +184,7 @@ export class GamePlayPvpComponent implements OnInit {
         if (this.gameService.getAccountModel().nick === nick) {
             this.isPlayerPlaying = true;
             if (this.isGameContinued) {
-                console.log("pobrano legalne ruchy");
                 this.currentGameService.getLegateMoves(GameType.PVP);
-                console.log("legalne ruchy to:");
-                console.log(this.currentGameService.legateMoves);
             }
         }
         this.notificationService.trace('game-play-pvp:isPlayerInGame() ' + this.isPlayerPlaying);

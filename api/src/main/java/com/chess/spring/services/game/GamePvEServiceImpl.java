@@ -49,18 +49,18 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     }
 
     public GamePvE getById(Long gameId) throws ResourceNotFoundException {
-        return gamePvERepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
+        return gamePvERepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.GAME_NOT_FOUND.getInfo()));
     }
 
-    public String getBoardById(Long gameId) throws ResourceNotFoundException {
-        return gamePvERepository.getBoardByGameId(gameId).orElseThrow(() -> new ResourceNotFoundException("Gra nie odnaleziona"));
+    private String getBoardById(Long gameId) throws ResourceNotFoundException {
+        return gamePvERepository.getBoardByGameId(gameId).orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.GAME_NOT_FOUND.getInfo()));
     }
 
     @Override
     public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
         Account account = accountService.getCurrent();
         if (gamePvEDTO.getLevel() < 1 || gamePvEDTO.getLevel() > 5) {
-            throw new DataMissmatchException("Level out of scale");
+            throw new DataMissmatchException(ExceptionMessages.GAME_LEVEL_NOT_VALID.getInfo());
         }
 
         GamePvE game = buildGame(gamePvEDTO, account);
@@ -138,9 +138,9 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
             case DRAW:
             case WHITE_WIN:
             case BLACK_WIN:
-                throw new LockedSourceException("Gra się zakończyła");
+                throw new LockedSourceException(ExceptionMessages.GAME_END.getInfo());
         }
-        if (!gamePvEStatus.equals(status)) throw new DataMissmatchException("Nie poprawny status nowej gry");
+        if (!gamePvEStatus.equals(status)) throw new DataMissmatchException(ExceptionMessages.GAME_STATUS_NOT_VALID.getInfo());
     }
 
 
@@ -151,7 +151,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 //        gamePvERepository.save(gamePvE);
     }
 
-    private MoveDTO handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) throws LockedSourceException {
+    private MoveDTO handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) {
         game.setBoard(FenUtilities.createFENFromGame(board));
         GamePvEStatus status;
         if (gameEndStatus == GameEndStatus.STALE_MATE) {

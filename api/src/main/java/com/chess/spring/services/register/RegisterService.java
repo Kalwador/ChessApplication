@@ -21,6 +21,8 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Log4j
 @NoArgsConstructor
 @Service
@@ -34,10 +36,12 @@ public class RegisterService {
     @Autowired
     public RegisterService(AccountRepository accountRepository,
                            AccountDetailsRepository accountDetailsRepository,
-                           MailFactory mailFactory) {
+                           MailFactory mailFactory,
+                           AccountService accountService) {
         this.accountRepository = accountRepository;
         this.accountDetailsRepository = accountDetailsRepository;
         this.mailFactory = mailFactory;
+        this.accountService = accountService;
     }
 
     public void createNewAccount(RegisterDTO registerDTO) throws InvalidDataException {
@@ -75,6 +79,13 @@ public class RegisterService {
 
         this.sendActivationCodeInMail(accountDetails);
         log.info("The user : '" + accountDetails.getUsername() + "' was successful registered in application!");
+    }
+
+    @PostConstruct
+    public static void test() {
+//        System.out.println("##");
+//        System.out.println(BCryptEncoder.encode(" "));
+//        System.out.println("##");
     }
 
     private void sendActivationCodeInMail(AccountDetails accountDetails) throws InvalidDataException {

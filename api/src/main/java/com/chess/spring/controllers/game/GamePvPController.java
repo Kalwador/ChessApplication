@@ -1,9 +1,10 @@
 package com.chess.spring.controllers.game;
 
+import com.chess.spring.dto.ChatDTO;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvPDTO;
 import com.chess.spring.exceptions.*;
-import com.chess.spring.services.game.GamePvPServiceImpl;
+import com.chess.spring.services.game.GamePvPService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -23,10 +24,9 @@ import java.util.List;
 @Api(value = "GamePvP Controller", description = "Manage game with other player transitions and statuses")
 public class GamePvPController {
 
+    private GamePvPService gameService;
 
-    private GamePvPServiceImpl gameService;
-
-    public GamePvPController(GamePvPServiceImpl gameService) {
+    public GamePvPController(GamePvPService gameService) {
         this.gameService = gameService;
     }
 
@@ -63,30 +63,43 @@ public class GamePvPController {
             @ApiResponse(code = 400, message = "Move is not acceptable"),
             @ApiResponse(code = 404, message = "Game not found, wrong id"),
             @ApiResponse(code = 409, message = "Error during creation of game, wrong status"),
+            @ApiResponse(code = 412, message = "You are not player in this game"),
             @ApiResponse(code = 423, message = "Game is over"),
             @ApiResponse(code = 500, message = "Not recognized error")
     })
     @PostMapping(value = "/{gameId}")
-    public void makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
+    public void makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException, PreconditionFailedException {
         gameService.makeMove(gameId, moveDTO);
     }
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Game board found successfully"),
-            @ApiResponse(code = 404, message = "Game not found, wrong id")
+            @ApiResponse(code = 404, message = "Game not found, wrong id"),
+            @ApiResponse(code = 412, message = "You are not player in this game")
     })
     @GetMapping(value = "/{gameId}/legate")
-    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException {
+    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException {
         return gameService.getLegateMoves(gameId);
     }
 
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Game forfeited successfully"),
-            @ApiResponse(code = 404, message = "Game not found, wrong id")
+            @ApiResponse(code = 404, message = "Game not found, wrong id"),
+            @ApiResponse(code = 412, message = "You are not player in this game")
     })
     @DeleteMapping(value = "/forfeit/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void forfeit(@PathVariable Long gameId) throws ResourceNotFoundException {
+    public void forfeit(@PathVariable Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException {
         gameService.forfeit(gameId);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "success get game chat"),
+            @ApiResponse(code = 400, message = "Game not found, wrong id")
+    })
+
+    @GetMapping(value = "/{gameId}/chat")
+    public ChatDTO getChatConversation(@PathVariable Long gameId) throws ResourceNotFoundException {
+        return gameService.getChatConversation(gameId);
     }
 }

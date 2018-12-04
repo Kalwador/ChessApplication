@@ -1,0 +1,10 @@
+$size-big: 78.125px;
+$size-medium: 28.125px;
+$size-small: 18.125px;
+
+.chat {
+  margin-top: $size-medium;
+  float: left;
+  width: $size-big * 4;
+  height: $size-big * 8;
+}

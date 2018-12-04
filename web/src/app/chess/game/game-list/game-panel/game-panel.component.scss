@@ -13,6 +13,7 @@ hr {
 
 .panel {
   height: $size-small * 8;
+  font-size: 20px;
 }
 
 .panel-game-board {
@@ -37,9 +38,8 @@ hr {
   float: right;
   padding-left: auto;
   padding-right: auto;
-  width: 300px;
+  width: 250px;
   text-align: center;
-  margin-left: 5%;
   margin-right: 5%;
 }
 
@@ -49,6 +49,10 @@ hr {
   line-height: $size-small * 4;
   vertical-align: middle;
   margin-right: 3%;
+}
+
+button {
+  cursor: pointer;
 }
 
 .button {
@@ -96,3 +100,79 @@ hr {
 }
 
 
+/* Exxxtra large devices (large desktops, 1618px and up) */
+@media (min-width: 1618px) {
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1617.98px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .panel {
+    font-size: 17px
+  }
+  .panel-game-board {
+    margin-left: 1%;
+  }
+  .panel-game-players {
+    padding-left: 1%;
+  }
+  .panel-game-status {
+    width: 150px;
+    margin-right: 5%;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .panel {
+    font-size: 17px
+  }
+  .panel-game-board {
+    margin-left: 1%;
+  }
+  .panel-game-players {
+    padding-left: 1%;
+    line-height: $size-small * 2.5;
+  }
+  .panel-game-status {
+    padding-left: 1%;
+    float: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    line-height: $size-small * 2.5;
+    text-align: left;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .panel-game-board {
+    margin-left: 1%;
+    width: auto;
+  }
+  .panel-game-players {
+    display: none;
+  }
+  .panel-game-status {
+    display: none;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .panel-game-board {
+    margin-left: 1%;
+    width: auto;
+  }
+  .panel-game-players {
+    display: none;
+  }
+  .panel-game-status {
+    display: none;
+  }
+}

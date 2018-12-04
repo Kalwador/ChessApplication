@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getById(Long id) throws ResourceNotFoundException {
-        return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profil nie odnaleziony"));
+        return accountRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -42,12 +42,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void edit(AccountDTO accountDTO) {
-        throw new IllegalArgumentException("to do");
+
+        //TODO
+
+        throw new IllegalArgumentException();
     }
 
     @Override
     public AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException {
-        return accountDetailsRepository.findByUsernameCaseInsensitive(username).orElseThrow(() -> new ResourceNotFoundException("ResourceNotFoundException"));
+        return accountDetailsRepository.findByUsernameCaseInsensitive(username).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

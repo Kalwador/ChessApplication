@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {GameType} from "../../../../models/chess/game/game-type.enum";
 import {GamePvp} from "../../../../models/chess/game/game-pvp";
 import {GamePve} from "../../../../models/chess/game/game-pve";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {GameService} from "../../service/game.service";
 import {NotificationService} from "../../../notifications/notification.service";
 
@@ -25,8 +25,17 @@ export class GameListTableComponent implements OnInit {
     GameType = GameType;
 
     constructor(private router: Router,
+                private route: ActivatedRoute,
                 private service: GameService,
                 private notif: NotificationService) {
+        this.route.params.subscribe(params => {
+            if(params['type'] === 'pve') {
+                this.type = GameType.PVE;
+            }
+            if(params['type'] === 'pvp') {
+                this.type = GameType.PVP;
+            }
+        });
     }
 
     ngOnInit() {
@@ -41,7 +50,6 @@ export class GameListTableComponent implements OnInit {
     loadPvPGamesLists(page: number) {
         this.service.getPvPList(page, this.listSize).subscribe(data => {
             this.gamesPvPList = data.content;
-            console.log(this.gamesPvPList);
         }, error => {
             this.notif.trace(error);
         });
@@ -50,7 +58,6 @@ export class GameListTableComponent implements OnInit {
     loadPvEGamesLists(page: number) {
         this.service.getPvEList(page, this.listSize).subscribe(data => {
             this.gamesPvEList = data.content;
-            console.log(this.gamesPvEList);
         }, error => {
             this.notif.trace(error);
         });

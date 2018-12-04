@@ -5,7 +5,7 @@ import {AppService} from "../services/app.service";
 @Component({
     selector: 'app-chess',
     templateUrl: './chess.component.html',
-    styleUrls: ['./chess.component.css']
+    styleUrls: ['./chess.component.scss']
 })
 export class ChessComponent {
     constructor(

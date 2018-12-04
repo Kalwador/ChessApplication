@@ -1,12 +1,10 @@
 package com.chess.spring.controllers;
 
-import com.chess.spring.controllers.game.SocketController;
-import com.chess.spring.dto.game.GamePvPDTO;
+import com.chess.spring.controllers.socket.SocketListener;
 import com.chess.spring.dto.game.SocketMessageDTO;
-import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.models.game.SocketMessageType;
-import com.chess.spring.services.game.GamePvPServiceImpl;
+import com.chess.spring.services.game.GamePvPService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -23,15 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "test controller", description = "Allow to test security levels")
 public class TestController {
 
-    private SocketController socketController;
-    private GamePvPServiceImpl gamePvPService;
-
     @Autowired
-    public TestController(
-            SocketController socketController,
-            GamePvPServiceImpl gamePvPService) {
-        this.socketController = socketController;
-        this.gamePvPService = gamePvPService;
+    public TestController() {
     }
 
     @ApiOperation(value = "Returns test Greating")
@@ -74,10 +65,5 @@ public class TestController {
     @GetMapping(value = "/admin")
     public String sayHello4() {
         return "admin message";
-    }
-
-    @GetMapping(path = "/message/{message}")
-    public void testMessage(@PathVariable String message) {
-        this.socketController.distributeChatMessage("1", new SocketMessageDTO(SocketMessageType.CHAT,null,message,"SEFVER"));
     }
 }

@@ -5,14 +5,28 @@ import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.engine.classic.board.MoveTransition;
 import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
+import com.chess.spring.entities.account.Account;
+import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.game.GameEndStatus;
+import com.chess.spring.models.game.GamePvPStatus;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.utils.pgn.FenUtilities;
 
+import javax.persistence.Access;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class GameUtils {
+
+    private CriteriaQuery<GamePvP> query;
 
     /**
      * Draw a random color
@@ -67,5 +81,25 @@ public abstract class GameUtils {
         final StockAlphaBeta strategy = new StockAlphaBeta(level);
 //        strategy.addObserver(Table.get().getDebugPanel());
         return strategy.execute(board);
+    }
+
+    TypedQuery<GamePvP> getQuerryForEmptyRoom(EntityManager entityManager, Account account) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<GamePvP> cq = cb.createQuery(GamePvP.class);
+
+        Root<GamePvP> root = cq.from(GamePvP.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(cb.equal(root.get("status"), GamePvPStatus.ROOM));
+
+        Predicate emptySeat = cb.and(cb.isNull(root.get("whitePlayer")), cb.notEqual(root.get("blackPlayer"), account));
+        Predicate notInGame = cb.and(cb.isNull(root.get("blackPlayer")), cb.notEqual(root.get("whitePlayer"), account));
+        Predicate join = cb.or(emptySeat, notInGame);
+        predicates.add(join);
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.asc(root.get("id")));
+
+        return entityManager.createQuery(cq);
     }
 }

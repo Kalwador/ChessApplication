@@ -17,6 +17,7 @@ import {GamePvp} from "../../../models/chess/game/game-pvp";
 import {Game} from "../../../models/chess/game/game.model";
 import {GameStatus} from "../../../models/chess/game/game-status.enum";
 import {GamePve} from "../../../models/chess/game/game-pve";
+import {ChatModel} from "../../../models/chat.model";
 
 @Injectable({
     providedIn: 'root'
@@ -167,5 +168,9 @@ export class GameService {
         path += '/forfeit/' + gameId;
         this.notificationService.trace('forfeit game, path: ' + path);
         return this.baseService.delete(path);
+    }
+
+    getChatConversation(id: number): Observable<ChatModel> {
+        return this.baseService.mapJSON(this.baseService.get(this.pathPvP + "/" + id + "/chat/"));
     }
 }

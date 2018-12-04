@@ -6,6 +6,8 @@ import {NotificationService} from "../../notifications/notification.service";
 import {GameService} from "./game.service";
 import {Field} from "../../../models/chess/field.model";
 import {GameType} from "../../../models/chess/game/game-type.enum";
+import {Observable} from "rxjs";
+import {ChatModel} from "../../../models/chat.model";
 
 @Injectable({
     providedIn: 'root'
@@ -140,5 +142,9 @@ export class CurrentGameService {
         if (this.isSpecialMove(move.type)) {
             this.specialMoveExecutor(move);
         }
+    }
+
+    getChatConversation(): Observable<ChatModel> {
+        return this.gameService.getChatConversation(this.game.id);
     }
 }

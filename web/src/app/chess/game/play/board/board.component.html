@@ -1,10 +1,10 @@
-{{size}}
-{{isPlayerPlaying}} && {{isGameContinued}}
+<!--{{size}}-->
+<!--{{isPlayerPlaying}} && {{isGameContinued}}-->
 
 <div class="clearfix-custom" style="clear:both"></div>
 
-<div *ngIf="isPlayerPlaying && isGameContinued" class="board-{{size}}">
-    <div>Szachownica do grania</div>
+<div *ngIf="isPlayerPlaying && isGameContinued" class="board-{{size}} board">
+    <!--<div>Szachownica do grania</div>-->
     <div *ngFor="let field of fields">
         <div [class]="field.isWhite ? 'field field-'+ size + ' whiteField' : 'field field-' + size + ' blackField'"
              appDropzone
@@ -22,7 +22,7 @@
 </div>
 
 <div *ngIf="!(isPlayerPlaying && isGameContinued)" class="board-{{size}}">
-    <div>Szachownica do ogladania</div>
+    <!--<div>Szachownica do ogladania</div>-->
     <div *ngFor="let field of fields">
         <div [class]="field.isWhite ? 'field field-'+ size + ' whiteField' : 'field field-' + size + ' blackField'">
             <div *ngIf="this.baseService.isDEVProfile" style="color: #c7254e;font-size: 10px;">{{field.id}}</div>

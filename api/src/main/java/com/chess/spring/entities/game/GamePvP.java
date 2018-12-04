@@ -1,5 +1,6 @@
 package com.chess.spring.entities.game;
 
+import com.chess.spring.entities.Chat;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.models.game.GamePvPStatus;
 import io.swagger.annotations.ApiModelProperty;
@@ -44,6 +45,11 @@ public class GamePvP extends Game {
     private String moves;
 
     private String permalink;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "game")
+    private Chat chat;
 
     @Override
     public boolean equals(Object o) {

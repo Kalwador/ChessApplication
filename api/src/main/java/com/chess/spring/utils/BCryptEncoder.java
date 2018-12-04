@@ -26,6 +26,6 @@ public class BCryptEncoder {
      * @return method return true if passwords are the same
      */
     public static boolean check(String setPassword, String correctPassword) {
-        return bcrypt.checkpw(setPassword, correctPassword);
+        return BCrypt.checkpw(setPassword, correctPassword);
     }
 }

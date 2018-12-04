@@ -16,4 +16,5 @@ public class SocketMessageDTO {
     private MoveDTO moveDTO;
     private String chatMessage;
     private String sender;
+    private String date;
 }
