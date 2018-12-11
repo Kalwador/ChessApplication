@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RestService} from './rest.service';
-import {HttpMethodType} from '../models/http-method-type.enum';
+import {HttpMethodTypeEnum} from '../models/http-method-type.enum';
 import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ServerResponseType} from '../models/login/login-error-type.enum';
@@ -24,32 +24,32 @@ export class BaseService {
                 private notificationService: NotificationService) {
     }
 
-    executeHttpRequest(method: HttpMethodType, path: string, body?: any): Observable<any> {
+    executeHttpRequest(method: HttpMethodTypeEnum, path: string, body?: any): Observable<any> {
         switch (method) {
-            case HttpMethodType.GET: {
+            case HttpMethodTypeEnum.GET: {
                 return this.restService.get(path, this.getOptions()).pipe(
                     map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodType.GET, path)));
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.GET, path)));
             }
-            case HttpMethodType.POST: {
+            case HttpMethodTypeEnum.POST: {
                 return this.restService.post(path, body, this.getOptions()).pipe(
                     map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodType.PUT, path, body)));
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.PUT, path, body)));
             }
-            case HttpMethodType.PUT: {
+            case HttpMethodTypeEnum.PUT: {
                 return this.restService.put(path, body, this.getOptions()).pipe(
                     map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodType.POST, path, body)));
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.POST, path, body)));
             }
-            case HttpMethodType.DELETE: {
+            case HttpMethodTypeEnum.DELETE: {
                 return this.restService.delete(path, this.getOptions()).pipe(
                     map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodType.DELETE, path)));
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.DELETE, path)));
             }
         }
     }
 
-    private handleServerErrorResponse(method: HttpMethodType, response: ServerResponseType, path: string, body?: any): Observable<any> {
+    private handleServerErrorResponse(method: HttpMethodTypeEnum, response: ServerResponseType, path: string, body?: any): Observable<any> {
         switch (response) {
             case ServerResponseType.TOKEN_EXPIRED: {
                 if (this.triesOfReloadToken < 2) {
@@ -57,16 +57,16 @@ export class BaseService {
                     this.notificationService.trace('Próba przeladowania tokenu.');
                     if (this.oauthService.refreshToken()) {
                         switch (method) {
-                            case HttpMethodType.GET: {
+                            case HttpMethodTypeEnum.GET: {
                                 return this.restService.get(path, this.getOptions());
                             }
-                            case HttpMethodType.POST: {
+                            case HttpMethodTypeEnum.POST: {
                                 return this.restService.post(path, body, this.getOptions());
                             }
-                            case HttpMethodType.PUT: {
+                            case HttpMethodTypeEnum.PUT: {
                                 return this.restService.put(path, body, this.getOptions());
                             }
-                            case HttpMethodType.DELETE: {
+                            case HttpMethodTypeEnum.DELETE: {
                                 return this.restService.delete(path, this.getOptions());
                             }
                         }
@@ -79,6 +79,17 @@ export class BaseService {
                 this.logOut();
             }
         }
+    }
+
+    public putFile(path: string, file: File): any {
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        let options: any = {
+            reportProgress: true,
+            responseType: 'text',
+            headers: {'Authorization': 'bearer ' + this.oauthService.getAccessToken()}
+        };
+        return this.restService.putFile(path, formData, options);
     }
 
     private getOptions(): RequestOptions {
@@ -124,10 +135,10 @@ export class BaseService {
         this.router.navigate(['/']);
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        this.notificationService.info('Wylogowano');
+        // this.notificationService.info('Wylogowano');
     }
 
-    private handleError(error: HttpErrorResponse, method: HttpMethodType, path: string, body?: any) {
+    private handleError(error: HttpErrorResponse, method: HttpMethodTypeEnum, path: string, body?: any) {
         // console.log(error);
         // let temp = this.checkResponseStatus(error);
         if (error.status === 401) {

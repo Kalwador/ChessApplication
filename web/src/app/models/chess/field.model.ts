@@ -1,4 +1,4 @@
-import {Piece} from '../pieces/piece.model';
+import {Piece} from '../pieces/piece';
 
 export class Field {
     id: number;

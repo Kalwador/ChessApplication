@@ -1,3 +1,5 @@
+@import "~src/assets/colors";
+
 .container {
     font-family: 'Oxygen', sans-serif !important;
 }
@@ -10,11 +12,11 @@ h1.title {
     font-size: 50px;
     font-family: 'Passion One', cursive;
     font-weight: 400;
-    color: #30231d;
+    color: $color8;
 }
 
 hr {
-    color: #30231d;
+    color: $color6;
 }
 
 .form-group {
@@ -23,7 +25,7 @@ hr {
 
 label {
     margin-bottom: 15px;
-    color: #30231d;
+    color: $color6;
 }
 
 input,
@@ -34,7 +36,7 @@ input::-webkit-input-placeholder {
 span {
     padding-top: 10px;
     padding-right: 5px;
-    color: #6a5750;
+    color: $color6;
 }
 
 .main-login {
@@ -49,22 +51,26 @@ span {
 }
 
 .main-center {
-    margin-top: 30px;
     margin: 0 auto;
     padding: 40px 40px;
 }
 
 .register-button {
     margin-top: 5px;
-    background-color: #30231d;
-    border-color: #262216;
+    background-color: $color6;
+    border-color: $color9;
 }
 
 .register-button:active {
-    background-color: #30231d;
+    background-color: $color5;
 }
 
 .home-page {
     font-size: 13px;
     text-align: center;
+}
+
+.alert-danger {
+    height: 40px;
+    line-height: 15px;
 }

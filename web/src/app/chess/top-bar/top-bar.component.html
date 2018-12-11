@@ -9,7 +9,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li *ngIf="baseService.isDEVProfile">
+            <li *ngIf="baseService.isDEVProfile" data-toggle="collapse"
+                data-target="#navbarSupportedContent">
                 <a class="nav-link" (click)="test()">Test</a>
             </li>
             <li *ngIf="baseService.isDEVProfile">
@@ -23,29 +24,31 @@
                    data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Lista gier
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" data-toggle="collapse"
+                     data-target="#navbarSupportedContent">
                     <a class="dropdown-item" routerLink="/game/list/pve">Gry PvE</a>
                     <a class="dropdown-item" routerLink="/game/list/pvp">Gry PvP</a>
                 </div>
             </li>
             <li *ngIf="isUserLoggedIn()">
                 <a class="nav-link" routerLink="/game/new-options">Nowa gra</a>
-            </li>
 
+            </li>
             <li *ngIf="isUserLoggedIn()">
-                <a class="nav-link">Moje Statystyki</a>
+                <a class="nav-link" >Moje Statystyki</a>
             </li>
         </ul>
 
         <ul class="navbar-nav">
             <li class="nav-item" *ngIf="!isUserLoggedIn()">
-                <a class="nav-link" routerLink="/register"><span class="fa-icon fa fa-user-plus"></span> Rejestracja</a>
+                <a class="nav-link" routerLink="/register" ><span
+                        class="fa-icon fa fa-user-plus"></span> Rejestracja</a>
             </li>
             <li class="nav-item" *ngIf="!isUserLoggedIn()">
                 <app-login-modal></app-login-modal>
             </li>
             <li class="nav-item" *ngIf="isUserLoggedIn()">
-                <a class="nav-link" routerLink="/profile">
+                <a class="nav-link" routerLink="/profile" >
                     <!--<img *ngIf="baseService.isAvatarAvailable" [src]="baseService.getUserProfile().avatar">-->
                     <!--<i *ngIf="!baseService.isAvatarAvailable" class="fa-icon fa fa-user-circle-o"></i>-->
                     <span *ngIf="this.baseService.accountModel != null">{{baseService.accountModel.nick}} - </span>
@@ -53,9 +56,9 @@
                 </a>
             </li>
             <li class="nav-item" *ngIf="isUserLoggedIn()">
-                <a class="nav-link" (click)="logout()">
+                <a class="nav-link" (click)="logout()" >
                     Wyloguj
-                    <i class="fa-icon fa fa fa-sign-out" ></i>
+                    <i class="fa-icon fa fa fa-sign-out"></i>
                 </a>
             </li>
         </ul>

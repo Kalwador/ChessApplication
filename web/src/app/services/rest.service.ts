@@ -26,5 +26,9 @@ export class RestService {
     public delete(path: string, options: RequestOptions): Observable<any> {
         return this.http.delete(this.basicPath + path, options);
     }
+
+    public putFile(path: string, body: any, options: RequestOptions): any {
+        return this.http.put(this.basicPath + path, body, options);
+    }
 }
 

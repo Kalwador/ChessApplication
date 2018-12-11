@@ -1,7 +1,10 @@
+@import "~src/assets/colors";
+
+
 .article {
   padding-top: 1%;
   padding-bottom: 1%;
-  background-color: #f6f1ed;
+  background-color: $color0 ;
 }
 
 .article-image {

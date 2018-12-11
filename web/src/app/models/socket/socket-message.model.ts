@@ -1,8 +1,8 @@
 import {Move} from "../chess/move";
-import {SocketMessageType} from "./socket-message-type.enum";
+import {SocketMessageTypeEnum} from "./socket-message-type.enum";
 
-export class SocketMessage {
-    type: SocketMessageType;
+export class SocketMessageModel {
+    type: SocketMessageTypeEnum;
     moveDTO: Move;
     chatMessage: string;
     sender: string;

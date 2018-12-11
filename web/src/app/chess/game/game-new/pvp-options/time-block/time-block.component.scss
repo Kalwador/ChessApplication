@@ -1,21 +1,23 @@
+@import "~src/assets/colors";
+
 .time-block {
-    border: 1px solid #312824;
+    border: 1px solid $color9;
     width: 85px;
     height: 85px;
     text-align: center;
     padding-top: 30%;
-    background-color: #6a5750;
+    background-color: $color5;
 }
 
 .time-block:hover {
     transform: scale(1.1,1.1);
-    background-color: #735e57;
+    background-color: $color4;
     box-shadow: 0 0 10px -1px rgba(233, 233, 59, 0.6);
 }
 
 .time-block:active {
     transform: scale(1.1,1.1);
-    background-color: #734a44;
+    background-color: $color3;
 }
 
 .active {

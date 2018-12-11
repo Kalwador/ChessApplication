@@ -1,10 +1,13 @@
+@import "~src/assets/colors";
+
 .footer {
-    background: #97743a !important;
+    background: $color9 !important;
     clear: both;
     z-index: 10;
     width: 100%;
-    border-bottom: 1px solid #CCCCCC;
-    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid $color1;
+    border-top: 1px solid $color1;
+
 }
 
 .container{
@@ -13,11 +16,11 @@
 }
 
 .bg-circle {
-    background-color: #97743a !important;
+    background-color: $color7 !important;
     display: inline-block;
     width: 60px;
     padding: 14px 4px;
-    color: #ececec;
+    color: $color0;
     text-align: center;
     border-radius: 50%;
 }
@@ -37,7 +40,7 @@ h4 {
 
 .header-font {
     font-family: "Josefin Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #97743a;
+    color: $color0;
     font-size: 18px;
 }
 
@@ -50,7 +53,7 @@ h4 {
 .bg-circle-outline a, a:hover, .media a:focus {
     text-decoration: none !important;
     outline: none;
-    color: #ececec;
+    color: $color0;
 }
 
 .fa-address-card {
@@ -73,11 +76,11 @@ h4 {
 }
 
 .bg-primary {
-    background-color: #262216 !important;
+    background-color: $color9 !important;
 }
 
 .bg-primary:hover {
-    background-color: #262216 !important;
+    background-color: $color9 !important;
 }
 
 /* Small devices (landscape phones, 576px and up) */

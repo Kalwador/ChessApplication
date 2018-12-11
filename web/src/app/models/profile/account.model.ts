@@ -1,4 +1,5 @@
-import {GenderModel} from "./gender.enum";
+import {GenderEnum} from "./gender.enum";
+import {StatisticsModel} from "./statistics.model";
 
 export class  AccountModel {
      id: number;
@@ -8,8 +9,8 @@ export class  AccountModel {
      firstName: string;
      lastName: string;
      age: number;
-     gender: GenderModel;
-     avatar?: any[];
+     gender: GenderEnum;
+     avatar?: string;
      isFirstLogin: boolean;
-     login: string;
-}   
+     statistics: StatisticsModel;
+}

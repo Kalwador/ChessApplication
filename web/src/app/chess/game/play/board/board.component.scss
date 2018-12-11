@@ -8,18 +8,17 @@ $size-small: 18.125px;
 
 .board {
   background: black;
-  padding-top: 5px;
   padding-left: 5px;
 }
 
 .board-size-big {
   width: $size-big * 8 + 10px;
-  height: $size-big * 8 + 10px;
+  height: $size-big * 8;
 }
 
 .board-size-medium {
   width: $size-medium * 8 + 10px;
-  height: $size-medium * 8 + 10px;
+  height: $size-medium * 8;
 }
 
 .board-size-small {

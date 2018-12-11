@@ -36,7 +36,7 @@ public class AccountDetails implements UserDetails, Serializable {
     private String facebookId;
 
     @Email
-    @Size(min = 0, max = 50)
+    @Size(min = 1, max = 50)
     private String email;
 
     @Column(updatable = false, nullable = false)

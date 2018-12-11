@@ -1,4 +1,4 @@
-export class Page {
+export class PageModel {
     content: any;
     first: boolean;
     last:boolean;

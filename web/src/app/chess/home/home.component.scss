@@ -1,13 +1,16 @@
+@import "~src/assets/colors";
+
 .banner > img {
   height: auto;
   width: 100%;
 }
 
 .row {
-  background: #b0a18e;
-  padding: 5% 10% 5% 10%;
-  color: #221403;
+  //background: $color3;
+  //padding: 5% 10% 5% 10%;
+  color: $color8;
 }
+
 .article {
   margin-top: 2%;
   margin-bottom: 2%;

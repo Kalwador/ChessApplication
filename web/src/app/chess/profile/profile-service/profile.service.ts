@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/internal/Observable';
 import {AppService} from '../../../services/app.service';
 import {AccountModel} from '../../../models/profile/account.model';
 import {NotificationService} from "../../notifications/notification.service";
+import {RegisterModel} from "../../../models/register.model";
 
 @Injectable({
     providedIn: 'root'
@@ -11,35 +12,32 @@ export class ProfileService {
     path = '/profile';
     profile: AccountModel;
 
-    constructor(private baseService: AppService,
+    constructor(private appService: AppService,
                 private notificationService: NotificationService) {
     }
 
     getUserProfile(): AccountModel {
-        return this.baseService.accountModel;
+        return this.appService.accountModel;
     }
 
     getProfileById(id: number): Observable<AccountModel> {
-        return this.baseService.mapJSON(this.baseService.get(this.path + '/' + id));
+        return this.appService.mapJSON(this.appService.get(this.path + '/' + id));
     }
 
     getNickById(id: number): Observable<string> {
-        return this.baseService.mapTEXT(this.baseService.get(this.path + '/nick/' + id));
+        return this.appService.mapTEXT(this.appService.get(this.path + '/nick/' + id));
     }
 
-    pushFileToStorage(file: File): Observable<any> {
-        // const formdata: FormData = new FormData();
-        //
-        // formdata.append('file', file);
-        //
-        // return this.http.post(this.path, formdata, {
-        //   reportProgress: true,
-        //   responseType: 'text'
-        // });
-
-        // return this.postFile(this.path + 'profile/avatar', file);
-        return null;
+    updateInfo(profile: AccountModel): Observable<any> {
+        return this.appService.put(this.path + "/info", profile);
     }
 
+    updateDetails(details: RegisterModel): Observable<any> {
+        return this.appService.put(this.path + "/details", details);
+    }
+
+    updateAvatar(file: File): any {
+        return this.appService.putFile(this.path + "/avatar", file);
+    }
 
 }

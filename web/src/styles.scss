@@ -1,25 +1,16 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-.test {
-    background: #262216;
-    background: #30231d;
-    background: #49412c;
-    background: #6a5750;
-    background: #97743a;
-    background: #b5a397;
-    background: #b0a18e;
-    background: #f6f1ed;
-}
+@import "assets/colors";
 
 body {
-    background: #49412c;
+    background: $color6;
     font-size: 1.3em;
-    color: #f6f1ed;
+    color: $color0;
+
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
-
 
 @import "~@angular/cdk/overlay";
 @include cdk-overlay();

@@ -22,7 +22,7 @@ public class AccountDTO {
     private byte[] avatar;
     private boolean isFirstLogin;
     private String nick;
-    private StatisticsDTO statisticsDTO;
+    private StatisticsDTO statistics;
 
     public static AccountDTO map(Account account) {
         return AccountDTO.builder()
@@ -35,6 +35,7 @@ public class AccountDTO {
                 .lastName(account.getLastName())
                 .gender(account.getGender())
                 .nick(account.getNick())
+                .statistics(StatisticsDTO.map(account.getStatistics()))
                 .build();
     }
 
@@ -52,7 +53,7 @@ public class AccountDTO {
                 .gender(account.getGender())
                 .age(account.getAge())
                 .avatar(account.getAvatar())
-                .statisticsDTO(StatisticsDTO.map(account.getStatistics()))
+                .statistics(StatisticsDTO.map(account.getStatistics()))
                 .build();
     }
 }

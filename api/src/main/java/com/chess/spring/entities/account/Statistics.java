@@ -1,12 +1,12 @@
 package com.chess.spring.entities.account;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Statistics {
@@ -14,6 +14,8 @@ public class Statistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Integer rank;
 
     private Integer gamesPvP;
     private Integer winGamesPvP;

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TimeType} from "../../../../../models/chess/time-type.enum";
-import {SocketMessage} from "../../../../../models/socket/socket-message.model";
+import {SocketMessageModel} from "../../../../../models/socket/socket-message.model";
 import {Observable} from "rxjs";
 
 @Component({

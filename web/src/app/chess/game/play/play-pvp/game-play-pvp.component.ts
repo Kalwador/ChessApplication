@@ -7,9 +7,10 @@ import {GameType} from "../../../../models/chess/game/game-type.enum";
 import {ProfileService} from "../../../profile/profile-service/profile.service";
 import {Move} from "../../../../models/chess/move";
 import {GameStatus} from "../../../../models/chess/game/game-status.enum";
-import {SocketMessage} from "../../../../models/socket/socket-message.model";
-import {SocketMessageType} from "../../../../models/socket/socket-message-type.enum";
+import {SocketMessageModel} from "../../../../models/socket/socket-message.model";
+import {SocketMessageTypeEnum} from "../../../../models/socket/socket-message-type.enum";
 import {Subject} from "rxjs";
+import {PlayerColor} from "../../../../models/chess/player-color.enum";
 
 declare var SockJS: any;
 declare var Stomp: any;
@@ -21,13 +22,18 @@ declare var Stomp: any;
 })
 export class GamePlayPvpComponent implements OnInit {
 
+    whiteStatus: string = "";
     whitePlayerNick: string;
+
+    blackStatus: string = "";
     blackPlayerNick: string;
 
     isPlayerPlaying: boolean = false;
     isGameContinued: boolean = false;
 
     chatMessageReceivedEmitter: Subject<string> = new Subject<string>();
+
+    PlayerColor = PlayerColor;
 
     private stompClient;
     private socket = null;
@@ -47,6 +53,7 @@ export class GamePlayPvpComponent implements OnInit {
                 this.loadChatConversation();
                 this.currentGameService.fields = this.gameService.createBoard(this.currentGameService.game.board);
                 this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status, true);
+                this.handleGameStatus(this.currentGameService.game.status, false);
                 this.getPlayersInfo();
                 this.initializeWebSocketConnection();
             }, error => {
@@ -94,26 +101,28 @@ export class GamePlayPvpComponent implements OnInit {
     }
 
     private onMessageReceived(payload: any) {
-        var message: SocketMessage;
+        var message: SocketMessageModel;
         message = JSON.parse(payload.body);
 
         switch (message.type) {
-            case SocketMessageType.MOVE : {
+            case SocketMessageTypeEnum.MOVE : {
                 if (message.sender != this.gameService.getAccountModel().nick) {
                     this.currentGameService.executeMove(message.moveDTO);
+                    this.handleGameStatus(message.moveDTO.status, message.moveDTO.isInCheck);
+                    this.isGameContinued = this.currentGameService.checkIfGameContinued(message.moveDTO.status, true);
                 }
                 break;
             }
-            case SocketMessageType.CHAT : {
+            case SocketMessageTypeEnum.CHAT : {
                 this.chatMessageReceivedEmitter.next(message.chatMessage);
                 break;
             }
-            case SocketMessageType.START_GAME : {
+            case SocketMessageTypeEnum.START_GAME : {
                 this.reloadGame();
                 this.notificationService.info(message.chatMessage);
                 break;
             }
-            case SocketMessageType.END_GAME : {
+            case SocketMessageTypeEnum.END_GAME : {
                 this.isGameContinued = false;
                 this.notificationService.info(message.chatMessage);
                 break;
@@ -190,13 +199,30 @@ export class GamePlayPvpComponent implements OnInit {
         this.notificationService.trace('game-play-pvp:isPlayerInGame() ' + this.isPlayerPlaying);
     }
 
-    private sendChatMessage(message: SocketMessage) {
+    private sendChatMessage(message: SocketMessageModel) {
         this.notificationService.trace('Sending chat message');
         this.stompClient.send('/app/channel/game/' + this.currentGameService.game.id + '/chat', {}, JSON.stringify(message));
     }
 
-    private sendMoveMessage(message: SocketMessage) {
+    private sendMoveMessage(message: SocketMessageModel) {
         this.notificationService.trace('Sending move message');
         this.stompClient.send('/app/channel/game/' + this.currentGameService.game.id + '/move', {}, JSON.stringify(message));
+    }
+
+    private handleGameStatus(status: string, isInCheck: boolean) {
+        let temp = '';
+        if (isInCheck) {
+            temp = "Szach! ";
+        }
+        if (status === GameStatus.WHITE_MOVE) {
+            temp = temp + this.gameService.translateStatus(status);
+            this.whiteStatus = temp;
+            this.blackStatus = "";
+        }
+        if (status === GameStatus.BLACK_MOVE) {
+            temp = temp + this.gameService.translateStatus(status);
+            this.blackStatus = temp;
+            this.whiteStatus = "";
+        }
     }
 }

@@ -25,10 +25,8 @@ public class MoveDTO {
 
     @JsonIgnore
     private GamePvEStatus statusPve;
-
     @JsonIgnore
     private GamePvPStatus statusPvP;
-
     private String status;
 
     private String moveLog;

@@ -4,6 +4,7 @@ import com.chess.spring.dto.RegisterDTO;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.account.AccountDetails;
 import com.chess.spring.entities.account.Authority;
+import com.chess.spring.entities.account.Statistics;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.account.AuthorityType;
 import com.chess.spring.models.mail.AccountActivationMail;
@@ -46,13 +47,21 @@ public class RegisterService {
 
     public void createNewAccount(RegisterDTO registerDTO) throws InvalidDataException {
 
-        if (!EmailValidator.isEmailValid(registerDTO.getEmail())) throw new InvalidDataException();
-        if (registerDTO.getUsername().length() < 4 || registerDTO.getUsername().length() > 25)
+        if (!EmailValidator.isEmailValid(registerDTO.getEmail())) {
+            throw new InvalidDataException("Podany email jest niepoprawny");
+        }
+        if (registerDTO.getUsername().length() < 4 || registerDTO.getUsername().length() > 25) {
             throw new IllegalArgumentException("The username must be longer than 4 and shorter than 25 letters");
-        if (registerDTO.getPassword().length() < 8 || registerDTO.getPassword().length() > 25)
+        }
+        if (registerDTO.getPassword().length() < 8 || registerDTO.getPassword().length() > 25) {
             throw new IllegalArgumentException("The password must be longer than 8 and shorter than 25 letters");
-        if (accountDetailsRepository.existsByUsername(registerDTO.getUsername()) || accountDetailsRepository.existsByEmail(registerDTO.getEmail()))
-            throw new InvalidDataException();
+        }
+        if (accountDetailsRepository.existsByUsername(registerDTO.getUsername())) {
+            throw new InvalidDataException("Username zajęty");
+        }
+        if (accountDetailsRepository.existsByEmail(registerDTO.getEmail())) {
+            throw new InvalidDataException("Email zajęty");
+        }
 
         AccountDetails accountDetails = AccountDetails.builder()
                 .email(registerDTO.getEmail())
@@ -68,13 +77,29 @@ public class RegisterService {
 
         accountDetails = this.accountDetailsRepository.save(accountDetails);
 
+        Statistics statistics = Statistics.builder()
+                .rank(1000)
+                .gamesPvE(0)
+                .winGamesPvE(0)
+                .gamesPvP(0)
+                .winGamesPvP(0)
+                .monthGamesPvE(0)
+                .monthWinGamesPvE(0)
+                .monthGamesPvP(0)
+                .monthWinGamesPvP(0)
+                .weekGamesPvE(0)
+                .weekWinGamesPvE(0)
+                .weekGamesPvP(0)
+                .weekWinGamesPvP(0)
+                .build();
+
         Account account = Account.builder()
                 .accountDetails(accountDetails)
+                .statistics(statistics)
                 .isFirstLogin(true)
                 .build();
 
         account.setNick(accountService.createNickName(account));
-
         this.accountRepository.save(account);
 
         this.sendActivationCodeInMail(accountDetails);

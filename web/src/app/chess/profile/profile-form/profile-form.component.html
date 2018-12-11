@@ -1,96 +1,125 @@
-<div class="container">
-    <h1>Edit Profile</h1>
-    <hr>
+<hr>
+<div class="container bootstrap snippet">
     <div class="row">
-        <!-- left column -->
-        <div class="col-md-3">
-            <div class="text-center">
-                <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                <h6>Upload a different photo...</h6>
-
-                <input type="file" class="form-control">
-            </div>
+        <div class="col-sm-10"><h1>{{profile.nick}}&nbsp;<span class="rank">({{profile.statistics.rank}})</span></h1></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <app-avatar-panel [avatar]="profile.avatar"></app-avatar-panel>
+            <hr>
+            <br>
         </div>
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active" (click)="changeTab(true)">Informacje&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li (click)="changeTab(false)">Szczegóły</li>
+            </ul>
 
-        <!-- edit form column -->
-        <div class="col-md-9 personal-info">
-            <div class="alert alert-info alert-dismissable">
-                <a class="panel-close close" data-dismiss="alert">×</a>
-                <i class="fa fa-coffee"></i>
-                This is an <strong>.alert</strong>. Use this to show important messages to the user.
-            </div>
-            <h3>Personal info</h3>
+            <div class="tab-content" *ngIf="isInfoTabActive">
+                <div class="tab-pane active" id="info">
+                    <hr>
+                    <div class="form" id="infoForm">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="first_name"><h4>Imie:</h4></label>
+                                <input type="text" class="form-control" name="first_name" id="first_name"
+                                       placeholder="first name" title="Imie"
+                                       [(ngModel)]="profile.firstName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="last_name"><h4>Nazwisko</h4></label>
+                                <input type="text" class="form-control" name="last_name" id="last_name"
+                                       placeholder="last name" title="Nazwisko"
+                                       [(ngModel)]="profile.lastName">
+                            </div>
+                        </div>
 
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">First nick:</label>
-                    <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Jane">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Last nick:</label>
-                    <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Bishop">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Company:</label>
-                    <div class="col-lg-8">
-                        <input class="form-control" type="text" value="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Email:</label>
-                    <div class="col-lg-8">
-                        <input class="form-control" type="text" value="janesemail@gmail.com">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Time Zone:</label>
-                    <div class="col-lg-8">
-                        <div class="ui-select">
-                            <select id="user_time_zone" class="form-control">
-                                <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                <option value="Alaska">(GMT-09:00) Alaska</option>
-                                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                <option value="Arizona">(GMT-07:00) Arizona</option>
-                                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="age"><h4>Wiek</h4></label>
+                                <input type="text" class="form-control" name="age" id="age"
+                                       placeholder="enter mobile number" title="Wiek"
+                                       [(ngModel)]="profile.age">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="gender"><h4>Płeć</h4></label>
+                                <br>
+                                <mat-radio-group class="radio-group" [(ngModel)]="gender" id="gender" name="gender">
+                                    <mat-radio-button class="radio-button" *ngFor="let gender of genders"
+                                                      [value]="gender">
+                                        {{gender}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button class="button" (click)="saveInfo()">
+                                    <i class="glyphicon glyphicon-ok-sign"></i> Zapisz
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <hr>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Username:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" value="janeuser">
+            </div>
+            <div class="tab-content" *ngIf="!isInfoTabActive">
+                <div class="tab-pane active" id="details">
+                    <hr>
+                    <div class="form" id="registrationForm">
+                        <div class="alert alert-danger" role="alert" *ngIf="errorMessage !== null">
+                            {{errorMessage}}
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="email"><h4>Email</h4></label>
+                                <input type="email" class="form-control" name="email" id="email"
+                                       placeholder="you@email.com" title="Adres email."
+                                       [(ngModel)]="profile.email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="username"><h4>Username</h4></label>
+                                <input type="text" class="form-control" id="username" placeholder="username" disabled
+                                       title="Username" [(ngModel)]="profile.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Password</h4></label>
+                                <input type="password" class="form-control" name="password" id="password"
+                                       title="Hasło.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password2"><h4>Verify</h4></label>
+                                <input type="password" class="form-control" name="password2" id="password2"
+                                       title="Potwierdzenie hasła.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button class="button" (click)="saveDetails()">
+                                    <i class="glyphicon glyphicon-ok-sign"></i> Zapisz
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                    <hr>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Password:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" value="11111122333">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Confirm password:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" value="11111122333">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-8">
-                        <input type="button" class="btn btn-primary" value="Save Changes">
-                        <span></span>
-                        <input type="reset" class="btn btn-default" value="Cancel">
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
-<hr>

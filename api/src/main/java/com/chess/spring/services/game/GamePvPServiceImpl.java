@@ -21,11 +21,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -37,27 +34,28 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
     private AccountRepository accountRepository;
     private ChatService chatService;
     private SocketEmitter socketEmitter;
-    private final EntityManager entityManager;
+    private GameService gameService;
 
     @Autowired
     public GamePvPServiceImpl(GamePvPRepository gamePvPRepository,
                               AccountService accountService,
                               AccountRepository accountRepository,
                               SocketEmitter socketEmitter,
-                              EntityManager entityManager,
+                              GameService gameService,
                               ChatService chatService) {
         this.gamePvPRepository = gamePvPRepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
         this.socketEmitter = socketEmitter;
-        this.entityManager = entityManager;
+        this.gameService = gameService;
         this.chatService = chatService;
     }
 
     @Override
-    public Page<GamePvPDTO> getAll(Pageable page) {
-        List<GamePvPStatus> statuses = Arrays.asList(GamePvPStatus.BLACK_WIN, GamePvPStatus.WHITE_WIN, GamePvPStatus.DRAW);
-        return GamePvPDTO.map(this.gamePvPRepository.findByStatusNotIn(page, statuses), page);
+    public Page<GamePvPDTO> getAll(Pageable page) throws ResourceNotFoundException {
+        List<GamePvPStatus> statuses = Arrays.asList(GamePvPStatus.BLACK_MOVE, GamePvPStatus.WHITE_MOVE);
+        List<GamePvP> results = gameService.getQueryForGames(accountService.getCurrent(), statuses, page).getResultList();
+        return GamePvPDTO.map(results, page);
     }
 
     @Override
@@ -122,14 +120,17 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
             message.setType(SocketMessageType.END_GAME);
             message.setChatMessage(status.getInfo());
         } else {
+            GamePvPStatus status = game.getStatus() == GamePvPStatus.WHITE_MOVE ? GamePvPStatus.BLACK_MOVE : GamePvPStatus.WHITE_MOVE;
+            game.setStatus(status);
             message.setType(SocketMessageType.MOVE);
-            message.getMoveDTO().setStatusPvP(game.getWhitePlayer() == accountService.getCurrent() ? GamePvPStatus.BLACK_MOVE : GamePvPStatus.WHITE_MOVE);
+            message.getMoveDTO().setStatusPvP(status);
             message.getMoveDTO().setInCheck(boardAfterPlayerMove.currentPlayer().isInCheck());
             message.getMoveDTO().setType(map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
         }
 
         message.getMoveDTO().setSource(moveDTO.getSource());
         message.getMoveDTO().setDestination(moveDTO.getDestination());
+
 
         game.setBoard(FenUtilities.createFENFromGame(boardAfterPlayerMove));
         game.setMoves(null); //TODO-movelog
@@ -165,7 +166,7 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
     }
 
     private Optional<GamePvP> getEmptyRoom(Account account) {
-        List<GamePvP> results = getQuerryForEmptyRoom(entityManager, account).getResultList();
+        List<GamePvP> results = gameService.getQuerryForEmptyRoom(account).getResultList();
         if (results.isEmpty()) {
             return Optional.empty();
         } else {
@@ -176,7 +177,7 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
     private GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
         GamePvP game = buildGame(gamePvPDTO, account);
         game = gamePvPRepository.save(game);
-        game.setChat(this.chatService.buildChat(game));
+        game.setChat(chatService.buildChat(game));
         account.getPvpGames().add(game);
         accountRepository.save(account);
         return game;

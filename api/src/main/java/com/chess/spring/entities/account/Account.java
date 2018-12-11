@@ -33,9 +33,11 @@ public class Account implements Serializable {
     private AccountDetails accountDetails;
 
     @Size(min = 1)
+    @Column(name = "first_name")
     private String firstName;
 
     @Size(min = 1)
+    @Column(name = "last_name")
     private String lastName;
 
     @Lob
@@ -43,8 +45,12 @@ public class Account implements Serializable {
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] avatar;
 
+    @Column(name = "thumbnail", length = 1012)
+    private String thumbnail;
+
     private Integer age;
 
+    @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
     @ColumnDefault("true")

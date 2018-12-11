@@ -1,4 +1,4 @@
-import {Piece} from './piece.model';
+import {Piece} from './piece';
 
 export class Bishop extends Piece {
     constructor(isWhite: boolean) {

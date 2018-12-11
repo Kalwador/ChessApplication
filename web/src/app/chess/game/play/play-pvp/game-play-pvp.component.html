@@ -1,8 +1,9 @@
-<div class="custom-container">
-    <section class="game" style="width: 60%; float: left">
+<div class="play">
+    <section class="game">
         <div class="head-player">
             <div *ngIf="whitePlayerNick !== undefined">
-                <player-header [data]="blackPlayerNick"></player-header>
+                <player-header [data]="blackPlayerNick" [blackStatus]="blackStatus"
+                               [color]="PlayerColor.BLACK"></player-header>
             </div>
         </div>
         <div class="board">
@@ -15,7 +16,8 @@
         </div>
         <div class="head-player">
             <div *ngIf="whitePlayerNick !== undefined">
-                <player-header class="bottom-player" [data]="whitePlayerNick"></player-header>
+                <player-header [data]="whitePlayerNick" [whiteStatus]="whiteStatus"
+                               [color]="PlayerColor.WHITE"></player-header>
             </div>
         </div>
     </section>

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Field} from '../../../../models/chess/field.model';
-import {Piece} from '../../../../models/pieces/piece.model';
+import {Piece} from '../../../../models/pieces/piece';
 import {Move} from '../../../../models/chess/move';
 import {AppService} from "../../../../services/app.service";
 import {FieldSize} from "../../../../models/chess/field-size.eum";
@@ -45,7 +45,7 @@ export class BoardComponent {
     }
 
     prepareMove(source: number, destination: number): Move {
-        return new Move(source, destination, null, null, null);
+        return new Move(source, destination, null, null, null, false);
     }
 
     selectField(field: Field) {

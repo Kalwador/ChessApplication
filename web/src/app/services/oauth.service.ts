@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, RequestOptions} from '@angular/http';
 import {map} from 'rxjs/operators';
 import {RestService} from './rest.service';
-import {ApplicationCredentialsModel} from '../models/application-credentials.model';
+import {ApplicationCredentials} from '../models/application.credentials';
 import {TokenModel} from '../models/login/token.model';
 import {Router} from '@angular/router';
 import {NotificationService} from "../chess/notifications/notification.service";
@@ -20,7 +20,7 @@ export class OauthService {
     private OAUTH_REFRESH_TOKEN = '?grant_type=refresh_token&refresh_token=';
 
     //TODO - get app credentials
-    private applicationCredentials: ApplicationCredentialsModel;
+    private applicationCredentials: ApplicationCredentials;
     public token: TokenModel = null;
 
     constructor(private restService: RestService,
@@ -64,7 +64,7 @@ export class OauthService {
 
     public getCredentials() {
         //TODO - just for now, need more thinking :)
-        this.applicationCredentials = new ApplicationCredentialsModel();
+        this.applicationCredentials = new ApplicationCredentials();
         this.applicationCredentials.client_id = 'chessapp';
         this.applicationCredentials.secret = 'secret';
     }

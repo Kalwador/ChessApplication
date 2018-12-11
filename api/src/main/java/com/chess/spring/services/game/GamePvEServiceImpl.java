@@ -6,7 +6,6 @@ import com.chess.spring.engine.classic.board.Board;
 import com.chess.spring.engine.classic.board.Move;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
-import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.models.game.GameEndStatus;
@@ -21,7 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -125,7 +123,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
                 return MoveDTO.builder()
                         .source(move.getCurrentCoordinate())
                         .destination(move.getDestinationCoordinate())
-                        .isInCheck(boardAfterComputerResponse. currentPlayer().isInCheck())
+                        .isInCheck(boardAfterComputerResponse.currentPlayer().isInCheck())
                         .type(move.getClass().getSimpleName())
                         .statusPve(GamePvEStatus.PLAYER_MOVE)
                         .build();
@@ -140,7 +138,8 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
             case BLACK_WIN:
                 throw new LockedSourceException(ExceptionMessages.GAME_END.getInfo());
         }
-        if (!gamePvEStatus.equals(status)) throw new DataMissmatchException(ExceptionMessages.GAME_STATUS_NOT_VALID.getInfo());
+        if (!gamePvEStatus.equals(status))
+            throw new DataMissmatchException(ExceptionMessages.GAME_STATUS_NOT_VALID.getInfo());
     }
 
 

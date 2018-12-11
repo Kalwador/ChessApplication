@@ -1,6 +1,9 @@
+@import "~src/assets/colors";
+
 .navbar {
-    background: #262216 !important;
+    background: $color9 !important;
     text-align: center;
+    color: white !important;
 }
 
 .icon {
@@ -18,7 +21,7 @@
 }
 
 .navbar-brand-2 {
-    color: #b5a397;
+    color: #a5665e;
     font-size: 1.15em;
 }
 
@@ -31,21 +34,29 @@
     font-size:22px;
 }
 
+.nav-link {
+    color: #ffffff !important;
+}
+
 .dropdown-menu {
-    background: #262216 !important;
+    background: $color9 !important;
     text-align: center;
-    color: #b5a397;
+    color: white;
 }
 .dropdown-item {
-    color: #b5a397;
+    color: white;
 }
 
 .dropdown-item:hover {
-    color: #c9b5a8;
+    color: white;
 }
 
 .dropdown-item:active {
-    color: #c9b5a8;
+    color: white;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
 }
 
 /* Medium devices (tablets, 768px and up) */

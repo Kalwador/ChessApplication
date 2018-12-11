@@ -43,4 +43,9 @@ public class GamePvPDTO {
         List<GamePvPDTO> games = all.stream().map(GamePvPDTO::map).collect(Collectors.toList());
         return new PageImpl<>(games, page, games.size());
     }
+
+    public static Page<GamePvPDTO> map(List<GamePvP> all, Pageable page) {
+        List<GamePvPDTO> games = all.stream().map(GamePvPDTO::map).collect(Collectors.toList());
+        return new PageImpl<>(games, page, games.size());
+    }
 }

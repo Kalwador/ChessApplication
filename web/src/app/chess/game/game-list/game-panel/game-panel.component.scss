@@ -1,3 +1,4 @@
+@import "~src/assets/colors";
 $size-big: 78.125px;
 $size-medium: 28.125px;
 $size-small: 18.125px;
@@ -22,7 +23,7 @@ hr {
 }
 
 .mini-board {
-  border: 1px solid #312824;
+  //border: 1px solid $color6;
 }
 
 .panel-game-players {
@@ -59,24 +60,24 @@ button {
   text-align: center;
   width: 170px;
   height: 50px;
-  color: whitesmoke;
-  border: 2px solid #312824;
+  color: $color0;
+  border: 2px solid $color7;
 }
 
 .button-continue {
   margin-top: 10%;
   margin-bottom: auto;
-  background-color: #443832;
+  background-color: $color7;
 }
 
 .button-forfeit {
   margin-top: 10%;
-  background-color: #6a5750;
+  background-color: $color5;
 }
 
 .button:hover {
   transform: scale(1.1, 1.1);
-  background-color: #604f4a;
+  background-color: $color5!important;
 }
 
 .button-continue:hover {
@@ -88,7 +89,7 @@ button {
 }
 
 .button:active {
-  background-color: #6a5750;
+  background-color: $color5;
 }
 
 .button-continue:active {

@@ -16,11 +16,15 @@ import {FieldSize} from '../../../../models/chess/field-size.eum';
 })
 export class GamePlayPveComponent implements OnInit {
 
+    whiteStatus: string = "";
     whitePlayerNick: string;
+
+    blackStatus: string = "";
     blackPlayerNick: string;
 
     isGameContinued: boolean;
     FieldSize = FieldSize;
+    PlayerColor = PlayerColor;
 
     constructor(private route: ActivatedRoute,
                 private gameService: GameService,
@@ -32,6 +36,7 @@ export class GamePlayPveComponent implements OnInit {
                 this.currentGameService.game = data;
                 this.currentGameService.fields = this.gameService.createBoard(this.currentGameService.game.board);
                 this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status, true);
+                this.handleGameStatus(this.currentGameService.game.status, false);
                 if (this.isGameContinued) {
                     this.currentGameService.getLegateMoves(GameType.PVE);
                 }
@@ -66,6 +71,7 @@ export class GamePlayPveComponent implements OnInit {
                         this.currentGameService.executeMove(move);
                     }
                     this.currentGameService.executeMove(data);
+                    this.handleGameStatus(this.currentGameService.game.status, false);
                     //TODO replace log
                 }, error => {
                     if (error.status === 400) {
@@ -83,11 +89,28 @@ export class GamePlayPveComponent implements OnInit {
 
     private setPlayersInfo() {
         if (this.currentGameService.game.color === PlayerColor.WHITE) {
-            this.whitePlayerNick = this.gameService.getAccountModel().username;
+            this.whitePlayerNick = this.gameService.getAccountModel().nick;
             this.blackPlayerNick = 'Computer Lv: ' + this.currentGameService.game.level;
         } else {
             this.whitePlayerNick = 'Computer Lv: ' + this.currentGameService.game.level;
-            this.blackPlayerNick = this.gameService.getAccountModel().username;
+            this.blackPlayerNick = this.gameService.getAccountModel().nick;
+        }
+    }
+
+    private handleGameStatus(status: string, isInCheck: boolean) {
+        let temp = '';
+        if (isInCheck) {
+            temp = "Szach! ";
+        }
+        if (status === GameStatus.WHITE_MOVE) {
+            temp = temp + this.gameService.translateStatus(status);
+            this.whiteStatus = temp;
+            this.blackStatus = "";
+        }
+        if (status === GameStatus.BLACK_MOVE) {
+            temp = temp + this.gameService.translateStatus(status);
+            this.blackStatus = temp;
+            this.whiteStatus = "";
         }
     }
 }

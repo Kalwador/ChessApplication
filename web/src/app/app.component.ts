@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "./services/app.service";
 import {NotificationService} from "./chess/notifications/notification.service";
-import {AppProfile} from "./models/app-info/app-profile.enum";
+import {AppProfileEnum} from "./models/app-info/app-profile.enum";
 
 @Component({
     selector: 'app-root',
@@ -16,10 +16,8 @@ export class AppComponent implements OnInit {
         this.baseService.mapJSON(this.baseService.getUnAuthorized('/info')).subscribe(data => {
             //app info i profil aplikacji
             this.baseService.appInfo = data;
-            // let isDev = this.baseService.appInfo.profile === AppProfile.DEV;
-
-            let isDev = true;
-            this.baseService.appInfo.profile = AppProfile.DEV;
+            let isDev = this.baseService.appInfo.profile === AppProfileEnum.DEV;
+            this.baseService.appInfo.profile = AppProfileEnum.DEV;
 
             this.baseService.isDEVProfile = isDev;
             this.notificationService.isDevProfile = isDev;

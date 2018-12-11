@@ -34,7 +34,7 @@ public class GamePvPController {
             @ApiResponse(code = 200, message = "Succes get list of games")
     })
     @GetMapping
-    public Page<GamePvPDTO> getAll(Pageable page) {
+    public Page<GamePvPDTO> getAll(Pageable page) throws ResourceNotFoundException {
         return this.gameService.getAll(page);
     }
 

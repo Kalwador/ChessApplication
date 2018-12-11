@@ -2,37 +2,37 @@
 INSERT INTO authority (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO authority (authority) VALUES ('ROLE_USER');
 
-INSERT INTO changelog (version,changelog) VALUES ('Alfa-0.85','');
-INSERT INTO changelog (version,changelog) VALUES ('Alfa-0.85','Zaps wiadomości chatu');
-INSERT INTO changelog (version,changelog) VALUES ('Alfa-0.85','Poprawki w obsłudze statusów gry');
-INSERT INTO changelog (version,changelog) VALUES ('Alfa-0.86','Chagelog czesc pierwsza');
-INSERT INTO changelog (version,changelog) VALUES ('Alfa-0.86','');
-INSERT INTO changelog (version,changelog) VALUES ('-','Zaczytywanie listy gier per user');
-INSERT INTO changelog (version,changelog) VALUES ('-','Poprawa scolla w chacie');
-INSERT INTO changelog (version,changelog) VALUES ('-','Poprawa responsywności chatu');
-INSERT INTO changelog (version,changelog) VALUES ('-','Statystyki wykresy i grafy');
-INSERT INTO changelog (version,changelog) VALUES ('-','Profil');
-INSERT INTO changelog (version,changelog) VALUES ('-','Avatary');
+INSERT INTO backlog (version,note) VALUES ('Alfa-0.85','');
+INSERT INTO backlog (version,note) VALUES ('Alfa-0.85','Zaps wiadomości chatu');
+INSERT INTO backlog (version,note) VALUES ('Alfa-0.85','Poprawki w obsłudze statusów gry');
+INSERT INTO backlog (version,note) VALUES ('Alfa-0.86','Chagelog czesc pierwsza');
+INSERT INTO backlog (version,note) VALUES ('Alfa-0.86','');
+INSERT INTO backlog (version,note) VALUES (null,'Zaczytywanie listy gier per user');
+INSERT INTO backlog (version,note) VALUES (null,'Poprawa scolla w chacie');
+INSERT INTO backlog (version,note) VALUES (null,'Poprawa responsywności chatu');
+INSERT INTO backlog (version,note) VALUES (null,'Statystyki wykresy i grafy');
+INSERT INTO backlog (version,note) VALUES (null,'Profil');
+INSERT INTO backlog (version,note) VALUES (null,'Avatary');
 
 -- -- ADMIN
 INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('admin@mail.me','admin','$2a$10$BGy6eqJgaYhUCL8nJmRlj.TtIEwOVXTZZEU7f3udQhk6S30DMKXKe',true,true,true,true);
-INSERT INTO accounts (account_details,age, nick) VALUES (1,25,'ADMIN');
+INSERT INTO accounts (account_details,age,nick) VALUES (1,25,'ADMIN');
 INSERT INTO account_authority (id,authority) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO account_authority (id,authority) VALUES (1, 'ROLE_USER');
 
 -- -- TEST USER
 INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('user@mail.me','1','$2a$12$jcNLGBtjzDDHXbBcckc39O3cuAEwgdu4RZ.KO9SyMhJ0keWDb1CCC',true,true,true,true);
 INSERT INTO account_authority (id,authority) VALUES (2, 'ROLE_USER');
-INSERT INTO statistics (games_pvp,win_games_pvp,week_games_pvp,week_win_games_pvp,month_games_pvp,month_win_games_pvp,games_pve,win_games_pve,week_games_pve,week_win_games_pve,month_games_pve,month_win_games_pve)
-  VALUES (343,184,13,7,83,49,721,584,92,76,349,270);
-INSERT INTO accounts (account_details,age,nick,statistics_id) VALUES (2,22,'TestFirstPlayer',1);
+INSERT INTO statistics (rank,games_pvp,win_games_pvp,week_games_pvp,week_win_games_pvp,month_games_pvp,month_win_games_pvp,games_pve,win_games_pve,week_games_pve,week_win_games_pve,month_games_pve,month_win_games_pve)
+  VALUES (1766,343,184,13,7,83,49,721,584,92,76,349,270);
+INSERT INTO accounts (account_details,first_name,last_name,age,nick,gender,statistics_id) VALUES (2,'Jan','Nowak',22,'TestFirstPlayer','MALE',1);
 
 -- -- TEST USER 2
 INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('user2@mail.me','2','$2a$12$jcNLGBtjzDDHXbBcckc39O3cuAEwgdu4RZ.KO9SyMhJ0keWDb1CCC',true,true,true,true);
 INSERT INTO account_authority (id,authority) VALUES (3, 'ROLE_USER');
-INSERT INTO statistics (games_pvp,win_games_pvp,week_games_pvp,week_win_games_pvp,month_games_pvp,month_win_games_pvp,games_pve,win_games_pve,week_games_pve,week_win_games_pve,month_games_pve,month_win_games_pve)
-  VALUES (343,184,13,7,83,49,721,584,92,76,349,270);
-INSERT INTO accounts (account_details,age,nick,statistics_id) VALUES (3,22,'TestSecondPlayer',2);
+INSERT INTO statistics (rank,games_pvp,win_games_pvp,week_games_pvp,week_win_games_pvp,month_games_pvp,month_win_games_pvp,games_pve,win_games_pve,week_games_pve,week_win_games_pve,month_games_pve,month_win_games_pve)
+  VALUES (1830,343,184,13,7,83,49,721,584,92,76,349,270);
+INSERT INTO accounts (account_details,first_name,last_name,age,nick,gender,statistics_id) VALUES (3,null,null,null,'TestSecondPlayer',null,2);
 
 -- -- TEST GAMES PVE
 -- roszada

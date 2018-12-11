@@ -1,6 +1,7 @@
 package com.chess.spring.controllers.profile;
 
 import com.chess.spring.dto.AccountDTO;
+import com.chess.spring.dto.RegisterDTO;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.services.account.AccountService;
 import io.swagger.annotations.ApiOperation;
@@ -21,15 +22,6 @@ public class ProfileController {
         this.accountService = accountService;
     }
 
-    @ApiOperation(value = "Update profile avatar")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful update of profile avatar")})
-    @PostMapping(path = "/avatar")
-    public void updateAvatar(@RequestParam("file") MultipartFile file) {
-        System.out.println(file.getName());
-        System.out.println(file.getOriginalFilename());
-    }
-
     @GetMapping
     public AccountDTO getAccountProfile() throws ResourceNotFoundException {
         return this.accountService.getCurrentDTO();
@@ -37,7 +29,7 @@ public class ProfileController {
 
     //TODO-SECURITY
     @GetMapping(path = "/all")
-    public Page<AccountDTO> getAll(@RequestParam Pageable page){
+    public Page<AccountDTO> getAll(@RequestParam Pageable page) {
         return this.accountService.getAll(page);
     }
 
@@ -51,8 +43,21 @@ public class ProfileController {
         return this.accountService.getNickName(id);
     }
 
-    @PutMapping
-    public void update(@RequestBody AccountDTO accountDTO){
-        this.accountService.edit(accountDTO);
+    @PutMapping(path = "/info")
+    public void updateInfo(@RequestBody AccountDTO accountDTO) throws ResourceNotFoundException {
+        this.accountService.updateInfo(accountDTO);
+    }
+
+    @PutMapping(path = "/details")
+    public void updateDetails(@RequestBody RegisterDTO registerDTO) throws ResourceNotFoundException {
+        this.accountService.updateDetails(registerDTO);
+    }
+
+    @ApiOperation(value = "Update profile avatar")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful update of profile avatar")})
+    @PutMapping(path = "/avatar")
+    public void updateAvatar(@RequestParam("file") MultipartFile file) throws ResourceNotFoundException {
+        this.accountService.updateAvatar(file);
     }
 }

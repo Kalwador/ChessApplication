@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StatisticsDTO {
+    private Integer rank;
+
     private Integer gamesPvP;
     private Integer winGamesPvP;
     private Integer weekGamesPvP;
@@ -28,6 +30,7 @@ public class StatisticsDTO {
 
     public static StatisticsDTO map(Statistics statistics) {
         return StatisticsDTO.builder()
+                .rank(statistics.getRank())
                 .gamesPvP(statistics.getGamesPvE())
                 .winGamesPvP(statistics.getWinGamesPvE())
                 .weekGamesPvP(statistics.getMonthGamesPvE())

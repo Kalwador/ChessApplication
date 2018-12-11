@@ -1,6 +1,6 @@
 import {Component, Inject, Injectable} from "@angular/core";
 import {MAT_SNACK_BAR_DATA, MatSnackBar} from "@angular/material";
-import {NotificationType} from "../../models/notification/notification-type.enum";
+import {NotificationTypeEnum} from "../../models/notification/notification-type.enum";
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +17,7 @@ export class NotificationService {
             console.log('TRACE:' + message);
             // this.snackBar.openFromComponent(NotificationComponent, {
             //     duration: this.duration,
-            //     data: [NotificationType.TRACE, message]
+            //     data: [NotificationTypeEnum.TRACE, message]
             // });
         }
     }
@@ -28,7 +28,7 @@ export class NotificationService {
         }
         this.snackBar.openFromComponent(NotificationComponent, {
             duration: this.duration,
-            data: [NotificationType.INFO, message]
+            data: [NotificationTypeEnum.INFO, message]
         });
     }
 
@@ -38,7 +38,7 @@ export class NotificationService {
         }
         this.snackBar.openFromComponent(NotificationComponent, {
             duration: this.duration,
-            data: [NotificationType.WARNING, message]
+            data: [NotificationTypeEnum.WARNING, message]
         });
     }
 
@@ -48,7 +48,7 @@ export class NotificationService {
         }
         this.snackBar.openFromComponent(NotificationComponent, {
             duration: this.duration,
-            data: [NotificationType.DANGER, message]
+            data: [NotificationTypeEnum.DANGER, message]
         });
     }
 
@@ -64,6 +64,6 @@ export class NotificationService {
     styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent {
-    constructor(@Inject(MAT_SNACK_BAR_DATA) public data: NotificationType) {
+    constructor(@Inject(MAT_SNACK_BAR_DATA) public data: NotificationTypeEnum) {
     }
 }

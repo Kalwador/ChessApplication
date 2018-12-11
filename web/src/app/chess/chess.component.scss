@@ -1,9 +1,13 @@
+@import "~src/assets/colors";
+
 .nav {
     margin-bottom: 0px;
 }
 .chess {
     position: relative;
-    min-height: calc(100vh - 215px);
+    min-height: 82vh;
+    background-color: $color6 ;
+    color: $color0;
 }
 .footer {
     width: 100%;

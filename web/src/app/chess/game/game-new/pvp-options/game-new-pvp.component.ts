@@ -4,7 +4,7 @@ import {GameService} from "../../service/game.service";
 import {GamePvp} from "../../../../models/chess/game/game-pvp";
 import {TimeType} from "../../../../models/chess/time-type.enum";
 import {Subject} from "rxjs";
-import {SocketMessage} from "../../../../models/socket/socket-message.model";
+import {SocketMessageModel} from "../../../../models/socket/socket-message.model";
 
 @Component({
     selector: 'app-game-new-pvp',

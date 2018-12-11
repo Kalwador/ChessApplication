@@ -10,14 +10,15 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Changelog {
+public class Backlog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
     private String version;
 
     @Column(nullable = false, length = 5120)
-    private String changelog;
+    private String note;
 }

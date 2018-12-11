@@ -6,7 +6,7 @@ import {RestService} from './rest.service';
 import {Router} from '@angular/router';
 import {NotificationService} from "../chess/notifications/notification.service";
 import {AppInfoModel} from "../models/app-info/app-info.model";
-import {HttpMethodType} from "../models/http-method-type.enum";
+import {HttpMethodTypeEnum} from "../models/http-method-type.enum";
 import {BaseService} from "./base.service";
 import {OauthService} from "./oauth.service";
 
@@ -39,41 +39,32 @@ export class AppService {
 
     public get(path: string): Observable<any> {
         this.notificationService.trace('get path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodType.GET, path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.GET, path);
     }
 
     public post(path: string, body: any): Observable<any> {
         this.notificationService.trace('post path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodType.POST, path, body);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.POST, path, body);
     }
 
     public put(path: string, body: any): Observable<any> {
         this.notificationService.trace('put path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodType.PUT, path, body);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.PUT, path, body);
     }
 
     public delete(path: string): Observable<any> {
         this.notificationService.trace('delete path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodType.DELETE, path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.DELETE, path);
     }
 
-    public postFile(path: string, file: File): Observable<any> {
-        const formdata: FormData = new FormData();
-        // formdata.append('file', file);
-        // options: Options = {
-        //     reportProgress: true,
-        //     responseType: 'text',
-        //     headers: this.getHeaders()
-        // };
-        // return this.restService.post(path, formdata, options);
-        return null;
+    public putFile(path: string, file: File): any {
+        return this.baseService.putFile(path, file);
     }
 
     public logOut() {
         this.accountModel = null;
         this.baseService.logOut();
     }
-
 
     public mapJSON(response: Observable<any>) {
         return response.pipe(map(response => response.json()));

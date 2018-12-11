@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {AppService} from '../../../services/app.service';
 import {Observable} from 'rxjs';
 import {Field} from '../../../models/chess/field.model';
-import {Pawn} from '../../../models/pieces/pawn.model';
-import {Rook} from '../../../models/pieces/rook.model';
-import {Knight} from '../../../models/pieces/knight.model';
-import {Bishop} from '../../../models/pieces/bishop.model';
-import {Queen} from '../../../models/pieces/queen.model';
-import {King} from '../../../models/pieces/king.model';
+import {Pawn} from '../../../models/pieces/pawn';
+import {Rook} from '../../../models/pieces/rook';
+import {Knight} from '../../../models/pieces/knight';
+import {Bishop} from '../../../models/pieces/bishop';
+import {Queen} from '../../../models/pieces/queen';
+import {King} from '../../../models/pieces/king';
 import {Move} from '../../../models/chess/move';
 import {AccountModel} from '../../../models/profile/account.model';
-import {Page} from "../../../models/page.model";
+import {PageModel} from "../../../models/page.model";
 import {GameType} from "../../../models/chess/game/game-type.enum";
 import {NotificationService} from "../../notifications/notification.service";
 import {GamePvp} from "../../../models/chess/game/game-pvp";
@@ -91,12 +91,12 @@ export class GameService {
         return this.baseService.accountModel;
     }
 
-    public getPvPList(page: number, size: number): Observable<Page> {
+    public getPvPList(page: number, size: number): Observable<PageModel> {
         let paging = this.baseService.getPaging(page, size);
         return this.baseService.mapJSON(this.baseService.get(this.pathPvP + paging));
     }
 
-    public getPvEList(page: number, size: number): Observable<Page> {
+    public getPvEList(page: number, size: number): Observable<PageModel> {
         let paging = this.baseService.getPaging(page, size);
         return this.baseService.mapJSON(this.baseService.get(this.pathPvE + paging));
     }
