@@ -24,7 +24,7 @@ export class StatisticChartComponent implements OnInit {
             this.chartDatasets = [
                 {
                     data: [this.statistics.gamesPvE, this.statistics.monthGamesPvE, this.statistics.weekGamesPvE],
-                    label: 'Gry'
+                    label: 'Gry ogółem'
                 },
                 {
                     data: [this.statistics.winGamesPvE, this.statistics.monthWinGamesPvE, this.statistics.weekWinGamesPvE],
@@ -36,7 +36,7 @@ export class StatisticChartComponent implements OnInit {
             this.chartDatasets = [
                 {
                     data: [this.statistics.gamesPvP, this.statistics.monthGamesPvP, this.statistics.weekGamesPvP],
-                    label: 'Gry'
+                    label: 'Gry ogółem'
                 },
                 {
                     data: [this.statistics.winGamesPvP, this.statistics.monthWinGamesPvP, this.statistics.weekWinGamesPvP],

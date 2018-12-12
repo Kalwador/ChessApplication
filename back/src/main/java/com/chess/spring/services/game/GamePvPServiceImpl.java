@@ -5,7 +5,7 @@ import com.chess.spring.dto.ChatDTO;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvPDTO;
 import com.chess.spring.dto.game.SocketMessageDTO;
-import com.chess.spring.engine.classic.board.Board;
+import com.chess.spring.engine.board.Board;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.*;

@@ -1,13 +1,13 @@
 package com.chess.spring.engine.classic.player;
 
-import com.chess.spring.engine.classic.Alliance;
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.BoardUtils;
-import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.board.Move.KingSideCastleMove;
-import com.chess.spring.engine.classic.board.Move.QueenSideCastleMove;
-import com.chess.spring.engine.classic.pieces.Piece;
-import com.chess.spring.engine.classic.pieces.Rook;
+import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.Move.KingSideCastleMove;
+import com.chess.spring.engine.move.Move.QueenSideCastleMove;
+import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -76,13 +76,13 @@ public final class BlackPlayer extends Player {
     }
 
     @Override
-    public Alliance getAlliance() {
-        return Alliance.BLACK;
+    public PieceColor getAlliance() {
+        return PieceColor.BLACK;
     }
 
     @Override
     public String toString() {
-        return Alliance.BLACK.toString();
+        return PieceColor.BLACK.toString();
     }
 
 }

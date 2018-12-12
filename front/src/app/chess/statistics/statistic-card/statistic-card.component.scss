@@ -23,14 +23,19 @@ h5 {
 
 .tab-content {
   padding: 5%;
+  background-color: $color3;
+  border-left: 1px solid $color9;
+  border-right: 1px solid $color9;
+  border-bottom: 1px solid $color9;
 }
 
 li {
   background-color: $color5;
   text-align: center;
-  width: 33%;
+  width: 33.3%;
   border: 1px solid $color8;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 header {
@@ -42,5 +47,6 @@ header {
 }
 
 .active {
-  background-color: yellow;
+  background-color: $color3;
+  border-bottom: none;
 }

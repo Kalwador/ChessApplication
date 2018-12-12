@@ -1,9 +1,9 @@
 package com.chess.spring.services.game;
 
 import com.chess.spring.dto.MoveDTO;
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.board.MoveTransition;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.MoveTransition;
 import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.game.GameEndStatus;

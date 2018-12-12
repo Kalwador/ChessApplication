@@ -1,9 +1,9 @@
 package com.chess.spring.engine.classic.player.ai;
 
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.BoardUtils;
-import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.board.MoveTransition;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.MoveTransition;
 import com.chess.spring.engine.classic.player.Player;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Observable;
 
-import static com.chess.spring.engine.classic.board.BoardUtils.mvvlva;
+import static com.chess.spring.engine.board.BoardUtils.mvvlva;
 
 public class StockAlphaBeta extends Observable implements MoveStrategy {
 

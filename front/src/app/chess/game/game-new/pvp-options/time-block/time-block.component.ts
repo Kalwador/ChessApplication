@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TimeType} from "../../../../../models/chess/time-type.enum";
-import {SocketMessageModel} from "../../../../../models/socket/socket-message.model";
 import {Observable} from "rxjs";
 
 @Component({
@@ -28,8 +27,8 @@ export class TimeBlockComponent implements OnInit {
     }
 
     onClick(){
-        this.isActive = true;
-        this.emiter.emit(this.timeType);
+        // this.isActive = true;
+        // this.emiter.emit(this.timeType);
     }
 
     private getNameForTimeType(timeType: TimeType) {

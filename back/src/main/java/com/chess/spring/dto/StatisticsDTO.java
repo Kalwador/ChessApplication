@@ -27,22 +27,21 @@ public class StatisticsDTO {
     private Integer monthGamesPvE;
     private Integer monthWinGamesPvE;
 
-
     public static StatisticsDTO map(Statistics statistics) {
         return StatisticsDTO.builder()
                 .rank(statistics.getRank())
-                .gamesPvP(statistics.getGamesPvE())
-                .winGamesPvP(statistics.getWinGamesPvE())
-                .weekGamesPvP(statistics.getMonthGamesPvE())
-                .weekWinGamesPvP(statistics.getMonthWinGamesPvE())
-                .monthGamesPvP(statistics.getWeekGamesPvE())
-                .monthWinGamesPvP(statistics.getWeekWinGamesPvE())
-                .gamesPvE(statistics.getGamesPvP())
-                .winGamesPvE(statistics.getWinGamesPvP())
-                .weekGamesPvE(statistics.getMonthGamesPvP())
-                .weekWinGamesPvE(statistics.getMonthWinGamesPvP())
-                .monthGamesPvE(statistics.getWeekGamesPvP())
-                .monthWinGamesPvE(statistics.getWeekWinGamesPvP())
+                .gamesPvP(statistics.getGamesPvP())
+                .winGamesPvP(statistics.getWinGamesPvP())
+                .weekGamesPvP(statistics.getWeekGamesPvP())
+                .weekWinGamesPvP(statistics.getWeekWinGamesPvP())
+                .monthGamesPvP(statistics.getMonthGamesPvP())
+                .monthWinGamesPvP(statistics.getMonthWinGamesPvP())
+                .gamesPvE(statistics.getGamesPvE())
+                .winGamesPvE(statistics.getWinGamesPvE())
+                .weekGamesPvE(statistics.getWeekGamesPvE())
+                .weekWinGamesPvE(statistics.getWeekWinGamesPvE())
+                .monthGamesPvE(statistics.getMonthGamesPvE())
+                .monthWinGamesPvE(statistics.getMonthWinGamesPvE())
                 .build();
     }
 }

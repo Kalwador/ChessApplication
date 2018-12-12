@@ -1,12 +1,12 @@
 package com.chess.spring.engine.classic.player;
 
-import com.chess.spring.engine.classic.Alliance;
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.board.Move.MoveStatus;
-import com.chess.spring.engine.classic.board.MoveTransition;
-import com.chess.spring.engine.classic.pieces.King;
-import com.chess.spring.engine.classic.pieces.Piece;
+import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.Move.MoveStatus;
+import com.chess.spring.engine.move.MoveTransition;
+import com.chess.spring.engine.pieces.King;
+import com.chess.spring.engine.pieces.Piece;
 import com.google.common.collect.ImmutableList;
 
 import java.util.Collection;
@@ -95,7 +95,7 @@ public abstract class Player {
     }
 
     public abstract Collection<Piece> getActivePieces();
-    public abstract Alliance getAlliance();
+    public abstract PieceColor getAlliance();
     public abstract Player getOpponent();
     protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals,
                                                              Collection<Move> opponentLegals);

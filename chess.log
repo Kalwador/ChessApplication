@@ -8451,3 +8451,9 @@ INFO    2018-12-08 02:56:08,611 [main] com.chess.spring.configuration.MailingSys
 INFO    2018-12-08 03:51:52,869 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-11 19:23:41,107 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-11 21:35:30,407 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-12 08:28:00,569 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-12 08:49:10,727 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-12 08:50:03,714 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-12 08:53:46,868 [http-nio-8080-exec-6] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-12-12 08:53:49,707 [http-nio-8080-exec-1] com.chess.spring.services.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2018-12-12 08:56:59,574 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized

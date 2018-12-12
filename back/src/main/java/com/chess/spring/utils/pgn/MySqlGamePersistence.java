@@ -1,7 +1,7 @@
 package com.chess.spring.utils.pgn;
 
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.Move;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.classic.player.Player;
 
 import java.sql.*;

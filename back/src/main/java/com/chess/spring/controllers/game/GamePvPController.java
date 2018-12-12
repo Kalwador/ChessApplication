@@ -59,8 +59,8 @@ public class GamePvPController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Move execution success"),
-            @ApiResponse(code = 400, message = "Move is not acceptable"),
+            @ApiResponse(code = 200, message = "MoveImplementation execution success"),
+            @ApiResponse(code = 400, message = "MoveImplementation is not acceptable"),
             @ApiResponse(code = 404, message = "Game not found, wrong id"),
             @ApiResponse(code = 409, message = "Error during creation of game, wrong status"),
             @ApiResponse(code = 412, message = "You are not player in this game"),

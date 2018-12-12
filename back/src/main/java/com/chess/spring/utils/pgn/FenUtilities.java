@@ -1,9 +1,9 @@
 package com.chess.spring.utils.pgn;
 
-import com.chess.spring.engine.classic.Alliance;
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.BoardUtils;
-import com.chess.spring.engine.classic.pieces.*;
+import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.pieces.*;
 
 public class FenUtilities {
 
@@ -45,52 +45,52 @@ public class FenUtilities {
         while (i < boardTiles.length) {
             switch (boardTiles[i]) {
                 case 'r':
-                    builder.setPiece(new Rook(Alliance.BLACK, i));
+                    builder.setPiece(new Rook(PieceColor.BLACK, i));
                     i++;
                     break;
                 case 'n':
-                    builder.setPiece(new Knight(Alliance.BLACK, i));
+                    builder.setPiece(new Knight(PieceColor.BLACK, i));
                     i++;
                     break;
                 case 'b':
-                    builder.setPiece(new Bishop(Alliance.BLACK, i));
+                    builder.setPiece(new Bishop(PieceColor.BLACK, i));
                     i++;
                     break;
                 case 'q':
-                    builder.setPiece(new Queen(Alliance.BLACK, i));
+                    builder.setPiece(new Queen(PieceColor.BLACK, i));
                     i++;
                     break;
                 case 'k':
                     final boolean isCastled = !blackKingSideCastle && !blackQueenSideCastle;
-                    builder.setPiece(new King(Alliance.BLACK, i, blackKingSideCastle, blackQueenSideCastle));
+                    builder.setPiece(new King(PieceColor.BLACK, i, blackKingSideCastle, blackQueenSideCastle));
                     i++;
                     break;
                 case 'p':
-                    builder.setPiece(new Pawn(Alliance.BLACK, i));
+                    builder.setPiece(new Pawn(PieceColor.BLACK, i));
                     i++;
                     break;
                 case 'R':
-                    builder.setPiece(new Rook(Alliance.WHITE, i));
+                    builder.setPiece(new Rook(PieceColor.WHITE, i));
                     i++;
                     break;
                 case 'N':
-                    builder.setPiece(new Knight(Alliance.WHITE, i));
+                    builder.setPiece(new Knight(PieceColor.WHITE, i));
                     i++;
                     break;
                 case 'B':
-                    builder.setPiece(new Bishop(Alliance.WHITE, i));
+                    builder.setPiece(new Bishop(PieceColor.WHITE, i));
                     i++;
                     break;
                 case 'Q':
-                    builder.setPiece(new Queen(Alliance.WHITE, i));
+                    builder.setPiece(new Queen(PieceColor.WHITE, i));
                     i++;
                     break;
                 case 'K':
-                    builder.setPiece(new King(Alliance.WHITE, i, whiteKingSideCastle, whiteQueenSideCastle));
+                    builder.setPiece(new King(PieceColor.WHITE, i, whiteKingSideCastle, whiteQueenSideCastle));
                     i++;
                     break;
                 case 'P':
-                    builder.setPiece(new Pawn(Alliance.WHITE, i));
+                    builder.setPiece(new Pawn(PieceColor.WHITE, i));
                     i++;
                     break;
                 case '-':
@@ -104,11 +104,11 @@ public class FenUtilities {
         return builder.build();
     }
 
-    private static Alliance moveMaker(final String moveMakerString) {
+    private static PieceColor moveMaker(final String moveMakerString) {
         if(moveMakerString.equals("w")) {
-            return Alliance.WHITE;
+            return PieceColor.WHITE;
         } else if(moveMakerString.equals("b")) {
-            return Alliance.BLACK;
+            return PieceColor.BLACK;
         }
         throw new RuntimeException("Invalid FEN String " +moveMakerString);
     }

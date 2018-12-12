@@ -36,24 +36,24 @@ export class StatisticCardComponent implements OnInit {
     changeTab(type: GameType) {
         this.activeTab = type;
 
-        this.nav1.classList.remove('active');
-        this.nav2.classList.remove('active');
-        this.nav3.classList.remove('active');
+        // this.nav1.classList.remove('active');
+        // this.nav2.classList.remove('active');
+        // this.nav3.classList.remove('active');
 
         switch (type) {
             case GameType.NONE: {
                 this.title = '- podsumowanie';
-                this.nav1.classList.add('active');
+                // this.nav1.classList.add('active');
                 break;
             }
             case GameType.PVP: {
                 this.title = 'przeciwko innym graczom';
-                this.nav2.classList.add('active');
+                // this.nav2.classList.add('active');
                 break;
             }
             case GameType.PVE: {
                 this.title = 'przeciwko komputerowi';
-                this.nav3.classList.add('active');
+                // this.nav3.classList.add('active');
                 break;
             }
         }

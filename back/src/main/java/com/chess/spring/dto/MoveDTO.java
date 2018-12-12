@@ -1,6 +1,6 @@
 package com.chess.spring.dto;
 
-import com.chess.spring.engine.classic.board.Move;
+import com.chess.spring.engine.move.Move;
 import com.chess.spring.models.game.GamePvEStatus;
 import com.chess.spring.models.game.GamePvPStatus;
 import com.fasterxml.jackson.annotation.*;

@@ -89,6 +89,7 @@ export class StatisticMiniChartComponent implements OnInit {
             labels: {
                 fontSize: 15,
                 fontColor: 'white',
+                textAlign: 'center'
             }
         }
     };

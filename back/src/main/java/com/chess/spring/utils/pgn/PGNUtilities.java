@@ -1,8 +1,8 @@
 package com.chess.spring.utils.pgn;
 
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.BoardUtils;
-import com.chess.spring.engine.classic.board.Move;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.move.Move;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 
@@ -77,7 +77,7 @@ public class PGNUtilities {
 //        builder.append(calculateEventString()).append("\n");
 //        builder.append(calculateDateString()).append("\n");
 //        builder.append(calculatePlyCountString(moveLog)).append("\n");
-//        for(final Move move : moveLog.getMoves()) {
+//        for(final MoveImplementation move : moveLog.getMoves()) {
 //            builder.append(move.toString()).append(" ");
 //        }
 //        try (final Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pgnFile, true)))) {

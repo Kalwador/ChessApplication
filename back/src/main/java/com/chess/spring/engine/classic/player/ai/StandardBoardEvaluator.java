@@ -1,8 +1,8 @@
 package com.chess.spring.engine.classic.player.ai;
 
-import com.chess.spring.engine.classic.board.Board;
-import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.pieces.Piece;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.pieces.Piece;
 import com.chess.spring.engine.classic.player.Player;
 import com.chess.spring.engine.classic.player.ai.KingSafetyAnalyzer.KingDistance;
 import com.google.common.annotations.VisibleForTesting;

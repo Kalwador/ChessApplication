@@ -1,8 +1,8 @@
 package com.chess.spring.engine.classic.player.ai;
 
-import com.chess.spring.engine.classic.board.BoardUtils;
-import com.chess.spring.engine.classic.board.Move;
-import com.chess.spring.engine.classic.pieces.Piece;
+import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.pieces.Piece;
 import com.chess.spring.engine.classic.player.Player;
 import com.google.common.collect.ImmutableList;
 
@@ -124,10 +124,6 @@ public final class KingSafetyAnalyzer {
 
         public int getDistance() {
             return distance;
-        }
-
-        public int tropismScore() {
-            return (enemyPiece.getPieceValue()/10) * distance;
         }
 
     }
