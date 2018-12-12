@@ -1,0 +1,19 @@
+@import "~src/assets/colors";
+
+.mini-panel {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  background-color: $color3;
+}
+
+
+.chart {
+  background-color: $color3;
+  float: left;
+  width: 50%;
+  height: auto;
+}
+
+.section {
+  margin-top: 5%;
+}

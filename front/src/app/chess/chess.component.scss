@@ -1,0 +1,18 @@
+@import "~src/assets/colors";
+
+.nav {
+    margin-bottom: 0px;
+}
+.chess {
+    //position: relative;
+    //min-height: 82vh;
+    background-color: $color6 ;
+    color: $color0;
+    min-height: 100%;
+}
+.footer {
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    //margin-bottom: 0px;
+}

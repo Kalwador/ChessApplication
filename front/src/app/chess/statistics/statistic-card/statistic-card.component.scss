@@ -1,0 +1,46 @@
+@import "~src/assets/colors";
+
+h3 {
+  margin-bottom: 3%;
+}
+
+h5 {
+  text-align: center;
+}
+
+.container {
+  color: $color0;
+}
+
+.rank {
+  font-size: 22px;
+  color: #d0a8a4;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.tab-content {
+  padding: 5%;
+}
+
+li {
+  background-color: $color5;
+  text-align: center;
+  width: 33%;
+  border: 1px solid $color8;
+  border-radius: 10px;
+}
+
+header {
+  text-align: center;
+}
+
+.header {
+  //border: 1px solid $color7;
+}
+
+.active {
+  background-color: yellow;
+}
