@@ -8463,3 +8463,5 @@ INFO    2018-12-12 10:08:47,349 [http-nio-8080-exec-8] com.chess.spring.services
 INFO    2018-12-12 10:28:12,172 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-12 12:04:27,765 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-12 12:12:52,275 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-12 12:29:04,221 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-12 12:39:52,887 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized

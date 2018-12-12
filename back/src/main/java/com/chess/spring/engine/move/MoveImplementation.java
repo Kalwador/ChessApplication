@@ -1,7 +1,7 @@
 package com.chess.spring.engine.move;
 
 import com.chess.spring.engine.board.BitBoard;
-import com.chess.spring.engine.pieces.PieceType;
+import com.chess.spring.models.pieces.PieceType;
 
 public class MoveImplementation {
 

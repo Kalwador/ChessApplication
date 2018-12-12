@@ -2,7 +2,7 @@ package com.chess.spring.engine.classic.player.ai;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
-import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.models.pieces.Piece;
 import com.chess.spring.engine.classic.player.Player;
 import com.chess.spring.engine.classic.player.ai.KingSafetyAnalyzer.KingDistance;
 import com.google.common.annotations.VisibleForTesting;
@@ -28,7 +28,7 @@ public final class StandardBoardEvaluator
     @Override
     public int evaluate(final Board board,
                         final int depth) {
-        return score(board.whitePlayer(), depth) - score(board.blackPlayer(), depth);
+        return score(board.getWhitePlayer(), depth) - score(board.getBlackPlayer(), depth);
     }
 
     @VisibleForTesting

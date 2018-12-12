@@ -5,8 +5,8 @@ import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.Move.MoveStatus;
 import com.chess.spring.engine.move.MoveTransition;
-import com.chess.spring.engine.pieces.King;
-import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.models.pieces.King;
+import com.chess.spring.models.pieces.Piece;
 import com.google.common.collect.ImmutableList;
 
 import java.util.Collection;
@@ -82,8 +82,8 @@ public abstract class Player {
         }
         final Board transitionedBoard = move.execute();
         final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(
-                transitionedBoard.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
-                transitionedBoard.currentPlayer().getLegalMoves());
+                transitionedBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
+                transitionedBoard.getCurrentPlayer().getLegalMoves());
         if (!kingAttacks.isEmpty()) {
             return new MoveTransition(this.board, this.board, move, MoveStatus.LEAVES_PLAYER_IN_CHECK);
         }

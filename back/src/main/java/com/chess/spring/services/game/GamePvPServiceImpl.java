@@ -124,7 +124,7 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
             game.setStatus(status);
             message.setType(SocketMessageType.MOVE);
             message.getMoveDTO().setStatusPvP(status);
-            message.getMoveDTO().setInCheck(boardAfterPlayerMove.currentPlayer().isInCheck());
+            message.getMoveDTO().setInCheck(boardAfterPlayerMove.getCurrentPlayer().isInCheck());
             message.getMoveDTO().setType(map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
         }
 

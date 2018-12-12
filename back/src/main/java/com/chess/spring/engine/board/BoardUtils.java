@@ -2,8 +2,8 @@ package com.chess.spring.engine.board;
 
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.MoveTransition;
-import com.chess.spring.engine.pieces.King;
-import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.models.pieces.King;
+import com.chess.spring.models.pieces.Piece;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -97,13 +97,13 @@ public enum  BoardUtils {
     }
 
     public static boolean isThreatenedBoardImmediate(final Board board) {
-        return board.whitePlayer().isInCheck() || board.blackPlayer().isInCheck();
+        return board.getWhitePlayer().isInCheck() || board.getBlackPlayer().isInCheck();
     }
 
     public static boolean kingThreat(final Move move) {
         final Board board = move.getBoard();
-        final MoveTransition transition = board.currentPlayer().makeMove(move);
-        return transition.getToBoard().currentPlayer().isInCheck();
+        final MoveTransition transition = board.getCurrentPlayer().makeMove(move);
+        return transition.getToBoard().getCurrentPlayer().isInCheck();
     }
 
     public static boolean isKingPawnTrap(final Board board,
@@ -136,7 +136,7 @@ public enum  BoardUtils {
     }
 
     public static boolean isEndGame(final Board board) {
-        return board.currentPlayer().isInCheckMate() ||
-               board.currentPlayer().isInStaleMate();
+        return board.getCurrentPlayer().isInCheckMate() ||
+               board.getCurrentPlayer().isInStaleMate();
     }
 }

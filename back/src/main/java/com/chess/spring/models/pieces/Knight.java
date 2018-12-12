@@ -1,4 +1,4 @@
-package com.chess.spring.engine.pieces;
+package com.chess.spring.models.pieces;
 
 import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.board.Board;

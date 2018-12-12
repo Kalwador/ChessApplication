@@ -1,6 +1,6 @@
 package com.chess.spring.engine.classic.player.ai;
 
-import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.models.pieces.Piece;
 import com.chess.spring.engine.classic.player.Player;
 import com.google.common.collect.ImmutableList;
 

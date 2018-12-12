@@ -1,9 +1,10 @@
 package com.chess.spring.utils.pgn;
 
+import com.chess.spring.engine.board.BoardBuilder;
 import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.pieces.*;
+import com.chess.spring.models.pieces.*;
 
 public class FenUtilities {
 
@@ -25,7 +26,7 @@ public class FenUtilities {
 
     private static Board parseFEN(final String fenString) {
         final String[] fenPartitions = fenString.trim().split(" ");
-        final Board.Builder builder = new Board.Builder();
+        final BoardBuilder builder = new BoardBuilder();
         final boolean whiteKingSideCastle = whiteKingSideCastle(fenPartitions[2]);
         final boolean whiteQueenSideCastle = whiteQueenSideCastle(fenPartitions[2]);
         final boolean blackKingSideCastle = blackKingSideCastle(fenPartitions[2]);
@@ -131,16 +132,16 @@ public class FenUtilities {
 
     private static String calculateCastleText(final Board board) {
         final StringBuilder builder = new StringBuilder();
-        if(board.whitePlayer().isKingSideCastleCapable()) {
+        if(board.getWhitePlayer().isKingSideCastleCapable()) {
             builder.append("K");
         }
-        if(board.whitePlayer().isQueenSideCastleCapable()) {
+        if(board.getWhitePlayer().isQueenSideCastleCapable()) {
             builder.append("Q");
         }
-        if(board.blackPlayer().isKingSideCastleCapable()) {
+        if(board.getBlackPlayer().isKingSideCastleCapable()) {
             builder.append("k");
         }
-        if(board.blackPlayer().isQueenSideCastleCapable()) {
+        if(board.getBlackPlayer().isQueenSideCastleCapable()) {
             builder.append("q");
         }
         final String result = builder.toString();
@@ -184,7 +185,7 @@ public class FenUtilities {
     }
 
     private static String calculateCurrentPlayerText(final Board board) {
-        return board.currentPlayer().toString().substring(0, 1).toLowerCase();
+        return board.getCurrentPlayer().toString().substring(0, 1).toLowerCase();
     }
 
 }

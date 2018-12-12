@@ -1,7 +1,7 @@
 package com.chess.spring.engine.board;
 
 import com.chess.spring.engine.move.MoveImplementation;
-import com.chess.spring.engine.pieces.PieceType;
+import com.chess.spring.models.pieces.PieceType;
 
 import java.util.*;
 

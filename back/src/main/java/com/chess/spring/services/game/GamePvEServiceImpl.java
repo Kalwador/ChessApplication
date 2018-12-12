@@ -123,7 +123,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
                 return MoveDTO.builder()
                         .source(move.getCurrentCoordinate())
                         .destination(move.getDestinationCoordinate())
-                        .isInCheck(boardAfterComputerResponse.currentPlayer().isInCheck())
+                        .isInCheck(boardAfterComputerResponse.getCurrentPlayer().isInCheck())
                         .type(move.getClass().getSimpleName())
                         .statusPve(GamePvEStatus.PLAYER_MOVE)
                         .build();

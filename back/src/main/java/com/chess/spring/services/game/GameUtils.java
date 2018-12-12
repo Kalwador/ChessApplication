@@ -38,7 +38,7 @@ public abstract class GameUtils {
     }
 
     Board executeMove(Board board, Move move) throws InvalidDataException {
-        final MoveTransition transition = board.currentPlayer().makeMove(move);
+        final MoveTransition transition = board.getCurrentPlayer().makeMove(move);
         if (transition.getMoveStatus().isDone()) {
             board = transition.getToBoard();
 //            moveLog.addMove(move);
@@ -49,10 +49,10 @@ public abstract class GameUtils {
     }
 
     GameEndStatus checkEndOfGame(Board board) {
-        if (board.currentPlayer().isInCheckMate()) {
+        if (board.getCurrentPlayer().isInCheckMate()) {
             return GameEndStatus.CHECKMATE;
         }
-        if (board.currentPlayer().isInStaleMate()) {
+        if (board.getCurrentPlayer().isInStaleMate()) {
             return GameEndStatus.STALE_MATE;
         }
         return null;

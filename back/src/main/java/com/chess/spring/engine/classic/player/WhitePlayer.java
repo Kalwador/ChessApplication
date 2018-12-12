@@ -6,8 +6,8 @@ import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.Move.KingSideCastleMove;
 import com.chess.spring.engine.move.Move.QueenSideCastleMove;
-import com.chess.spring.engine.pieces.Piece;
-import com.chess.spring.engine.pieces.Rook;
+import com.chess.spring.models.pieces.Piece;
+import com.chess.spring.models.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public final class WhitePlayer extends Player {
 
     @Override
     public BlackPlayer getOpponent() {
-        return this.board.blackPlayer();
+        return this.board.getBlackPlayer();
     }
 
     @Override

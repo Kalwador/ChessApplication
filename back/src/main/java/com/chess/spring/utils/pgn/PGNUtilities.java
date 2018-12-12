@@ -228,7 +228,7 @@ public class PGNUtilities {
 
     private static Move extractCastleMove(final Board board,
                                           final String castleMove) {
-        for (final Move move : board.currentPlayer().getLegalMoves()) {
+        for (final Move move : board.getCurrentPlayer().getLegalMoves()) {
             if (move.isCastlingMove() && move.toString().equals(castleMove)) {
                 return move;
             }
@@ -242,7 +242,7 @@ public class PGNUtilities {
                                                final String disambiguationFile) throws RuntimeException {
         final List<Move> currentCandidates = new ArrayList<>();
         final int destinationCoordinate =  BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
-        for (final Move move : board.currentPlayer().getLegalMoves()) {
+        for (final Move move : board.getCurrentPlayer().getLegalMoves()) {
             if (move.getDestinationCoordinate() == destinationCoordinate && move.getMovedPiece().toString().equals(movedPiece)) {
                 currentCandidates.add(move);
             }
