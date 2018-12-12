@@ -1,9 +1,9 @@
 package com.chess.spring.engine.classic;
 
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.classic.player.BlackPlayer;
+import com.chess.spring.engine.classic.player.BlackPlayerImpl;
 import com.chess.spring.engine.classic.player.Player;
-import com.chess.spring.engine.classic.player.WhitePlayer;
+import com.chess.spring.engine.classic.player.WhitePlayerImpl;
 
 public enum PieceColor {
 
@@ -35,9 +35,9 @@ public enum PieceColor {
         }
 
         @Override
-        public Player choosePlayerByAlliance(final WhitePlayer whitePlayer,
-                                             final BlackPlayer blackPlayer) {
-            return whitePlayer;
+        public Player choosePlayerByAlliance(final WhitePlayerImpl whitePlayerImpl,
+                                             final BlackPlayerImpl blackPlayerImpl) {
+            return whitePlayerImpl;
         }
 
         @Override
@@ -104,9 +104,9 @@ public enum PieceColor {
         }
 
         @Override
-        public Player choosePlayerByAlliance(final WhitePlayer whitePlayer,
-                                             final BlackPlayer blackPlayer) {
-            return blackPlayer;
+        public Player choosePlayerByAlliance(final WhitePlayerImpl whitePlayerImpl,
+                                             final BlackPlayerImpl blackPlayerImpl) {
+            return blackPlayerImpl;
         }
 
         @Override
@@ -167,7 +167,7 @@ public enum PieceColor {
 
     public abstract boolean isPawnPromotionSquare(int position);
 
-    public abstract Player choosePlayerByAlliance(final WhitePlayer whitePlayer, final BlackPlayer blackPlayer);
+    public abstract Player choosePlayerByAlliance(final WhitePlayerImpl whitePlayerImpl, final BlackPlayerImpl blackPlayerImpl);
 
     private final static int[] WHITE_PAWN_PREFERRED_COORDINATES = {
             0,  0,  0,  0,  0,  0,  0,  0,

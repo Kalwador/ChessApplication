@@ -1,4 +1,4 @@
-package com.chess.spring.engine.classic.player.ai;
+package com.chess.spring.engine.ai;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
@@ -90,14 +90,14 @@ public class StockAlphaBeta extends Observable implements MoveStrategy {
                 if (getCurrentPlayer.getAlliance().isWhite() && currentValue > highestSeenValue) {
                     highestSeenValue = currentValue;
                     bestMove = move;
-                    if(moveTransition.getToBoard().getBlackPlayer().isInCheckMate()) {
+                    if(moveTransition.getToBoard().getBlackPlayerImpl().isInCheckMate()) {
                         break;
                     }
                 }
                 else if (getCurrentPlayer.getAlliance().isBlack() && currentValue < lowestSeenValue) {
                     lowestSeenValue = currentValue;
                     bestMove = move;
-                    if(moveTransition.getToBoard().getWhitePlayer().isInCheckMate()) {
+                    if(moveTransition.getToBoard().getWhitePlayerImpl().isInCheckMate()) {
                         break;
                     }
                 }

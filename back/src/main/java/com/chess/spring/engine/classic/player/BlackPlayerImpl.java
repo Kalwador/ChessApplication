@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public final class BlackPlayer extends Player {
+public final class BlackPlayerImpl extends Player {
 
-    public BlackPlayer(final Board board,
-                       final Collection<Move> whiteStandardLegals,
-                       final Collection<Move> blackStandardLegals) {
+    public BlackPlayerImpl(final Board board,
+                           final Collection<Move> whiteStandardLegals,
+                           final Collection<Move> blackStandardLegals) {
         super(board, blackStandardLegals, whiteStandardLegals);
     }
 
@@ -66,8 +66,8 @@ public final class BlackPlayer extends Player {
     }
 
     @Override
-    public WhitePlayer getOpponent() {
-        return this.board.getWhitePlayer();
+    public WhitePlayerImpl getOpponent() {
+        return this.board.getWhitePlayerImpl();
     }
 
     @Override

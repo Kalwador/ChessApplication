@@ -36,8 +36,8 @@ public class GameService {
         List<Predicate> predicates = new ArrayList<>();
 
         predicates.add(criteriaBuilder.equal(rootPvP.get("status"), GamePvPStatus.ROOM));
-        Predicate emptySeat = criteriaBuilder.and(criteriaBuilder.isNull(rootPvP.get("whitePlayer")), criteriaBuilder.notEqual(rootPvP.get("blackPlayer"), account));
-        Predicate notInGame = criteriaBuilder.and(criteriaBuilder.isNull(rootPvP.get("blackPlayer")), criteriaBuilder.notEqual(rootPvP.get("whitePlayer"), account));
+        Predicate emptySeat = criteriaBuilder.and(criteriaBuilder.isNull(rootPvP.get("whitePlayerImpl")), criteriaBuilder.notEqual(rootPvP.get("blackPlayerImpl"), account));
+        Predicate notInGame = criteriaBuilder.and(criteriaBuilder.isNull(rootPvP.get("blackPlayerImpl")), criteriaBuilder.notEqual(rootPvP.get("whitePlayerImpl"), account));
         Predicate join = criteriaBuilder.or(emptySeat, notInGame);
         predicates.add(join);
 
@@ -53,7 +53,7 @@ public class GameService {
         List<Predicate> predicates = new ArrayList<>();
 
         Predicate status = rootPvP.get("status").in(statuses);
-        Predicate player = criteriaBuilder.or(criteriaBuilder.equal(rootPvP.get("whitePlayer"), current), criteriaBuilder.equal(rootPvP.get("blackPlayer"), current));
+        Predicate player = criteriaBuilder.or(criteriaBuilder.equal(rootPvP.get("whitePlayerImpl"), current), criteriaBuilder.equal(rootPvP.get("blackPlayerImpl"), current));
         Predicate join = criteriaBuilder.and(status, player);
         predicates.add(join);
 

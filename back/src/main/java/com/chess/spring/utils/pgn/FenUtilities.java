@@ -132,16 +132,16 @@ public class FenUtilities {
 
     private static String calculateCastleText(final Board board) {
         final StringBuilder builder = new StringBuilder();
-        if(board.getWhitePlayer().isKingSideCastleCapable()) {
+        if(board.getWhitePlayerImpl().isKingSideCastleCapable()) {
             builder.append("K");
         }
-        if(board.getWhitePlayer().isQueenSideCastleCapable()) {
+        if(board.getWhitePlayerImpl().isQueenSideCastleCapable()) {
             builder.append("Q");
         }
-        if(board.getBlackPlayer().isKingSideCastleCapable()) {
+        if(board.getBlackPlayerImpl().isKingSideCastleCapable()) {
             builder.append("k");
         }
-        if(board.getBlackPlayer().isQueenSideCastleCapable()) {
+        if(board.getBlackPlayerImpl().isQueenSideCastleCapable()) {
             builder.append("q");
         }
         final String result = builder.toString();

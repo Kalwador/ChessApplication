@@ -1,4 +1,4 @@
-package com.chess.spring.engine.classic.player.ai;
+package com.chess.spring.engine.ai;
 
 import com.chess.spring.engine.board.Board;
 

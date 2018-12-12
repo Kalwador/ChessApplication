@@ -1,12 +1,12 @@
 package com.chess.spring.engine.board;
 
 import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.classic.player.BlackPlayerImpl;
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.Move.MoveFactory;
 import com.chess.spring.models.pieces.*;
-import com.chess.spring.engine.classic.player.BlackPlayer;
 import com.chess.spring.engine.classic.player.Player;
-import com.chess.spring.engine.classic.player.WhitePlayer;
+import com.chess.spring.engine.classic.player.WhitePlayerImpl;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import lombok.Data;
@@ -21,8 +21,8 @@ public class Board {
     private Map<Integer, Piece> boardConfig;
     private Collection<Piece> whitePieces;
     private Collection<Piece> blackPieces;
-    private WhitePlayer whitePlayer;
-    private BlackPlayer blackPlayer;
+    private WhitePlayerImpl whitePlayerImpl;
+    private BlackPlayerImpl blackPlayerImpl;
     private Player currentPlayer;
     private Pawn enPassantPawn;
     private Move transitionMove;
@@ -36,9 +36,9 @@ public class Board {
         this.enPassantPawn = boardBuilder.enPassantPawn;
         Collection<Move> whiteStandardMoves = calculateLegalMoves(this.whitePieces);
         Collection<Move> blackStandardMoves = calculateLegalMoves(this.blackPieces);
-        this.whitePlayer = new WhitePlayer(this, whiteStandardMoves, blackStandardMoves);
-        this.blackPlayer = new BlackPlayer(this, whiteStandardMoves, blackStandardMoves);
-        this.currentPlayer = boardBuilder.nextMoveMaker.choosePlayerByAlliance(this.whitePlayer, this.blackPlayer);
+        this.whitePlayerImpl = new WhitePlayerImpl(this, whiteStandardMoves, blackStandardMoves);
+        this.blackPlayerImpl = new BlackPlayerImpl(this, whiteStandardMoves, blackStandardMoves);
+        this.currentPlayer = boardBuilder.nextMoveMaker.choosePlayerByAlliance(this.whitePlayerImpl, this.blackPlayerImpl);
         this.transitionMove = boardBuilder.transitionMove != null ? boardBuilder.transitionMove : MoveFactory.getNullMove();
     }
 
@@ -68,8 +68,8 @@ public class Board {
     }
 
     public Iterable<Move> getAllLegalMoves() {
-        return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayer.getLegalMoves(),
-                this.blackPlayer.getLegalMoves()));
+        return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayerImpl.getLegalMoves(),
+                this.blackPlayerImpl.getLegalMoves()));
     }
 
     public Piece getPiece(int coordinate) {

@@ -97,7 +97,7 @@ public enum  BoardUtils {
     }
 
     public static boolean isThreatenedBoardImmediate(final Board board) {
-        return board.getWhitePlayer().isInCheck() || board.getBlackPlayer().isInCheck();
+        return board.getWhitePlayerImpl().isInCheck() || board.getBlackPlayerImpl().isInCheck();
     }
 
     public static boolean kingThreat(final Move move) {
