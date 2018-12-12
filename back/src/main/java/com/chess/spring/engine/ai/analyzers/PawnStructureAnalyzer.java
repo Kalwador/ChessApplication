@@ -1,19 +1,19 @@
-package com.chess.spring.engine.classic.player.ai;
+package com.chess.spring.engine.ai.analyzers;
 
 import com.chess.spring.engine.pieces.Piece;
-import com.chess.spring.engine.classic.player.Player;
+import com.chess.spring.engine.player.Player;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public final class PawnStructureAnalyzer {
+public  class PawnStructureAnalyzer {
 
-    private static final PawnStructureAnalyzer INSTANCE = new PawnStructureAnalyzer();
+    private static  PawnStructureAnalyzer INSTANCE = new PawnStructureAnalyzer();
 
-    public static final int ISOLATED_PAWN_PENALTY = -25;
-    public static final int DOUBLED_PAWN_PENALTY = -25;
+    public static  int ISOLATED_PAWN_PENALTY = -25;
+    public static  int DOUBLED_PAWN_PENALTY = -25;
 
     private PawnStructureAnalyzer() {
     }
@@ -22,22 +22,14 @@ public final class PawnStructureAnalyzer {
         return INSTANCE;
     }
 
-    public int isolatedPawnPenalty(final Player player) {
-        return calculateIsolatedPawnPenalty(createPawnColumnTable(calculatePlayerPawns(player)));
-    }
-
-    public int doubledPawnPenalty(final Player player) {
-        return calculatePawnColumnStack(createPawnColumnTable(calculatePlayerPawns(player)));
-    }
-
-    public int pawnStructureScore(final Player player) {
-        final int[] pawnsOnColumnTable = createPawnColumnTable(calculatePlayerPawns(player));
+    public int pawnStructureScore( Player player) {
+         int[] pawnsOnColumnTable = createPawnColumnTable(calculatePlayerPawns(player));
         return calculatePawnColumnStack(pawnsOnColumnTable) + calculateIsolatedPawnPenalty(pawnsOnColumnTable);
     }
 
-    private static Collection<Piece> calculatePlayerPawns(final Player player) {
-        final List<Piece> playerPawnLocations = new ArrayList<>(8);
-        for(final Piece piece : player.getActivePieces()) {
+    private static Collection<Piece> calculatePlayerPawns( Player player) {
+         List<Piece> playerPawnLocations = new ArrayList<>(8);
+        for( Piece piece : player.getActivePieces()) {
             if(piece.getPieceType().isPawn()) {
                 playerPawnLocations.add(piece);
             }
@@ -45,9 +37,9 @@ public final class PawnStructureAnalyzer {
         return ImmutableList.copyOf(playerPawnLocations);
     }
 
-    private static int calculatePawnColumnStack(final int[] pawnsOnColumnTable) {
+    private static int calculatePawnColumnStack( int[] pawnsOnColumnTable) {
         int pawnStackPenalty = 0;
-        for(final int pawnStack : pawnsOnColumnTable) {
+        for( int pawnStack : pawnsOnColumnTable) {
             if(pawnStack > 1) {
                 pawnStackPenalty += pawnStack;
             }
@@ -55,7 +47,7 @@ public final class PawnStructureAnalyzer {
         return pawnStackPenalty * DOUBLED_PAWN_PENALTY;
     }
 
-    private static int calculateIsolatedPawnPenalty(final int[] pawnsOnColumnTable) {
+    private static int calculateIsolatedPawnPenalty( int[] pawnsOnColumnTable) {
         int numIsolatedPawns = 0;
         if(pawnsOnColumnTable[0] > 0 && pawnsOnColumnTable[1] == 0) {
             numIsolatedPawns += pawnsOnColumnTable[0];
@@ -71,9 +63,9 @@ public final class PawnStructureAnalyzer {
         return numIsolatedPawns * ISOLATED_PAWN_PENALTY;
     }
 
-    private static int[] createPawnColumnTable(final Collection<Piece> playerPawns) {
-        final int[] table = new int[8];
-        for(final Piece playerPawn : playerPawns) {
+    private static int[] createPawnColumnTable( Collection<Piece> playerPawns) {
+         int[] table = new int[8];
+        for( Piece playerPawn : playerPawns) {
             table[playerPawn.getPiecePosition() % 8]++;
         }
         return table;

@@ -1,7 +1,7 @@
 <div>
     <h3>Gra z przeciwnikiem</h3>
-
     <section class="time-blocks">
+        <h5>Ilość czasu na ruch:</h5>
         <div *ngFor="let timeBlock of timeBlocks">
             <app-time-block class="time-block"
                             [timeType]="timeBlock"
@@ -15,6 +15,6 @@
 
     <hr/>
     <div class="submit">
-        <button mat-fab (click)="submit()">Znajdź grę</button>
+        <button mat-button color="accent" class="button button-continue" (click)="submit()">Znajdź grę</button>
     </div>
 </div>

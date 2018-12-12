@@ -22,7 +22,7 @@ spring:
     username: admin
     password:
     driver-class-name: org.h2.Driver
-    data: classpath:/sql/data.sql
+#    data: classpath:/sql/data.sql
   jpa:
     hibernate:
       ddl-auto: create-drop

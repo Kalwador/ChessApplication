@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div *ngIf="!(isPlayerPlaying && isGameContinued)" class="board-{{size}}">
+<div *ngIf="!(isPlayerPlaying && isGameContinued)" class="board-{{size}} board">
     <!--<div>Szachownica do ogladania</div>-->
     <div *ngFor="let field of fields">
         <div [class]="field.isWhite ? 'field field-'+ size + ' whiteField' : 'field field-' + size + ' blackField'">

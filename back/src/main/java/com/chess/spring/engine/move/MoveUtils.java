@@ -5,7 +5,7 @@ public enum MoveUtils {
 
     INSTANCE;
 
-    public static int exchangeScore(final Move move) {
+    public static int exchangeScore( Move move) {
         if(move == Move.MoveFactory.getNullMove()) {
             return 1;
         }

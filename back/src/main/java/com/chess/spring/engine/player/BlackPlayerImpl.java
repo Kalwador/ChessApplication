@@ -1,6 +1,6 @@
-package com.chess.spring.engine.classic.player;
+package com.chess.spring.engine.player;
 
-import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.move.Move;
@@ -12,30 +12,31 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-public final class BlackPlayer extends Player {
+public  class BlackPlayerImpl extends Player {
 
-    public BlackPlayer(final Board board,
-                       final Collection<Move> whiteStandardLegals,
-                       final Collection<Move> blackStandardLegals) {
+    public BlackPlayerImpl(Board board,
+                           Collection<Move> whiteStandardLegals,
+                           Collection<Move> blackStandardLegals) {
         super(board, blackStandardLegals, whiteStandardLegals);
     }
 
     @Override
-    protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,
-                                                    final Collection<Move> opponentLegals) {
+    protected Collection<Move> calculateKingCastles( Collection<Move> playerLegals,
+                                                     Collection<Move> opponentLegals) {
 
         if (this.isInCheck() || this.isCastled() || !(this.isKingSideCastleCapable() || this.isQueenSideCastleCapable())) {
-            return ImmutableList.of();
+            return Collections.emptyList();
         }
 
-        final List<Move> kingCastles = new ArrayList<>();
+         List<Move> kingCastles = new ArrayList<>();
 
         if (this.playerKing.isFirstMove() && this.playerKing.getPiecePosition() == 4 && !this.isInCheck) {
             //blacks king side castle
             if (this.board.getPiece(5) == null && this.board.getPiece(6) == null) {
-                final Piece kingSideRook = this.board.getPiece(7);
+                 Piece kingSideRook = this.board.getPiece(7);
                 if (kingSideRook != null && kingSideRook.isFirstMove() &&
                         Player.calculateAttacksOnTile(5, opponentLegals).isEmpty() &&
                         Player.calculateAttacksOnTile(6, opponentLegals).isEmpty() &&
@@ -50,7 +51,7 @@ public final class BlackPlayer extends Player {
             //blacks queen side castle
             if (this.board.getPiece(1) == null && this.board.getPiece(2) == null &&
                     this.board.getPiece(3) == null) {
-                final Piece queenSideRook = this.board.getPiece(0);
+                 Piece queenSideRook = this.board.getPiece(0);
                 if (queenSideRook != null && queenSideRook.isFirstMove() &&
                         Player.calculateAttacksOnTile(2, opponentLegals).isEmpty() &&
                         Player.calculateAttacksOnTile(3, opponentLegals).isEmpty() &&
@@ -66,7 +67,7 @@ public final class BlackPlayer extends Player {
     }
 
     @Override
-    public WhitePlayer getOpponent() {
+    public WhitePlayerImpl getOpponent() {
         return this.board.whitePlayer();
     }
 

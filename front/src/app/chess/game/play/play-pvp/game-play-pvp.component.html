@@ -2,8 +2,11 @@
     <section class="game">
         <div class="head-player">
             <div *ngIf="whitePlayerNick !== undefined">
-                <player-header [data]="blackPlayerNick" [blackStatus]="blackStatus"
-                               [color]="PlayerColor.BLACK"></player-header>
+                <player-header
+                        [data]="blackPlayerNick"
+                        [blackStatus]="blackStatus"
+                        [color]="PlayerColor.BLACK">
+                </player-header>
             </div>
         </div>
         <div class="board">
@@ -16,14 +19,19 @@
         </div>
         <div class="head-player">
             <div *ngIf="whitePlayerNick !== undefined">
-                <player-header [data]="whitePlayerNick" [whiteStatus]="whiteStatus"
-                               [color]="PlayerColor.WHITE"></player-header>
+                <player-header
+                        [data]="whitePlayerNick"
+                        [whiteStatus]="whiteStatus"
+                        [color]="PlayerColor.WHITE">
+                </player-header>
             </div>
         </div>
     </section>
     <section class="chat">
         <app-chat (chatMessageEmitter)="sendChatMessage($event)"
-                  [chatMessageReceiver]="chatMessageReceivedEmitter.asObservable()"></app-chat>
+                  [chatMessageReceiver]="chatMessageReceivedEmitter.asObservable()">
+
+        </app-chat>
     </section>
     <div style="clear: both"></div>
 </div>

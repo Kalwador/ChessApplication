@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'app-game-new',
     templateUrl: './game-new.component.html',
-    styleUrls: ['./game-new.component.css']
+    styleUrls: ['./game-new.component.scss']
 })
 export class GameNewComponent implements OnInit {
 

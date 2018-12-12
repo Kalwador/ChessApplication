@@ -17,30 +17,30 @@ public enum  BoardUtils {
 
     INSTANCE;
 
-    public final List<Boolean> FIRST_COLUMN = initColumn(0);
-    public final List<Boolean> SECOND_COLUMN = initColumn(1);
-    public final List<Boolean> THIRD_COLUMN = initColumn(2);
-    public final List<Boolean> FOURTH_COLUMN = initColumn(3);
-    public final List<Boolean> FIFTH_COLUMN = initColumn(4);
-    public final List<Boolean> SIXTH_COLUMN = initColumn(5);
-    public final List<Boolean> SEVENTH_COLUMN = initColumn(6);
-    public final List<Boolean> EIGHTH_COLUMN = initColumn(7);
-    public final List<Boolean> FIRST_ROW = initRow(0);
-    public final List<Boolean> SECOND_ROW = initRow(8);
-    public final List<Boolean> THIRD_ROW = initRow(16);
-    public final List<Boolean> FOURTH_ROW = initRow(24);
-    public final List<Boolean> FIFTH_ROW = initRow(32);
-    public final List<Boolean> SIXTH_ROW = initRow(40);
-    public final List<Boolean> SEVENTH_ROW = initRow(48);
-    public final List<Boolean> EIGHTH_ROW = initRow(56);
-    public final List<String> ALGEBRAIC_NOTATION = initializeAlgebraicNotation();
-    public final Map<String, Integer> POSITION_TO_COORDINATE = initializePositionToCoordinateMap();
-    public static final int START_TILE_INDEX = 0;
-    public static final int NUM_TILES_PER_ROW = 8;
-    public static final int NUM_TILES = 64;
+    public  List<Boolean> FIRST_COLUMN = initColumn(0);
+    public  List<Boolean> SECOND_COLUMN = initColumn(1);
+    public  List<Boolean> THIRD_COLUMN = initColumn(2);
+    public  List<Boolean> FOURTH_COLUMN = initColumn(3);
+    public  List<Boolean> FIFTH_COLUMN = initColumn(4);
+    public  List<Boolean> SIXTH_COLUMN = initColumn(5);
+    public  List<Boolean> SEVENTH_COLUMN = initColumn(6);
+    public  List<Boolean> EIGHTH_COLUMN = initColumn(7);
+    public  List<Boolean> FIRST_ROW = initRow(0);
+    public  List<Boolean> SECOND_ROW = initRow(8);
+    public  List<Boolean> THIRD_ROW = initRow(16);
+    public  List<Boolean> FOURTH_ROW = initRow(24);
+    public  List<Boolean> FIFTH_ROW = initRow(32);
+    public  List<Boolean> SIXTH_ROW = initRow(40);
+    public  List<Boolean> SEVENTH_ROW = initRow(48);
+    public  List<Boolean> EIGHTH_ROW = initRow(56);
+    public  List<String> ALGEBRAIC_NOTATION = initializeAlgebraicNotation();
+    public  Map<String, Integer> POSITION_TO_COORDINATE = initializePositionToCoordinateMap();
+    public static  int START_TILE_INDEX = 0;
+    public static  int NUM_TILES_PER_ROW = 8;
+    public static  int NUM_TILES = 64;
 
     private static List<Boolean> initColumn(int columnNumber) {
-        final Boolean[] column = new Boolean[NUM_TILES];
+         Boolean[] column = new Boolean[NUM_TILES];
         for(int i = 0; i < column.length; i++) {
             column[i] = false;
         }
@@ -52,7 +52,7 @@ public enum  BoardUtils {
     }
 
     private static List<Boolean> initRow(int rowNumber) {
-        final Boolean[] row = new Boolean[NUM_TILES];
+         Boolean[] row = new Boolean[NUM_TILES];
         for(int i = 0; i < row.length; i++) {
             row[i] = false;
         }
@@ -64,7 +64,7 @@ public enum  BoardUtils {
     }
 
     private Map<String, Integer> initializePositionToCoordinateMap() {
-        final Map<String, Integer> positionToCoordinate = new HashMap<>();
+         Map<String, Integer> positionToCoordinate = new HashMap<>();
         for (int i = START_TILE_INDEX; i < NUM_TILES; i++) {
             positionToCoordinate.put(ALGEBRAIC_NOTATION.get(i), i);
         }
@@ -84,47 +84,47 @@ public enum  BoardUtils {
         });
     }
 
-    public static boolean isValidTileCoordinate(final int coordinate) {
+    public static boolean isValidTileCoordinate( int coordinate) {
         return coordinate >= START_TILE_INDEX && coordinate < NUM_TILES;
     }
 
-    public int getCoordinateAtPosition(final String position) {
+    public int getCoordinateAtPosition( String position) {
         return POSITION_TO_COORDINATE.get(position);
     }
 
-    public String getPositionAtCoordinate(final int coordinate) {
+    public String getPositionAtCoordinate( int coordinate) {
         return ALGEBRAIC_NOTATION.get(coordinate);
     }
 
-    public static boolean isThreatenedBoardImmediate(final Board board) {
+    public static boolean isThreatenedBoardImmediate( Board board) {
         return board.whitePlayer().isInCheck() || board.blackPlayer().isInCheck();
     }
 
-    public static boolean kingThreat(final Move move) {
-        final Board board = move.getBoard();
-        final MoveTransition transition = board.currentPlayer().makeMove(move);
+    public static boolean kingThreat( Move move) {
+         Board board = move.getBoard();
+         MoveTransition transition = board.currentPlayer().makeMove(move);
         return transition.getToBoard().currentPlayer().isInCheck();
     }
 
-    public static boolean isKingPawnTrap(final Board board,
-                                         final King king,
-                                         final int frontTile) {
-        final Piece piece = board.getPiece(frontTile);
+    public static boolean isKingPawnTrap( Board board,
+                                          King king,
+                                          int frontTile) {
+         Piece piece = board.getPiece(frontTile);
         return piece != null && piece.getPieceType().isPawn() &&
                piece.getPieceAllegiance() != king.getPieceAllegiance();
     }
 
-    public static int mvvlva(final Move move) {
-        final Piece movingPiece = move.getMovedPiece();
+    public static int mvvlva( Move move) {
+         Piece movingPiece = move.getMovedPiece();
         if(move.isAttack()) {
-            final Piece attackedPiece = move.getAttackedPiece();
+             Piece attackedPiece = move.getAttackedPiece();
             return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() +  Piece.PieceType.KING.getPieceValue()) * 100;
         }
         return Piece.PieceType.KING.getPieceValue() - movingPiece.getPieceValue();
     }
 
-    public static List<Move> lastNMoves(final Board board, int N) {
-        final List<Move> moveHistory = new ArrayList<>();
+    public static List<Move> lastNMoves( Board board, int N) {
+         List<Move> moveHistory = new ArrayList<>();
         Move currentMove = board.getTransitionMove();
         int i = 0;
         while(currentMove != Move.MoveFactory.getNullMove() && i < N) {
@@ -135,7 +135,7 @@ public enum  BoardUtils {
         return ImmutableList.copyOf(moveHistory);
     }
 
-    public static boolean isEndGame(final Board board) {
+    public static boolean isEndGame( Board board) {
         return board.currentPlayer().isInCheckMate() ||
                board.currentPlayer().isInStaleMate();
     }
