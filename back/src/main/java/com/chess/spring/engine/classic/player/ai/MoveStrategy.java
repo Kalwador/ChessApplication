@@ -1,8 +1,12 @@
-package com.chess.spring.engine.ai;
+package com.chess.spring.engine.classic.player.ai;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
 
-public interface Strategy {
+public interface MoveStrategy {
+
+    long getNumBoardsEvaluated();
+
     Move execute(Board board);
+
 }

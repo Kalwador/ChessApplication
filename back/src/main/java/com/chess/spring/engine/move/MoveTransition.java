@@ -3,17 +3,17 @@ package com.chess.spring.engine.move;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move.MoveStatus;
 
-public  class MoveTransition {
+public final class MoveTransition {
 
-    private  Board fromBoard;
-    private  Board toBoard;
-    private  Move transitionMove;
-    private  MoveStatus moveStatus;
+    private final Board fromBoard;
+    private final Board toBoard;
+    private final Move transitionMove;
+    private final MoveStatus moveStatus;
 
-    public MoveTransition( Board fromBoard,
-                           Board toBoard,
-                           Move transitionMove,
-                           MoveStatus moveStatus) {
+    public MoveTransition(final Board fromBoard,
+                          final Board toBoard,
+                          final Move transitionMove,
+                          final MoveStatus moveStatus) {
         this.fromBoard = fromBoard;
         this.toBoard = toBoard;
         this.transitionMove = transitionMove;

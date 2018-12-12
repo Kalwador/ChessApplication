@@ -1,5 +1,6 @@
 package com.chess.spring.engine.pieces;
 
+import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.move.Move;
@@ -11,25 +12,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public  class Bishop extends Piece {
+public final class Bishop extends Piece {
 
-    private  static int[] CANDIDATE_MOVE_COORDINATES = {-9, -7, 7, 9};
+    private final static int[] CANDIDATE_MOVE_COORDINATES = {-9, -7, 7, 9};
 
-    public Bishop( PieceColor pieceColor,
-                   int piecePosition) {
+    public Bishop(final PieceColor pieceColor,
+                  final int piecePosition) {
          super(PieceType.BISHOP, pieceColor, piecePosition, true);
     }
 
-    public Bishop( PieceColor pieceColor,
-                   int piecePosition,
-                    boolean isFirstMove) {
+    public Bishop(final PieceColor pieceColor,
+                  final int piecePosition,
+                   final boolean isFirstMove) {
         super(PieceType.BISHOP, pieceColor, piecePosition, isFirstMove);
     }
 
     @Override
-    public Collection<Move> calculateLegalMoves( Board board) {
-         List<Move> legalMoves = new ArrayList<>();
-        for ( int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+    public Collection<Move> calculateLegalMoves(final Board board) {
+        final List<Move> legalMoves = new ArrayList<>();
+        for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             int candidateDestinationCoordinate = this.piecePosition;
             while (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
@@ -38,12 +39,12 @@ public  class Bishop extends Piece {
                 }
                 candidateDestinationCoordinate += currentCandidateOffset;
                 if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
-                     Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
+                    final Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                     if (pieceAtDestination == null) {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     }
                     else {
-                         PieceColor piecePieceColor = pieceAtDestination.getPieceAllegiance();
+                        final PieceColor piecePieceColor = pieceAtDestination.getPieceAllegiance();
                         if (this.piecePieceColor != piecePieceColor) {
                             legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
@@ -62,7 +63,7 @@ public  class Bishop extends Piece {
     }
 
     @Override
-    public Bishop movePiece( Move move) {
+    public Bishop movePiece(final Move move) {
         return PieceUtils.INSTANCE.getMovedBishop(move.getMovedPiece().getPieceAllegiance(), move.getDestinationCoordinate());
     }
 
@@ -71,14 +72,14 @@ public  class Bishop extends Piece {
         return this.pieceType.toString();
     }
 
-    private static boolean isFirstColumnExclusion( int currentCandidate,
-                                                   int candidateDestinationCoordinate) {
+    private static boolean isFirstColumnExclusion(final int currentCandidate,
+                                                  final int candidateDestinationCoordinate) {
         return (BoardUtils.INSTANCE.FIRST_COLUMN.get(candidateDestinationCoordinate) &&
                 ((currentCandidate == -9) || (currentCandidate == 7)));
     }
 
-    private static boolean isEighthColumnExclusion( int currentCandidate,
-                                                    int candidateDestinationCoordinate) {
+    private static boolean isEighthColumnExclusion(final int currentCandidate,
+                                                   final int candidateDestinationCoordinate) {
         return BoardUtils.INSTANCE.EIGHTH_COLUMN.get(candidateDestinationCoordinate) &&
                         ((currentCandidate == -7) || (currentCandidate == 9));
     }

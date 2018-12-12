@@ -1,19 +1,19 @@
 package com.chess.spring.engine.board;
 import java.util.BitSet;
 
-public  class ChessBitSet extends BitSet {
+public final class ChessBitSet extends BitSet {
 
 	public ChessBitSet() {
 		super(64);
 	}
 
-	public ChessBitSet( ChessBitSet bSet) {
+	public ChessBitSet(final ChessBitSet bSet) {
 		super(64);
 		or(bSet);
 	}
 
-	public ChessBitSet shift( int shiftValue) {
-		 int len = length();
+	public ChessBitSet shift(final int shiftValue) {
+		final int len = length();
 		if (shiftValue > 0) {
 			if (len + shiftValue < 64) {
 				for (int bitIndex = len; bitIndex >= 0; bitIndex--) {
@@ -39,9 +39,9 @@ public  class ChessBitSet extends BitSet {
 
 	@Override
 	public String toString() {
-		 StringBuilder s = new StringBuilder();
+		final StringBuilder s = new StringBuilder();
 		for (int i = 0; i < size(); i++) {
-			 boolean bit_is_set = get(i);
+			final boolean bit_is_set = get(i);
 			if (bit_is_set) {
 				s.append(" 1 ");
 			} else {

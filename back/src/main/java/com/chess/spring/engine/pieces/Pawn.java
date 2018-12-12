@@ -1,5 +1,6 @@
 package com.chess.spring.engine.pieces;
 
+import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.move.Move;
@@ -10,19 +11,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public  class Pawn
+public final class Pawn
         extends Piece {
 
-    private  static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
+    private final static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
 
-    public Pawn( PieceColor allegiance,
-                 int piecePosition) {
+    public Pawn(final PieceColor allegiance,
+                final int piecePosition) {
         super(PieceType.PAWN, allegiance, piecePosition, true);
     }
 
-    public Pawn( PieceColor pieceColor,
-                 int piecePosition,
-                 boolean isFirstMove) {
+    public Pawn(final PieceColor pieceColor,
+                final int piecePosition,
+                final boolean isFirstMove) {
         super(PieceType.PAWN, pieceColor, piecePosition, isFirstMove);
     }
 
@@ -32,9 +33,9 @@ public  class Pawn
     }
 
     @Override
-    public Collection<Move> calculateLegalMoves( Board board) {
-         List<Move> legalMoves = new ArrayList<>();
-        for ( int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+    public Collection<Move> calculateLegalMoves(final Board board) {
+        final List<Move> legalMoves = new ArrayList<>();
+        for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             int candidateDestinationCoordinate =
                     this.piecePosition + (this.piecePieceColor.getDirection() * currentCandidateOffset);
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
@@ -58,7 +59,7 @@ public  class Pawn
             else if (currentCandidateOffset == 16 && this.isFirstMove() &&
                     ((BoardUtils.INSTANCE.SECOND_ROW.get(this.piecePosition) && this.piecePieceColor.isBlack()) ||
                      (BoardUtils.INSTANCE.SEVENTH_ROW.get(this.piecePosition) && this.piecePieceColor.isWhite()))) {
-                 int behindCandidateDestinationCoordinate =
+                final int behindCandidateDestinationCoordinate =
                         this.piecePosition + (this.piecePieceColor.getDirection() * 8);
                 if (board.getPiece(candidateDestinationCoordinate) == null &&
                     board.getPiece(behindCandidateDestinationCoordinate) == null) {
@@ -69,7 +70,7 @@ public  class Pawn
                     !((BoardUtils.INSTANCE.EIGHTH_COLUMN.get(this.piecePosition) && this.piecePieceColor.isWhite()) ||
                       (BoardUtils.INSTANCE.FIRST_COLUMN.get(this.piecePosition) && this.piecePieceColor.isBlack()))) {
                 if(board.getPiece(candidateDestinationCoordinate) != null) {
-                     Piece pieceOnCandidate = board.getPiece(candidateDestinationCoordinate);
+                    final Piece pieceOnCandidate = board.getPiece(candidateDestinationCoordinate);
                     if (this.piecePieceColor != pieceOnCandidate.getPieceAllegiance()) {
                         if (this.piecePieceColor.isPawnPromotionSquare(candidateDestinationCoordinate)) {
                             legalMoves.add(new PawnPromotion(
@@ -88,7 +89,7 @@ public  class Pawn
                     }
                 } else if (board.getEnPassantPawn() != null && board.getEnPassantPawn().getPiecePosition() ==
                            (this.piecePosition + (this.piecePieceColor.getOppositeDirection()))) {
-                     Piece pieceOnCandidate = board.getEnPassantPawn();
+                    final Piece pieceOnCandidate = board.getEnPassantPawn();
                     if (this.piecePieceColor != pieceOnCandidate.getPieceAllegiance()) {
                         legalMoves.add(
                                 new PawnEnPassantAttack(board, this, candidateDestinationCoordinate, pieceOnCandidate));
@@ -124,7 +125,7 @@ public  class Pawn
                     }
                 } else if (board.getEnPassantPawn() != null && board.getEnPassantPawn().getPiecePosition() ==
                         (this.piecePosition - (this.piecePieceColor.getOppositeDirection()))) {
-                     Piece pieceOnCandidate = board.getEnPassantPawn();
+                    final Piece pieceOnCandidate = board.getEnPassantPawn();
                     if (this.piecePieceColor != pieceOnCandidate.getPieceAllegiance()) {
                         legalMoves.add(
                                 new PawnEnPassantAttack(board, this, candidateDestinationCoordinate, pieceOnCandidate));
@@ -142,7 +143,7 @@ public  class Pawn
     }
 
     @Override
-    public Pawn movePiece( Move move) {
+    public Pawn movePiece(final Move move) {
         return PieceUtils.INSTANCE.getMovedPawn(move.getMovedPiece().getPieceAllegiance(), move.getDestinationCoordinate());
     }
 

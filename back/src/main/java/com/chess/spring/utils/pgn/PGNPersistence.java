@@ -2,7 +2,7 @@ package com.chess.spring.utils.pgn;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
-import com.chess.spring.engine.player.Player;
+import com.chess.spring.engine.classic.player.Player;
 
 public interface PGNPersistence {
 

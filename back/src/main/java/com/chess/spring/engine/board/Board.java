@@ -1,12 +1,12 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.pieces.PieceColor;
+import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.Move.MoveFactory;
 import com.chess.spring.engine.pieces.*;
-import com.chess.spring.engine.player.BlackPlayerImpl;
-import com.chess.spring.engine.player.Player;
-import com.chess.spring.engine.player.WhitePlayerImpl;
+import com.chess.spring.engine.classic.player.BlackPlayer;
+import com.chess.spring.engine.classic.player.Player;
+import com.chess.spring.engine.classic.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
@@ -15,37 +15,37 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public  class Board {
+public final class Board {
 
-    private  Map<Integer, Piece> boardConfig;
-    private  Collection<Piece> whitePieces;
-    private  Collection<Piece> blackPieces;
-    private WhitePlayerImpl whitePlayerImpl;
-    private BlackPlayerImpl blackPlayerImpl;
-    private  Player currentPlayer;
-    private  Pawn enPassantPawn;
-    private  Move transitionMove;
+    private final Map<Integer, Piece> boardConfig;
+    private final Collection<Piece> whitePieces;
+    private final Collection<Piece> blackPieces;
+    private final WhitePlayer whitePlayer;
+    private final BlackPlayer blackPlayer;
+    private final Player currentPlayer;
+    private final Pawn enPassantPawn;
+    private final Move transitionMove;
 
-    private static  Board STANDARD_BOARD = createStandardBoardImpl();
+    private static final Board STANDARD_BOARD = createStandardBoardImpl();
 
-    private Board( Builder builder) {
+    private Board(final Builder builder) {
         this.boardConfig = builder.boardConfig;
         this.whitePieces = calculateActivePieces(builder, PieceColor.WHITE);
         this.blackPieces = calculateActivePieces(builder, PieceColor.BLACK);
         this.enPassantPawn = builder.enPassantPawn;
-         Collection<Move> whiteStandardMoves = calculateLegalMoves(this.whitePieces);
-         Collection<Move> blackStandardMoves = calculateLegalMoves(this.blackPieces);
-        this.whitePlayerImpl = new WhitePlayerImpl(this, whiteStandardMoves, blackStandardMoves);
-        this.blackPlayerImpl = new BlackPlayerImpl(this, whiteStandardMoves, blackStandardMoves);
-        this.currentPlayer = builder.nextMoveMaker.choosePlayerByAlliance(this.whitePlayerImpl, this.blackPlayerImpl);
+        final Collection<Move> whiteStandardMoves = calculateLegalMoves(this.whitePieces);
+        final Collection<Move> blackStandardMoves = calculateLegalMoves(this.blackPieces);
+        this.whitePlayer = new WhitePlayer(this, whiteStandardMoves, blackStandardMoves);
+        this.blackPlayer = new BlackPlayer(this, whiteStandardMoves, blackStandardMoves);
+        this.currentPlayer = builder.nextMoveMaker.choosePlayerByAlliance(this.whitePlayer, this.blackPlayer);
         this.transitionMove = builder.transitionMove != null ? builder.transitionMove : MoveFactory.getNullMove();
     }
 
     @Override
     public String toString() {
-         StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         for (int i = 0; i < BoardUtils.NUM_TILES; i++) {
-             String tileText = prettyPrint(this.boardConfig.get(i));
+            final String tileText = prettyPrint(this.boardConfig.get(i));
             builder.append(String.format("%3s", tileText));
             if ((i + 1) % 8 == 0) {
                 builder.append("\n");
@@ -54,7 +54,7 @@ public  class Board {
         return builder.toString();
     }
 
-    private static String prettyPrint( Piece piece) {
+    private static String prettyPrint(final Piece piece) {
         if(piece != null) {
             return piece.getPieceAllegiance().isBlack() ?
                     piece.toString().toLowerCase() : piece.toString();
@@ -75,23 +75,23 @@ public  class Board {
     }
 
     public Iterable<Move> getAllLegalMoves() {
-        return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayerImpl.getLegalMoves(),
-                                                               this.blackPlayerImpl.getLegalMoves()));
+        return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayer.getLegalMoves(),
+                                                               this.blackPlayer.getLegalMoves()));
     }
 
-    public WhitePlayerImpl whitePlayer() {
-        return this.whitePlayerImpl;
+    public WhitePlayer whitePlayer() {
+        return this.whitePlayer;
     }
 
-    public BlackPlayerImpl blackPlayer() {
-        return this.blackPlayerImpl;
+    public BlackPlayer blackPlayer() {
+        return this.blackPlayer;
     }
 
     public Player currentPlayer() {
         return this.currentPlayer;
     }
 
-    public Piece getPiece( int coordinate) {
+    public Piece getPiece(final int coordinate) {
         return this.boardConfig.get(coordinate);
     }
 
@@ -108,7 +108,7 @@ public  class Board {
     }
 
     private static Board createStandardBoardImpl() {
-         Builder builder = new Builder();
+        final Builder builder = new Builder();
         // Black Layout
         builder.setPiece(new Rook(PieceColor.BLACK, 0));
         builder.setPiece(new Knight(PieceColor.BLACK, 1));
@@ -149,13 +149,13 @@ public  class Board {
         return builder.build();
     }
 
-    private Collection<Move> calculateLegalMoves( Collection<Piece> pieces) {
+    private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
                       .collect(Collectors.toList());
     }
 
-    private static Collection<Piece> calculateActivePieces( Builder builder,
-                                                            PieceColor pieceColor) {
+    private static Collection<Piece> calculateActivePieces(final Builder builder,
+                                                           final PieceColor pieceColor) {
         return builder.boardConfig.values().stream()
                .filter(piece -> piece.getPieceAllegiance() == pieceColor)
                .collect(Collectors.collectingAndThen(Collectors.toList(), ImmutableList::copyOf));
@@ -172,22 +172,22 @@ public  class Board {
             this.boardConfig = new HashMap<>(33, 1.0f);
         }
 
-        public Builder setPiece( Piece piece) {
+        public Builder setPiece(final Piece piece) {
             this.boardConfig.put(piece.getPiecePosition(), piece);
             return this;
         }
 
-        public Builder setMoveMaker( PieceColor nextMoveMaker) {
+        public Builder setMoveMaker(final PieceColor nextMoveMaker) {
             this.nextMoveMaker = nextMoveMaker;
             return this;
         }
 
-        public Builder setEnPassantPawn( Pawn enPassantPawn) {
+        public Builder setEnPassantPawn(final Pawn enPassantPawn) {
             this.enPassantPawn = enPassantPawn;
             return this;
         }
 
-        public Builder setMoveTransition( Move transitionMove) {
+        public Builder setMoveTransition(final Move transitionMove) {
             this.transitionMove = transitionMove;
             return this;
         }

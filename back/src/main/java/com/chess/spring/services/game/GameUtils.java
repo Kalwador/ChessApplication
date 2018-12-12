@@ -4,7 +4,7 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.MoveTransition;
-import com.chess.spring.engine.ai.StockAlphaBeta;
+import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.game.GameEndStatus;
 import com.chess.spring.models.game.PlayerColor;

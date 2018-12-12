@@ -1,5 +1,6 @@
 package com.chess.spring.engine.pieces;
 
+import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
 
@@ -7,16 +8,16 @@ import java.util.Collection;
 
 public abstract class Piece {
 
-     PieceType pieceType;
-     PieceColor piecePieceColor;
-     int piecePosition;
-    private  boolean isFirstMove;
-    private  int cachedHashCode;
+    final PieceType pieceType;
+    final PieceColor piecePieceColor;
+    final int piecePosition;
+    private final boolean isFirstMove;
+    private final int cachedHashCode;
 
-    Piece( PieceType type,
-           PieceColor pieceColor,
-           int piecePosition,
-           boolean isFirstMove) {
+    Piece(final PieceType type,
+          final PieceColor pieceColor,
+          final int piecePosition,
+          final boolean isFirstMove) {
         this.pieceType = type;
         this.piecePosition = piecePosition;
         this.piecePieceColor = pieceColor;
@@ -48,18 +49,18 @@ public abstract class Piece {
 
     public abstract Piece movePiece(Move move);
 
-    public abstract Collection<Move> calculateLegalMoves( Board board);
+    public abstract Collection<Move> calculateLegalMoves(final Board board);
 
 
     @Override
-    public boolean equals( Object other) {
+    public boolean equals(final Object other) {
         if (this == other) {
             return true;
         }
         if (!(other instanceof Piece)) {
             return false;
         }
-         Piece otherPiece = (Piece) other;
+        final Piece otherPiece = (Piece) other;
         return this.piecePosition == otherPiece.piecePosition && this.pieceType == otherPiece.pieceType &&
                this.piecePieceColor == otherPiece.piecePieceColor && this.isFirstMove == otherPiece.isFirstMove;
     }
@@ -206,8 +207,8 @@ public abstract class Piece {
             }
         };
 
-        private  int value;
-        private  String pieceName;
+        private final int value;
+        private final String pieceName;
 
         public int getPieceValue() {
             return this.value;
@@ -218,8 +219,8 @@ public abstract class Piece {
             return this.pieceName;
         }
 
-        PieceType( int val,
-                   String pieceName) {
+        PieceType(final int val,
+                  final String pieceName) {
             this.value = val;
             this.pieceName = pieceName;
         }

@@ -24,70 +24,70 @@ public class BitBoard {
     public static ChessBitSet whiteLegalLocations;
     public static ChessBitSet blackLegalLocations;
 
-    public  List<MoveImplementation> boardLegalMoveImplementations;
+    public final List<MoveImplementation> boardLegalMoveImplementations;
 
-    public static  ChessBitSet FILE_A = new ChessBitSet();
-    public static  ChessBitSet FILE_B = new ChessBitSet();
-    public static  ChessBitSet FILE_C = new ChessBitSet();
-    public static  ChessBitSet FILE_D = new ChessBitSet();
-    public static  ChessBitSet FILE_E = new ChessBitSet();
-    public static  ChessBitSet FILE_F = new ChessBitSet();
-    public static  ChessBitSet FILE_G = new ChessBitSet();
-    public static  ChessBitSet FILE_H = new ChessBitSet();
+    public static final ChessBitSet FILE_A = new ChessBitSet();
+    public static final ChessBitSet FILE_B = new ChessBitSet();
+    public static final ChessBitSet FILE_C = new ChessBitSet();
+    public static final ChessBitSet FILE_D = new ChessBitSet();
+    public static final ChessBitSet FILE_E = new ChessBitSet();
+    public static final ChessBitSet FILE_F = new ChessBitSet();
+    public static final ChessBitSet FILE_G = new ChessBitSet();
+    public static final ChessBitSet FILE_H = new ChessBitSet();
 
     public static Map<Integer, ChessBitSet> ALL_FILES = new HashMap<>();
 
-    public static  ChessBitSet RANK_1 = new ChessBitSet();
-    public static  ChessBitSet RANK_2 = new ChessBitSet();
-    public static  ChessBitSet RANK_3 = new ChessBitSet();
-    public static  ChessBitSet RANK_4 = new ChessBitSet();
-    public static  ChessBitSet RANK_5 = new ChessBitSet();
-    public static  ChessBitSet RANK_6 = new ChessBitSet();
-    public static  ChessBitSet RANK_7 = new ChessBitSet();
-    public static  ChessBitSet RANK_8 = new ChessBitSet();
+    public static final ChessBitSet RANK_1 = new ChessBitSet();
+    public static final ChessBitSet RANK_2 = new ChessBitSet();
+    public static final ChessBitSet RANK_3 = new ChessBitSet();
+    public static final ChessBitSet RANK_4 = new ChessBitSet();
+    public static final ChessBitSet RANK_5 = new ChessBitSet();
+    public static final ChessBitSet RANK_6 = new ChessBitSet();
+    public static final ChessBitSet RANK_7 = new ChessBitSet();
+    public static final ChessBitSet RANK_8 = new ChessBitSet();
 
     public static Map<Integer, ChessBitSet> ALL_RANKS = new HashMap<>();
 
-    public static  ChessBitSet RIGHT_DIAGONAL_1 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_2 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_3 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_4 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_5 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_6 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_7 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_8 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_9 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_10 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_11 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_12 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_13 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_14 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_15 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_1 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_2 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_3 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_4 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_5 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_6 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_7 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_8 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_9 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_10 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_11 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_12 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_13 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_14 = new ChessBitSet();
+    public static final ChessBitSet RIGHT_DIAGONAL_15 = new ChessBitSet();
 
     public static Map<Integer, ChessBitSet> ALL_RIGHT_DIAGONALS = new HashMap<>();
 
-    static  ChessBitSet LEFT_DIAGONAL_1 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_2 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_3 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_4 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_5 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_6 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_7 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_8 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_9 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_10 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_11 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_12 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_13 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_14 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_15 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_1 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_2 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_3 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_4 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_5 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_6 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_7 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_8 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_9 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_10 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_11 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_12 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_13 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_14 = new ChessBitSet();
+    static final ChessBitSet LEFT_DIAGONAL_15 = new ChessBitSet();
 
     public static Map<Integer, ChessBitSet> ALL_LEFT_DIAGONALS = new HashMap<>();
 
-    public static  ChessBitSet EMPTY_SET = new ChessBitSet();
-    public static  ChessBitSet FULL_SET = new ChessBitSet();
+    public static final ChessBitSet EMPTY_SET = new ChessBitSet();
+    public static final ChessBitSet FULL_SET = new ChessBitSet();
 
-    public static  String[] algebreicNotation = {"a8", "b8", "c8", "d8",
+    public static final String[] algebreicNotation = {"a8", "b8", "c8", "d8",
             "e8", "f8", "g8", "h8", "a7", "b7", "c7", "d7", "e7", "f7", "g7",
             "h7", "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6", "a5", "b5",
             "c5", "d5", "e5", "f5", "g5", "h5", "a4", "b4", "c4", "d4", "e4",
@@ -513,7 +513,7 @@ public class BitBoard {
         whiteLegalLocations.clear();
         blackLegalLocations.clear();
 
-        for ( PieceType p : PieceType.values()) {
+        for (final PieceType p : PieceType.values()) {
             boardLegalMoveImplementations.addAll(p.calculateLegalMoves());
         }
     }
@@ -521,51 +521,51 @@ public class BitBoard {
     @Override
     public String toString() {
 
-         char[] tiles = new char[64];
+        final char[] tiles = new char[64];
 
-         ChessBitSet allKnights = PieceType.allKnights();
+        final ChessBitSet allKnights = PieceType.allKnights();
 
         for (int currentKnightLocation = allKnights.nextSetBit(0); currentKnightLocation >= 0; currentKnightLocation = allKnights
                 .nextSetBit(currentKnightLocation + 1)) {
             tiles[currentKnightLocation] = 'N';
         }
 
-         ChessBitSet allBishops = PieceType.allBishops();
+        final ChessBitSet allBishops = PieceType.allBishops();
 
         for (int currentBishopLocation = allBishops.nextSetBit(0); currentBishopLocation >= 0; currentBishopLocation = allBishops
                 .nextSetBit(currentBishopLocation + 1)) {
             tiles[currentBishopLocation] = 'B';
         }
 
-         ChessBitSet allRooks = PieceType.allRooks();
+        final ChessBitSet allRooks = PieceType.allRooks();
 
         for (int currentRookLocation = allRooks.nextSetBit(0); currentRookLocation >= 0; currentRookLocation = allRooks
                 .nextSetBit(currentRookLocation + 1)) {
             tiles[currentRookLocation] = 'R';
         }
 
-         ChessBitSet allPawns = PieceType.allPawns();
+        final ChessBitSet allPawns = PieceType.allPawns();
 
         for (int currentPawnLocation = allPawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = allPawns
                 .nextSetBit(currentPawnLocation + 1)) {
             tiles[currentPawnLocation] = 'P';
         }
 
-         ChessBitSet allQueens = PieceType.allQueens();
+        final ChessBitSet allQueens = PieceType.allQueens();
 
         for (int currentQueenLocation = allQueens.nextSetBit(0); currentQueenLocation >= 0; currentQueenLocation = allQueens
                 .nextSetBit(currentQueenLocation + 1)) {
             tiles[currentQueenLocation] = 'Q';
         }
 
-         ChessBitSet allKings = PieceType.allKings();
+        final ChessBitSet allKings = PieceType.allKings();
 
         for (int currentKingLocation = allKings.nextSetBit(0); currentKingLocation >= 0; currentKingLocation = allKings
                 .nextSetBit(currentKingLocation + 1)) {
             tiles[currentKingLocation] = 'K';
         }
 
-         StringBuilder result = new StringBuilder();
+        final StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < tiles.length; i++) {
 
@@ -588,7 +588,7 @@ public class BitBoard {
 
     
 
-    public static String getPositionAtCoordinate( int c) {
+    public static String getPositionAtCoordinate(final int c) {
 
         return algebreicNotation[c];
 

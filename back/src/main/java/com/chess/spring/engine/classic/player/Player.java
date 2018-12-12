@@ -1,6 +1,6 @@
-package com.chess.spring.engine.player;
+package com.chess.spring.engine.classic.player;
 
-import com.chess.spring.engine.pieces.PieceColor;
+import com.chess.spring.engine.classic.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move;
 import com.chess.spring.engine.move.Move.MoveStatus;
@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
 
 public abstract class Player {
 
-    protected  Board board;
-    protected  King playerKing;
-    protected  Collection<Move> legalMoves;
-    protected  boolean isInCheck;
+    protected final Board board;
+    protected final King playerKing;
+    protected final Collection<Move> legalMoves;
+    protected final boolean isInCheck;
 
-    Player( Board board,
-            Collection<Move> playerLegals,
-            Collection<Move> opponentLegals) {
+    Player(final Board board,
+           final Collection<Move> playerLegals,
+           final Collection<Move> opponentLegals) {
         this.board = board;
         this.playerKing = establishKing();
         this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentLegals).isEmpty();
@@ -70,18 +70,18 @@ public abstract class Player {
         return this.legalMoves;
     }
 
-    static Collection<Move> calculateAttacksOnTile( int tile,
-                                                    Collection<Move> moves) {
+    static Collection<Move> calculateAttacksOnTile(final int tile,
+                                                   final Collection<Move> moves) {
         return moves.stream().filter(move -> move.getDestinationCoordinate() == tile)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), ImmutableList::copyOf));
     }
 
-    public MoveTransition makeMove( Move move) {
+    public MoveTransition makeMove(final Move move) {
         if (!this.legalMoves.contains(move)) {
             return new MoveTransition(this.board, this.board, move, MoveStatus.ILLEGAL_MOVE);
         }
-         Board transitionedBoard = move.execute();
-         Collection<Move> kingAttacks = Player.calculateAttacksOnTile(
+        final Board transitionedBoard = move.execute();
+        final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(
                 transitionedBoard.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
                 transitionedBoard.currentPlayer().getLegalMoves());
         if (!kingAttacks.isEmpty()) {
@@ -90,7 +90,7 @@ public abstract class Player {
         return new MoveTransition(this.board, transitionedBoard, move, MoveStatus.DONE);
     }
 
-    public MoveTransition unMakeMove( Move move) {
+    public MoveTransition unMakeMove(final Move move) {
         return new MoveTransition(this.board, move.undo(), move, MoveStatus.DONE);
     }
 
