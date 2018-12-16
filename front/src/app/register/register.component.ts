@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RegisterModel} from '../models/register.model';
 import {RegisterService} from './register-service/register.service';
 import {Router} from "@angular/router";
-import {NotificationService} from "../chess/notifications/notification.service";
+import {NotificationService} from "../application/notifications/notification.service";
 
 @Component({
     selector: 'app-register',

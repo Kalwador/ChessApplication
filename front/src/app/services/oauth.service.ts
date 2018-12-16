@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {Headers, RequestOptions} from '@angular/http';
 import {map} from 'rxjs/operators';
 import {RestService} from './rest.service';
-import {ApplicationCredentials} from '../models/application.credentials';
+import {ApplicationCredentials} from '../models/application/application.credentials';
 import {TokenModel} from '../models/login/token.model';
 import {Router} from '@angular/router';
-import {NotificationService} from "../chess/notifications/notification.service";
+import {NotificationService} from "../application/notifications/notification.service";
 import {Observable} from "rxjs";
 
 @Injectable({

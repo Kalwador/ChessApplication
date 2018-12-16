@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {RestService} from './rest.service';
-import {HttpMethodTypeEnum} from '../models/http-method-type.enum';
+import {HttpMethodTypeEnum} from '../models/application/http-method-type.enum';
 import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ServerResponseType} from '../models/login/login-error-type.enum';
 import {Headers, RequestOptions} from '@angular/http';
 import {Router} from '@angular/router';
-import {NotificationService} from '../chess/notifications/notification.service';
+import {NotificationService} from '../application/notifications/notification.service';
 import {LoginErrorModel} from '../models/login/login-error.model';
 import {OauthService} from './oauth.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {ValueType} from "../models/application/value-type.enum";
 
 @Injectable({
     providedIn: 'root',
@@ -24,28 +25,50 @@ export class BaseService {
                 private notificationService: NotificationService) {
     }
 
-    executeHttpRequest(method: HttpMethodTypeEnum, path: string, body?: any): Observable<any> {
+    executeHttpRequest(method: HttpMethodTypeEnum, path: string, valueType: ValueType, body?: any): Observable<any> {
         switch (method) {
             case HttpMethodTypeEnum.GET: {
-                return this.restService.get(path, this.getOptions()).pipe(
-                    map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodTypeEnum.GET, path)));
+                this.restService.get(path, this.getOptions()).pipe(
+                    map(response => this.mapByType(response, valueType))
+                    // ,
+                    // catchError(err => this.handleError(err, HttpMethodTypeEnum.GET, path))
+                )
+                    .subscribe(data => {
+                        console.log("mam date");
+                        return data;
+                    }, error => {
+                        console.log("mam error");
+                        return error
+                    });
             }
             case HttpMethodTypeEnum.POST: {
                 return this.restService.post(path, body, this.getOptions()).pipe(
-                    map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodTypeEnum.PUT, path, body)));
+                    map(response => this.mapByType(response, valueType)),
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.GET, path)));
             }
             case HttpMethodTypeEnum.PUT: {
                 return this.restService.put(path, body, this.getOptions()).pipe(
-                    map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodTypeEnum.POST, path, body)));
+                    map(response => this.mapByType(response, valueType)),
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.GET, path)));
             }
             case HttpMethodTypeEnum.DELETE: {
-                return this.restService.delete(path, this.getOptions()).pipe(
-                    map(response => response),
-                    catchError(err => this.handleError(err, HttpMethodTypeEnum.DELETE, path)));
+                this.restService.delete(path, this.getOptions()).pipe(
+                    map(response => this.mapByType(response, valueType)),
+                    catchError(err => this.handleError(err, HttpMethodTypeEnum.GET, path)))
+                    .subscribe(data => {
+                        return data;
+                    }, error => {
+                        return error
+                    });
             }
+        }
+    }
+
+    private mapByType(response: any, valueType: ValueType): Observable<any> {
+        if (valueType == ValueType.JSON) {
+            return response.json();
+        } else {
+            return response.json();
         }
     }
 
@@ -139,14 +162,20 @@ export class BaseService {
     }
 
     private handleError(error: HttpErrorResponse, method: HttpMethodTypeEnum, path: string, body?: any) {
-        // console.log(error);
-        // let temp = this.checkResponseStatus(error);
         if (error.status === 401) {
             this.logOut();
         }
-        console.log("handle error ");
+        console.log("A WIEC ERRROR HANDELR SIE JEDNAK PRZYDAJE !!!!!!!!!!!!!!!!!!");
         console.log(error);
 
         return undefined;
+    }
+
+    private mapJSON(response: Observable<any>) {
+        return response.pipe(map(response => response.json()));
+    }
+
+    private mapTEXT(response: Observable<any>) {
+        return response.pipe(map(response => response.text()));
     }
 }

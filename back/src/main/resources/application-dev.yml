@@ -21,7 +21,7 @@ authentication:
     client:
       id: chessapp
       secret: secret
-    tokenValidityInSeconds: 180000
+    tokenValidityInSeconds: 20000
 
 application:
   project:

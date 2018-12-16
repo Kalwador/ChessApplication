@@ -18,7 +18,7 @@ export class RegisterService {
     }
 
     getFacebookPath(): string {
-        this.appService.getUnAuthorized(this.path + '/facebook/getLoginUri').pipe(map(response => {
+        this.appService.getUnauthorized(this.path + '/facebook/getLoginUri').pipe(map(response => {
             if (response.status === 200) {
                 return response.text();
             }

@@ -1,19 +1,13 @@
 package com.chess.spring.controllers;
 
-import com.chess.spring.controllers.socket.SocketListener;
-import com.chess.spring.dto.game.SocketMessageDTO;
-import com.chess.spring.exceptions.ResourceNotFoundException;
-import com.chess.spring.models.game.SocketMessageType;
-import com.chess.spring.services.game.GamePvPService;
+import com.chess.spring.exceptions.LockedSourceException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "test controller", description = "Allow to test security levels")
 public class TestController {
 
-    @Autowired
     public TestController() {
     }
 
@@ -31,12 +24,12 @@ public class TestController {
             @ApiResponse(code = 404, message = "Nope just illusion")
     })
     @GetMapping(path = "/")
-    public String welcomeTest(){
+    public String welcomeTest() {
         return "message";
     }
 
     @GetMapping(value = "/home")
-    public String homeTest() {
+    public String homeTest() throws LockedSourceException {
         return "Home message!";
     }
 

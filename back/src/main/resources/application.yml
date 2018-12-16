@@ -13,20 +13,20 @@ spring:
   #HIBERNATE
   jpa:
     show-sql: false
-#    generate-ddl: true
-#    properties:
-#      hibernate:
-#        id:
-#          new_generator_mappings:  false
-#        jdbc:
-#          lob:non_contextual_creation: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings:  false
+        jdbc:
+          lob:non_contextual_creation: true
 
 #SWAGGER
 application:
   project:
     name: ChessApplication
     description: ChessApplication
-    version: 1.0
+    version: 1.3
 
 
 #Mailing System

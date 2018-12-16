@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/internal/Observable';
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, RequestOptions} from '@angular/http';
 
 @Injectable({

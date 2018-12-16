@@ -120,7 +120,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String getNickName(Long accountId) throws ResourceNotFoundException {
         Account account = this.getById(accountId);
-        return account.getNick() + " (" + account.getStatistics().getRank() + ")";
+        return account.getNick();
     }
 
     @Override

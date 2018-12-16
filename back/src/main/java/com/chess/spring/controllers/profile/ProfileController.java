@@ -2,6 +2,7 @@ package com.chess.spring.controllers.profile;
 
 import com.chess.spring.dto.AccountDTO;
 import com.chess.spring.dto.RegisterDTO;
+import com.chess.spring.exceptions.LockedSourceException;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.services.account.AccountService;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,9 +24,11 @@ public class ProfileController {
         this.accountService = accountService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public AccountDTO getAccountProfile() throws ResourceNotFoundException {
+    public AccountDTO getAccountProfile() throws ResourceNotFoundException, LockedSourceException {
         return this.accountService.getCurrentDTO();
+//        throw new LockedSourceException("asd");
     }
 
     //TODO-SECURITY

@@ -15,7 +15,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableResourceServer
-@Profile("release")
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -43,7 +42,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .authorizeRequests()
                 .antMatchers("/", "/h2/**", "/home**", "/oauth**", "/oauth/**", "/login/**", "/register**", "/info**", "/webjars/**", "/error**", "/swagger-ui.html")
                 .permitAll()
-                .antMatchers("/socket**","/socket/**").permitAll()//TODO - security over sockets
+                .antMatchers("/socket**", "/socket/**").permitAll()//TODO - security over sockets
                 .anyRequest()
                 .authenticated();
     }

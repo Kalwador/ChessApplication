@@ -1,14 +1,14 @@
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AccountModel} from '../models/profile/account.model';
 import {RestService} from './rest.service';
 import {Router} from '@angular/router';
-import {NotificationService} from "../chess/notifications/notification.service";
-import {AppInfoModel} from "../models/app-info/app-info.model";
-import {HttpMethodTypeEnum} from "../models/http-method-type.enum";
+import {NotificationService} from "../application/notifications/notification.service";
+import {AppInfoModel} from "../models/application/app-info.model";
+import {HttpMethodTypeEnum} from "../models/application/http-method-type.enum";
 import {BaseService} from "./base.service";
 import {OauthService} from "./oauth.service";
+import {ValueType} from "../models/application/value-type.enum";
 
 @Injectable({
     providedIn: 'root',
@@ -29,7 +29,7 @@ export class AppService {
                 private notificationService: NotificationService) {
     }
 
-    public getUnAuthorized(path: string): Observable<any> {
+    public getUnauthorized(path: string): Observable<any> {
         return this.restService.get(path, null);
     }
 
@@ -39,22 +39,42 @@ export class AppService {
 
     public get(path: string): Observable<any> {
         this.notificationService.trace('get path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.GET, path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.GET, path, ValueType.JSON);
     }
 
     public post(path: string, body: any): Observable<any> {
-        this.notificationService.trace('post path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.POST, path, body);
+        this.notificationService.info('post path: ' + path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.POST, path, ValueType.JSON, body);
     }
 
     public put(path: string, body: any): Observable<any> {
         this.notificationService.trace('put path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.PUT, path, body);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.PUT, path, ValueType.JSON, body);
     }
 
     public delete(path: string): Observable<any> {
         this.notificationService.trace('delete path: ' + path);
-        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.DELETE, path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.DELETE, path, ValueType.JSON);
+    }
+
+    public getText(path: string): Observable<any> {
+        this.notificationService.trace('get path: ' + path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.GET, path, ValueType.TEXT);
+    }
+
+    public postText(path: string, body: any): Observable<any> {
+        this.notificationService.trace('post path: ' + path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.POST, path, ValueType.TEXT, body);
+    }
+
+    public putText(path: string, body: any): Observable<any> {
+        this.notificationService.trace('put path: ' + path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.PUT, path, ValueType.TEXT, body);
+    }
+
+    public deleteText(path: string): Observable<any> {
+        this.notificationService.trace('delete path: ' + path);
+        return this.baseService.executeHttpRequest(HttpMethodTypeEnum.DELETE, path, ValueType.TEXT);
     }
 
     public putFile(path: string, file: File): any {
@@ -66,14 +86,6 @@ export class AppService {
         this.baseService.logOut();
     }
 
-    public mapJSON(response: Observable<any>) {
-        return response.pipe(map(response => response.json()));
-    }
-
-    public mapTEXT(response: Observable<any>) {
-        return response.pipe(map(response => response.text()));
-    }
-
     public isLoggedIn() {
         return this.oauthService.isLoggedIn();
     }
@@ -83,7 +95,7 @@ export class AppService {
     }
 
     public getUserProfile() {
-        this.mapJSON(this.get("/profile")).subscribe(data => {
+        this.get("/profile").subscribe(data => {
             this.accountModel = data;
             this.notificationService.trace("Pobrano account model, nick: " + this.accountModel.username);
 
