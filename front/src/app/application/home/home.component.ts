@@ -1,0 +1,79 @@
+import {Component, OnInit} from '@angular/core';
+import {HomeService} from './home-service/home.service';
+import {ArticleModel} from '../../models/article.model';
+import {NotificationService} from "../notifications/notification.service";
+
+@Component({
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
+
+    message: string;
+    articles = Array<ArticleModel>();
+
+    constructor(private homeService: HomeService,
+                private notificationService: NotificationService) {
+        if (this.homeService.isLogedIn()) {
+            this.notificationService.trace('zalogowany!!!');
+        }
+
+        let a1 = new ArticleModel();
+        a1.img = 'https://images.chesscomfiles.com/uploads/v1/news/469204.dfe6ad12.630x354o.9bab41affc88.jpeg';
+        a1.header = 'Ding Liren Breaks Mikhail Tal\'s 95-Game Undefeated Streak';
+        a1.text = 'Today, Ding Liren of China bested Mikhail Tals legendary streak of 95 games played without a defeat.' +
+            'Ding Lirens unbeaten streak now stands at 96 and counting. Tals mark was set between October of 1973 and ' +
+            'October of 1974. Ding Lirens streak is ongoing. He is currently playing in the Shenzhen Masters. ' +
+            'Dings record over the course of his streak is 28 wins and 68 draws.';
+        this.articles.push(a1);
+
+        let a2 = new ArticleModel();
+        a2.img = 'https://images.chesscomfiles.com/uploads/v1/news/469022.24ad42c0.630x354o.b34b87466994.png';
+        a2.header = '8 Teams Qualify For 2019 PRO Chess League Season';
+        a2.text = 'Last year, two new teams (the Armenia Eagles and the Chengdu Pandas) made it to the finals weekend in San Francisco' +
+            ' where the Eagles eventually defeated the Pandas in a thrilling multiple-overtime battle. This year, six new teams and two ' +
+            'returning favorites qualified for the 2019 PRO Chess League. Will any of them be this years champions?';
+        this.articles.push(a2);
+
+        let a3 = new ArticleModel();
+        a3.img = 'https://images.chesscomfiles.com/uploads/v1/article/23396.d9326ad5.630x354o.0940a4f724ea.jpeg';
+        a3.header = 'What If Carlsen And Caruana Were Martial Arts Fighters?';
+        a3.text = 'One of the leading Russian newspapers, "Izvestia," has published an interview with the president of the Russian Chess ' +
+            'Federation and captain of the Russian Olympic team, Andrey Filatov. This interview got my attention when Filatov claimed that ' +
+            'Fabiano Caruanas chances to beat Magnus Carlsen in the upcoming world chess championship are 60 to 40!';
+        this.articles.push(a3);
+
+        let a4 = new ArticleModel();
+        a4.img = 'https://images.chesscomfiles.com/uploads/v1/news/469876.6f9bd216.630x354o.935301a1f13d.jpeg';
+        a4.header = 'Tata Steel Chess India Takes Off In Jam-packed Venue';
+        a4.text = 'Five thousand miles away and 6.5 hours before the start of the world championship match, ' +
+            '10 strong grandmasters made their moves in what was the first round of the Tata Steel Chess India tournament in Kolkata. Over 300 spectators came to watch.' +
+            'During the opening ceremony on Thursday evening, at an open-air terrace of the luxurious Taj Bengal hotel in south-west Kolkata, ' +
+            'journalists mostly asked questions to Viswanathan Anand, one of India\'s biggest sports stars.';
+        this.articles.push(a4);
+
+        let a5 = new ArticleModel();
+        a5.img = 'https://images.chesscomfiles.com/uploads/v1/news/470456.3623ac36.630x354o.9792074b72db.jpeg';
+        a5.header = 'After winning the rapid, Hikaru Nakamura has good chances to take the first prize at the blitz part of the Tata Steel ';
+        a5.text = 'Chess India tournament in Kolkata. The American grandmaster scored 6.5/9 and is half a point ahead of Wesley So.Monday was a rest day in the tournament, ' +
+            'but the players did pay a brief visit to the tournament hall. A one-hour Q&A was organized for the many chess fans ' +
+            'that are visiting each day, followed by an autograph session.';
+        this.articles.push(a5);
+
+        let a6 = new ArticleModel();
+        a6.img = 'https://images.chesscomfiles.com/uploads/v1/news/473990.17a78559.630x354o.9ca79c7b2981.png';
+        a6.header = 'Vachier-Lagrave Wins Star-Studded December Titled Tuesday';
+        a6.text = 'December\'s Titled Tuesday was a thoroughly star-studded holiday blast. With 353 players, ' +
+            'it was our third-largest Titled Tuesday ever. The field was so packed with talent and skill that ' +
+            'it could easily be mistaken for a prestige open or swiss. Maxime Vachier-Lagrave began with seven(!) wins.';
+        this.articles.push(a6);
+    }
+
+    ngOnInit() {
+        // this.homeService.getGreeting().subscribe(data => {
+        //     this.message = data;
+        //     this.notificationService.trace('Test polaczenia z api: ' + this.message);
+        // });
+    }
+}

@@ -1,0 +1,30 @@
+@import "~src/assets/colors";
+
+.customModal {
+}
+
+.modal-header {
+  background: $color8;
+  user-select: none;
+  color: white;
+}
+
+.close > span {
+  color: white;
+}
+
+label {
+  color: $color8;
+}
+
+button {
+  border-color: $color8;
+}
+
+button:hover {
+  background: $color5;
+}
+
+.nav-link {
+  color: white !important;
+}

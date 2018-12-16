@@ -1,0 +1,125 @@
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-sm-10"><h1>{{profile.nick}}&nbsp;<span class="rank">({{profile.statistics.rank}})</span></h1></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <app-avatar-panel [avatar]="profile.avatar"></app-avatar-panel>
+            <hr>
+            <br>
+        </div>
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active" (click)="changeTab(true)">Informacje&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li (click)="changeTab(false)">Szczegóły</li>
+            </ul>
+
+            <div class="tab-content" *ngIf="isInfoTabActive">
+                <div class="tab-pane active" id="info">
+                    <hr>
+                    <div class="form" id="infoForm">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="first_name"><h4>Imie:</h4></label>
+                                <input type="text" class="form-control" name="first_name" id="first_name"
+                                       placeholder="first name" title="Imie"
+                                       [(ngModel)]="profile.firstName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="last_name"><h4>Nazwisko</h4></label>
+                                <input type="text" class="form-control" name="last_name" id="last_name"
+                                       placeholder="last name" title="Nazwisko"
+                                       [(ngModel)]="profile.lastName">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="age"><h4>Wiek</h4></label>
+                                <input type="text" class="form-control" name="age" id="age"
+                                       placeholder="enter mobile number" title="Wiek"
+                                       [(ngModel)]="profile.age">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="gender"><h4>Płeć</h4></label>
+                                <br>
+                                <mat-radio-group class="radio-group" [(ngModel)]="gender" id="gender" name="gender">
+                                    <mat-radio-button class="radio-button" *ngFor="let gender of genders"
+                                                      [value]="gender">
+                                        {{gender}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button class="button" (click)="saveInfo()">
+                                    <i class="glyphicon glyphicon-ok-sign"></i> Zapisz
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="tab-content" *ngIf="!isInfoTabActive">
+                <div class="tab-pane active" id="details">
+                    <hr>
+                    <div class="form" id="registrationForm">
+                        <div class="alert alert-danger" role="alert" *ngIf="errorMessage !== null">
+                            {{errorMessage}}
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="email"><h4>Email</h4></label>
+                                <input type="email" class="form-control" name="email" id="email"
+                                       placeholder="you@email.com" title="Adres email."
+                                       [(ngModel)]="profile.email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="username"><h4>Username</h4></label>
+                                <input type="text" class="form-control" id="username" placeholder="username" disabled
+                                       title="Username" [(ngModel)]="profile.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Password</h4></label>
+                                <input type="password" class="form-control" name="password" id="password"
+                                       title="Hasło.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password2"><h4>Verify</h4></label>
+                                <input type="password" class="form-control" name="password2" id="password2"
+                                       title="Potwierdzenie hasła.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button class="button" (click)="saveDetails()">
+                                    <i class="glyphicon glyphicon-ok-sign"></i> Zapisz
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

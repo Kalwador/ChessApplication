@@ -1,0 +1,110 @@
+<div class="table">
+    <table mdbTable>
+        <thead *ngIf="type === GameType.PVE || type === GameType.PVP">
+        <tr>
+            <th style="width: 30%"></th>
+            <th>GRY ROZEGRANE</th>
+            <th>GRY WYGRANE</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="type === GameType.PVE">
+        <tr mdbTableCol>
+            <th>
+                Wszystkie gry:
+            </th>
+            <td>{{statistics.gamesPvE}}</td>
+            <td>{{statistics.winGamesPvE}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                W tym miesiącu:
+            </th>
+            <td>{{statistics.monthGamesPvE}}</td>
+            <td>{{statistics.monthWinGamesPvE}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                W tym tygodniu:
+            </th>
+            <td>{{statistics.weekGamesPvE}}</td>
+            <td>{{statistics.weekWinGamesPvE}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="type === GameType.PVP">
+        <tr mdbTableCol>
+            <th>
+                Wszystkie gry:
+            </th>
+            <td>{{statistics.gamesPvP}}</td>
+            <td>{{statistics.winGamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                W tym miesiącu:
+            </th>
+            <td>{{statistics.monthGamesPvP}}</td>
+            <td>{{statistics.monthWinGamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                W tym tygodniu:
+            </th>
+            <td>{{statistics.weekGamesPvP}}</td>
+            <td>{{statistics.weekWinGamesPvP}}</td>
+        </tr>
+        </tbody>
+
+        <thead *ngIf="type === GameType.NONE">
+        <tr>
+            <th style="width: 30%"></th>
+            <th>GRY PVE</th>
+            <th>GRY PVP</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="type === GameType.NONE">
+        <tr mdbTableCol>
+            <th>
+                Wszystkie rozegrane gry:
+            </th>
+            <td>{{statistics.gamesPvE}}</td>
+            <td>{{statistics.gamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                Wszystkie wygrane gry:
+            </th>
+            <td>{{statistics.winGamesPvE}}</td>
+            <td>{{statistics.winGamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                 Rozegrane w tym miesiącu:
+            </th>
+            <td>{{statistics.monthGamesPvE}}</td>
+            <td>{{statistics.monthGamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                Wygrane w tym miesiącu:
+            </th>
+            <td>{{statistics.monthWinGamesPvE}}</td>
+            <td>{{statistics.monthWinGamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                Rozegrane w tym tygodniu:
+            </th>
+            <td>{{statistics.weekGamesPvE}}</td>
+            <td>{{statistics.weekGamesPvP}}</td>
+        </tr>
+        <tr mdbTableCol>
+            <th>
+                Wygrane w tym tygodniu:
+            </th>
+            <td>{{statistics.weekWinGamesPvE}}</td>
+            <td>{{statistics.weekWinGamesPvP}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

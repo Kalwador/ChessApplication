@@ -1,0 +1,75 @@
+@import "~src/assets/colors";
+
+.navbar {
+    background: $color9 !important;
+    text-align: center;
+    color: white !important;
+}
+
+.icon {
+    margin-left: 10px;
+    margin-right: 4px;
+    margin-bottom: 5px;
+}
+
+.navbar-brand {
+    font-size: 1.1em;
+}
+
+.navbar-brand-1 {
+    font-size: 1.15em;
+}
+
+.navbar-brand-2 {
+    color: #a5665e;
+    font-size: 1.15em;
+}
+
+.nav-link {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.fa-icon {
+    font-size:22px;
+}
+
+.nav-link {
+    color: #ffffff !important;
+}
+
+.dropdown-menu {
+    background: $color9 !important;
+    text-align: center;
+    color: white;
+}
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    color: white;
+}
+
+.dropdown-item:active {
+    color: white;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+
+}

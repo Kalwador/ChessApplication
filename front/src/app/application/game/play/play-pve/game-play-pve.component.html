@@ -1,0 +1,20 @@
+<div class="play">
+    <div class="game">
+        <div class="head-player">
+            <div *ngIf="whitePlayerNick !== undefined">
+                <player-header [data]="blackPlayerNick" [blackStatus]="blackStatus"
+                               [color]="PlayerColor.BLACK"></player-header>
+            </div>
+        </div>
+        <div class="board">
+            <app-board [fields]="currentGameService.fields" [isGameContinued]="true" [isPlayerPlaying]="true"
+                       (moveEventEmitter)="makeMove($event)"></app-board>
+        </div>
+        <div class="head-player">
+            <div *ngIf="whitePlayerNick !== undefined">
+                <player-header [data]="whitePlayerNick" [whiteStatus]="whiteStatus"
+                               [color]="PlayerColor.WHITE"></player-header>
+            </div>
+        </div>
+    </div>
+</div>

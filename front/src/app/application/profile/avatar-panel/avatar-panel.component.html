@@ -1,0 +1,26 @@
+<div class="text-center">
+    <div *ngIf="avatar !== null">
+        <img [src]="avatar"
+             class="avatar img-circle img-thumbnail" alt="avatar">
+    </div>
+    <div *ngIf="avatar === null">
+        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
+             alt="avatar">
+    </div>
+    <h6>Zmień avatar...</h6>
+    <input style="display: none"
+           type="file" (change)="selectFile($event)"
+           #fileInput>
+    <button class="btn btn-default" (click)="fileInput.click()">Wybierz plik</button>
+
+    <button *ngIf="selectedFile" class="btn btn-success" (click)="upload()">Zapisz
+    </button>
+    <div *ngIf="currentFileUpload" class="progress">
+        <div class="progress-bar progress-bar-info progress-bar-striped"
+             role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+             aria-valuemin="0" aria-valuemax="100"
+             [ngStyle]="{width:progress.percentage+'%'}">
+            {{progress.percentage}}%
+        </div>
+    </div>
+</div>

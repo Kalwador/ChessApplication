@@ -1,0 +1,60 @@
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-sm-10"><h1>{{profile.nick}}&nbsp;<span class="rank">({{profile.statistics.rank}})</span></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li id="nav1" class="active" (click)="changeTab(GameType.NONE)">Podsumowanie</li>
+                <li id="nav2" (click)="changeTab(GameType.PVE)">Gry z komputerem</li>
+                <li id="nav3" (click)="changeTab(GameType.PVP)">Gry z graczami</li>
+            </ul>
+            <div class="tab-content">
+                <header>
+                    <h3>Statystyki gracza {{title}}</h3>
+                </header>
+                <div>
+                    <section class="panel" *ngIf="activeTab === GameType.NONE">
+                        <div class="header">
+                            <app-statistics-header
+                                    [type]="GameType.NONE"
+                                    [statistics]="profile.statistics">
+                            </app-statistics-header>
+                        </div>
+                        <app-statistic-mini-chart
+                                [type]="GameType.PVE"
+                                [statistics]="profile.statistics">
+                        </app-statistic-mini-chart>
+                    </section>
+                    <section class="panel" *ngIf="activeTab === GameType.PVE">
+                        <div class="header">
+                            <app-statistics-header
+                                    [type]="GameType.PVE"
+                                    [statistics]="profile.statistics">
+                            </app-statistics-header>
+                        </div>
+                        <app-statistic-chart
+                                [type]="GameType.PVE"
+                                [chartType]="'horizontalBar'"
+                                [statistics]="profile.statistics">
+                        </app-statistic-chart>
+                    </section>
+                    <section class="panel" *ngIf="activeTab === GameType.PVP">
+                        <header class="header">
+                            <app-statistics-header
+                                    [type]="GameType.PVP"
+                                    [statistics]="profile.statistics">
+                            </app-statistics-header>
+                        </header>
+                        <app-statistic-chart
+                                [type]="GameType.PVP"
+                                [chartType]="'horizontalBar'"
+                                [statistics]="profile.statistics">
+                        </app-statistic-chart>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
