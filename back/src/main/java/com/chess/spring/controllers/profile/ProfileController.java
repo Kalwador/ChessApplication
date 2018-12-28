@@ -24,14 +24,12 @@ public class ProfileController {
         this.accountService = accountService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public AccountDTO getAccountProfile() throws ResourceNotFoundException, LockedSourceException {
+    public AccountDTO getAccountProfile() throws ResourceNotFoundException {
         return this.accountService.getCurrentDTO();
-//        throw new LockedSourceException("asd");
     }
 
-    //TODO-SECURITY
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/all")
     public Page<AccountDTO> getAll(@RequestParam Pageable page) {
         return this.accountService.getAll(page);

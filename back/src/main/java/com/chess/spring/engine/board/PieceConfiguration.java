@@ -5,7 +5,7 @@ import com.chess.spring.engine.pieces.PieceType;
 
 import java.util.*;
 
-public class BitBoard {
+public class PieceConfiguration {
 
     public static ChessBitSet whiteKnights;
     public static ChessBitSet whiteBishops;
@@ -104,7 +104,7 @@ public class BitBoard {
         EMPTY_SET.clear();
     }
 
-    public BitBoard() {
+    public PieceConfiguration() {
 
         whiteRooks = new ChessBitSet();
         whiteRooks.set(56);

@@ -1,6 +1,6 @@
 package com.chess.spring.engine.pieces;
 
-import com.chess.spring.engine.board.BitBoard;
+import com.chess.spring.engine.board.PieceConfiguration;
 import com.chess.spring.engine.board.ChessBitSet;
 import com.chess.spring.engine.move.MoveImplementation;
 
@@ -12,7 +12,7 @@ public enum PieceType {
     WHITE_KNIGHTS() {
         @Override
         public List<MoveImplementation> calculateLegalMoves() {
-            return calculateKnightLegals(BitBoard.whiteKnights);
+            return calculateKnightLegals(PieceConfiguration.whiteKnights);
         }
 
         @Override
@@ -27,7 +27,7 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.whiteLegalLocations.set(moveLocation);
+            PieceConfiguration.whiteLegalLocations.set(moveLocation);
         }
 
     },
@@ -35,7 +35,7 @@ public enum PieceType {
     WHITE_BISHOPS {
         @Override
         public List<MoveImplementation> calculateLegalMoves() {
-            return calculateBishopLegals(BitBoard.whiteBishops);
+            return calculateBishopLegals(PieceConfiguration.whiteBishops);
         }
 
         @Override
@@ -50,13 +50,13 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.whiteLegalLocations.set(moveLocation);
+            PieceConfiguration.whiteLegalLocations.set(moveLocation);
         }
     },
     WHITE_ROOKS {
         @Override
         public List<MoveImplementation> calculateLegalMoves() {
-            return calculateRookLegals(BitBoard.whiteRooks);
+            return calculateRookLegals(PieceConfiguration.whiteRooks);
         }
 
         @Override
@@ -71,7 +71,7 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.whiteLegalLocations.set(moveLocation);
+            PieceConfiguration.whiteLegalLocations.set(moveLocation);
         }
     },
     WHITE_PAWNS {
@@ -81,20 +81,20 @@ public enum PieceType {
             final List<MoveImplementation> legalMoveImplementations = new ArrayList<>();
             final ChessBitSet allPieces = allPieces();
             final ChessBitSet enemyPieces = enemyPieces();
-            final ChessBitSet pawnAdvances = new ChessBitSet(BitBoard.whitePawns);
+            final ChessBitSet pawnAdvances = new ChessBitSet(PieceConfiguration.whitePawns);
             pawnAdvances.shift(-8);
             pawnAdvances.andNot(allPieces);
-            final ChessBitSet pawnJumps = new ChessBitSet(BitBoard.whitePawns);
+            final ChessBitSet pawnJumps = new ChessBitSet(PieceConfiguration.whitePawns);
             pawnJumps.shift(-16);
             pawnJumps.andNot(allPieces);
-            final ChessBitSet pawnAttacksLeft = new ChessBitSet(BitBoard.whitePawns);
+            final ChessBitSet pawnAttacksLeft = new ChessBitSet(PieceConfiguration.whitePawns);
             pawnAttacksLeft.shift(-9);
             pawnAttacksLeft.and(enemyPieces);
-            final ChessBitSet pawnAttacksRight = new ChessBitSet(BitBoard.whitePawns);
+            final ChessBitSet pawnAttacksRight = new ChessBitSet(PieceConfiguration.whitePawns);
             pawnAttacksRight.shift(-7);
             pawnAttacksRight.and(enemyPieces);
 
-            for (int currentPawnLocation = BitBoard.whitePawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = BitBoard.whitePawns
+            for (int currentPawnLocation = PieceConfiguration.whitePawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = PieceConfiguration.whitePawns
                     .nextSetBit(currentPawnLocation + 1)) {
 
                 int candidateLocation = currentPawnLocation - 8;
@@ -128,13 +128,13 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.whiteLegalLocations.set(moveLocation);
+            PieceConfiguration.whiteLegalLocations.set(moveLocation);
         }
     },
     BLACK_KNIGHTS() {
         @Override
         public List<MoveImplementation> calculateLegalMoves() {
-            return calculateKnightLegals(BitBoard.blackKnights);
+            return calculateKnightLegals(PieceConfiguration.blackKnights);
         }
 
         @Override
@@ -149,14 +149,14 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.blackLegalLocations.set(moveLocation);
+            PieceConfiguration.blackLegalLocations.set(moveLocation);
         }
 
     },
     BLACK_BISHOPS {
         @Override
         public List<MoveImplementation> calculateLegalMoves() {
-            return calculateBishopLegals(BitBoard.blackBishops);
+            return calculateBishopLegals(PieceConfiguration.blackBishops);
         }
 
         @Override
@@ -171,13 +171,13 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.blackLegalLocations.set(moveLocation);
+            PieceConfiguration.blackLegalLocations.set(moveLocation);
         }
     },
     BLACK_ROOKS {
         @Override
         public List<MoveImplementation> calculateLegalMoves() {
-            return calculateRookLegals(BitBoard.blackRooks);
+            return calculateRookLegals(PieceConfiguration.blackRooks);
         }
 
         @Override
@@ -192,7 +192,7 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.blackLegalLocations.set(moveLocation);
+            PieceConfiguration.blackLegalLocations.set(moveLocation);
         }
     },
     BLACK_PAWNS {
@@ -202,20 +202,20 @@ public enum PieceType {
             final List<MoveImplementation> legalMoveImplementations = new ArrayList<>();
             final ChessBitSet allPieces = allPieces();
             final ChessBitSet enemyPieces = enemyPieces();
-            final ChessBitSet pawnAdvances = new ChessBitSet(BitBoard.blackPawns);
+            final ChessBitSet pawnAdvances = new ChessBitSet(PieceConfiguration.blackPawns);
             pawnAdvances.shift(8);
             pawnAdvances.andNot(allPieces);
-            final ChessBitSet pawnJumps = new ChessBitSet(BitBoard.blackPawns);
+            final ChessBitSet pawnJumps = new ChessBitSet(PieceConfiguration.blackPawns);
             pawnJumps.shift(16);
             pawnJumps.andNot(allPieces);
-            final ChessBitSet pawnAttacksLeft = new ChessBitSet(BitBoard.blackPawns);
+            final ChessBitSet pawnAttacksLeft = new ChessBitSet(PieceConfiguration.blackPawns);
             pawnAttacksLeft.shift(9);
             pawnAttacksLeft.and(enemyPieces);
-            final ChessBitSet pawnAttacksRight = new ChessBitSet(BitBoard.blackPawns);
+            final ChessBitSet pawnAttacksRight = new ChessBitSet(PieceConfiguration.blackPawns);
             pawnAttacksRight.shift(7);
             pawnAttacksRight.and(enemyPieces);
 
-            for (int currentPawnLocation = BitBoard.blackPawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = BitBoard.blackPawns
+            for (int currentPawnLocation = PieceConfiguration.blackPawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = PieceConfiguration.blackPawns
                     .nextSetBit(currentPawnLocation + 1)) {
 
                 int candidateLocation = currentPawnLocation + 8;
@@ -234,8 +234,8 @@ public enum PieceType {
 
             }
 
-            BitBoard.whiteLegalLocations.or(pawnAdvances);
-            BitBoard.whiteLegalLocations.or(pawnJumps);
+            PieceConfiguration.whiteLegalLocations.or(pawnAdvances);
+            PieceConfiguration.whiteLegalLocations.or(pawnJumps);
 
             return legalMoveImplementations;
         }
@@ -252,7 +252,7 @@ public enum PieceType {
 
         @Override
         public void setBits(final int moveLocation) {
-            BitBoard.blackLegalLocations.set(moveLocation);
+            PieceConfiguration.blackLegalLocations.set(moveLocation);
         }
     };
 
@@ -275,7 +275,7 @@ public enum PieceType {
         int moveLocation = kingPos - 1;
         final List<MoveImplementation> legalMoveImplementations = new ArrayList<>();
 
-        if (alliedUnits.get(kingPos) && !BitBoard.FILE_A.get(kingPos)) {
+        if (alliedUnits.get(kingPos) && !PieceConfiguration.FILE_A.get(kingPos)) {
             if (isTileValid(moveLocation)) {
                 setBits(moveLocation);
             }
@@ -283,7 +283,7 @@ public enum PieceType {
 
         moveLocation = kingPos + 1;
 
-        if (!alliedUnits.get(kingPos) && !BitBoard.FILE_H.get(kingPos)) {
+        if (!alliedUnits.get(kingPos) && !PieceConfiguration.FILE_H.get(kingPos)) {
             if (isTileValid(moveLocation)) {
                 setBits(moveLocation);
             }
@@ -292,14 +292,14 @@ public enum PieceType {
         moveLocation = kingPos + 8;
 
         if (isTileValid(moveLocation) && !alliedUnits.get(kingPos)
-                && (BitBoard.FULL_SET.get(moveLocation))) {
+                && (PieceConfiguration.FULL_SET.get(moveLocation))) {
             setBits(moveLocation);
         }
 
         moveLocation = kingPos - 8;
 
         if (isTileValid(moveLocation) && !alliedUnits.get(kingPos)
-                && (BitBoard.FULL_SET.get(moveLocation))) {
+                && (PieceConfiguration.FULL_SET.get(moveLocation))) {
             setBits(moveLocation);
         }
 
@@ -320,8 +320,8 @@ public enum PieceType {
         for (int currentRookLocation = rookBitSet.nextSetBit(0); currentRookLocation >= 0; currentRookLocation = rookBitSet
                 .nextSetBit(currentRookLocation + 1)) {
 
-            final ChessBitSet vertical = BitBoard.ALL_FILES.get(currentRookLocation);
-            final ChessBitSet horizontal = BitBoard.ALL_RANKS
+            final ChessBitSet vertical = PieceConfiguration.ALL_FILES.get(currentRookLocation);
+            final ChessBitSet horizontal = PieceConfiguration.ALL_RANKS
                     .get(currentRookLocation);
 
             // up
@@ -403,9 +403,9 @@ public enum PieceType {
         for (int currentBishopLocation = bishopBitSet.nextSetBit(0); currentBishopLocation >= 0; currentBishopLocation = bishopBitSet
                 .nextSetBit(currentBishopLocation + 1)) {
 
-            final ChessBitSet rightDiag = BitBoard.ALL_RIGHT_DIAGONALS
+            final ChessBitSet rightDiag = PieceConfiguration.ALL_RIGHT_DIAGONALS
                     .get(currentBishopLocation);
-            final ChessBitSet leftDiag = BitBoard.ALL_LEFT_DIAGONALS
+            final ChessBitSet leftDiag = PieceConfiguration.ALL_LEFT_DIAGONALS
                     .get(currentBishopLocation);
 
             // up and to the right
@@ -485,7 +485,7 @@ public enum PieceType {
 
         for (int currentKnightLocation = knightBitSet.nextSetBit(0); currentKnightLocation >= 0; currentKnightLocation = knightBitSet
                 .nextSetBit(currentKnightLocation + 1)) {
-            if (!(BitBoard.FILE_G.get(currentKnightLocation) || BitBoard.FILE_H
+            if (!(PieceConfiguration.FILE_G.get(currentKnightLocation) || PieceConfiguration.FILE_H
                     .get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation - 6;
                 if (isTileValid(candidateLocation)) {
@@ -497,7 +497,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_A.get(currentKnightLocation) || BitBoard.FILE_B
+            if (!(PieceConfiguration.FILE_A.get(currentKnightLocation) || PieceConfiguration.FILE_B
                     .get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation - 10;
                 if (isTileValid(candidateLocation)) {
@@ -509,7 +509,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_H.get(currentKnightLocation))) {
+            if (!(PieceConfiguration.FILE_H.get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation - 15;
                 if (isTileValid(candidateLocation)) {
                     if (!alliedUnits.get(candidateLocation)
@@ -520,7 +520,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_A.get(currentKnightLocation))) {
+            if (!(PieceConfiguration.FILE_A.get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation - 17;
                 if (isTileValid(candidateLocation)) {
                     if (!alliedUnits.get(candidateLocation)
@@ -531,7 +531,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_A.get(currentKnightLocation) || BitBoard.FILE_B
+            if (!(PieceConfiguration.FILE_A.get(currentKnightLocation) || PieceConfiguration.FILE_B
                     .get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation + 6;
                 if (isTileValid(candidateLocation)) {
@@ -543,7 +543,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_G.get(currentKnightLocation) || BitBoard.FILE_H
+            if (!(PieceConfiguration.FILE_G.get(currentKnightLocation) || PieceConfiguration.FILE_H
                     .get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation + 10;
                 if (isTileValid(candidateLocation)) {
@@ -555,7 +555,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_A.get(currentKnightLocation))) {
+            if (!(PieceConfiguration.FILE_A.get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation + 15;
                 if (isTileValid(candidateLocation)) {
                     if (!alliedUnits.get(candidateLocation)
@@ -566,7 +566,7 @@ public enum PieceType {
                     }
                 }
             }
-            if (!(BitBoard.FILE_H.get(currentKnightLocation))) {
+            if (!(PieceConfiguration.FILE_H.get(currentKnightLocation))) {
                 final int candidateLocation = currentKnightLocation + 17;
                 if (isTileValid(candidateLocation)) {
                     if (!alliedUnits.get(candidateLocation)
@@ -585,78 +585,78 @@ public enum PieceType {
 
     public static ChessBitSet allPawns() {
         final ChessBitSet allPawns = new ChessBitSet();
-        allPawns.or(BitBoard.whitePawns);
-        allPawns.or(BitBoard.blackPawns);
+        allPawns.or(PieceConfiguration.whitePawns);
+        allPawns.or(PieceConfiguration.blackPawns);
         return allPawns;
     }
 
     public static ChessBitSet allKnights() {
         final ChessBitSet allKnights = new ChessBitSet();
-        allKnights.or(BitBoard.whiteKnights);
-        allKnights.or(BitBoard.blackKnights);
+        allKnights.or(PieceConfiguration.whiteKnights);
+        allKnights.or(PieceConfiguration.blackKnights);
         return allKnights;
     }
 
     public static ChessBitSet allBishops() {
         final ChessBitSet allBishops = new ChessBitSet();
-        allBishops.or(BitBoard.whiteBishops);
-        allBishops.or(BitBoard.blackBishops);
+        allBishops.or(PieceConfiguration.whiteBishops);
+        allBishops.or(PieceConfiguration.blackBishops);
         return allBishops;
     }
 
     public static ChessBitSet allRooks() {
         final ChessBitSet allRooks = new ChessBitSet();
-        allRooks.or(BitBoard.whiteRooks);
-        allRooks.or(BitBoard.blackRooks);
+        allRooks.or(PieceConfiguration.whiteRooks);
+        allRooks.or(PieceConfiguration.blackRooks);
         return allRooks;
     }
 
     public static ChessBitSet allQueens() {
         final ChessBitSet allQueens = new ChessBitSet();
-        allQueens.or(BitBoard.whiteQueens);
-        allQueens.or(BitBoard.blackQueens);
+        allQueens.or(PieceConfiguration.whiteQueens);
+        allQueens.or(PieceConfiguration.blackQueens);
         return allQueens;
     }
 
     public static ChessBitSet allKings() {
         final ChessBitSet allKings = new ChessBitSet();
-        allKings.or(BitBoard.whiteKing);
-        allKings.or(BitBoard.blackKing);
+        allKings.or(PieceConfiguration.whiteKing);
+        allKings.or(PieceConfiguration.blackKing);
         return allKings;
     }
 
     public static ChessBitSet allPieces() {
         final ChessBitSet allPieces = new ChessBitSet();
-        allPieces.or(BitBoard.whiteRooks);
-        allPieces.or(BitBoard.whiteKnights);
-        allPieces.or(BitBoard.whiteBishops);
-        allPieces.or(BitBoard.whiteQueens);
-        allPieces.or(BitBoard.whitePawns);
-        allPieces.or(BitBoard.blackRooks);
-        allPieces.or(BitBoard.blackKnights);
-        allPieces.or(BitBoard.blackBishops);
-        allPieces.or(BitBoard.blackQueens);
-        allPieces.or(BitBoard.blackPawns);
+        allPieces.or(PieceConfiguration.whiteRooks);
+        allPieces.or(PieceConfiguration.whiteKnights);
+        allPieces.or(PieceConfiguration.whiteBishops);
+        allPieces.or(PieceConfiguration.whiteQueens);
+        allPieces.or(PieceConfiguration.whitePawns);
+        allPieces.or(PieceConfiguration.blackRooks);
+        allPieces.or(PieceConfiguration.blackKnights);
+        allPieces.or(PieceConfiguration.blackBishops);
+        allPieces.or(PieceConfiguration.blackQueens);
+        allPieces.or(PieceConfiguration.blackPawns);
         return allPieces;
     }
 
     public static ChessBitSet allWhitePieces() {
         final ChessBitSet allWhitePieces = new ChessBitSet();
-        allWhitePieces.or(BitBoard.whiteRooks);
-        allWhitePieces.or(BitBoard.whiteKnights);
-        allWhitePieces.or(BitBoard.whiteBishops);
-        allWhitePieces.or(BitBoard.whiteQueens);
-        allWhitePieces.or(BitBoard.whitePawns);
+        allWhitePieces.or(PieceConfiguration.whiteRooks);
+        allWhitePieces.or(PieceConfiguration.whiteKnights);
+        allWhitePieces.or(PieceConfiguration.whiteBishops);
+        allWhitePieces.or(PieceConfiguration.whiteQueens);
+        allWhitePieces.or(PieceConfiguration.whitePawns);
         return allWhitePieces;
     }
 
     public static ChessBitSet allBlackPieces() {
         final ChessBitSet allBlackPieces = new ChessBitSet();
-        allBlackPieces.or(BitBoard.blackRooks);
-        allBlackPieces.or(BitBoard.blackKnights);
-        allBlackPieces.or(BitBoard.blackBishops);
-        allBlackPieces.or(BitBoard.blackQueens);
-        allBlackPieces.or(BitBoard.blackPawns);
+        allBlackPieces.or(PieceConfiguration.blackRooks);
+        allBlackPieces.or(PieceConfiguration.blackKnights);
+        allBlackPieces.or(PieceConfiguration.blackBishops);
+        allBlackPieces.or(PieceConfiguration.blackQueens);
+        allBlackPieces.or(PieceConfiguration.blackPawns);
         return allBlackPieces;
     }
 

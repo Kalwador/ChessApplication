@@ -13,9 +13,9 @@
                 data-target="#navbarSupportedContent">
                 <a class="nav-link" (click)="test()">Test</a>
             </li>
-            <li *ngIf="baseService.isDEVProfile">
-                <a class="nav-link" (click)="reload()">Przeładuj</a>
-            </li>
+            <!--<li *ngIf="baseService.isDEVProfile">-->
+                <!--<a class="nav-link" (click)="reload()">Przeładuj</a>-->
+            <!--</li>-->
             <li class="nav-item dropdown" *ngIf="isUserLoggedIn()">
                 <a class="nav-link dropdown-toggle"
                    routerLink="/game"

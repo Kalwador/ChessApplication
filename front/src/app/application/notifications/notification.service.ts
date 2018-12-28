@@ -6,7 +6,7 @@ import {NotificationTypeEnum} from "../../models/notification/notification-type.
     providedIn: 'root',
 })
 export class NotificationService {
-    private duration: number = 1400;
+    private duration: number = 2000;
     public isDevProfile: boolean = false;
 
     constructor(public snackBar: MatSnackBar) {

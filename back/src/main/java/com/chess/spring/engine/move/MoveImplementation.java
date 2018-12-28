@@ -1,6 +1,6 @@
 package com.chess.spring.engine.move;
 
-import com.chess.spring.engine.board.BitBoard;
+import com.chess.spring.engine.board.PieceConfiguration;
 import com.chess.spring.engine.pieces.PieceType;
 
 public class MoveImplementation {
@@ -19,8 +19,8 @@ public class MoveImplementation {
 
     @Override
     public String toString() {
-        return BitBoard.getPositionAtCoordinate(this.currentPosition) + "-"
-                + BitBoard.getPositionAtCoordinate(this.destinationPosition);
+        return PieceConfiguration.getPositionAtCoordinate(this.currentPosition) + "-"
+                + PieceConfiguration.getPositionAtCoordinate(this.destinationPosition);
     }
 
     @Override

@@ -36,17 +36,9 @@ export class OauthService {
             .pipe(map(response => response.json()));
     }
 
-    public refreshToken() {
-        this.restService.post(this.OAUTH_TOKEN + this.OAUTH_REFRESH_TOKEN + this.token.refresh_token, null, this.getOptionsForToken())
-            .pipe(map(response => this.token = response.json()))
-            .subscribe(data => {
-                this.token = data;
-                this.notificationService.trace('Przeladowano token');
-                return true;
-            }, error => {
-                this.notificationService.trace('Blad podczas przeladowania tokenu');
-                return false;
-            });
+    public refreshToken(): Observable<any> {
+        return this.restService.post(this.OAUTH_TOKEN + this.OAUTH_REFRESH_TOKEN + this.token.refresh_token, null, this.getOptionsForToken())
+            .pipe(map(response => this.token = response.json()));
     }
 
     public clearToken() {

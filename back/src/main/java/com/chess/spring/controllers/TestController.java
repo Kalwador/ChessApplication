@@ -1,6 +1,9 @@
 package com.chess.spring.controllers;
 
+import com.chess.spring.dto.ApplicationInfo;
+import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.exceptions.LockedSourceException;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -29,8 +32,9 @@ public class TestController {
     }
 
     @GetMapping(value = "/home")
-    public String homeTest() throws LockedSourceException {
-        return "Home message!";
+    public ApplicationInfo homeTest() throws LockedSourceException {
+//        return new ApplicationInfo("asd","fgh","123","kukuryku");
+        throw new LockedSourceException("asd");
     }
 
     @GetMapping(value = "/home/111")

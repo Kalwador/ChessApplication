@@ -3,6 +3,7 @@ package com.chess.spring.engine.move;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.Move.MoveStatus;
 
+@Data
 public final class MoveTransition {
 
     private final Board fromBoard;

@@ -8535,3 +8535,22 @@ INFO    2018-12-16 15:06:09,399 [main] com.chess.spring.configuration.MailingSys
 INFO    2018-12-16 15:21:19,627 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-16 15:36:42,919 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-16 15:40:35,851 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 21:15:22,181 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 21:24:34,106 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 21:47:28,083 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 21:53:02,238 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 22:18:41,394 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2018-12-16 22:18:41,395 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailFactory  - Sending message with account activiation com.chess.spring.models.mail.AccountActivationMail@298d07a6
+INFO    2018-12-16 22:18:41,395 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailServiceImpl  - Message properties set successful
+ERROR   2018-12-16 22:18:42,349 [http-nio-8080-exec-3] com.chess.spring.services.mail.MailServiceImpl  - Message could not be sent null
+INFO    2018-12-16 22:18:42,350 [http-nio-8080-exec-3] com.chess.spring.services.register.RegisterService  - The user : 'kubaguziok' was successful registered in application!
+INFO    2018-12-16 22:20:17,321 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 22:33:31,362 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-16 22:33:48,643 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-20 15:10:00,305 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-20 16:05:17,741 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-20 16:12:11,203 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-20 16:40:09,438 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-26 21:48:42,764 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-26 22:48:33,259 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-28 21:17:16,383 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized

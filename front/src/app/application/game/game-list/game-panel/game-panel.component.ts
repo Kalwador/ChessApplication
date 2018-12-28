@@ -46,32 +46,27 @@ export class GamePanelComponent implements OnInit {
     ngOnInit() {
         if (this.gameType === GameType.PVE) {
             this.isGameContinued = this.currentGameService.checkIfGameContinued(this.gamePvE.status, false);
-            if (this.isGameContinued) {
-                this.status = this.gameService.translateStatus(this.gamePvE.status);
-                this.fields = this.gameService.createBoard(this.gamePvE.board);
-                if (this.gamePvE.color === PlayerColor.WHITE) {
-                    this.whitePlayerNick = this.profileService.getUserProfile().nick;
-                    this.blackPlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
-                } else {
-                    this.blackPlayerNick = this.profileService.getUserProfile().nick;
-                    this.whitePlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
-                }
+            this.status = this.gameService.translateStatus(this.gamePvE.status);
+            this.fields = this.gameService.createBoard(this.gamePvE.board);
+            if (this.gamePvE.color === PlayerColor.WHITE) {
+                this.whitePlayerNick = this.profileService.getUserProfile().nick;
+                this.blackPlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
+            } else {
+                this.blackPlayerNick = this.profileService.getUserProfile().nick;
+                this.whitePlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
             }
         } else {
-            this.isGameContinued = this.currentGameService.checkIfGameContinued(this.gamePvP.status, false);
-            if (this.isGameContinued) {
-                this.status = this.gameService.translateStatus(this.gamePvP.status);
-                this.fields = this.gameService.createBoard(this.gamePvP.board);
-                if (this.gamePvP.black != null) {
-                    this.profileService.getNickById(Number(this.gamePvP.black)).subscribe(data => {
-                        this.blackPlayerNick = data;
-                    });
-                }
-                if (this.gamePvP.white != null) {
-                    this.profileService.getNickById(Number(this.gamePvP.white)).subscribe(data => {
-                        this.whitePlayerNick = data;
-                    });
-                }
+            this.status = this.gameService.translateStatus(this.gamePvP.status);
+            this.fields = this.gameService.createBoard(this.gamePvP.board);
+            if (this.gamePvP.black != null) {
+                this.profileService.getNickById(Number(this.gamePvP.black)).subscribe(data => {
+                    this.blackPlayerNick = data;
+                });
+            }
+            if (this.gamePvP.white != null) {
+                this.profileService.getNickById(Number(this.gamePvP.white)).subscribe(data => {
+                    this.whitePlayerNick = data;
+                });
             }
         }
     }

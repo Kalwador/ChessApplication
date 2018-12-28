@@ -17,7 +17,8 @@ export class TopBarComponent {
 
     test() {
         this.notificationService.trace('status zalogowania: ' + this.isUserLoggedIn());
-        this.router.navigate(['/game/play/pvp', 1]);
+        // this.router.navigate(['/game/play/pvp', 1]);
+        this.notificationService.info("aaaaaaaaa");
     }
 
     reload() {

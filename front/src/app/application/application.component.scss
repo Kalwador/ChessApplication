@@ -1,7 +1,7 @@
 @import "~src/assets/colors";
 
 .nav {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .chess {
     background-color: $color6 ;
@@ -12,5 +12,4 @@
     width: 100%;
     position: sticky;
     bottom: 0;
-    //margin-bottom: 0px;
 }

@@ -9,21 +9,18 @@ import {AppProfileEnum} from "./models/application/app-profile.enum";
     template: `
         <router-outlet></router-outlet>`
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
     constructor(private baseService: AppService,
                 private notificationService: NotificationService) {
 
-        this.baseService.getUnauthorized('/info').pipe(map(response => response.text()))
+        this.baseService.getUnauthorized('/info')
+            .pipe(map(response => response.json()))
             .subscribe(data => {
                 this.baseService.appInfo = data;
                 let isDev = this.baseService.appInfo.profile === AppProfileEnum.DEV;
                 this.baseService.isDEVProfile = isDev;
                 this.notificationService.isDevProfile = isDev;
             });
-    }
-
-    ngOnInit() {
-
     }
 }
