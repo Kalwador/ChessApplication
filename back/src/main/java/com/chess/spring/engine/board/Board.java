@@ -1,28 +1,29 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.classic.PieceColor;
-import com.chess.spring.engine.move.Move;
-import com.chess.spring.engine.move.Move.MoveFactory;
+import com.chess.spring.engine.classic.player.AbstractPlayer;
+import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.move.MoveFactory;
 import com.chess.spring.engine.pieces.*;
 import com.chess.spring.engine.classic.player.BlackPlayer;
-import com.chess.spring.engine.classic.player.Player;
 import com.chess.spring.engine.classic.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+import lombok.Data;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Data
 public final class Board {
 
-    private final Map<Integer, Piece> boardConfig;
-    private final Collection<Piece> whitePieces;
-    private final Collection<Piece> blackPieces;
+    private final Map<Integer, AbstractPiece> boardConfig;
+    private final Collection<AbstractPiece> whitePieces;
+    private final Collection<AbstractPiece> blackPieces;
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
-    private final Player currentPlayer;
+    private final AbstractPlayer currentPlayer;
     private final Pawn enPassantPawn;
     private final Move transitionMove;
 
@@ -54,7 +55,7 @@ public final class Board {
         return builder.toString();
     }
 
-    private static String prettyPrint(final Piece piece) {
+    private static String prettyPrint(final AbstractPiece piece) {
         if(piece != null) {
             return piece.getPieceAllegiance().isBlack() ?
                     piece.toString().toLowerCase() : piece.toString();
@@ -62,15 +63,15 @@ public final class Board {
         return "-";
     }
 
-    public Collection<Piece> getBlackPieces() {
+    public Collection<AbstractPiece> getBlackPieces() {
         return this.blackPieces;
     }
 
-    public Collection<Piece> getWhitePieces() {
+    public Collection<AbstractPiece> getWhitePieces() {
         return this.whitePieces;
     }
 
-    public Iterable<Piece> getAllPieces() {
+    public Iterable<AbstractPiece> getAllPieces() {
         return Iterables.unmodifiableIterable(Iterables.concat(this.whitePieces, this.blackPieces));
     }
 
@@ -87,11 +88,11 @@ public final class Board {
         return this.blackPlayer;
     }
 
-    public Player currentPlayer() {
+    public AbstractPlayer currentPlayer() {
         return this.currentPlayer;
     }
 
-    public Piece getPiece(final int coordinate) {
+    public AbstractPiece getPiece(final int coordinate) {
         return this.boardConfig.get(coordinate);
     }
 
@@ -149,13 +150,13 @@ public final class Board {
         return builder.build();
     }
 
-    private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
+    private Collection<Move> calculateLegalMoves(final Collection<AbstractPiece> pieces) {
         return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
                       .collect(Collectors.toList());
     }
 
-    private static Collection<Piece> calculateActivePieces(final Builder builder,
-                                                           final PieceColor pieceColor) {
+    private static Collection<AbstractPiece> calculateActivePieces(final Builder builder,
+                                                                   final PieceColor pieceColor) {
         return builder.boardConfig.values().stream()
                .filter(piece -> piece.getPieceAllegiance() == pieceColor)
                .collect(Collectors.collectingAndThen(Collectors.toList(), ImmutableList::copyOf));
@@ -163,7 +164,7 @@ public final class Board {
 
     public static class Builder {
 
-        Map<Integer, Piece> boardConfig;
+        Map<Integer, AbstractPiece> boardConfig;
         PieceColor nextMoveMaker;
         Pawn enPassantPawn;
         Move transitionMove;
@@ -172,7 +173,7 @@ public final class Board {
             this.boardConfig = new HashMap<>(33, 1.0f);
         }
 
-        public Builder setPiece(final Piece piece) {
+        public Builder setPiece(final AbstractPiece piece) {
             this.boardConfig.put(piece.getPiecePosition(), piece);
             return this;
         }

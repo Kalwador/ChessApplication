@@ -1,19 +1,19 @@
 package com.chess.spring.engine.classic.player.ai;
 
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.move.Move;
-import com.chess.spring.engine.pieces.Piece;
-import com.chess.spring.engine.classic.player.Player;
+import com.chess.spring.engine.classic.player.AbstractPlayer;
+import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.pieces.AbstractPiece;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public final class KingSafetyAnalyzer {
+public  class KingSafetyAnalyzer {
 
-    private static final KingSafetyAnalyzer INSTANCE = new KingSafetyAnalyzer();
-    private static final List<List<Boolean>> COLUMNS = initColumns();
+    private static  KingSafetyAnalyzer INSTANCE = new KingSafetyAnalyzer();
+    private static  List<List<Boolean>> COLUMNS = initColumns();
 
     private KingSafetyAnalyzer() {
     }
@@ -23,7 +23,7 @@ public final class KingSafetyAnalyzer {
     }
 
     private static List<List<Boolean>> initColumns() {
-        final List<List<Boolean>> columns = new ArrayList<>();
+         List<List<Boolean>> columns = new ArrayList<>();
         columns.add(BoardUtils.INSTANCE.FIRST_COLUMN);
         columns.add(BoardUtils.INSTANCE.SECOND_COLUMN);
         columns.add(BoardUtils.INSTANCE.THIRD_COLUMN);
@@ -35,37 +35,37 @@ public final class KingSafetyAnalyzer {
         return ImmutableList.copyOf(columns);
     }
 
-    public KingDistance calculateKingTropism(final Player player) {
-        final int playerKingSquare = player.getPlayerKing().getPiecePosition();
-        final Collection<Move> enemyMoves = player.getOpponent().getLegalMoves();
-        Piece closestPiece = null;
+    public KingDistance calculateKingTropism( AbstractPlayer player) {
+         int playerKingSquare = player.getPlayerKing().getPiecePosition();
+         Collection<Move> enemyMoves = player.getOpponent().getLegalMoves();
+        AbstractPiece closestPiece = null;
         int closestDistance = Integer.MAX_VALUE;
-        for(final Move move : enemyMoves) {
-            final int currentDistance = calculateChebyshevDistance(playerKingSquare, move.getDestinationCoordinate());
+        for( Move move : enemyMoves) {
+             int currentDistance = calculateChebyshevDistance(playerKingSquare, move.getDestination());
             if(currentDistance < closestDistance) {
                 closestDistance = currentDistance;
-                closestPiece = move.getMovedPiece();
+                closestPiece = move.getPiece();
             }
         }
         return new KingDistance(closestPiece, closestDistance);
     }
 
-    private int calculateChebyshevDistance(final int kingTileId,
-                                           final int enemyAttackTileId) {
+    private int calculateChebyshevDistance( int kingTileId,
+                                            int enemyAttackTileId) {
 
-        final int squareOneRank = getRank(kingTileId);
-        final int squareTwoRank = getRank(enemyAttackTileId);
+         int squareOneRank = getRank(kingTileId);
+         int squareTwoRank = getRank(enemyAttackTileId);
 
-        final int squareOneFile = getFile(kingTileId);
-        final int squareTwoFile = getFile(enemyAttackTileId);
+         int squareOneFile = getFile(kingTileId);
+         int squareTwoFile = getFile(enemyAttackTileId);
 
-        final int rankDistance = Math.abs(squareTwoRank - squareOneRank);
-        final int fileDistance = Math.abs(squareTwoFile - squareOneFile);
+         int rankDistance = Math.abs(squareTwoRank - squareOneRank);
+         int fileDistance = Math.abs(squareTwoFile - squareOneFile);
 
         return Math.max(rankDistance, fileDistance);
     }
 
-    private static int getFile(final int coordinate) {
+    private static int getFile( int coordinate) {
         if(BoardUtils.INSTANCE.FIRST_COLUMN.get(coordinate)) {
             return 1;
         } else if(BoardUtils.INSTANCE.SECOND_COLUMN.get(coordinate)) {
@@ -86,7 +86,7 @@ public final class KingSafetyAnalyzer {
         throw new RuntimeException("should not reach here!");
     }
 
-    private static int getRank(final int coordinate) {
+    private static int getRank( int coordinate) {
         if(BoardUtils.INSTANCE.FIRST_ROW.get(coordinate)) {
             return 1;
         } else if(BoardUtils.INSTANCE.SECOND_ROW.get(coordinate)) {
@@ -109,16 +109,16 @@ public final class KingSafetyAnalyzer {
 
     static class KingDistance {
 
-        final Piece enemyPiece;
-        final int distance;
+         AbstractPiece enemyPiece;
+         int distance;
 
-        KingDistance(final Piece enemyDistance,
-                     final int distance) {
+        KingDistance( AbstractPiece enemyDistance,
+                      int distance) {
             this.enemyPiece = enemyDistance;
             this.distance = distance;
         }
 
-        public Piece getEnemyPiece() {
+        public AbstractPiece getEnemyPiece() {
             return enemyPiece;
         }
 

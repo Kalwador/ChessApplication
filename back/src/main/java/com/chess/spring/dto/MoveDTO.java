@@ -1,6 +1,6 @@
 package com.chess.spring.dto;
 
-import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.models.game.GamePvEStatus;
 import com.chess.spring.models.game.GamePvPStatus;
 import com.fasterxml.jackson.annotation.*;
@@ -34,7 +34,7 @@ public class MoveDTO {
     public static MoveDTO map(Move move, boolean isInCheck) {
         MoveDTO moveDTO = new MoveDTO();
         moveDTO.setSource(move.getCurrentCoordinate());
-        moveDTO.setDestination(move.getDestinationCoordinate());
+        moveDTO.setDestination(move.getDestination());
         moveDTO.setType(move.getClass().getSimpleName());
         moveDTO.setInCheck(isInCheck);
         return moveDTO;
@@ -43,7 +43,7 @@ public class MoveDTO {
     private static MoveDTO mapSimple(Move move) {
         MoveDTO moveDTO = new MoveDTO();
         moveDTO.setSource(move.getCurrentCoordinate());
-        moveDTO.setDestination(move.getDestinationCoordinate());
+        moveDTO.setDestination(move.getDestination());
         moveDTO.setStatus("");
         return moveDTO;
     }

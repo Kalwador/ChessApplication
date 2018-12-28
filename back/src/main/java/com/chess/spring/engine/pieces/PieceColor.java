@@ -1,8 +1,8 @@
-package com.chess.spring.engine.classic;
+package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.classic.player.AbstractPlayer;
 import com.chess.spring.engine.classic.player.BlackPlayer;
-import com.chess.spring.engine.classic.player.Player;
 import com.chess.spring.engine.classic.player.WhitePlayer;
 
 public enum PieceColor {
@@ -30,13 +30,13 @@ public enum PieceColor {
         }
 
         @Override
-        public boolean isPawnPromotionSquare(final int position) {
+        public boolean isPawnPromotionSquare( int position) {
             return BoardUtils.INSTANCE.FIRST_ROW.get(position);
         }
 
         @Override
-        public Player choosePlayerByAlliance(final WhitePlayer whitePlayer,
-                                             final BlackPlayer blackPlayer) {
+        public AbstractPlayer choosePlayerByAlliance(WhitePlayer whitePlayer,
+                                                     BlackPlayer blackPlayer) {
             return whitePlayer;
         }
 
@@ -46,32 +46,32 @@ public enum PieceColor {
         }
 
         @Override
-        public int pawnBonus(final int position) {
+        public int pawnBonus( int position) {
             return WHITE_PAWN_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int knightBonus(final int position) {
+        public int knightBonus( int position) {
             return WHITE_KNIGHT_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int bishopBonus(final int position) {
+        public int bishopBonus( int position) {
             return WHITE_BISHOP_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int rookBonus(final int position) {
+        public int rookBonus( int position) {
             return WHITE_ROOK_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int queenBonus(final int position) {
+        public int queenBonus( int position) {
             return WHITE_QUEEN_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int kingBonus(final int position) {
+        public int kingBonus( int position) {
             return WHITE_KING_PREFERRED_COORDINATES[position];
         }
 
@@ -99,13 +99,13 @@ public enum PieceColor {
         }
 
         @Override
-        public boolean isPawnPromotionSquare(final int position) {
+        public boolean isPawnPromotionSquare( int position) {
             return BoardUtils.INSTANCE.EIGHTH_ROW.get(position);
         }
 
         @Override
-        public Player choosePlayerByAlliance(final WhitePlayer whitePlayer,
-                                             final BlackPlayer blackPlayer) {
+        public AbstractPlayer choosePlayerByAlliance(WhitePlayer whitePlayer,
+                                                     BlackPlayer blackPlayer) {
             return blackPlayer;
         }
 
@@ -115,32 +115,32 @@ public enum PieceColor {
         }
 
         @Override
-        public int pawnBonus(final int position) {
+        public int pawnBonus( int position) {
             return BLACK_PAWN_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int knightBonus(final int position) {
+        public int knightBonus( int position) {
             return BLACK_KNIGHT_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int bishopBonus(final int position) {
+        public int bishopBonus( int position) {
             return BLACK_BISHOP_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int rookBonus(final int position) {
+        public int rookBonus( int position) {
             return BLACK_ROOK_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int queenBonus(final int position) {
+        public int queenBonus( int position) {
             return BLACK_QUEEN_PREFERRED_COORDINATES[position];
         }
 
         @Override
-        public int kingBonus(final int position) {
+        public int kingBonus( int position) {
             return BLACK_KING_PREFERRED_COORDINATES[position];
         }
     };
@@ -167,9 +167,9 @@ public enum PieceColor {
 
     public abstract boolean isPawnPromotionSquare(int position);
 
-    public abstract Player choosePlayerByAlliance(final WhitePlayer whitePlayer, final BlackPlayer blackPlayer);
+    public abstract AbstractPlayer choosePlayerByAlliance(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
 
-    private final static int[] WHITE_PAWN_PREFERRED_COORDINATES = {
+    private  static int[] WHITE_PAWN_PREFERRED_COORDINATES = {
             0,  0,  0,  0,  0,  0,  0,  0,
             75, 75, 75, 75, 75, 75, 75, 75,
             25, 25, 29, 29, 29, 29, 25, 25,
@@ -180,7 +180,7 @@ public enum PieceColor {
             0,  0,  0,  0,  0,  0,  0,  0
     };
 
-    private final static int[] BLACK_PAWN_PREFERRED_COORDINATES = {
+    private  static int[] BLACK_PAWN_PREFERRED_COORDINATES = {
             0,  0,  0,  0,  0,  0,  0,  0,
             5, 10, 10,-20,-20, 10, 10,  5,
             5, -5,-10,  0,  0,-10, -5,  5,
@@ -191,7 +191,7 @@ public enum PieceColor {
             0,  0,  0,  0,  0,  0,  0,  0
     };
 
-    private final static int[] WHITE_KNIGHT_PREFERRED_COORDINATES = {
+    private  static int[] WHITE_KNIGHT_PREFERRED_COORDINATES = {
             -50,-40,-30,-30,-30,-30,-40,-50,
             -40,-20,  0,  0,  0,  0,-20,-40,
             -30,  0, 10, 15, 15, 10,  0,-30,
@@ -202,7 +202,7 @@ public enum PieceColor {
             -50,-40,-30,-30,-30,-30,-40,-50
     };
 
-    private final static int[] BLACK_KNIGHT_PREFERRED_COORDINATES = {
+    private  static int[] BLACK_KNIGHT_PREFERRED_COORDINATES = {
             -50,-40,-30,-30,-30,-30,-40,-50,
             -40,-20,  0,  5,  5,  0,-20,-40,
             -30,  5, 10, 15, 15, 10,  5,-30,
@@ -213,7 +213,7 @@ public enum PieceColor {
             -50,-40,-30,-30,-30,-30,-40,-50,
     };
 
-    private final static int[] WHITE_BISHOP_PREFERRED_COORDINATES = {
+    private  static int[] WHITE_BISHOP_PREFERRED_COORDINATES = {
             -20,-10,-10,-10,-10,-10,-10,-20,
             -10,  0,  0,  0,  0,  0,  0,-10,
             -10,  0,  5, 10, 10,  5,  0,-10,
@@ -224,7 +224,7 @@ public enum PieceColor {
             -20,-10,-10,-10,-10,-10,-10,-20
     };
 
-    private final static int[] BLACK_BISHOP_PREFERRED_COORDINATES = {
+    private  static int[] BLACK_BISHOP_PREFERRED_COORDINATES = {
             -20,-10,-10,-10,-10,-10,-10,-20,
             -10,  5,  0,  0,  0,  0,  5,-10,
             -10, 10, 10, 10, 10, 10, 10,-10,
@@ -235,7 +235,7 @@ public enum PieceColor {
             -20,-10,-10,-10,-10,-10,-10,-20,
     };
 
-    private final static int[] WHITE_ROOK_PREFERRED_COORDINATES = {
+    private  static int[] WHITE_ROOK_PREFERRED_COORDINATES = {
             0,  0,  0,  0,  0,  0,  0,  0,
             5, 20, 20, 20, 20, 20, 20,  5,
             -5,  0,  0,  0,  0,  0,  0, -5,
@@ -246,7 +246,7 @@ public enum PieceColor {
             0,  0,  0,  5,  5,  0,  0,  0
     };
 
-    private final static int[] BLACK_ROOK_PREFERRED_COORDINATES = {
+    private  static int[] BLACK_ROOK_PREFERRED_COORDINATES = {
             0,  0,  0,  5,  5,  0,  0,  0,
             -5,  0,  0,  0,  0,  0,  0, -5,
             -5,  0,  0,  0,  0,  0,  0, -5,
@@ -257,7 +257,7 @@ public enum PieceColor {
             0,  0,  0,  0,  0,  0,  0,  0,
     };
 
-    private final static int[] WHITE_QUEEN_PREFERRED_COORDINATES = {
+    private  static int[] WHITE_QUEEN_PREFERRED_COORDINATES = {
             -20,-10,-10, -5, -5,-10,-10,-20,
             -10,  0,  0,  0,  0,  0,  0,-10,
             -10,  0,  5,  5,  5,  5,  0,-10,
@@ -268,7 +268,7 @@ public enum PieceColor {
             -20,-10,-10, -5, -5,-10,-10,-20
     };
 
-    private final static int[] BLACK_QUEEN_PREFERRED_COORDINATES = {
+    private  static int[] BLACK_QUEEN_PREFERRED_COORDINATES = {
             -20,-10,-10, -5, -5,-10,-10,-20,
             -10,  0,  5,  0,  0,  0,  0,-10,
             -10,  5,  5,  5,  5,  5,  0,-10,
@@ -279,7 +279,7 @@ public enum PieceColor {
             -20,-10,-10, -5, -5,-10,-10,-20
     };
 
-    private final static int[] WHITE_KING_PREFERRED_COORDINATES = {
+    private  static int[] WHITE_KING_PREFERRED_COORDINATES = {
             -30,-40,-40,-50,-50,-40,-40,-30,
             -30,-40,-40,-50,-50,-40,-40,-30,
             -30,-40,-40,-50,-50,-40,-40,-30,
@@ -290,7 +290,7 @@ public enum PieceColor {
              20, 30, 10,  0,  0, 10, 30, 20
     };
 
-    private final static int[] BLACK_KING_PREFERRED_COORDINATES = {
+    private  static int[] BLACK_KING_PREFERRED_COORDINATES = {
              20, 30, 10,  0,  0, 10, 30, 20,
              20, 20,  0,  0,  0,  0, 20, 20,
             -10,-20,-20,-20,-20,-20,-20,-10,
@@ -301,8 +301,8 @@ public enum PieceColor {
             -30,-40,-40,-50,-50,-40,-40,-30
     };
 
-    private static final int UP_DIRECTION = -1;
+    private static  int UP_DIRECTION = -1;
 
-    private static final int DOWN_DIRECTION = 1;
+    private static  int DOWN_DIRECTION = 1;
 
 }

@@ -1,9 +1,10 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.move.MoveFactory;
 import com.chess.spring.engine.move.MoveTransition;
 import com.chess.spring.engine.pieces.King;
-import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.engine.pieces.AbstractPiece;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -103,31 +104,31 @@ public enum  BoardUtils {
     public static boolean kingThreat(final Move move) {
         final Board board = move.getBoard();
         final MoveTransition transition = board.currentPlayer().makeMove(move);
-        return transition.getToBoard().currentPlayer().isInCheck();
+        return transition.getAfterMoveBoard().currentPlayer().isInCheck();
     }
 
     public static boolean isKingPawnTrap(final Board board,
                                          final King king,
                                          final int frontTile) {
-        final Piece piece = board.getPiece(frontTile);
+        final AbstractPiece piece = board.getPiece(frontTile);
         return piece != null && piece.getPieceType().isPawn() &&
                piece.getPieceAllegiance() != king.getPieceAllegiance();
     }
 
     public static int mvvlva(final Move move) {
-        final Piece movingPiece = move.getMovedPiece();
+        final AbstractPiece movingPiece = move.getPiece();
         if(move.isAttack()) {
-            final Piece attackedPiece = move.getAttackedPiece();
-            return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() +  Piece.PieceType.KING.getPieceValue()) * 100;
+            final AbstractPiece attackedPiece = move.getAttackedPiece();
+            return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() +  AbstractPiece.PieceType.KING.getPieceValue()) * 100;
         }
-        return Piece.PieceType.KING.getPieceValue() - movingPiece.getPieceValue();
+        return AbstractPiece.PieceType.KING.getPieceValue() - movingPiece.getPieceValue();
     }
 
     public static List<Move> lastNMoves(final Board board, int N) {
         final List<Move> moveHistory = new ArrayList<>();
         Move currentMove = board.getTransitionMove();
         int i = 0;
-        while(currentMove != Move.MoveFactory.getNullMove() && i < N) {
+        while(currentMove != MoveFactory.getNullMove() && i < N) {
             moveHistory.add(currentMove);
             currentMove = currentMove.getBoard().getTransitionMove();
             i++;

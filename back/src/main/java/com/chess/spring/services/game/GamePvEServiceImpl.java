@@ -3,7 +3,7 @@ package com.chess.spring.services.game;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.exceptions.*;
@@ -122,7 +122,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
 
                 return MoveDTO.builder()
                         .source(move.getCurrentCoordinate())
-                        .destination(move.getDestinationCoordinate())
+                        .destination(move.getDestination())
                         .isInCheck(boardAfterComputerResponse.currentPlayer().isInCheck())
                         .type(move.getClass().getSimpleName())
                         .statusPve(GamePvEStatus.PLAYER_MOVE)

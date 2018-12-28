@@ -42,7 +42,7 @@ public class SocketListener {
     @MessageMapping("/channel/game/{roomId}/join")
     public void join(@DestinationVariable String roomId, @Payload SocketMessageDTO chatMessage,
                      SimpMessageHeaderAccessor headerAccessor) {
-        log.trace("Player join to room");
+        log.trace("AbstractPlayer join to room");
     }
 
     @MessageMapping("/channel/game/{roomId}/chat")

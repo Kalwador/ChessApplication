@@ -1,12 +1,12 @@
 package com.chess.spring.engine.classic.player;
 
-import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.move.castle.KingSideCastleMove;
+import com.chess.spring.engine.move.castle.QueenSideCastleMove;
+import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.move.Move;
-import com.chess.spring.engine.move.Move.KingSideCastleMove;
-import com.chess.spring.engine.move.Move.QueenSideCastleMove;
-import com.chess.spring.engine.pieces.Piece;
+import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
@@ -14,30 +14,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public final class WhitePlayer extends Player {
+public  class WhitePlayer extends AbstractPlayer {
 
-    public WhitePlayer(final Board board,
-                       final Collection<Move> whiteStandardLegals,
-                       final Collection<Move> blackStandardLegals) {
+    public WhitePlayer( Board board,
+                        Collection<Move> whiteStandardLegals,
+                        Collection<Move> blackStandardLegals) {
         super(board, whiteStandardLegals, blackStandardLegals);
     }
 
     @Override
-    protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,
-                                                    final Collection<Move> opponentLegals) {
+    protected Collection<Move> calculateKingCastles( Collection<Move> playerLegals,
+                                                     Collection<Move> opponentLegals) {
 
         if(this.isInCheck() || this.isCastled() || !(this.isKingSideCastleCapable() || this.isQueenSideCastleCapable())) {
             return ImmutableList.of();
         }
 
-        final List<Move> kingCastles = new ArrayList<>();
+         List<Move> kingCastles = new ArrayList<>();
 
         if(this.playerKing.isFirstMove() && this.playerKing.getPiecePosition() == 60 && !this.isInCheck()) {
             //whites king side castle
             if(this.board.getPiece(61) == null && this.board.getPiece(62) == null) {
-                final Piece kingSideRook = this.board.getPiece(63);
+                 AbstractPiece kingSideRook = this.board.getPiece(63);
                 if(kingSideRook != null && kingSideRook.isFirstMove()) {
-                    if(Player.calculateAttacksOnTile(61, opponentLegals).isEmpty() && Player.calculateAttacksOnTile(62, opponentLegals).isEmpty() &&
+                    if(AbstractPlayer.calculateAttacksOnTile(61, opponentLegals).isEmpty() && AbstractPlayer.calculateAttacksOnTile(62, opponentLegals).isEmpty() &&
                        kingSideRook.getPieceType().isRook()) {
                         if(!BoardUtils.isKingPawnTrap(this.board, this.playerKing, 52)) {
                             kingCastles.add(new KingSideCastleMove(this.board, this.playerKing, 62, (Rook) kingSideRook, kingSideRook.getPiecePosition(), 61));
@@ -48,10 +48,10 @@ public final class WhitePlayer extends Player {
             //whites queen side castle
             if(this.board.getPiece(59) == null && this.board.getPiece(58) == null &&
                this.board.getPiece(57) == null) {
-                final Piece queenSideRook = this.board.getPiece(56);
+                 AbstractPiece queenSideRook = this.board.getPiece(56);
                 if(queenSideRook != null && queenSideRook.isFirstMove()) {
-                    if(Player.calculateAttacksOnTile(58, opponentLegals).isEmpty() &&
-                       Player.calculateAttacksOnTile(59, opponentLegals).isEmpty() && queenSideRook.getPieceType().isRook()) {
+                    if(AbstractPlayer.calculateAttacksOnTile(58, opponentLegals).isEmpty() &&
+                       AbstractPlayer.calculateAttacksOnTile(59, opponentLegals).isEmpty() && queenSideRook.getPieceType().isRook()) {
                         if(!BoardUtils.isKingPawnTrap(this.board, this.playerKing, 52)) {
                             kingCastles.add(new QueenSideCastleMove(this.board, this.playerKing, 58, (Rook) queenSideRook, queenSideRook.getPiecePosition(), 59));
                         }
@@ -68,7 +68,7 @@ public final class WhitePlayer extends Player {
     }
 
     @Override
-    public Collection<Piece> getActivePieces() {
+    public Collection<AbstractPiece> getActivePieces() {
         return this.board.getWhitePieces();
     }
 

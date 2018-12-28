@@ -2,7 +2,8 @@ package com.chess.spring.services.game;
 
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.Move;
+import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.move.MoveFactory;
 import com.chess.spring.engine.move.MoveTransition;
 import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
 import com.chess.spring.exceptions.InvalidDataException;
@@ -23,7 +24,7 @@ public abstract class GameUtils {
     }
 
     protected Move map(Board board, MoveDTO moveDTO) {
-        return Move.MoveFactory.createMove(board, moveDTO.getSource(), moveDTO.getDestination());
+        return MoveFactory.createMove(board, moveDTO.getSource(), moveDTO.getDestination());
     }
 
     Board executeMove(String fenBoard, MoveDTO moveDTO) throws InvalidDataException {
@@ -39,8 +40,8 @@ public abstract class GameUtils {
 
     Board executeMove(Board board, Move move) throws InvalidDataException {
         final MoveTransition transition = board.currentPlayer().makeMove(move);
-        if (transition.getMoveStatus().isDone()) {
-            board = transition.getToBoard();
+        if (transition.getStatus().isDone()) {
+            board = transition.getAfterMoveBoard();
 //            moveLog.addMove(move);
         } else {
             throw new InvalidDataException("Nie poprawny ruch");

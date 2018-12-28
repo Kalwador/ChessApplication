@@ -1,6 +1,6 @@
 package com.chess.spring.utils.pgn;
 
-import com.chess.spring.engine.classic.PieceColor;
+import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.pieces.*;

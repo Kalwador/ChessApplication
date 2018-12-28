@@ -1,8 +1,8 @@
 package com.chess.spring.utils.pgn;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.Move;
-import com.chess.spring.engine.classic.player.Player;
+import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.classic.player.AbstractPlayer;
 
 import java.sql.*;
 
@@ -51,13 +51,13 @@ public class MySqlGamePersistence implements PGNPersistence {
 
     @Override
     public Move getNextBestMove(final Board board,
-                                final Player player,
+                                final AbstractPlayer player,
                                 final String gameText) {
         return queryBestMove(board, player, gameText);
     }
 
     private Move queryBestMove(final Board board,
-                               final Player player,
+                               final AbstractPlayer player,
                                final String gameText) {
 
         String bestMove = "";
