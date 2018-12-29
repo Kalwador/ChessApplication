@@ -2,10 +2,10 @@ package com.chess.spring.engine.classic.player.ai;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.classic.player.AbstractPlayer;
+import com.chess.spring.engine.classic.player.player.AbstractPlayer;
 import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.engine.move.MoveFactory;
-import com.chess.spring.engine.move.MoveTransition;
+import com.chess.spring.engine.move.Transition;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 
@@ -80,7 +80,7 @@ public class StockAlphaBeta extends Observable implements MoveStrategy {
         int numMoves = board.currentPlayer().getLegalMoves().size();
 
         for ( Move move : MoveSorter.EXPENSIVE.sort((board.currentPlayer().getLegalMoves()))) {
-             MoveTransition moveTransition = board.currentPlayer().makeMove(move);
+             Transition moveTransition = board.currentPlayer().makeMove(move);
             this.quiescenceCount = 0;
              String s;
             if (moveTransition.getStatus().isDone()) {
@@ -148,7 +148,7 @@ public class StockAlphaBeta extends Observable implements MoveStrategy {
         }
         int currentHighest = highest;
         for ( Move move : MoveSorter.STANDARD.sort((board.currentPlayer().getLegalMoves()))) {
-             MoveTransition moveTransition = board.currentPlayer().makeMove(move);
+             Transition moveTransition = board.currentPlayer().makeMove(move);
             if (moveTransition.getStatus().isDone()) {
                 currentHighest = Math.max(currentHighest, min(moveTransition.getAfterMoveBoard(),
                         calculateQuiescenceDepth(moveTransition, depth), currentHighest, lowest));
@@ -170,7 +170,7 @@ public class StockAlphaBeta extends Observable implements MoveStrategy {
         }
         int currentLowest = lowest;
         for ( Move move : MoveSorter.STANDARD.sort((board.currentPlayer().getLegalMoves()))) {
-             MoveTransition moveTransition = board.currentPlayer().makeMove(move);
+             Transition moveTransition = board.currentPlayer().makeMove(move);
             if (moveTransition.getStatus().isDone()) {
                 currentLowest = Math.min(currentLowest, max(moveTransition.getAfterMoveBoard(),
                         calculateQuiescenceDepth(moveTransition, depth), highest, currentLowest));
@@ -182,7 +182,7 @@ public class StockAlphaBeta extends Observable implements MoveStrategy {
         return currentLowest;
     }
 
-    private int calculateQuiescenceDepth( MoveTransition moveTransition,
+    private int calculateQuiescenceDepth( Transition moveTransition,
                                           int depth) {
         if(depth == 1 && this.quiescenceCount < MAX_QUIESCENCE) {
             int activityMeasure = 0;

@@ -30,20 +30,20 @@ public  class Knight extends AbstractPiece {
     public Collection<Move> calculateLegalMoves( Board board) {
          List<Move> legalMoves = new ArrayList<>();
         for ( int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            if(isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) ||
-               isSecondColumnExclusion(this.piecePosition, currentCandidateOffset) ||
-               isSeventhColumnExclusion(this.piecePosition, currentCandidateOffset) ||
-               isEighthColumnExclusion(this.piecePosition, currentCandidateOffset)) {
+            if(isFirstColumnExclusion(getPiecePosition(), currentCandidateOffset) ||
+               isSecondColumnExclusion(getPiecePosition(), currentCandidateOffset) ||
+               isSeventhColumnExclusion(getPiecePosition(), currentCandidateOffset) ||
+               isEighthColumnExclusion(getPiecePosition(), currentCandidateOffset)) {
                 continue;
             }
-             int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
+             int candidateDestinationCoordinate = getPiecePosition() + currentCandidateOffset;
             if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                  AbstractPiece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                 if (pieceAtDestination == null) {
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 } else {
                      PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
-                    if (this.piecePieceColor != pieceAtDestinationAllegiance) {
+                    if (getPieceColor() != pieceAtDestinationAllegiance) {
                         legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                 pieceAtDestination));
                     }
@@ -55,7 +55,7 @@ public  class Knight extends AbstractPiece {
 
     @Override
     public int locationBonus() {
-        return this.piecePieceColor.knightBonus(this.piecePosition);
+        return getPieceColor().knightBonus(getPiecePosition());
     }
 
     @Override
@@ -65,7 +65,7 @@ public  class Knight extends AbstractPiece {
 
     @Override
     public String toString() {
-        return this.pieceType.toString();
+        return getPieceType().toString();
     }
 
     private static boolean isFirstColumnExclusion( int currentPosition,

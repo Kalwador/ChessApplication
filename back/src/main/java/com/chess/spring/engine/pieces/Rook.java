@@ -29,7 +29,7 @@ public  class Rook extends AbstractPiece {
     public Collection<Move> calculateLegalMoves( Board board) {
          List<Move> legalMoves = new ArrayList<>();
         for ( int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            int candidateDestinationCoordinate = this.piecePosition;
+            int candidateDestinationCoordinate = getPiecePosition();
             while (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 if (isColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
                     break;
@@ -41,7 +41,7 @@ public  class Rook extends AbstractPiece {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     } else {
                          PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
-                        if (this.piecePieceColor != pieceAtDestinationAllegiance) {
+                        if (getPieceColor() != pieceAtDestinationAllegiance) {
                             legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
                         }
@@ -55,7 +55,7 @@ public  class Rook extends AbstractPiece {
 
     @Override
     public int locationBonus() {
-        return this.piecePieceColor.rookBonus(this.piecePosition);
+        return getPieceColor().rookBonus(getPiecePosition());
     }
 
     @Override
@@ -65,7 +65,7 @@ public  class Rook extends AbstractPiece {
 
     @Override
     public String toString() {
-        return this.pieceType.toString();
+        return getPieceType().toString();
     }
 
     private static boolean isColumnExclusion( int currentCandidate,

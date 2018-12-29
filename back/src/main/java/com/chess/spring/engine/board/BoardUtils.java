@@ -2,9 +2,10 @@ package com.chess.spring.engine.board;
 
 import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.engine.move.MoveFactory;
-import com.chess.spring.engine.move.MoveTransition;
+import com.chess.spring.engine.move.Transition;
 import com.chess.spring.engine.pieces.King;
 import com.chess.spring.engine.pieces.AbstractPiece;
+import com.chess.spring.engine.pieces.PieceType;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -103,7 +104,7 @@ public enum  BoardUtils {
 
     public static boolean kingThreat(final Move move) {
         final Board board = move.getBoard();
-        final MoveTransition transition = board.currentPlayer().makeMove(move);
+        final Transition transition = board.currentPlayer().makeMove(move);
         return transition.getAfterMoveBoard().currentPlayer().isInCheck();
     }
 
@@ -119,9 +120,9 @@ public enum  BoardUtils {
         final AbstractPiece movingPiece = move.getPiece();
         if(move.isAttack()) {
             final AbstractPiece attackedPiece = move.getAttackedPiece();
-            return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() +  AbstractPiece.PieceType.KING.getPieceValue()) * 100;
+            return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() +  PieceType.KING.getPieceValue()) * 100;
         }
-        return AbstractPiece.PieceType.KING.getPieceValue() - movingPiece.getPieceValue();
+        return PieceType.KING.getPieceValue() - movingPiece.getPieceValue();
     }
 
     public static List<Move> lastNMoves(final Board board, int N) {

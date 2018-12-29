@@ -1,6 +1,7 @@
 package com.chess.spring.engine.move.pawn;
 
 import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardBuilder;
 import com.chess.spring.engine.pieces.Pawn;
 import com.chess.spring.engine.pieces.AbstractPiece;
 
@@ -20,7 +21,7 @@ public class PawnEnPassantAttack extends PawnAttackMove {
 
     @Override
     public Board execute() {
-        Board.Builder builder = new Board.Builder();
+        BoardBuilder builder = new BoardBuilder();
         getBoard().currentPlayer().getActivePieces().stream().filter(piece -> !getPiece().equals(piece)).forEach(builder::setPiece);
         getBoard().currentPlayer().getOpponent().getActivePieces().stream().filter(piece -> !piece.equals(this.getAttackedPiece())).forEach(builder::setPiece);
         builder.setPiece(getPiece().movePiece(this));
@@ -31,11 +32,11 @@ public class PawnEnPassantAttack extends PawnAttackMove {
 
     @Override
     public Board undo() {
-        Board.Builder builder = new Board.Builder();
+        BoardBuilder builder = new BoardBuilder();
         for (AbstractPiece piece : getBoard().getAllPieces()) {
             builder.setPiece(piece);
         }
-        builder.setEnPassantPawn((Pawn) this.getAttackedPiece());
+        builder.setPawn((Pawn) this.getAttackedPiece());
         builder.setMoveMaker(getBoard().currentPlayer().getAlliance());
         return builder.build();
     }

@@ -2,6 +2,7 @@ package com.chess.spring.engine.move.pawn;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.board.BoardBuilder;
 import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.engine.pieces.Pawn;
 import com.chess.spring.engine.pieces.AbstractPiece;
@@ -26,7 +27,7 @@ public class PawnPromotion extends PawnMove {
     @Override
     public Board execute() {
         Board pawnMovedBoard = this.move.execute();
-        Board.Builder builder = new Board.Builder();
+        BoardBuilder builder = new BoardBuilder();
         pawnMovedBoard.currentPlayer().getActivePieces().stream().filter(piece -> !this.pawn.equals(piece)).forEach(builder::setPiece);
         pawnMovedBoard.currentPlayer().getOpponent().getActivePieces().forEach(builder::setPiece);
         builder.setPiece(this.abstractPiece.movePiece(this));

@@ -90,9 +90,9 @@ export class GamePlayPveComponent implements OnInit {
     private setPlayersInfo() {
         if (this.currentGameService.game.color === PlayerColor.WHITE) {
             this.whitePlayerNick = this.gameService.getAccountModel().nick;
-            this.blackPlayerNick = 'Computer Lv: ' + this.currentGameService.game.level;
+            this.blackPlayerNick = 'Komputer poziom: ' + this.currentGameService.game.level;
         } else {
-            this.whitePlayerNick = 'Computer Lv: ' + this.currentGameService.game.level;
+            this.whitePlayerNick = 'Komputer poziom: ' + this.currentGameService.game.level;
             this.blackPlayerNick = this.gameService.getAccountModel().nick;
         }
     }

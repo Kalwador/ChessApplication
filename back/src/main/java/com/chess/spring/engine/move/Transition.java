@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public  class MoveTransition {
+public  class Transition {
     private Move move;
     private MoveStatus status;
     private Board beforeMoveBoard;

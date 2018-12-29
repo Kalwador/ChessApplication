@@ -1,4 +1,4 @@
-package com.chess.spring.engine.classic.player;
+package com.chess.spring.engine.classic.player.player;
 
 import com.chess.spring.engine.move.castle.KingSideCastleMove;
 import com.chess.spring.engine.move.castle.QueenSideCastleMove;

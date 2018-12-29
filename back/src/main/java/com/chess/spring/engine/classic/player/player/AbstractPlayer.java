@@ -1,10 +1,10 @@
-package com.chess.spring.engine.classic.player;
+package com.chess.spring.engine.classic.player.player;
 
 import com.chess.spring.engine.move.MoveStatus;
 import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.simple.Move;
-import com.chess.spring.engine.move.MoveTransition;
+import com.chess.spring.engine.move.Transition;
 import com.chess.spring.engine.pieces.King;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.google.common.collect.ImmutableList;
@@ -70,22 +70,22 @@ public abstract class AbstractPlayer {
                 .collect(Collectors.collectingAndThen(Collectors.toList(), ImmutableList::copyOf));
     }
 
-    public MoveTransition makeMove(Move move) {
+    public Transition makeMove(Move move) {
         if (!this.legalMoves.contains(move)) {
-            return new MoveTransition(move, MoveStatus.ILLEGAL_MOVE, this.board, this.board);
+            return new Transition(move, MoveStatus.ILLEGAL_MOVE, this.board, this.board);
         }
         Board transitionedBoard = move.execute();
         Collection<Move> kingAttacks = AbstractPlayer.calculateAttacksOnTile(
                 transitionedBoard.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
                 transitionedBoard.currentPlayer().getLegalMoves());
         if (!kingAttacks.isEmpty()) {
-            return new MoveTransition(move, MoveStatus.LEAVES_PLAYER_IN_CHECK, this.board, this.board);
+            return new Transition(move, MoveStatus.LEAVES_PLAYER_IN_CHECK, this.board, this.board);
         }
-        return new MoveTransition(move, MoveStatus.DONE, this.board, transitionedBoard);
+        return new Transition(move, MoveStatus.DONE, this.board, transitionedBoard);
     }
 
-    public MoveTransition unMakeMove(Move move) {
-        return new MoveTransition(move, MoveStatus.DONE, this.board, move.undo());
+    public Transition unMakeMove(Move move) {
+        return new Transition(move, MoveStatus.DONE, this.board, move.undo());
     }
 
     public abstract Collection<AbstractPiece> getActivePieces();

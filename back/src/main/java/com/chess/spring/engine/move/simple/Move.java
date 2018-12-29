@@ -1,8 +1,8 @@
 package com.chess.spring.engine.move.simple;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.Board.Builder;
 import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.board.BoardBuilder;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,7 +53,7 @@ public abstract class Move {
     }
 
     public Board execute() {
-        Board.Builder builder = new Builder();
+        BoardBuilder builder = new BoardBuilder();
         this.board.currentPlayer().getActivePieces().stream().filter(piece -> !this.piece.equals(piece)).forEach(builder::setPiece);
         this.board.currentPlayer().getOpponent().getActivePieces().forEach(builder::setPiece);
         builder.setPiece(this.piece.movePiece(this));
@@ -63,7 +63,7 @@ public abstract class Move {
     }
 
     public Board undo() {
-        Board.Builder builder = new Builder();
+        BoardBuilder builder = new BoardBuilder();
         for (AbstractPiece piece : this.board.getAllPieces()) {
             builder.setPiece(piece);
         }

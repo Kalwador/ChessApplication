@@ -8568,3 +8568,8 @@ INFO    2018-12-28 22:41:50,932 [main] com.chess.spring.configuration.MailingSys
 INFO    2018-12-28 22:43:01,825 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-28 22:46:30,229 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2018-12-28 23:12:01,155 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-28 23:44:07,109 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-28 23:45:53,424 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-28 23:59:36,043 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-29 00:11:29,081 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2018-12-29 00:32:52,319 [main] com.chess.spring.configuration.MailingSystemConfiguration  - Mailing system variables inicialized

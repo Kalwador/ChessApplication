@@ -1,5 +1,6 @@
 package com.chess.spring.utils.pgn;
 
+import com.chess.spring.engine.board.BoardBuilder;
 import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
@@ -25,7 +26,7 @@ public class FenUtilities {
 
     private static Board parseFEN(final String fenString) {
         final String[] fenPartitions = fenString.trim().split(" ");
-        final Board.Builder builder = new Board.Builder();
+        final BoardBuilder builder = new BoardBuilder();
         final boolean whiteKingSideCastle = whiteKingSideCastle(fenPartitions[2]);
         final boolean whiteQueenSideCastle = whiteQueenSideCastle(fenPartitions[2]);
         final boolean blackKingSideCastle = blackKingSideCastle(fenPartitions[2]);

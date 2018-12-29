@@ -1,7 +1,7 @@
 package com.chess.spring.engine.board;
 
 import com.chess.spring.engine.move.simple.MoveImpl;
-import com.chess.spring.engine.pieces.PieceType;
+import com.chess.spring.engine.pieces.PiecesType;
 
 import java.util.*;
 
@@ -513,7 +513,7 @@ public class PieceConfiguration {
         whiteLegalLocations.clear();
         blackLegalLocations.clear();
 
-        for ( PieceType p : PieceType.values()) {
+        for ( PiecesType p : PiecesType.values()) {
             boardLegalMoveImplementations.addAll(p.calculateLegalMoves());
         }
     }
@@ -523,42 +523,42 @@ public class PieceConfiguration {
 
          char[] tiles = new char[64];
 
-         ChessBitSet allKnights = PieceType.allKnights();
+         ChessBitSet allKnights = PiecesType.allKnights();
 
         for (int currentKnightLocation = allKnights.nextSetBit(0); currentKnightLocation >= 0; currentKnightLocation = allKnights
                 .nextSetBit(currentKnightLocation + 1)) {
             tiles[currentKnightLocation] = 'N';
         }
 
-         ChessBitSet allBishops = PieceType.allBishops();
+         ChessBitSet allBishops = PiecesType.allBishops();
 
         for (int currentBishopLocation = allBishops.nextSetBit(0); currentBishopLocation >= 0; currentBishopLocation = allBishops
                 .nextSetBit(currentBishopLocation + 1)) {
             tiles[currentBishopLocation] = 'B';
         }
 
-         ChessBitSet allRooks = PieceType.allRooks();
+         ChessBitSet allRooks = PiecesType.allRooks();
 
         for (int currentRookLocation = allRooks.nextSetBit(0); currentRookLocation >= 0; currentRookLocation = allRooks
                 .nextSetBit(currentRookLocation + 1)) {
             tiles[currentRookLocation] = 'R';
         }
 
-         ChessBitSet allPawns = PieceType.allPawns();
+         ChessBitSet allPawns = PiecesType.allPawns();
 
         for (int currentPawnLocation = allPawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = allPawns
                 .nextSetBit(currentPawnLocation + 1)) {
             tiles[currentPawnLocation] = 'P';
         }
 
-         ChessBitSet allQueens = PieceType.allQueens();
+         ChessBitSet allQueens = PiecesType.allQueens();
 
         for (int currentQueenLocation = allQueens.nextSetBit(0); currentQueenLocation >= 0; currentQueenLocation = allQueens
                 .nextSetBit(currentQueenLocation + 1)) {
             tiles[currentQueenLocation] = 'Q';
         }
 
-         ChessBitSet allKings = PieceType.allKings();
+         ChessBitSet allKings = PiecesType.allKings();
 
         for (int currentKingLocation = allKings.nextSetBit(0); currentKingLocation >= 0; currentKingLocation = allKings
                 .nextSetBit(currentKingLocation + 1)) {

@@ -1,6 +1,7 @@
 package com.chess.spring.engine.move.castle;
 
 import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardBuilder;
 import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.Rook;
@@ -29,7 +30,7 @@ public abstract class AbstractCastleMove extends Move {
 
     @Override
     public Board execute() {
-        Board.Builder builder = new Board.Builder();
+        BoardBuilder builder = new BoardBuilder();
         for (AbstractPiece piece : getBoard().getAllPieces()) {
             if (!getPiece().equals(piece) && !this.castleRook.equals(piece)) {
                 builder.setPiece(piece);

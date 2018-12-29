@@ -30,7 +30,7 @@ public  class Bishop extends AbstractPiece {
     public Collection<Move> calculateLegalMoves( Board board) {
          List<Move> legalMoves = new ArrayList<>();
         for ( int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            int candidateDestinationCoordinate = this.piecePosition;
+            int candidateDestinationCoordinate = getPiecePosition();
             while (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
                     isEighthColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
@@ -44,7 +44,7 @@ public  class Bishop extends AbstractPiece {
                     }
                     else {
                          PieceColor piecePieceColor = pieceAtDestination.getPieceAllegiance();
-                        if (this.piecePieceColor != piecePieceColor) {
+                        if (getPieceColor() != piecePieceColor) {
                             legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
                         }
@@ -58,7 +58,7 @@ public  class Bishop extends AbstractPiece {
 
     @Override
     public int locationBonus() {
-        return this.piecePieceColor.bishopBonus(this.piecePosition);
+        return getPieceColor().bishopBonus(getPiecePosition());
     }
 
     @Override
@@ -68,7 +68,7 @@ public  class Bishop extends AbstractPiece {
 
     @Override
     public String toString() {
-        return this.pieceType.toString();
+        return getPieceType().toString();
     }
 
     private static boolean isFirstColumnExclusion( int currentCandidate,

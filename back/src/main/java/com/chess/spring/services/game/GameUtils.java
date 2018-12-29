@@ -4,7 +4,7 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.move.simple.Move;
 import com.chess.spring.engine.move.MoveFactory;
-import com.chess.spring.engine.move.MoveTransition;
+import com.chess.spring.engine.move.Transition;
 import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.game.GameEndStatus;
@@ -39,7 +39,7 @@ public abstract class GameUtils {
     }
 
     Board executeMove(Board board, Move move) throws InvalidDataException {
-        final MoveTransition transition = board.currentPlayer().makeMove(move);
+        final Transition transition = board.currentPlayer().makeMove(move);
         if (transition.getStatus().isDone()) {
             board = transition.getAfterMoveBoard();
 //            moveLog.addMove(move);

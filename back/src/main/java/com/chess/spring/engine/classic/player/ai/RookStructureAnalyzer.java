@@ -2,7 +2,7 @@ package com.chess.spring.engine.classic.player.ai;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.classic.player.AbstractPlayer;
+import com.chess.spring.engine.classic.player.player.AbstractPlayer;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
