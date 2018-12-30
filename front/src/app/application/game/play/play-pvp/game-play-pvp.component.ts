@@ -131,20 +131,20 @@ export class GamePlayPvpComponent implements OnInit {
     }
 
     makeMove(move: Move) {
-        console.log("move 2");
+        console.log("moves 2");
         console.log(move);
         if (this.isPlayerPlaying && this.isGameContinued) {
-            console.log("move 3");
+            console.log("moves 3");
             if (this.currentGameService.game.status === GameStatus.WHITE_MOVE
                 || this.currentGameService.game.status === GameStatus.BLACK_MOVE
                 || this.currentGameService.game.status === GameStatus.ON_HOLD
                 || this.currentGameService.game.status === GameStatus.CHECK) {
-                console.log("move 4");
+                console.log("moves 4");
                 let legateMove = this.currentGameService.getLegateMove(move.source, move.destination);
                 if (legateMove !== null) {
-                    console.log("move 5");
+                    console.log("moves 5");
                     if (this.currentGameService.game.status === GameStatus.CHECK) {
-                        console.log("move 5.5");
+                        console.log("moves 5.5");
                         this.currentGameService.executeMove(move);
                     }
                     console.log("6");
@@ -202,8 +202,8 @@ export class GamePlayPvpComponent implements OnInit {
     }
 
     public sendMoveMessage(message: SocketMessageModel) {
-        this.notificationService.trace('Sending move message');
-        this.stompClient.send('/app/channel/game/' + this.currentGameService.game.id + '/move', {}, JSON.stringify(message));
+        this.notificationService.trace('Sending moves message');
+        this.stompClient.send('/app/channel/game/' + this.currentGameService.game.id + '/moves', {}, JSON.stringify(message));
     }
 
     private handleGameStatus(status: string, isInCheck: boolean) {

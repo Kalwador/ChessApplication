@@ -1,4 +1,4 @@
-package com.chess.spring.engine.move.pawn;
+package com.chess.spring.engine.moves.simple.pawn;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardBuilder;

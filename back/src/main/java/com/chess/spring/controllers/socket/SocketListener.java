@@ -53,7 +53,7 @@ public class SocketListener {
         this.socketEmitter.distributeMessage(roomId, message);
     }
 
-    @MessageMapping("/channel/game/{roomId}/move")
+    @MessageMapping("/channel/game/{roomId}/moves")
     public void moveMessage(@DestinationVariable String roomId, @Payload SocketMessageDTO message) throws
             DataMissmatchException, LockedSourceException, ResourceNotFoundException, InvalidDataException, PreconditionFailedException {
         this.gamePvPService.makeMove(Long.parseLong(roomId), message.getMoveDTO());

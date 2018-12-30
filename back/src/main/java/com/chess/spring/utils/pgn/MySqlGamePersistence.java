@@ -1,7 +1,7 @@
 package com.chess.spring.utils.pgn;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.engine.classic.player.player.AbstractPlayer;
 
 import java.sql.*;
@@ -79,7 +79,7 @@ public class MySqlGamePersistence implements PGNPersistence {
         catch (final SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\tselected book move = " +bestMove+ " with " +count+ " hits");
+        System.out.println("\tselected book moves = " +bestMove+ " with " +count+ " hits");
         return PGNUtilities.createMove(board, bestMove);
     }
 

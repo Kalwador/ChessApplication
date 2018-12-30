@@ -1,4 +1,4 @@
-package com.chess.spring.engine.move;
+package com.chess.spring.engine.moves;
 
 public enum MoveStatus {
 

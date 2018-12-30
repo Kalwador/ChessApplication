@@ -2,9 +2,9 @@ package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.move.simple.MajorAttackMove;
-import com.chess.spring.engine.move.simple.MajorMove;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.MajorAttackMove;
+import com.chess.spring.engine.moves.simple.MajorMove;
+import com.chess.spring.engine.moves.simple.Move;
 import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 
@@ -55,7 +55,7 @@ public class King extends AbstractPiece {
     }
 
     @Override
-    public Collection<Move> calculateLegalMoves(Board board) {
+    public Collection<Move> getOptionalMoves(Board board) {
         List<Move> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             if (isFirstColumnExclusion(getPiecePosition(), currentCandidateOffset) ||

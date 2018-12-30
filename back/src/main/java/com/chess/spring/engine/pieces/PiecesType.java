@@ -2,7 +2,7 @@ package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.PieceConfiguration;
 import com.chess.spring.engine.board.ChessBitSet;
-import com.chess.spring.engine.move.simple.MoveImpl;
+import com.chess.spring.engine.moves.simple.MoveImpl;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.move.simple.MoveImpl;
+import com.chess.spring.engine.moves.simple.MoveImpl;
 import com.chess.spring.engine.pieces.PiecesType;
 
 import java.util.*;

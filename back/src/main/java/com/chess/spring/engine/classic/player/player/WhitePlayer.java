@@ -1,11 +1,11 @@
 package com.chess.spring.engine.classic.player.player;
 
-import com.chess.spring.engine.move.castle.KingSideCastleMove;
-import com.chess.spring.engine.move.castle.QueenSideCastleMove;
+import com.chess.spring.engine.moves.simple.castle.KingSideCastleMove;
+import com.chess.spring.engine.moves.simple.castle.QueenSideCastleMove;
 import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;

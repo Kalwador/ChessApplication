@@ -1,10 +1,10 @@
 package com.chess.spring.engine.classic.player.player;
 
-import com.chess.spring.engine.move.MoveStatus;
+import com.chess.spring.engine.moves.MoveStatus;
 import com.chess.spring.engine.pieces.PieceColor;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.simple.Move;
-import com.chess.spring.engine.move.Transition;
+import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.Transition;
 import com.chess.spring.engine.pieces.King;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.google.common.collect.ImmutableList;

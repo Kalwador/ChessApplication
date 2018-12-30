@@ -1,8 +1,8 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.move.simple.Move;
-import com.chess.spring.engine.move.MoveFactory;
-import com.chess.spring.engine.move.Transition;
+import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.MoveFactory;
+import com.chess.spring.engine.moves.Transition;
 import com.chess.spring.engine.pieces.King;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.PieceType;

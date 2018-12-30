@@ -2,9 +2,9 @@ package com.chess.spring.services.game;
 
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.simple.Move;
-import com.chess.spring.engine.move.MoveFactory;
-import com.chess.spring.engine.move.Transition;
+import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.MoveFactory;
+import com.chess.spring.engine.moves.Transition;
 import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.game.GameEndStatus;
@@ -42,7 +42,7 @@ public abstract class GameUtils {
         final Transition transition = board.currentPlayer().makeMove(move);
         if (transition.getStatus().isDone()) {
             board = transition.getAfterMoveBoard();
-//            moveLog.addMove(move);
+//            moveLog.addMove(moves);
         } else {
             throw new InvalidDataException("Nie poprawny ruch");
         }

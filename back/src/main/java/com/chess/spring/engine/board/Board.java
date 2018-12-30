@@ -1,8 +1,8 @@
 package com.chess.spring.engine.board;
 
 import com.chess.spring.engine.classic.player.player.AbstractPlayer;
-import com.chess.spring.engine.move.simple.Move;
-import com.chess.spring.engine.move.MoveFactory;
+import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.MoveFactory;
 import com.chess.spring.engine.pieces.*;
 import com.chess.spring.engine.classic.player.player.BlackPlayer;
 import com.chess.spring.engine.classic.player.player.WhitePlayer;
@@ -149,7 +149,7 @@ public final class Board {
     }
 
     private Collection<Move> calculateLegalMoves(final Collection<AbstractPiece> pieces) {
-        return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
+        return pieces.stream().flatMap(piece -> piece.getOptionalMoves(this).stream())
                       .collect(Collectors.toList());
     }
 

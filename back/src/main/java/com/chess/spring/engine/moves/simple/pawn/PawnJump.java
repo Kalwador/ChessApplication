@@ -1,9 +1,9 @@
-package com.chess.spring.engine.move.pawn;
+package com.chess.spring.engine.moves.simple.pawn;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.board.BoardBuilder;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.engine.pieces.Pawn;
 import lombok.EqualsAndHashCode;
 

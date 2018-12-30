@@ -3,7 +3,7 @@ package com.chess.spring.services.game;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.exceptions.*;
@@ -81,7 +81,7 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
                 board = executeMove(board, move);
             } catch (InvalidDataException e) {
                 //nie mozliwe, bo pierwszy ruch musi być poprawny
-                throw new RuntimeException("Error during first computer move, quite imposible ... but here we are");
+                throw new RuntimeException("Error during first computer moves, quite imposible ... but here we are");
             }
         }
 

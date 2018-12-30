@@ -1,8 +1,7 @@
-package com.chess.spring.engine.move.simple;
+package com.chess.spring.engine.moves.simple;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.move.simple.AbstractAttackMove;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

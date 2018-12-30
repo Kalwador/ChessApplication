@@ -1,4 +1,4 @@
-package com.chess.spring.engine.move.castle;
+package com.chess.spring.engine.moves.simple.castle;
 
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.pieces.AbstractPiece;

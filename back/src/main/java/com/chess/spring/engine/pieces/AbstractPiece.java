@@ -1,7 +1,8 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -40,7 +41,7 @@ public abstract class AbstractPiece {
 
     public abstract AbstractPiece movePiece(Move move);
 
-    public abstract Collection<Move> calculateLegalMoves(Board board);
+    public abstract Collection<Move> getOptionalMoves(Board board);
 
     private int computeHashCode() {
         int result = this.pieceType.hashCode();
@@ -49,7 +50,4 @@ public abstract class AbstractPiece {
         result = 31 * result + (this.isFirstMove ? 1 : 0);
         return result;
     }
-
-
-
 }

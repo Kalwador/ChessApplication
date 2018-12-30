@@ -1,7 +1,7 @@
-package com.chess.spring.engine.move;
+package com.chess.spring.engine.moves;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
 
 public class ErrorMove extends Move {
 
@@ -21,7 +21,7 @@ public class ErrorMove extends Move {
 
     @Override
     public Board execute() {
-        throw new RuntimeException("cannot execute null move!");
+        throw new RuntimeException("cannot execute null moves!");
     }
 
     @Override

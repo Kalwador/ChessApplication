@@ -1,7 +1,7 @@
-package com.chess.spring.engine.move;
+package com.chess.spring.engine.moves;
 
 
-import com.chess.spring.engine.move.simple.Move;
+import com.chess.spring.engine.moves.simple.Move;
 
 public enum MoveUtils {
 

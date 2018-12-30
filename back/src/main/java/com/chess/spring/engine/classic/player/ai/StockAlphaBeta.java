@@ -3,9 +3,9 @@ package com.chess.spring.engine.classic.player.ai;
 import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardUtils;
 import com.chess.spring.engine.classic.player.player.AbstractPlayer;
-import com.chess.spring.engine.move.simple.Move;
-import com.chess.spring.engine.move.MoveFactory;
-import com.chess.spring.engine.move.Transition;
+import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.MoveFactory;
+import com.chess.spring.engine.moves.Transition;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 

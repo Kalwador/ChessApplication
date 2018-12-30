@@ -1,4 +1,4 @@
-package com.chess.spring.engine.move.simple;
+package com.chess.spring.engine.moves.simple;
 
 import com.chess.spring.engine.board.PieceConfiguration;
 import com.chess.spring.engine.pieces.PiecesType;
