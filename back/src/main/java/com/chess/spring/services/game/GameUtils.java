@@ -5,15 +5,27 @@ import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.engine.moves.MoveFactory;
 import com.chess.spring.engine.moves.Transition;
-import com.chess.spring.engine.classic.player.ai.StockAlphaBeta;
+import com.chess.spring.engine.classic.player.ai.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.models.game.GameEndStatus;
 import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.utils.pgn.FenUtilities;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
-public abstract class GameUtils {
+@Data
+@Service
+public class GameUtils {
+
+    private AlphaBetaAlgorithm alphaBetaAlgorithm;
+
+    @Autowired
+    public GameUtils(AlphaBetaAlgorithm alphaBetaAlgorithm) {
+        this.alphaBetaAlgorithm = alphaBetaAlgorithm;
+    }
 
     PlayerColor drawColor() {
         return new Random(System.currentTimeMillis()).nextInt() > 0.5 ? PlayerColor.WHITE : PlayerColor.BLACK;
@@ -60,9 +72,7 @@ public abstract class GameUtils {
     }
 
     Move getBestMove(Board board, int level) {
-        final StockAlphaBeta strategy = new StockAlphaBeta(level);
-//        strategy.addObserver(Table.get().getDebugPanel());
-        return strategy.execute(board);
+        return alphaBetaAlgorithm.execute(board, level);
     }
 
 }

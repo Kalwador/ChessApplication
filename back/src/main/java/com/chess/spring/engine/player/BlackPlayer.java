@@ -1,4 +1,4 @@
-package com.chess.spring.engine.classic.player.player;
+package com.chess.spring.engine.player;
 
 import com.chess.spring.engine.moves.simple.castle.KingSideCastleMove;
 import com.chess.spring.engine.moves.simple.castle.QueenSideCastleMove;
@@ -32,17 +32,17 @@ public  class BlackPlayer extends AbstractPlayer {
 
          List<Move> kingCastles = new ArrayList<>();
 
-        if (this.playerKing.isFirstMove() && this.playerKing.getPiecePosition() == 4 && !this.isInCheck) {
+        if (this.playerKing.isFirstMove() && this.playerKing.getPosition() == 4 && !this.isInCheck) {
             //blacks king side castle
             if (this.board.getPiece(5) == null && this.board.getPiece(6) == null) {
                  AbstractPiece kingSideRook = this.board.getPiece(7);
                 if (kingSideRook != null && kingSideRook.isFirstMove() &&
                         AbstractPlayer.calculateAttacksOnTile(5, opponentLegals).isEmpty() &&
                         AbstractPlayer.calculateAttacksOnTile(6, opponentLegals).isEmpty() &&
-                        kingSideRook.getPieceType().isRook()) {
+                        kingSideRook.getType().isRook()) {
                     if (!BoardUtils.isKingPawnTrap(this.board, this.playerKing, 12)) {
                         kingCastles.add(
-                                new KingSideCastleMove(this.board, this.playerKing, 6, (Rook) kingSideRook, kingSideRook.getPiecePosition(), 5));
+                                new KingSideCastleMove(this.board, this.playerKing, 6, (Rook) kingSideRook, kingSideRook.getPosition(), 5));
 
                     }
                 }
@@ -54,15 +54,15 @@ public  class BlackPlayer extends AbstractPlayer {
                 if (queenSideRook != null && queenSideRook.isFirstMove() &&
                         AbstractPlayer.calculateAttacksOnTile(2, opponentLegals).isEmpty() &&
                         AbstractPlayer.calculateAttacksOnTile(3, opponentLegals).isEmpty() &&
-                        queenSideRook.getPieceType().isRook()) {
+                        queenSideRook.getType().isRook()) {
                     if (!BoardUtils.isKingPawnTrap(this.board, this.playerKing, 12)) {
                         kingCastles.add(
-                                new QueenSideCastleMove(this.board, this.playerKing, 2, (Rook) queenSideRook, queenSideRook.getPiecePosition(), 3));
+                                new QueenSideCastleMove(this.board, this.playerKing, 2, (Rook) queenSideRook, queenSideRook.getPosition(), 3));
                     }
                 }
             }
         }
-        return ImmutableList.copyOf(kingCastles);
+        return kingCastles;
     }
 
     @Override

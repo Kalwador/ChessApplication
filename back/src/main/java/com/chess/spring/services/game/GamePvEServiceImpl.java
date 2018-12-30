@@ -3,6 +3,7 @@ package com.chess.spring.services.game;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.classic.player.ai.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
@@ -30,11 +31,14 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     private GamePvERepository gamePvERepository;
     private AccountService accountService;
     private AccountRepository accountRepository;
+    private AlphaBetaAlgorithm alphaBetaAlgorithm;
 
     @Autowired
     public GamePvEServiceImpl(GamePvERepository gamePvERepository,
                               AccountService accountService,
-                              AccountRepository accountRepository) {
+                              AccountRepository accountRepository,
+                              AlphaBetaAlgorithm alphaBetaAlgorithm) {
+        super(alphaBetaAlgorithm);
         this.gamePvERepository = gamePvERepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;

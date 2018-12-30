@@ -1,9 +1,9 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.classic.player.player.AbstractPlayer;
-import com.chess.spring.engine.classic.player.player.BlackPlayer;
-import com.chess.spring.engine.classic.player.player.WhitePlayer;
+import com.chess.spring.engine.player.AbstractPlayer;
+import com.chess.spring.engine.player.BlackPlayer;
+import com.chess.spring.engine.player.WhitePlayer;
 
 public enum PieceColor {
 

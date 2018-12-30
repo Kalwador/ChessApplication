@@ -48,8 +48,8 @@ public class PawnPromotion extends PawnMove {
 
     @Override
     public String toString() {
-        return BoardUtils.INSTANCE.getPositionAtCoordinate(getPiece().getPiecePosition()) + "-" +
-                BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination()) + "=" + this.abstractPiece.getPieceType();
+        return BoardUtils.INSTANCE.getPositionAtCoordinate(getPiece().getPosition()) + "-" +
+                BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination()) + "=" + this.abstractPiece.getType();
     }
 
 }

@@ -266,7 +266,7 @@ public class PGNUtilities {
         final List<Move> currentCandidates = new ArrayList<>();
 
         for(final Move move : candidateMoves) {
-            if(move.getPiece().getPieceType().toString().equals(movedPiece)) {
+            if(move.getPiece().getType().toString().equals(movedPiece)) {
                 currentCandidates.add(move);
             }
         }

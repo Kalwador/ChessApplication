@@ -1,28 +1,26 @@
-package com.chess.spring.engine.classic.player.ai;
+package com.chess.spring.engine.classic.player.ai.analysers;
 
 import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.classic.player.player.AbstractPlayer;
+import com.chess.spring.engine.player.AbstractPlayer;
 import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.engine.pieces.AbstractPiece;
+import com.chess.spring.engine.pieces.KingDistance;
 import com.google.common.collect.ImmutableList;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public  class KingSafetyAnalyzer {
+@Service
+public  class KingAnalyserService {
 
-    private static  KingSafetyAnalyzer INSTANCE = new KingSafetyAnalyzer();
     private static  List<List<Boolean>> COLUMNS = initColumns();
 
-    private KingSafetyAnalyzer() {
+    private KingAnalyserService() {
     }
 
-    public static KingSafetyAnalyzer get() {
-        return INSTANCE;
-    }
-
-    private static List<List<Boolean>> initColumns() {
+    public static List<List<Boolean>> initColumns() {
          List<List<Boolean>> columns = new ArrayList<>();
         columns.add(BoardUtils.INSTANCE.FIRST_COLUMN);
         columns.add(BoardUtils.INSTANCE.SECOND_COLUMN);
@@ -32,11 +30,11 @@ public  class KingSafetyAnalyzer {
         columns.add(BoardUtils.INSTANCE.SIXTH_COLUMN);
         columns.add(BoardUtils.INSTANCE.SEVENTH_COLUMN);
         columns.add(BoardUtils.INSTANCE.EIGHTH_COLUMN);
-        return ImmutableList.copyOf(columns);
+        return columns;
     }
 
-    public KingDistance calculateKingTropism( AbstractPlayer player) {
-         int playerKingSquare = player.getPlayerKing().getPiecePosition();
+    public KingDistance calculateKingTropism(AbstractPlayer player) {
+         int playerKingSquare = player.getPlayerKing().getPosition();
          Collection<Move> enemyMoves = player.getOpponent().getLegalMoves();
         AbstractPiece closestPiece = null;
         int closestDistance = Integer.MAX_VALUE;
@@ -106,26 +104,4 @@ public  class KingSafetyAnalyzer {
         }
         throw new RuntimeException("should not reach here!");
     }
-
-    static class KingDistance {
-
-         AbstractPiece enemyPiece;
-         int distance;
-
-        KingDistance( AbstractPiece enemyDistance,
-                      int distance) {
-            this.enemyPiece = enemyDistance;
-            this.distance = distance;
-        }
-
-        public AbstractPiece getEnemyPiece() {
-            return enemyPiece;
-        }
-
-        public int getDistance() {
-            return distance;
-        }
-
-    }
-
 }

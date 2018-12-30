@@ -30,7 +30,7 @@ public class Queen extends AbstractPiece {
     public Collection<Move> getOptionalMoves(Board board) {
         List<Move> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            int candidateDestinationCoordinate = getPiecePosition();
+            int candidateDestinationCoordinate = getPosition();
             while (true) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
                         isEightColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
@@ -45,7 +45,7 @@ public class Queen extends AbstractPiece {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     } else {
                         PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
-                        if (getPieceColor() != pieceAtDestinationAllegiance) {
+                        if (getColor() != pieceAtDestinationAllegiance) {
                             legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
                         }
@@ -54,12 +54,12 @@ public class Queen extends AbstractPiece {
                 }
             }
         }
-        return ImmutableList.copyOf(legalMoves);
+        return legalMoves;
     }
 
     @Override
     public int locationBonus() {
-        return getPieceColor().queenBonus(getPiecePosition());
+        return getColor().queenBonus(getPosition());
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Queen extends AbstractPiece {
 
     @Override
     public String toString() {
-        return getPieceType().toString();
+        return getType().toString();
     }
 
     private static boolean isFirstColumnExclusion(int currentPosition,

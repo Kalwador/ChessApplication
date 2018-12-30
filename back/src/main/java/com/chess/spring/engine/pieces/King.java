@@ -58,40 +58,40 @@ public class King extends AbstractPiece {
     public Collection<Move> getOptionalMoves(Board board) {
         List<Move> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
-            if (isFirstColumnExclusion(getPiecePosition(), currentCandidateOffset) ||
-                    isEighthColumnExclusion(getPiecePosition(), currentCandidateOffset)) {
+            if (isFirstColumnExclusion(getPosition(), currentCandidateOffset) ||
+                    isEighthColumnExclusion(getPosition(), currentCandidateOffset)) {
                 continue;
             }
-            int candidateDestinationCoordinate = getPiecePosition() + currentCandidateOffset;
+            int candidateDestinationCoordinate = getPosition() + currentCandidateOffset;
             if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 AbstractPiece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                 if (pieceAtDestination == null) {
                     legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                 } else {
                     PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
-                    if (getPieceColor() != pieceAtDestinationAllegiance) {
+                    if (getColor() != pieceAtDestinationAllegiance) {
                         legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
                                 pieceAtDestination));
                     }
                 }
             }
         }
-        return ImmutableList.copyOf(legalMoves);
+        return legalMoves;
     }
 
     @Override
     public String toString() {
-        return getPieceType().toString();
+        return getType().toString();
     }
 
     @Override
     public int locationBonus() {
-        return getPieceColor().kingBonus(getPiecePosition());
+        return getColor().kingBonus(getPosition());
     }
 
     @Override
     public King movePiece(Move move) {
-        return new King(getPieceColor(), move.getDestination(), false, move.isCastlingMove(), false, false);
+        return new King(getColor(), move.getDestination(), false, move.isCastlingMove(), false, false);
     }
 
 

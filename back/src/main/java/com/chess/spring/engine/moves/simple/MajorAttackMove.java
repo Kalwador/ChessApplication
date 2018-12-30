@@ -16,7 +16,7 @@ public class MajorAttackMove extends AbstractAttackMove {
 
     @Override
     public String toString() {
-        return getPiece().getPieceType() + disambiguationFile() + "x" + BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination());
+        return getPiece().getType() + disambiguationFile() + "x" + BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination());
     }
 
 }

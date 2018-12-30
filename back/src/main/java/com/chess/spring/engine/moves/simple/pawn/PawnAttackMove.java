@@ -17,7 +17,7 @@ public class PawnAttackMove extends AbstractAttackMove {
 
     @Override
     public String toString() {
-        return BoardUtils.INSTANCE.getPositionAtCoordinate(getPiece().getPiecePosition()).substring(0, 1) + "x" +
+        return BoardUtils.INSTANCE.getPositionAtCoordinate(getPiece().getPosition()).substring(0, 1) + "x" +
                 BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination());
     }
 

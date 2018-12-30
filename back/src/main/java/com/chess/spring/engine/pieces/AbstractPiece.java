@@ -10,31 +10,32 @@ import java.util.Collection;
 
 @Data
 @EqualsAndHashCode
+@AllArgsConstructor
 public abstract class AbstractPiece {
 
-    private PieceType pieceType;
-    private PieceColor pieceColor;
-    private int piecePosition;
+    private PieceType type;
+    private int position;
+    private PieceColor color;
     private boolean isFirstMove;
-    private int cachedHashCode;
+    private int code;
 
     AbstractPiece(PieceType type,
-                  PieceColor pieceColor,
-                  int piecePosition,
+                  PieceColor color,
+                  int position,
                   boolean isFirstMove) {
-        this.pieceType = type;
-        this.piecePosition = piecePosition;
-        this.pieceColor = pieceColor;
+        this.type = type;
+        this.position = position;
+        this.color = color;
         this.isFirstMove = isFirstMove;
-        this.cachedHashCode = computeHashCode();
+        this.code = calculateCode();
     }
 
     public PieceColor getPieceAllegiance() {
-        return this.pieceColor;
+        return this.color;
     }
 
     public int getPieceValue() {
-        return this.pieceType.getPieceValue();
+        return this.type.getPieceValue();
     }
 
     public abstract int locationBonus();
@@ -43,10 +44,10 @@ public abstract class AbstractPiece {
 
     public abstract Collection<Move> getOptionalMoves(Board board);
 
-    private int computeHashCode() {
-        int result = this.pieceType.hashCode();
-        result = 31 * result + this.pieceColor.hashCode();
-        result = 31 * result + this.piecePosition;
+    private int calculateCode() {
+        int result = this.type.hashCode();
+        result = 31 * result + this.color.hashCode();
+        result = 31 * result + this.position;
         result = 31 * result + (this.isFirstMove ? 1 : 0);
         return result;
     }

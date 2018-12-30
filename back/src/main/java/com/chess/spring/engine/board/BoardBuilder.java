@@ -22,7 +22,7 @@ public class BoardBuilder {
     }
 
     public BoardBuilder setPiece(final AbstractPiece piece) {
-        this.configuration.put(piece.getPiecePosition(), piece);
+        this.configuration.put(piece.getPosition(), piece);
         return this;
     }
 

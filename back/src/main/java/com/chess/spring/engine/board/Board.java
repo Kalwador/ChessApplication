@@ -1,11 +1,11 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.classic.player.player.AbstractPlayer;
+import com.chess.spring.engine.player.AbstractPlayer;
 import com.chess.spring.engine.moves.simple.Move;
 import com.chess.spring.engine.moves.MoveFactory;
 import com.chess.spring.engine.pieces.*;
-import com.chess.spring.engine.classic.player.player.BlackPlayer;
-import com.chess.spring.engine.classic.player.player.WhitePlayer;
+import com.chess.spring.engine.player.BlackPlayer;
+import com.chess.spring.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import lombok.Data;

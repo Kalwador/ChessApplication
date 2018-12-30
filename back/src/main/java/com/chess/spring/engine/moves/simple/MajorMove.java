@@ -16,7 +16,7 @@ public class MajorMove extends Move {
 
     @Override
     public String toString() {
-        return getPiece().getPieceType().toString() + disambiguationFile() + BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination());
+        return getPiece().getType().toString() + disambiguationFile() + BoardUtils.INSTANCE.getPositionAtCoordinate(getDestination());
     }
 
 }

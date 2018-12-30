@@ -6,6 +6,7 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvPDTO;
 import com.chess.spring.dto.game.SocketMessageDTO;
 import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.classic.player.ai.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.*;
@@ -35,6 +36,7 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
     private ChatService chatService;
     private SocketEmitter socketEmitter;
     private GameService gameService;
+    private AlphaBetaAlgorithm alphaBetaAlgorithm;
 
     @Autowired
     public GamePvPServiceImpl(GamePvPRepository gamePvPRepository,
@@ -42,7 +44,9 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
                               AccountRepository accountRepository,
                               SocketEmitter socketEmitter,
                               GameService gameService,
-                              ChatService chatService) {
+                              ChatService chatService,
+                              AlphaBetaAlgorithm alphaBetaAlgorithm) {
+        super(alphaBetaAlgorithm);
         this.gamePvPRepository = gamePvPRepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;

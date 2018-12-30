@@ -37,7 +37,7 @@ public abstract class Move {
 
 
     public int getCurrentCoordinate() {
-        return this.piece.getPiecePosition();
+        return this.piece.getPosition();
     }
 
     public boolean isAttack() {
@@ -74,8 +74,8 @@ public abstract class Move {
     public String disambiguationFile() {
         for (Move move : this.board.currentPlayer().getLegalMoves()) {
             if (move.getDestination() == this.destination && !this.equals(move) &&
-                    this.piece.getPieceType().equals(move.getPiece().getPieceType())) {
-                return BoardUtils.INSTANCE.getPositionAtCoordinate(this.piece.getPiecePosition()).substring(0, 1);
+                    this.piece.getType().equals(move.getPiece().getType())) {
+                return BoardUtils.INSTANCE.getPositionAtCoordinate(this.piece.getPosition()).substring(0, 1);
             }
         }
         return "";

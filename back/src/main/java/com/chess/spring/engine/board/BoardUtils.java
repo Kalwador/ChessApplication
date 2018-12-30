@@ -8,14 +8,12 @@ import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.PieceType;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import org.hibernate.mapping.Array;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
-public enum  BoardUtils {
+public enum BoardUtils {
 
     INSTANCE;
 
@@ -43,26 +41,26 @@ public enum  BoardUtils {
 
     private static List<Boolean> initColumn(int columnNumber) {
         final Boolean[] column = new Boolean[NUM_TILES];
-        for(int i = 0; i < column.length; i++) {
+        for (int i = 0; i < column.length; i++) {
             column[i] = false;
         }
         do {
             column[columnNumber] = true;
             columnNumber += NUM_TILES_PER_ROW;
-        } while(columnNumber < NUM_TILES);
-        return ImmutableList.copyOf(column);
+        } while (columnNumber < NUM_TILES);
+        return Arrays.asList(column);
     }
 
     private static List<Boolean> initRow(int rowNumber) {
         final Boolean[] row = new Boolean[NUM_TILES];
-        for(int i = 0; i < row.length; i++) {
+        for (int i = 0; i < row.length; i++) {
             row[i] = false;
         }
         do {
             row[rowNumber] = true;
             rowNumber++;
-        } while(rowNumber % NUM_TILES_PER_ROW != 0);
-        return ImmutableList.copyOf(row);
+        } while (rowNumber % NUM_TILES_PER_ROW != 0);
+        return Arrays.asList(row);
     }
 
     private Map<String, Integer> initializePositionToCoordinateMap() {
@@ -74,7 +72,7 @@ public enum  BoardUtils {
     }
 
     private static List<String> initializeAlgebraicNotation() {
-        return ImmutableList.copyOf(new String[]{
+        String[] algebraicNotation = new String[]{
                 "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
                 "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
                 "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
@@ -83,7 +81,8 @@ public enum  BoardUtils {
                 "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
                 "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
                 "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1"
-        });
+        };
+        return Arrays.asList(algebraicNotation);
     }
 
     public static boolean isValidTileCoordinate(final int coordinate) {
@@ -112,15 +111,15 @@ public enum  BoardUtils {
                                          final King king,
                                          final int frontTile) {
         final AbstractPiece piece = board.getPiece(frontTile);
-        return piece != null && piece.getPieceType().isPawn() &&
-               piece.getPieceAllegiance() != king.getPieceAllegiance();
+        return piece != null && piece.getType().isPawn() &&
+                piece.getPieceAllegiance() != king.getPieceAllegiance();
     }
 
     public static int mvvlva(final Move move) {
         final AbstractPiece movingPiece = move.getPiece();
-        if(move.isAttack()) {
+        if (move.isAttack()) {
             final AbstractPiece attackedPiece = move.getAttackedPiece();
-            return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() +  PieceType.KING.getPieceValue()) * 100;
+            return (attackedPiece.getPieceValue() - movingPiece.getPieceValue() + PieceType.KING.getPieceValue()) * 100;
         }
         return PieceType.KING.getPieceValue() - movingPiece.getPieceValue();
     }
@@ -129,16 +128,16 @@ public enum  BoardUtils {
         final List<Move> moveHistory = new ArrayList<>();
         Move currentMove = board.getTransitionMove();
         int i = 0;
-        while(currentMove != MoveFactory.getNullMove() && i < N) {
+        while (currentMove != MoveFactory.getNullMove() && i < N) {
             moveHistory.add(currentMove);
             currentMove = currentMove.getBoard().getTransitionMove();
             i++;
         }
-        return ImmutableList.copyOf(moveHistory);
+        return moveHistory;
     }
 
     public static boolean isEndGame(final Board board) {
         return board.currentPlayer().isInCheckMate() ||
-               board.currentPlayer().isInStaleMate();
+                board.currentPlayer().isInStaleMate();
     }
 }

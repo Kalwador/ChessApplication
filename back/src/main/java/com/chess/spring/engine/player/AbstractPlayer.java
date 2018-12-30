@@ -1,4 +1,4 @@
-package com.chess.spring.engine.classic.player.player;
+package com.chess.spring.engine.player;
 
 import com.chess.spring.engine.moves.MoveStatus;
 import com.chess.spring.engine.pieces.PieceColor;
@@ -26,9 +26,9 @@ public abstract class AbstractPlayer {
                    Collection<Move> opponentLegals) {
         this.board = board;
         this.playerKing = establishKing();
-        this.isInCheck = !AbstractPlayer.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentLegals).isEmpty();
+        this.isInCheck = !AbstractPlayer.calculateAttacksOnTile(this.playerKing.getPosition(), opponentLegals).isEmpty();
         playerLegals.addAll(calculateKingCastles(playerLegals, opponentLegals));
-        this.legalMoves = ImmutableList.copyOf(playerLegals);
+        this.legalMoves = playerLegals;
     }
 
     public boolean isInCheckMate() {
@@ -57,7 +57,7 @@ public abstract class AbstractPlayer {
 
     private King establishKing() {
         return (King) getActivePieces().stream().filter(piece ->
-                piece.getPieceType().isKing()).findAny().orElseThrow(RuntimeException::new);
+                piece.getType().isKing()).findAny().orElseThrow(RuntimeException::new);
     }
 
     private boolean hasEscapeMoves() {
@@ -76,7 +76,7 @@ public abstract class AbstractPlayer {
         }
         Board transitionedBoard = move.execute();
         Collection<Move> kingAttacks = AbstractPlayer.calculateAttacksOnTile(
-                transitionedBoard.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
+                transitionedBoard.currentPlayer().getOpponent().getPlayerKing().getPosition(),
                 transitionedBoard.currentPlayer().getLegalMoves());
         if (!kingAttacks.isEmpty()) {
             return new Transition(move, MoveStatus.LEAVES_PLAYER_IN_CHECK, this.board, this.board);
