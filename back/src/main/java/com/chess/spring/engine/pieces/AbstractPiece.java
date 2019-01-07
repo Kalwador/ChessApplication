@@ -1,7 +1,9 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.engine.pieces.utils.PieceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,12 +17,12 @@ public abstract class AbstractPiece {
 
     private PieceType type;
     private int position;
-    private PieceColor color;
+    private PlayerColor color;
     private boolean isFirstMove;
     private int code;
 
     AbstractPiece(PieceType type,
-                  PieceColor color,
+                  PlayerColor color,
                   int position,
                   boolean isFirstMove) {
         this.type = type;
@@ -30,7 +32,7 @@ public abstract class AbstractPiece {
         this.code = calculateCode();
     }
 
-    public PieceColor getPieceAllegiance() {
+    public PlayerColor getPieceAllegiance() {
         return this.color;
     }
 
@@ -40,9 +42,9 @@ public abstract class AbstractPiece {
 
     public abstract int locationBonus();
 
-    public abstract AbstractPiece movePiece(Move move);
+    public abstract AbstractPiece movePiece(AbstractMove move);
 
-    public abstract Collection<Move> getOptionalMoves(Board board);
+    public abstract Collection<AbstractMove> getOptionalMoves(Board board);
 
     private int calculateCode() {
         int result = this.type.hashCode();

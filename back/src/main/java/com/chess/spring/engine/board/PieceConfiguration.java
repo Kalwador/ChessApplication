@@ -1,91 +1,91 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.moves.simple.MoveImpl;
-import com.chess.spring.engine.pieces.PiecesType;
+import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.pieces.utils.PieceGenre;
 
 import java.util.*;
 
 public class PieceConfiguration {
 
-    public static ChessBitSet whiteKnights;
-    public static ChessBitSet whiteBishops;
-    public static ChessBitSet whiteRooks;
-    public static ChessBitSet whiteQueens;
-    public static ChessBitSet whiteKing;
-    public static ChessBitSet whitePawns;
+    public static BoardConfiguration whiteKnights;
+    public static BoardConfiguration whiteBishops;
+    public static BoardConfiguration whiteRooks;
+    public static BoardConfiguration whiteQueens;
+    public static BoardConfiguration whiteKing;
+    public static BoardConfiguration whitePawns;
 
-    public static ChessBitSet blackKnights;
-    public static ChessBitSet blackBishops;
-    public static ChessBitSet blackRooks;
-    public static ChessBitSet blackQueens;
-    public static ChessBitSet blackKing;
-    public static ChessBitSet blackPawns;
+    public static BoardConfiguration blackKnights;
+    public static BoardConfiguration blackBishops;
+    public static BoardConfiguration blackRooks;
+    public static BoardConfiguration blackQueens;
+    public static BoardConfiguration blackKing;
+    public static BoardConfiguration blackPawns;
 
-    public static ChessBitSet whiteLegalLocations;
-    public static ChessBitSet blackLegalLocations;
+    public static BoardConfiguration whiteLegalLocations;
+    public static BoardConfiguration blackLegalLocations;
 
-    public  List<MoveImpl> boardLegalMoveImplementations;
+    public  List<Move> boardLegalMoveImplementations;
 
-    public static  ChessBitSet FILE_A = new ChessBitSet();
-    public static  ChessBitSet FILE_B = new ChessBitSet();
-    public static  ChessBitSet FILE_C = new ChessBitSet();
-    public static  ChessBitSet FILE_D = new ChessBitSet();
-    public static  ChessBitSet FILE_E = new ChessBitSet();
-    public static  ChessBitSet FILE_F = new ChessBitSet();
-    public static  ChessBitSet FILE_G = new ChessBitSet();
-    public static  ChessBitSet FILE_H = new ChessBitSet();
+    public static BoardConfiguration FILE_A = new BoardConfiguration();
+    public static BoardConfiguration FILE_B = new BoardConfiguration();
+    public static BoardConfiguration FILE_C = new BoardConfiguration();
+    public static BoardConfiguration FILE_D = new BoardConfiguration();
+    public static BoardConfiguration FILE_E = new BoardConfiguration();
+    public static BoardConfiguration FILE_F = new BoardConfiguration();
+    public static BoardConfiguration FILE_G = new BoardConfiguration();
+    public static BoardConfiguration FILE_H = new BoardConfiguration();
 
-    public static Map<Integer, ChessBitSet> ALL_FILES = new HashMap<>();
+    public static Map<Integer, BoardConfiguration> ALL_FILES = new HashMap<>();
 
-    public static  ChessBitSet RANK_1 = new ChessBitSet();
-    public static  ChessBitSet RANK_2 = new ChessBitSet();
-    public static  ChessBitSet RANK_3 = new ChessBitSet();
-    public static  ChessBitSet RANK_4 = new ChessBitSet();
-    public static  ChessBitSet RANK_5 = new ChessBitSet();
-    public static  ChessBitSet RANK_6 = new ChessBitSet();
-    public static  ChessBitSet RANK_7 = new ChessBitSet();
-    public static  ChessBitSet RANK_8 = new ChessBitSet();
+    public static BoardConfiguration RANK_1 = new BoardConfiguration();
+    public static BoardConfiguration RANK_2 = new BoardConfiguration();
+    public static BoardConfiguration RANK_3 = new BoardConfiguration();
+    public static BoardConfiguration RANK_4 = new BoardConfiguration();
+    public static BoardConfiguration RANK_5 = new BoardConfiguration();
+    public static BoardConfiguration RANK_6 = new BoardConfiguration();
+    public static BoardConfiguration RANK_7 = new BoardConfiguration();
+    public static BoardConfiguration RANK_8 = new BoardConfiguration();
 
-    public static Map<Integer, ChessBitSet> ALL_RANKS = new HashMap<>();
+    public static Map<Integer, BoardConfiguration> ALL_RANKS = new HashMap<>();
 
-    public static  ChessBitSet RIGHT_DIAGONAL_1 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_2 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_3 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_4 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_5 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_6 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_7 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_8 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_9 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_10 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_11 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_12 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_13 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_14 = new ChessBitSet();
-    public static  ChessBitSet RIGHT_DIAGONAL_15 = new ChessBitSet();
+    public static BoardConfiguration RIGHT_DIAGONAL_1 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_2 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_3 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_4 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_5 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_6 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_7 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_8 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_9 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_10 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_11 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_12 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_13 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_14 = new BoardConfiguration();
+    public static BoardConfiguration RIGHT_DIAGONAL_15 = new BoardConfiguration();
 
-    public static Map<Integer, ChessBitSet> ALL_RIGHT_DIAGONALS = new HashMap<>();
+    public static Map<Integer, BoardConfiguration> ALL_RIGHT_DIAGONALS = new HashMap<>();
 
-    static  ChessBitSet LEFT_DIAGONAL_1 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_2 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_3 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_4 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_5 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_6 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_7 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_8 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_9 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_10 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_11 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_12 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_13 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_14 = new ChessBitSet();
-    static  ChessBitSet LEFT_DIAGONAL_15 = new ChessBitSet();
+    static BoardConfiguration LEFT_DIAGONAL_1 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_2 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_3 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_4 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_5 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_6 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_7 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_8 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_9 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_10 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_11 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_12 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_13 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_14 = new BoardConfiguration();
+    static BoardConfiguration LEFT_DIAGONAL_15 = new BoardConfiguration();
 
-    public static Map<Integer, ChessBitSet> ALL_LEFT_DIAGONALS = new HashMap<>();
+    public static Map<Integer, BoardConfiguration> ALL_LEFT_DIAGONALS = new HashMap<>();
 
-    public static  ChessBitSet EMPTY_SET = new ChessBitSet();
-    public static  ChessBitSet FULL_SET = new ChessBitSet();
+    public static BoardConfiguration EMPTY_SET = new BoardConfiguration();
+    public static BoardConfiguration FULL_SET = new BoardConfiguration();
 
     public static  String[] algebreicNotation = {"a8", "b8", "c8", "d8",
             "e8", "f8", "g8", "h8", "a7", "b7", "c7", "d7", "e7", "f7", "g7",
@@ -106,22 +106,22 @@ public class PieceConfiguration {
 
     public PieceConfiguration() {
 
-        whiteRooks = new ChessBitSet();
+        whiteRooks = new BoardConfiguration();
         whiteRooks.set(56);
         whiteRooks.set(63);
 
-        whiteKnights = new ChessBitSet();
+        whiteKnights = new BoardConfiguration();
         whiteKnights.set(57);
         whiteKnights.set(62);
 
-        whiteBishops = new ChessBitSet();
+        whiteBishops = new BoardConfiguration();
         whiteBishops.set(58);
         whiteBishops.set(61);
 
-        whiteQueens = new ChessBitSet();
+        whiteQueens = new BoardConfiguration();
         whiteQueens.set(59);
 
-        whitePawns = new ChessBitSet();
+        whitePawns = new BoardConfiguration();
         whitePawns.set(48);
         whitePawns.set(49);
         whitePawns.set(50);
@@ -131,25 +131,25 @@ public class PieceConfiguration {
         whitePawns.set(54);
         whitePawns.set(55);
 
-        whiteKing = new ChessBitSet();
+        whiteKing = new BoardConfiguration();
         whiteKing.set(60);
 
-        blackRooks = new ChessBitSet();
+        blackRooks = new BoardConfiguration();
         blackRooks.set(0);
         blackRooks.set(7);
 
-        blackKnights = new ChessBitSet();
+        blackKnights = new BoardConfiguration();
         blackKnights.set(1);
         blackKnights.set(6);
 
-        blackBishops = new ChessBitSet();
+        blackBishops = new BoardConfiguration();
         blackBishops.set(2);
         blackBishops.set(5);
 
-        blackQueens = new ChessBitSet();
+        blackQueens = new BoardConfiguration();
         blackQueens.set(3);
 
-        blackPawns = new ChessBitSet();
+        blackPawns = new BoardConfiguration();
         blackPawns.set(8);
         blackPawns.set(9);
         blackPawns.set(10);
@@ -159,11 +159,11 @@ public class PieceConfiguration {
         blackPawns.set(14);
         blackPawns.set(15);
 
-        blackKing = new ChessBitSet();
+        blackKing = new BoardConfiguration();
         blackKing.set(4);
 
-        whiteLegalLocations = new ChessBitSet();
-        blackLegalLocations = new ChessBitSet();
+        whiteLegalLocations = new BoardConfiguration();
+        blackLegalLocations = new BoardConfiguration();
 
         boardLegalMoveImplementations = new ArrayList<>();
 
@@ -513,7 +513,7 @@ public class PieceConfiguration {
         whiteLegalLocations.clear();
         blackLegalLocations.clear();
 
-        for ( PiecesType p : PiecesType.values()) {
+        for ( PieceGenre p : PieceGenre.values()) {
             boardLegalMoveImplementations.addAll(p.calculateLegalMoves());
         }
     }
@@ -523,42 +523,42 @@ public class PieceConfiguration {
 
          char[] tiles = new char[64];
 
-         ChessBitSet allKnights = PiecesType.allKnights();
+         BoardConfiguration allKnights = PieceGenre.allKnights();
 
         for (int currentKnightLocation = allKnights.nextSetBit(0); currentKnightLocation >= 0; currentKnightLocation = allKnights
                 .nextSetBit(currentKnightLocation + 1)) {
             tiles[currentKnightLocation] = 'N';
         }
 
-         ChessBitSet allBishops = PiecesType.allBishops();
+         BoardConfiguration allBishops = PieceGenre.allBishops();
 
         for (int currentBishopLocation = allBishops.nextSetBit(0); currentBishopLocation >= 0; currentBishopLocation = allBishops
                 .nextSetBit(currentBishopLocation + 1)) {
             tiles[currentBishopLocation] = 'B';
         }
 
-         ChessBitSet allRooks = PiecesType.allRooks();
+         BoardConfiguration allRooks = PieceGenre.allRooks();
 
         for (int currentRookLocation = allRooks.nextSetBit(0); currentRookLocation >= 0; currentRookLocation = allRooks
                 .nextSetBit(currentRookLocation + 1)) {
             tiles[currentRookLocation] = 'R';
         }
 
-         ChessBitSet allPawns = PiecesType.allPawns();
+         BoardConfiguration allPawns = PieceGenre.allPawns();
 
         for (int currentPawnLocation = allPawns.nextSetBit(0); currentPawnLocation >= 0; currentPawnLocation = allPawns
                 .nextSetBit(currentPawnLocation + 1)) {
             tiles[currentPawnLocation] = 'P';
         }
 
-         ChessBitSet allQueens = PiecesType.allQueens();
+         BoardConfiguration allQueens = PieceGenre.allQueens();
 
         for (int currentQueenLocation = allQueens.nextSetBit(0); currentQueenLocation >= 0; currentQueenLocation = allQueens
                 .nextSetBit(currentQueenLocation + 1)) {
             tiles[currentQueenLocation] = 'Q';
         }
 
-         ChessBitSet allKings = PiecesType.allKings();
+         BoardConfiguration allKings = PieceGenre.allKings();
 
         for (int currentKingLocation = allKings.nextSetBit(0); currentKingLocation >= 0; currentKingLocation = allKings
                 .nextSetBit(currentKingLocation + 1)) {

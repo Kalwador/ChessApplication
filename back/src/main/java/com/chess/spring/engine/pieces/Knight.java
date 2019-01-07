@@ -1,11 +1,13 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.moves.simple.MajorAttackMove;
-import com.chess.spring.engine.moves.simple.MajorMove;
-import com.chess.spring.engine.moves.simple.Move;
-import com.google.common.collect.ImmutableList;
+import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.moves.simple.attack.AttackMoveImpl;
+import com.chess.spring.engine.moves.simple.MoveImpl;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.engine.pieces.utils.PieceType;
+import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,23 +15,24 @@ import java.util.List;
 
 public  class Knight extends AbstractPiece {
 
-    private  static int[] CANDIDATE_MOVE_COORDINATES = { -17, -15, -10, -6, 6, 10, 15, 17 };
+    private  static int[] DEFAULT_STRATEGY = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
-    public Knight( PieceColor pieceColor,
+
+    public Knight( PlayerColor playerColor,
                    int piecePosition) {
-        super(PieceType.KNIGHT, pieceColor, piecePosition, true);
+        super(PieceType.KNIGHT, playerColor, piecePosition, true);
     }
 
-    public Knight( PieceColor pieceColor,
+    public Knight( PlayerColor playerColor,
                    int piecePosition,
                    boolean isFirstMove) {
-        super(PieceType.KNIGHT, pieceColor, piecePosition, isFirstMove);
+        super(PieceType.KNIGHT, playerColor, piecePosition, isFirstMove);
     }
 
     @Override
-    public Collection<Move> getOptionalMoves(Board board) {
-         List<Move> legalMoves = new ArrayList<>();
-        for ( int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+    public Collection<AbstractMove> getOptionalMoves(Board board) {
+         List<AbstractMove> legalMoves = new ArrayList<>();
+        for ( int currentCandidateOffset : DEFAULT_STRATEGY) {
             if(isFirstColumnExclusion(getPosition(), currentCandidateOffset) ||
                isSecondColumnExclusion(getPosition(), currentCandidateOffset) ||
                isSeventhColumnExclusion(getPosition(), currentCandidateOffset) ||
@@ -37,14 +40,14 @@ public  class Knight extends AbstractPiece {
                 continue;
             }
              int candidateDestinationCoordinate = getPosition() + currentCandidateOffset;
-            if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+            if (BoardService.isValidTileCoordinate(candidateDestinationCoordinate)) {
                  AbstractPiece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                 if (pieceAtDestination == null) {
-                    legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+                    legalMoves.add(new MoveImpl(board, this, candidateDestinationCoordinate));
                 } else {
-                     PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
+                     PlayerColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
                     if (getColor() != pieceAtDestinationAllegiance) {
-                        legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
+                        legalMoves.add(new AttackMoveImpl(board, this, candidateDestinationCoordinate,
                                 pieceAtDestination));
                     }
                 }
@@ -59,8 +62,8 @@ public  class Knight extends AbstractPiece {
     }
 
     @Override
-    public Knight movePiece( Move move) {
-        return PieceUtils.INSTANCE.getMovedKnight(move.getPiece().getPieceAllegiance(), move.getDestination());
+    public Knight movePiece( AbstractMove move) {
+        return PieceService.INSTANCE.getMovedKnight(move.getPiece().getPieceAllegiance(), move.getDestination());
     }
 
     @Override
@@ -70,23 +73,23 @@ public  class Knight extends AbstractPiece {
 
     private static boolean isFirstColumnExclusion( int currentPosition,
                                                    int candidateOffset) {
-        return BoardUtils.INSTANCE.FIRST_COLUMN.get(currentPosition) && ((candidateOffset == -17) ||
+        return BoardService.INSTANCE.FIRST_COLUMN.get(currentPosition) && ((candidateOffset == -17) ||
                 (candidateOffset == -10) || (candidateOffset == 6) || (candidateOffset == 15));
     }
 
     private static boolean isSecondColumnExclusion( int currentPosition,
                                                     int candidateOffset) {
-        return BoardUtils.INSTANCE.SECOND_COLUMN.get(currentPosition) && ((candidateOffset == -10) || (candidateOffset == 6));
+        return BoardService.INSTANCE.SECOND_COLUMN.get(currentPosition) && ((candidateOffset == -10) || (candidateOffset == 6));
     }
 
     private static boolean isSeventhColumnExclusion( int currentPosition,
                                                      int candidateOffset) {
-        return BoardUtils.INSTANCE.SEVENTH_COLUMN.get(currentPosition) && ((candidateOffset == -6) || (candidateOffset == 10));
+        return BoardService.INSTANCE.SEVENTH_COLUMN.get(currentPosition) && ((candidateOffset == -6) || (candidateOffset == 10));
     }
 
     private static boolean isEighthColumnExclusion( int currentPosition,
                                                     int candidateOffset) {
-        return BoardUtils.INSTANCE.EIGHTH_COLUMN.get(currentPosition) && ((candidateOffset == -15) || (candidateOffset == -6) ||
+        return BoardService.INSTANCE.EIGHTH_COLUMN.get(currentPosition) && ((candidateOffset == -15) || (candidateOffset == -6) ||
                 (candidateOffset == 10) || (candidateOffset == 17));
     }
 

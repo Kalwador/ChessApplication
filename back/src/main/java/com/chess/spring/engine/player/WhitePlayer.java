@@ -2,10 +2,10 @@ package com.chess.spring.engine.player;
 
 import com.chess.spring.engine.moves.simple.castle.KingSideCastleMove;
 import com.chess.spring.engine.moves.simple.castle.QueenSideCastleMove;
-import com.chess.spring.engine.pieces.PieceColor;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.moves.simple.AbstractMove;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
@@ -17,20 +17,20 @@ import java.util.List;
 public  class WhitePlayer extends AbstractPlayer {
 
     public WhitePlayer( Board board,
-                        Collection<Move> whiteStandardLegals,
-                        Collection<Move> blackStandardLegals) {
+                        Collection<AbstractMove> whiteStandardLegals,
+                        Collection<AbstractMove> blackStandardLegals) {
         super(board, whiteStandardLegals, blackStandardLegals);
     }
 
     @Override
-    protected Collection<Move> calculateKingCastles( Collection<Move> playerLegals,
-                                                     Collection<Move> opponentLegals) {
+    protected Collection<AbstractMove> calculateKingCastles(Collection<AbstractMove> playerLegals,
+                                                            Collection<AbstractMove> opponentLegals) {
 
         if(this.isInCheck() || this.isCastled() || !(this.isKingSideCastleCapable() || this.isQueenSideCastleCapable())) {
             return ImmutableList.of();
         }
 
-         List<Move> kingCastles = new ArrayList<>();
+         List<AbstractMove> kingCastles = new ArrayList<>();
 
         if(this.playerKing.isFirstMove() && this.playerKing.getPosition() == 60 && !this.isInCheck()) {
             //whites king side castle
@@ -39,7 +39,7 @@ public  class WhitePlayer extends AbstractPlayer {
                 if(kingSideRook != null && kingSideRook.isFirstMove()) {
                     if(AbstractPlayer.calculateAttacksOnTile(61, opponentLegals).isEmpty() && AbstractPlayer.calculateAttacksOnTile(62, opponentLegals).isEmpty() &&
                        kingSideRook.getType().isRook()) {
-                        if(!BoardUtils.isKingPawnTrap(this.board, this.playerKing, 52)) {
+                        if(!BoardService.isKingPawnTrap(this.board, this.playerKing, 52)) {
                             kingCastles.add(new KingSideCastleMove(this.board, this.playerKing, 62, (Rook) kingSideRook, kingSideRook.getPosition(), 61));
                         }
                     }
@@ -52,7 +52,7 @@ public  class WhitePlayer extends AbstractPlayer {
                 if(queenSideRook != null && queenSideRook.isFirstMove()) {
                     if(AbstractPlayer.calculateAttacksOnTile(58, opponentLegals).isEmpty() &&
                        AbstractPlayer.calculateAttacksOnTile(59, opponentLegals).isEmpty() && queenSideRook.getType().isRook()) {
-                        if(!BoardUtils.isKingPawnTrap(this.board, this.playerKing, 52)) {
+                        if(!BoardService.isKingPawnTrap(this.board, this.playerKing, 52)) {
                             kingCastles.add(new QueenSideCastleMove(this.board, this.playerKing, 58, (Rook) queenSideRook, queenSideRook.getPosition(), 59));
                         }
                     }
@@ -73,13 +73,13 @@ public  class WhitePlayer extends AbstractPlayer {
     }
 
     @Override
-    public PieceColor getAlliance() {
-        return PieceColor.WHITE;
+    public PlayerColor getAlliance() {
+        return PlayerColor.WHITE;
     }
 
     @Override
     public String toString() {
-        return PieceColor.WHITE.toString();
+        return PlayerColor.WHITE.toString();
     }
 
 }

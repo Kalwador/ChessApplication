@@ -1,7 +1,7 @@
 package com.chess.spring.entities.game;
 
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.entities.account.Account;
-import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.models.game.GamePvEStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

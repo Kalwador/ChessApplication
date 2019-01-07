@@ -1,12 +1,13 @@
 package com.chess.spring.engine.player;
 
 import com.chess.spring.engine.moves.MoveStatus;
-import com.chess.spring.engine.pieces.PieceColor;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.simple.AbstractMove;
 import com.chess.spring.engine.moves.Transition;
 import com.chess.spring.engine.pieces.King;
 import com.chess.spring.engine.pieces.AbstractPiece;
+import com.chess.spring.exceptions.NotExpectedError;
 import com.google.common.collect.ImmutableList;
 import lombok.Data;
 
@@ -18,12 +19,12 @@ public abstract class AbstractPlayer {
 
     protected Board board;
     protected King playerKing;
-    protected Collection<Move> legalMoves;
+    protected Collection<AbstractMove> legalMoves;
     protected boolean isInCheck;
 
     AbstractPlayer(Board board,
-                   Collection<Move> playerLegals,
-                   Collection<Move> opponentLegals) {
+                   Collection<AbstractMove> playerLegals,
+                   Collection<AbstractMove> opponentLegals) {
         this.board = board;
         this.playerKing = establishKing();
         this.isInCheck = !AbstractPlayer.calculateAttacksOnTile(this.playerKing.getPosition(), opponentLegals).isEmpty();
@@ -64,35 +65,40 @@ public abstract class AbstractPlayer {
         return this.legalMoves.stream().anyMatch(move -> makeMove(move).getStatus().isDone());
     }
 
-    static Collection<Move> calculateAttacksOnTile(int tile,
-                                                   Collection<Move> moves) {
+    static Collection<AbstractMove> calculateAttacksOnTile(int tile,
+                                                           Collection<AbstractMove> moves) {
         return moves.stream().filter(move -> move.getDestination() == tile)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), ImmutableList::copyOf));
     }
 
-    public Transition makeMove(Move move) {
+    public Transition makeMove(AbstractMove move){
         if (!this.legalMoves.contains(move)) {
             return new Transition(move, MoveStatus.ILLEGAL_MOVE, this.board, this.board);
         }
-        Board transitionedBoard = move.execute();
-        Collection<Move> kingAttacks = AbstractPlayer.calculateAttacksOnTile(
-                transitionedBoard.currentPlayer().getOpponent().getPlayerKing().getPosition(),
-                transitionedBoard.currentPlayer().getLegalMoves());
+        Board transitionedBoard = null;
+        try {
+            transitionedBoard = move.execute();
+        } catch (NotExpectedError notExpectedError) {
+            throw new RuntimeException("Error Move - System Failure");
+        }
+        Collection<AbstractMove> kingAttacks = AbstractPlayer.calculateAttacksOnTile(
+                transitionedBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPosition(),
+                transitionedBoard.getCurrentPlayer().getLegalMoves());
         if (!kingAttacks.isEmpty()) {
             return new Transition(move, MoveStatus.LEAVES_PLAYER_IN_CHECK, this.board, this.board);
         }
         return new Transition(move, MoveStatus.DONE, this.board, transitionedBoard);
     }
 
-    public Transition unMakeMove(Move move) {
+    public Transition unMakeMove(AbstractMove move) {
         return new Transition(move, MoveStatus.DONE, this.board, move.undo());
     }
 
     public abstract Collection<AbstractPiece> getActivePieces();
 
-    public abstract PieceColor getAlliance();
+    public abstract PlayerColor getAlliance();
 
     public abstract AbstractPlayer getOpponent();
 
-    protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentLegals);
+    protected abstract Collection<AbstractMove> calculateKingCastles(Collection<AbstractMove> playerLegals, Collection<AbstractMove> opponentLegals);
 }

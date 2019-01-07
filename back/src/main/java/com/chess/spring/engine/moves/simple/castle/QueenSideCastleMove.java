@@ -5,7 +5,7 @@ import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.Rook;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class QueenSideCastleMove extends AbstractCastleMove {
 
     public QueenSideCastleMove(Board board, AbstractPiece piece, int queenDestination, Rook rook,

@@ -25,12 +25,12 @@ public class GamePvP extends Game {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "black_id")
-    @ApiModelProperty(notes = "black player in current game")
+    @ApiModelProperty(notes = "blackPlayer player in current game")
     private Account blackPlayer;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "white_id")
-    @ApiModelProperty(notes = "white player in current game")
+    @ApiModelProperty(notes = "whitePlayer player in current game")
     private Account whitePlayer;
 
     private Long timePerMove;

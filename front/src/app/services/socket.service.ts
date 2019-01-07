@@ -17,7 +17,7 @@ export class SocketService implements OnInit {
 // service would be initialized on enter,
 // and listen to chat for all
 //
-// on login action, service would start to subscribe:
+// on tokens action, service would start to subscribe:
 // - direct messages,
 // - user moves in pvp-games,
 // - invitations

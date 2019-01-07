@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class KingSideCastleMove extends AbstractCastleMove {
 
     public KingSideCastleMove(Board board, AbstractPiece piece, int destination, Rook rook,

@@ -1,9 +1,9 @@
 package com.chess.spring.services.register;
 
 import com.chess.spring.dto.RegisterDTO;
-import com.chess.spring.models.login.AccessToken;
-import com.chess.spring.models.login.AccessTokenData;
-import com.chess.spring.models.login.Data;
+import com.chess.spring.models.tokens.AccessToken;
+import com.chess.spring.models.tokens.AccessTokenData;
+import com.chess.spring.models.tokens.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

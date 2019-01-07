@@ -1,42 +1,44 @@
 package com.chess.spring.engine.board;
 
-import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.simple.AbstractMove;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import com.chess.spring.engine.pieces.Pawn;
-import com.chess.spring.engine.pieces.PieceColor;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
+@Service
 public class BoardBuilder {
 
     private Map<Integer, AbstractPiece> configuration;
-    private PieceColor nextPlayer;
+    private PlayerColor nextPlayer;
     private Pawn pawn;
-    private Move move;
+    private AbstractMove move;
 
     public BoardBuilder() {
         this.configuration = new HashMap<>(33, 1.0f);
     }
 
-    public BoardBuilder setPiece(final AbstractPiece piece) {
+    public BoardBuilder setPiece( AbstractPiece piece) {
         this.configuration.put(piece.getPosition(), piece);
         return this;
     }
 
-    public BoardBuilder setMoveMaker(final PieceColor nextMoveMaker) {
+    public BoardBuilder setMoveMaker( PlayerColor nextMoveMaker) {
         this.nextPlayer = nextMoveMaker;
         return this;
     }
 
-    public BoardBuilder setPawn(final Pawn pawn) {
+    public BoardBuilder setPawn( Pawn pawn) {
         this.pawn = pawn;
         return this;
     }
 
-    public BoardBuilder setMoveTransition(final Move transitionMove) {
+    public BoardBuilder setMoveTransition( AbstractMove transitionMove) {
         this.move = transitionMove;
         return this;
     }

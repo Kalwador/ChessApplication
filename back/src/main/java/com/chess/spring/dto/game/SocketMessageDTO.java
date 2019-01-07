@@ -1,7 +1,7 @@
 package com.chess.spring.dto.game;
 
 import com.chess.spring.dto.MoveDTO;
-import com.chess.spring.models.game.SocketMessageType;
+import com.chess.spring.models.sockets.SocketMessageType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

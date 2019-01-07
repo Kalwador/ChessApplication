@@ -1,21 +1,22 @@
 package com.chess.spring.engine.moves.simple;
 
-import com.chess.spring.engine.board.PieceConfiguration;
-import com.chess.spring.engine.pieces.PiecesType;
-import lombok.AllArgsConstructor;
+import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.pieces.AbstractPiece;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@AllArgsConstructor
 @EqualsAndHashCode
-public class MoveImpl {
-    private int source;
-    private int destination;
-    private PiecesType type;
+public class MoveImpl extends AbstractMove {
+
+    public MoveImpl(Board board, AbstractPiece pieceMoved, int destinationCoordinate) {
+        super(board, pieceMoved, destinationCoordinate);
+    }
 
     @Override
     public String toString() {
-        return PieceConfiguration.getPositionAtCoordinate(this.source) + "-" + PieceConfiguration.getPositionAtCoordinate(this.destination);
+        return getPiece().getType().toString() + disambiguationFile() + BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
     }
+
 }

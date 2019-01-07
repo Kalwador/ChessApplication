@@ -1,7 +1,7 @@
 package com.chess.spring.dto.game;
 
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.entities.game.GamePvE;
-import com.chess.spring.models.game.PlayerColor;
 import com.chess.spring.models.game.GamePvEStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

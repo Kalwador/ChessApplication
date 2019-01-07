@@ -1,10 +1,12 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.board.BoardService;
 import com.chess.spring.engine.moves.simple.pawn.*;
-import com.chess.spring.engine.moves.simple.Move;
-import com.google.common.collect.ImmutableList;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.engine.pieces.utils.PieceType;
+import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,17 +15,17 @@ import java.util.List;
 public class Pawn
         extends AbstractPiece {
 
-    private static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
+    private static int[] DEFAULT_STRATEGY = {8, 16, 7, 9};
 
-    public Pawn(PieceColor allegiance,
+    public Pawn(PlayerColor allegiance,
                 int piecePosition) {
         super(PieceType.PAWN, allegiance, piecePosition, true);
     }
 
-    public Pawn(PieceColor pieceColor,
+    public Pawn(PlayerColor playerColor,
                 int piecePosition,
                 boolean isFirstMove) {
-        super(PieceType.PAWN, pieceColor, piecePosition, isFirstMove);
+        super(PieceType.PAWN, playerColor, piecePosition, isFirstMove);
     }
 
     @Override
@@ -32,30 +34,30 @@ public class Pawn
     }
 
     @Override
-    public Collection<Move> getOptionalMoves(Board board) {
-        List<Move> legalMoves = new ArrayList<>();
-        for (int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+    public Collection<AbstractMove> getOptionalMoves(Board board) {
+        List<AbstractMove> legalMoves = new ArrayList<>();
+        for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             int candidateDestinationCoordinate =
                     getPosition() + (getColor().getDirection() * currentCandidateOffset);
-            if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+            if (!BoardService.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 continue;
             }
             if (currentCandidateOffset == 8 && board.getPiece(candidateDestinationCoordinate) == null) {
                 if (getColor().isPawnPromotionSquare(candidateDestinationCoordinate)) {
                     legalMoves.add(new PawnPromotion(
-                            new PawnMove(board, this, candidateDestinationCoordinate), PieceUtils.INSTANCE.getMovedQueen(getColor(), candidateDestinationCoordinate)));
+                            new PawnAbstractMove(board, this, candidateDestinationCoordinate), PieceService.INSTANCE.getMovedQueen(getColor(), candidateDestinationCoordinate)));
                     legalMoves.add(new PawnPromotion(
-                            new PawnMove(board, this, candidateDestinationCoordinate), PieceUtils.INSTANCE.getMovedRook(getColor(), candidateDestinationCoordinate)));
+                            new PawnAbstractMove(board, this, candidateDestinationCoordinate), PieceService.INSTANCE.getMovedRook(getColor(), candidateDestinationCoordinate)));
                     legalMoves.add(new PawnPromotion(
-                            new PawnMove(board, this, candidateDestinationCoordinate), PieceUtils.INSTANCE.getMovedBishop(getColor(), candidateDestinationCoordinate)));
+                            new PawnAbstractMove(board, this, candidateDestinationCoordinate), PieceService.INSTANCE.getMovedBishop(getColor(), candidateDestinationCoordinate)));
                     legalMoves.add(new PawnPromotion(
-                            new PawnMove(board, this, candidateDestinationCoordinate), PieceUtils.INSTANCE.getMovedKnight(getColor(), candidateDestinationCoordinate)));
+                            new PawnAbstractMove(board, this, candidateDestinationCoordinate), PieceService.INSTANCE.getMovedKnight(getColor(), candidateDestinationCoordinate)));
                 } else {
-                    legalMoves.add(new PawnMove(board, this, candidateDestinationCoordinate));
+                    legalMoves.add(new PawnAbstractMove(board, this, candidateDestinationCoordinate));
                 }
             } else if (currentCandidateOffset == 16 && this.isFirstMove() &&
-                    ((BoardUtils.INSTANCE.SECOND_ROW.get(getPosition()) && getColor().isBlack()) ||
-                            (BoardUtils.INSTANCE.SEVENTH_ROW.get(getPosition()) && getColor().isWhite()))) {
+                    ((BoardService.INSTANCE.SECOND_ROW.get(getPosition()) && getColor().isBlack()) ||
+                            (BoardService.INSTANCE.SEVENTH_ROW.get(getPosition()) && getColor().isWhite()))) {
                 int behindCandidateDestinationCoordinate =
                         getPosition() + (getColor().getDirection() * 8);
                 if (board.getPiece(candidateDestinationCoordinate) == null &&
@@ -63,65 +65,65 @@ public class Pawn
                     legalMoves.add(new PawnJump(board, this, candidateDestinationCoordinate));
                 }
             } else if (currentCandidateOffset == 7 &&
-                    !((BoardUtils.INSTANCE.EIGHTH_COLUMN.get(getPosition()) && getColor().isWhite()) ||
-                            (BoardUtils.INSTANCE.FIRST_COLUMN.get(getPosition()) && getColor().isBlack()))) {
+                    !((BoardService.INSTANCE.EIGHTH_COLUMN.get(getPosition()) && getColor().isWhite()) ||
+                            (BoardService.INSTANCE.FIRST_COLUMN.get(getPosition()) && getColor().isBlack()))) {
                 if (board.getPiece(candidateDestinationCoordinate) != null) {
                     AbstractPiece pieceOnCandidate = board.getPiece(candidateDestinationCoordinate);
                     if (getColor() != pieceOnCandidate.getPieceAllegiance()) {
                         if (getColor().isPawnPromotionSquare(candidateDestinationCoordinate)) {
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceUtils.INSTANCE.getMovedQueen(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceService.INSTANCE.getMovedQueen(getColor(), candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceUtils.INSTANCE.getMovedRook(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceService.INSTANCE.getMovedRook(getColor(), candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceUtils.INSTANCE.getMovedBishop(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceService.INSTANCE.getMovedBishop(getColor(), candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceUtils.INSTANCE.getMovedKnight(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate, pieceOnCandidate), PieceService.INSTANCE.getMovedKnight(getColor(), candidateDestinationCoordinate)));
                         } else {
                             legalMoves.add(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate, pieceOnCandidate));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate, pieceOnCandidate));
                         }
                     }
-                } else if (board.getEnPassantPawn() != null && board.getEnPassantPawn().getPosition() ==
+                } else if (board.getEnPassant() != null && board.getEnPassant().getPosition() ==
                         (getPosition() + (getColor().getOppositeDirection()))) {
-                    AbstractPiece pieceOnCandidate = board.getEnPassantPawn();
+                    AbstractPiece pieceOnCandidate = board.getEnPassant();
                     if (getColor() != pieceOnCandidate.getPieceAllegiance()) {
                         legalMoves.add(
-                                new PawnEnPassantAttack(board, this, candidateDestinationCoordinate, pieceOnCandidate));
+                                new PawnEnPassantAbstract(board, this, candidateDestinationCoordinate, pieceOnCandidate));
 
                     }
                 }
             } else if (currentCandidateOffset == 9 &&
-                    !((BoardUtils.INSTANCE.FIRST_COLUMN.get(getPosition()) && getColor().isWhite()) ||
-                            (BoardUtils.INSTANCE.EIGHTH_COLUMN.get(getPosition()) && getColor().isBlack()))) {
+                    !((BoardService.INSTANCE.FIRST_COLUMN.get(getPosition()) && getColor().isWhite()) ||
+                            (BoardService.INSTANCE.EIGHTH_COLUMN.get(getPosition()) && getColor().isBlack()))) {
                 if (board.getPiece(candidateDestinationCoordinate) != null) {
                     if (getColor() !=
                             board.getPiece(candidateDestinationCoordinate).getPieceAllegiance()) {
                         if (getColor().isPawnPromotionSquare(candidateDestinationCoordinate)) {
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate,
-                                            board.getPiece(candidateDestinationCoordinate)), PieceUtils.INSTANCE.getMovedQueen(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate,
+                                            board.getPiece(candidateDestinationCoordinate)), PieceService.INSTANCE.getMovedQueen(getColor(), candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate,
-                                            board.getPiece(candidateDestinationCoordinate)), PieceUtils.INSTANCE.getMovedRook(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate,
+                                            board.getPiece(candidateDestinationCoordinate)), PieceService.INSTANCE.getMovedRook(getColor(), candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate,
-                                            board.getPiece(candidateDestinationCoordinate)), PieceUtils.INSTANCE.getMovedBishop(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate,
+                                            board.getPiece(candidateDestinationCoordinate)), PieceService.INSTANCE.getMovedBishop(getColor(), candidateDestinationCoordinate)));
                             legalMoves.add(new PawnPromotion(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate,
-                                            board.getPiece(candidateDestinationCoordinate)), PieceUtils.INSTANCE.getMovedKnight(getColor(), candidateDestinationCoordinate)));
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate,
+                                            board.getPiece(candidateDestinationCoordinate)), PieceService.INSTANCE.getMovedKnight(getColor(), candidateDestinationCoordinate)));
                         } else {
                             legalMoves.add(
-                                    new PawnAttackMove(board, this, candidateDestinationCoordinate,
+                                    new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate,
                                             board.getPiece(candidateDestinationCoordinate)));
                         }
                     }
-                } else if (board.getEnPassantPawn() != null && board.getEnPassantPawn().getPosition() ==
+                } else if (board.getEnPassant() != null && board.getEnPassant().getPosition() ==
                         (getPosition() - (getColor().getOppositeDirection()))) {
-                    AbstractPiece pieceOnCandidate = board.getEnPassantPawn();
+                    AbstractPiece pieceOnCandidate = board.getEnPassant();
                     if (getColor() != pieceOnCandidate.getPieceAllegiance()) {
                         legalMoves.add(
-                                new PawnEnPassantAttack(board, this, candidateDestinationCoordinate, pieceOnCandidate));
+                                new PawnEnPassantAbstract(board, this, candidateDestinationCoordinate, pieceOnCandidate));
 
                     }
                 }
@@ -136,8 +138,8 @@ public class Pawn
     }
 
     @Override
-    public Pawn movePiece(Move move) {
-        return PieceUtils.INSTANCE.getMovedPawn(move.getPiece().getPieceAllegiance(), move.getDestination());
+    public Pawn movePiece(AbstractMove move) {
+        return PieceService.INSTANCE.getMovedPawn(move.getPiece().getPieceAllegiance(), move.getDestination());
     }
 
 }

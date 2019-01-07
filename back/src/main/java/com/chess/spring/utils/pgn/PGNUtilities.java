@@ -1,9 +1,9 @@
 package com.chess.spring.utils.pgn;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.moves.simple.Move;
-import com.chess.spring.engine.moves.MoveFactory;
+import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.moves.MoveService;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 
@@ -78,7 +78,7 @@ public class PGNUtilities {
 //        builder.append(calculateEventString()).append("\n");
 //        builder.append(calculateDateString()).append("\n");
 //        builder.append(calculatePlyCountString(moveLog)).append("\n");
-//        for(final MoveImpl moves : moveLog.getMoves()) {
+//        for(final Move moves : moveLog.getMoves()) {
 //            builder.append(moves.toString()).append(" ");
 //        }
 //        try (final Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pgnFile, true)))) {
@@ -168,8 +168,8 @@ public class PGNUtilities {
         return builder.toString();
     }
 
-    public static Move createMove(final Board board,
-                                  final String pgnText) {
+    public static AbstractMove createMove(final Board board,
+                                          final String pgnText) {
 
         final Matcher kingSideCastleMatcher = KING_SIDE_CASTLE.matcher(pgnText);
         final Matcher queenSideCastleMatcher = QUEEN_SIDE_CASTLE.matcher(pgnText);
@@ -189,61 +189,61 @@ public class PGNUtilities {
             return extractCastleMove(board, "O-O-O");
         } else if(plainPawnMatcher.matches()) {
             final String destinationSquare = plainPawnMatcher.group(1);
-            destinationCoordinate = BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
+            destinationCoordinate = BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
             currentCoordinate = deriveCurrentCoordinate(board, "P", destinationSquare, "");
-            return MoveFactory.createMove(board, currentCoordinate, destinationCoordinate);
+            return MoveService.createMove(board, currentCoordinate, destinationCoordinate);
         } else if(attackPawnMatcher.matches()) {
             final String destinationSquare = attackPawnMatcher.group(3);
-            destinationCoordinate = BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
+            destinationCoordinate = BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
             final String disambiguationFile = attackPawnMatcher.group(1) != null ? attackPawnMatcher.group(1) : "";
             currentCoordinate = deriveCurrentCoordinate(board, "P", destinationSquare, disambiguationFile);
-            return MoveFactory.createMove(board, currentCoordinate, destinationCoordinate);
+            return MoveService.createMove(board, currentCoordinate, destinationCoordinate);
         } else if (attackPawnPromotionMatcher.matches()) {
             final String destinationSquare = attackPawnPromotionMatcher.group(2);
             final String disambiguationFile = attackPawnPromotionMatcher.group(1) != null ? attackPawnPromotionMatcher.group(1) : "";
-            destinationCoordinate = BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
+            destinationCoordinate = BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
             currentCoordinate = deriveCurrentCoordinate(board, "P", destinationSquare, disambiguationFile);
-            return MoveFactory.createMove(board, currentCoordinate, destinationCoordinate);
+            return MoveService.createMove(board, currentCoordinate, destinationCoordinate);
         } else if(pawnPromotionMatcher.find()) {
             final String destinationSquare = pawnPromotionMatcher.group(1);
-            destinationCoordinate = BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
+            destinationCoordinate = BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
             currentCoordinate = deriveCurrentCoordinate(board, "P", destinationSquare, "");
-            return MoveFactory.createMove(board, currentCoordinate, destinationCoordinate);
+            return MoveService.createMove(board, currentCoordinate, destinationCoordinate);
         } else if (plainMajorMatcher.find()) {
             final String destinationSquare = plainMajorMatcher.group(3);
-            destinationCoordinate = BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
+            destinationCoordinate = BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
             final String disambiguationFile = plainMajorMatcher.group(2) != null ? plainMajorMatcher.group(2) : "";
             currentCoordinate = deriveCurrentCoordinate(board, plainMajorMatcher.group(1), destinationSquare, disambiguationFile);
-            return MoveFactory.createMove(board, currentCoordinate, destinationCoordinate);
+            return MoveService.createMove(board, currentCoordinate, destinationCoordinate);
         } else if(attackMajorMatcher.find()) {
             final String destinationSquare = attackMajorMatcher.group(4);
-            destinationCoordinate = BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
+            destinationCoordinate = BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
             final String disambiguationFile = attackMajorMatcher.group(2) != null ? attackMajorMatcher.group(2) : "";
             currentCoordinate = deriveCurrentCoordinate(board, attackMajorMatcher.group(1), destinationSquare, disambiguationFile);
-            return MoveFactory.createMove(board, currentCoordinate, destinationCoordinate);
+            return MoveService.createMove(board, currentCoordinate, destinationCoordinate);
         }
 
-        return MoveFactory.getNullMove();
+        return MoveService.getNullMove();
 
     }
 
-    private static Move extractCastleMove(final Board board,
-                                          final String castleMove) {
-        for (final Move move : board.currentPlayer().getLegalMoves()) {
+    private static AbstractMove extractCastleMove(final Board board,
+                                                  final String castleMove) {
+        for (final AbstractMove move : board.getCurrentPlayer().getLegalMoves()) {
             if (move.isCastlingMove() && move.toString().equals(castleMove)) {
                 return move;
             }
         }
-        return MoveFactory.getNullMove();
+        return MoveService.getNullMove();
     }
 
     private static int deriveCurrentCoordinate(final Board board,
                                                final String movedPiece,
                                                final String destinationSquare,
                                                final String disambiguationFile) throws RuntimeException {
-        final List<Move> currentCandidates = new ArrayList<>();
-        final int destinationCoordinate =  BoardUtils.INSTANCE.getCoordinateAtPosition(destinationSquare);
-        for (final Move move : board.currentPlayer().getLegalMoves()) {
+        final List<AbstractMove> currentCandidates = new ArrayList<>();
+        final int destinationCoordinate =  BoardService.INSTANCE.getCoordinateAtPosition(destinationSquare);
+        for (final AbstractMove move : board.getCurrentPlayer().getLegalMoves()) {
             if (move.getDestination() == destinationCoordinate && move.getPiece().toString().equals(movedPiece)) {
                 currentCandidates.add(move);
             }
@@ -259,13 +259,13 @@ public class PGNUtilities {
 
     }
 
-    private static int extractFurther(final List<Move> candidateMoves,
+    private static int extractFurther(final List<AbstractMove> candidateMoves,
                                       final String movedPiece,
                                       final String disambiguationFile) {
 
-        final List<Move> currentCandidates = new ArrayList<>();
+        final List<AbstractMove> currentCandidates = new ArrayList<>();
 
-        for(final Move move : candidateMoves) {
+        for(final AbstractMove move : candidateMoves) {
             if(move.getPiece().getType().toString().equals(movedPiece)) {
                 currentCandidates.add(move);
             }
@@ -275,10 +275,10 @@ public class PGNUtilities {
             return currentCandidates.iterator().next().getCurrentCoordinate();
         }
 
-        final List<Move> candidatesRefined = new ArrayList<>();
+        final List<AbstractMove> candidatesRefined = new ArrayList<>();
 
-        for (final Move move : currentCandidates) {
-            final String pos = BoardUtils.INSTANCE.getPositionAtCoordinate(move.getCurrentCoordinate());
+        for (final AbstractMove move : currentCandidates) {
+            final String pos = BoardService.INSTANCE.getPositionAtCoordinate(move.getCurrentCoordinate());
             if (pos.contains(disambiguationFile)) {
                 candidatesRefined.add(move);
             }

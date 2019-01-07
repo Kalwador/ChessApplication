@@ -1,11 +1,13 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.moves.simple.MajorAttackMove;
-import com.chess.spring.engine.moves.simple.MajorMove;
-import com.chess.spring.engine.moves.simple.Move;
-import com.google.common.collect.ImmutableList;
+import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.moves.simple.attack.AttackMoveImpl;
+import com.chess.spring.engine.moves.simple.MoveImpl;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.engine.pieces.utils.PieceType;
+import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,23 +15,23 @@ import java.util.List;
 
 public class Queen extends AbstractPiece {
 
-    private static int[] CANDIDATE_MOVE_COORDINATES = {-9, -8, -7, -1, 1,
+    private static int[] DEFAULT_STRATEGY = {-9, -8, -7, -1, 1,
             7, 8, 9};
 
-    public Queen(PieceColor pieceColor, int piecePosition) {
-        super(PieceType.QUEEN, pieceColor, piecePosition, true);
+    public Queen(PlayerColor playerColor, int piecePosition) {
+        super(PieceType.QUEEN, playerColor, piecePosition, true);
     }
 
-    public Queen(PieceColor pieceColor,
+    public Queen(PlayerColor playerColor,
                  int piecePosition,
                  boolean isFirstMove) {
-        super(PieceType.QUEEN, pieceColor, piecePosition, isFirstMove);
+        super(PieceType.QUEEN, playerColor, piecePosition, isFirstMove);
     }
 
     @Override
-    public Collection<Move> getOptionalMoves(Board board) {
-        List<Move> legalMoves = new ArrayList<>();
-        for (int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+    public Collection<AbstractMove> getOptionalMoves(Board board) {
+        List<AbstractMove> legalMoves = new ArrayList<>();
+        for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             int candidateDestinationCoordinate = getPosition();
             while (true) {
                 if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
@@ -37,16 +39,16 @@ public class Queen extends AbstractPiece {
                     break;
                 }
                 candidateDestinationCoordinate += currentCandidateOffset;
-                if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+                if (!BoardService.isValidTileCoordinate(candidateDestinationCoordinate)) {
                     break;
                 } else {
                     AbstractPiece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                     if (pieceAtDestination == null) {
-                        legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+                        legalMoves.add(new MoveImpl(board, this, candidateDestinationCoordinate));
                     } else {
-                        PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
+                        PlayerColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
                         if (getColor() != pieceAtDestinationAllegiance) {
-                            legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
+                            legalMoves.add(new AttackMoveImpl(board, this, candidateDestinationCoordinate,
                                     pieceAtDestination));
                         }
                         break;
@@ -63,8 +65,8 @@ public class Queen extends AbstractPiece {
     }
 
     @Override
-    public Queen movePiece(Move move) {
-        return PieceUtils.INSTANCE.getMovedQueen(move.getPiece().getPieceAllegiance(), move.getDestination());
+    public Queen movePiece(AbstractMove move) {
+        return PieceService.INSTANCE.getMovedQueen(move.getPiece().getPieceAllegiance(), move.getDestination());
     }
 
     @Override
@@ -74,13 +76,13 @@ public class Queen extends AbstractPiece {
 
     private static boolean isFirstColumnExclusion(int currentPosition,
                                                   int candidatePosition) {
-        return BoardUtils.INSTANCE.FIRST_COLUMN.get(candidatePosition) && ((currentPosition == -9)
+        return BoardService.INSTANCE.FIRST_COLUMN.get(candidatePosition) && ((currentPosition == -9)
                 || (currentPosition == -1) || (currentPosition == 7));
     }
 
     private static boolean isEightColumnExclusion(int currentPosition,
                                                   int candidatePosition) {
-        return BoardUtils.INSTANCE.EIGHTH_COLUMN.get(candidatePosition) && ((currentPosition == -7)
+        return BoardService.INSTANCE.EIGHTH_COLUMN.get(candidatePosition) && ((currentPosition == -7)
                 || (currentPosition == 1) || (currentPosition == 9));
     }
 

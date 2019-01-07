@@ -6,16 +6,20 @@ import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvPDTO;
 import com.chess.spring.dto.game.SocketMessageDTO;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.classic.player.ai.algorithms.AlphaBetaAlgorithm;
+import com.chess.spring.engine.core.algorithms.AlphaBetaAlgorithm;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.game.GamePvP;
 import com.chess.spring.exceptions.*;
+import com.chess.spring.models.events.GameEndType;
 import com.chess.spring.models.game.*;
+import com.chess.spring.models.sockets.SocketMessageType;
 import com.chess.spring.repositories.AccountRepository;
 import com.chess.spring.repositories.GamePvPRepository;
 import com.chess.spring.services.account.AccountService;
 import com.chess.spring.services.chat.ChatService;
 import com.chess.spring.utils.pgn.FenUtilities;
+import com.chess.spring.utils.pgn.Game;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,14 +33,14 @@ import static java.lang.String.format;
 
 @Slf4j
 @Service
-public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
+public class GamePvPServiceImpl implements GamePvPService {
     private GamePvPRepository gamePvPRepository;
     private AccountService accountService;
     private AccountRepository accountRepository;
     private ChatService chatService;
     private SocketEmitter socketEmitter;
     private GameService gameService;
-    private AlphaBetaAlgorithm alphaBetaAlgorithm;
+    private GameUtils gameUtils;
 
     @Autowired
     public GamePvPServiceImpl(GamePvPRepository gamePvPRepository,
@@ -45,14 +49,14 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
                               SocketEmitter socketEmitter,
                               GameService gameService,
                               ChatService chatService,
-                              AlphaBetaAlgorithm alphaBetaAlgorithm) {
-        super(alphaBetaAlgorithm);
+                              GameUtils gameUtils) {
         this.gamePvPRepository = gamePvPRepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
         this.socketEmitter = socketEmitter;
         this.gameService = gameService;
         this.chatService = chatService;
+        this.gameUtils = gameUtils;
     }
 
     @Override
@@ -114,11 +118,11 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
         message.setMoveDTO(new MoveDTO());
 
         validateGameStatus(game.getStatus());
-        Board boardAfterPlayerMove = executeMove(game.getBoard(), moveDTO);
+        Board boardAfterPlayerMove = gameUtils.executeMove(game.getBoard(), moveDTO);
 
-        GameEndStatus gameEndStatus = checkEndOfGame(boardAfterPlayerMove);
+        GameEndStatus gameEndStatus = gameUtils.checkEndOfGame(boardAfterPlayerMove);
         if (gameEndStatus != null) {
-            GamePvPStatus status = handleEndOfGame(moveDTO, gameEndStatus);
+            GamePvPStatus status = handleEndOfGame(game, moveDTO, gameEndStatus);
             game.setStatus(status);
             message.getMoveDTO().setStatusPvP(status);
             message.setType(SocketMessageType.END_GAME);
@@ -128,8 +132,8 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
             game.setStatus(status);
             message.setType(SocketMessageType.MOVE);
             message.getMoveDTO().setStatusPvP(status);
-            message.getMoveDTO().setInCheck(boardAfterPlayerMove.currentPlayer().isInCheck());
-            message.getMoveDTO().setType(map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
+            message.getMoveDTO().setInCheck(boardAfterPlayerMove.getCurrentPlayer().isInCheck());
+            message.getMoveDTO().setType(gameUtils.map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
         }
 
         message.getMoveDTO().setSource(moveDTO.getSource());
@@ -188,7 +192,7 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
     }
 
     private GamePvP buildGame(GamePvPDTO gamePvPDTO, Account account) {
-        PlayerColor color = drawColor();
+        PlayerColor color = gameUtils.drawColor();
         return GamePvP.builder()
                 .whitePlayer(color == PlayerColor.WHITE ? account : null)
                 .blackPlayer(color == PlayerColor.BLACK ? account : null)
@@ -219,11 +223,28 @@ public class GamePvPServiceImpl extends GameUtils implements GamePvPService {
         }
     }
 
-    private GamePvPStatus handleEndOfGame(MoveDTO moveDTO, GameEndStatus gameEndStatus) {
+    private GamePvPStatus handleEndOfGame(GamePvP game, MoveDTO moveDTO, GameEndStatus gameEndStatus) {
+        GamePvPStatus status;
+        GameEndType whiteEndStatus;
+        GameEndType blackEndStatus;
         if (gameEndStatus == GameEndStatus.STALE_MATE) {
-            return GamePvPStatus.DRAW;
+            status = GamePvPStatus.DRAW;
+            whiteEndStatus = GameEndType.DRAW;
+            blackEndStatus = GameEndType.DRAW;
+        } else {
+            if (moveDTO.getStatusPvP() == GamePvPStatus.WHITE_MOVE) {
+                status = GamePvPStatus.WHITE_WIN;
+                whiteEndStatus = GameEndType.WIN;
+                blackEndStatus = GameEndType.LOSE;
+            } else {
+                status = GamePvPStatus.BLACK_WIN;
+                whiteEndStatus = GameEndType.LOSE;
+                blackEndStatus = GameEndType.WIN;
+            }
         }
-        return moveDTO.getStatusPvP() == GamePvPStatus.WHITE_MOVE ? GamePvPStatus.WHITE_WIN : GamePvPStatus.BLACK_WIN;
+        gameUtils.updateStatistics(game.getWhitePlayer().getId(), GameType.PVP, whiteEndStatus, game.getBlackPlayer().getStatistics().getRank());
+        gameUtils.updateStatistics(game.getBlackPlayer().getId(), GameType.PVP, blackEndStatus, game.getWhitePlayer().getStatistics().getRank());
+        return status;
     }
 
     @Override

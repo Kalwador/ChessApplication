@@ -3,14 +3,16 @@ package com.chess.spring.services.game;
 import com.chess.spring.dto.MoveDTO;
 import com.chess.spring.dto.game.GamePvEDTO;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.classic.player.ai.algorithms.AlphaBetaAlgorithm;
-import com.chess.spring.engine.moves.simple.Move;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.entities.game.GamePvE;
 import com.chess.spring.entities.account.Account;
 import com.chess.spring.exceptions.*;
-import com.chess.spring.models.game.PlayerColor;
+import com.chess.spring.models.events.GameEndType;
+import com.chess.spring.models.events.UpdateStatisticsEvent;
 import com.chess.spring.models.game.GameEndStatus;
 import com.chess.spring.models.game.GamePvEStatus;
+import com.chess.spring.models.game.GameType;
 import com.chess.spring.repositories.AccountRepository;
 import com.chess.spring.repositories.GamePvERepository;
 import com.chess.spring.services.account.AccountService;
@@ -27,18 +29,18 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
+public class GamePvEServiceImpl implements GamePvEService {
     private GamePvERepository gamePvERepository;
     private AccountService accountService;
     private AccountRepository accountRepository;
-    private AlphaBetaAlgorithm alphaBetaAlgorithm;
+    private GameUtils gameUtils;
 
     @Autowired
     public GamePvEServiceImpl(GamePvERepository gamePvERepository,
                               AccountService accountService,
                               AccountRepository accountRepository,
-                              AlphaBetaAlgorithm alphaBetaAlgorithm) {
-        super(alphaBetaAlgorithm);
+                              GameUtils gameUtils) {
+        this.gameUtils = gameUtils;
         this.gamePvERepository = gamePvERepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
@@ -76,13 +78,13 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
         Board board = Board.createStandardBoard();
         PlayerColor color = gamePvEDTO.getColor();
         if (gamePvEDTO.getColor().equals(PlayerColor.RANDOM)) {
-            color = drawColor();
+            color = gameUtils.drawColor();
         }
 
         if (color == PlayerColor.BLACK) {
-            Move move = getBestMove(board, gamePvEDTO.getLevel());
+            AbstractMove move = gameUtils.getBestMove(board, gamePvEDTO.getLevel());
             try {
-                board = executeMove(board, move);
+                board = gameUtils.executeMove(board, move);
             } catch (InvalidDataException e) {
                 //nie mozliwe, bo pierwszy ruch musi być poprawny
                 throw new RuntimeException("Error during first computer moves, quite imposible ... but here we are");
@@ -104,19 +106,19 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     @Override
     public MoveDTO makeMove(Long gameId, MoveDTO moveDTOPvE) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException {
         GamePvE game = getById(gameId);
-        checkStatus(game.getStatus(), GamePvEStatus.PLAYER_MOVE);
 
-        Board boardAfterPlayerMove = executeMove(game.getBoard(), moveDTOPvE);
+        validate(game, moveDTOPvE);
 
-        GameEndStatus gameEndStatus = checkEndOfGame(boardAfterPlayerMove);
+        Board boardAfterPlayerMove = gameUtils.executeMove(game.getBoard(), moveDTOPvE);
+        GameEndStatus gameEndStatus = gameUtils.checkEndOfGame(boardAfterPlayerMove);
         if (gameEndStatus != null) {
             return handleEndOfGame(game, boardAfterPlayerMove, gameEndStatus, true);
         } else {
             //Game still in progress
-            Move move = getBestMove(boardAfterPlayerMove, game.getLevel());
-            Board boardAfterComputerResponse = executeMove(boardAfterPlayerMove, move);
+            AbstractMove move = gameUtils.getBestMove(boardAfterPlayerMove, game.getLevel());
+            Board boardAfterComputerResponse = gameUtils.executeMove(boardAfterPlayerMove, move);
 
-            gameEndStatus = checkEndOfGame(boardAfterComputerResponse);
+            gameEndStatus = gameUtils.checkEndOfGame(boardAfterComputerResponse);
             game.setBoard(FenUtilities.createFENFromGame(boardAfterComputerResponse));
 
             if (gameEndStatus != null) {
@@ -127,11 +129,21 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
                 return MoveDTO.builder()
                         .source(move.getCurrentCoordinate())
                         .destination(move.getDestination())
-                        .isInCheck(boardAfterComputerResponse.currentPlayer().isInCheck())
+                        .isInCheck(boardAfterComputerResponse.getCurrentPlayer().isInCheck())
                         .type(move.getClass().getSimpleName())
                         .statusPve(GamePvEStatus.PLAYER_MOVE)
                         .build();
             }
+        }
+    }
+
+    private void validate(GamePvE game, MoveDTO moveDTO) throws LockedSourceException, DataMissmatchException, InvalidDataException {
+        checkStatus(game.getStatus(), GamePvEStatus.PLAYER_MOVE);
+
+        if (!gameUtils.map(game.getBoard()).getPiece(moveDTO.getSource()).getPieceAllegiance().equals(game.getColor())) {
+            PlayerColor color = gameUtils.map(game.getBoard()).getPiece(moveDTO.getSource()).getPieceAllegiance();
+
+            throw new InvalidDataException(ExceptionMessages.GAME_INVALID_MOVE.getInfo());
         }
     }
 
@@ -157,17 +169,22 @@ public class GamePvEServiceImpl extends GameUtils implements GamePvEService {
     private MoveDTO handleEndOfGame(GamePvE game, Board board, GameEndStatus gameEndStatus, boolean isPlayerMove) {
         game.setBoard(FenUtilities.createFENFromGame(board));
         GamePvEStatus status;
+        GameEndType end;
         if (gameEndStatus == GameEndStatus.STALE_MATE) {
             status = GamePvEStatus.DRAW;
+            end = GameEndType.DRAW;
         } else {
             if (isPlayerMove) {
                 status = game.getColor() == PlayerColor.WHITE ? GamePvEStatus.WHITE_WIN : GamePvEStatus.BLACK_WIN;
+                end = game.getColor() == PlayerColor.WHITE ? GameEndType.WIN : GameEndType.LOSE;
             } else {
                 status = game.getColor() == PlayerColor.WHITE ? GamePvEStatus.BLACK_WIN : GamePvEStatus.WHITE_WIN;
+                end = game.getColor() == PlayerColor.WHITE ? GameEndType.LOSE : GameEndType.WIN;
             }
         }
         game.setStatus(status);
         gamePvERepository.save(game);
+        gameUtils.updateStatistics(game.getAccount().getId(), GameType.PVE, end, null);
         return new MoveDTO(null, null, null, false, status, null, null, null);
     }
 

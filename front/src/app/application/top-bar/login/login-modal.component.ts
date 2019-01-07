@@ -64,7 +64,7 @@ export class LoginModalComponent {
         }, error => {
             switch (error.status) {
                 case (400): {
-                    this.notificationService.warning('Błędny login i/lub hasło');
+                    this.notificationService.warning('Błędny tokens i/lub hasło');
                     //TODO - wyswietl info ze zle dane
                     return false;
                 }

@@ -1,9 +1,9 @@
 package com.chess.spring.utils.pgn;
 
 import com.chess.spring.engine.board.BoardBuilder;
-import com.chess.spring.engine.pieces.PieceColor;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
+import com.chess.spring.engine.board.BoardService;
 import com.chess.spring.engine.pieces.*;
 
 public class FenUtilities {
@@ -46,52 +46,52 @@ public class FenUtilities {
         while (i < boardTiles.length) {
             switch (boardTiles[i]) {
                 case 'r':
-                    builder.setPiece(new Rook(PieceColor.BLACK, i));
+                    builder.setPiece(new Rook(PlayerColor.BLACK, i));
                     i++;
                     break;
                 case 'n':
-                    builder.setPiece(new Knight(PieceColor.BLACK, i));
+                    builder.setPiece(new Knight(PlayerColor.BLACK, i));
                     i++;
                     break;
                 case 'b':
-                    builder.setPiece(new Bishop(PieceColor.BLACK, i));
+                    builder.setPiece(new Bishop(PlayerColor.BLACK, i));
                     i++;
                     break;
                 case 'q':
-                    builder.setPiece(new Queen(PieceColor.BLACK, i));
+                    builder.setPiece(new Queen(PlayerColor.BLACK, i));
                     i++;
                     break;
                 case 'k':
                     final boolean isCastled = !blackKingSideCastle && !blackQueenSideCastle;
-                    builder.setPiece(new King(PieceColor.BLACK, i, blackKingSideCastle, blackQueenSideCastle));
+                    builder.setPiece(new King(PlayerColor.BLACK, i, blackKingSideCastle, blackQueenSideCastle));
                     i++;
                     break;
                 case 'p':
-                    builder.setPiece(new Pawn(PieceColor.BLACK, i));
+                    builder.setPiece(new Pawn(PlayerColor.BLACK, i));
                     i++;
                     break;
                 case 'R':
-                    builder.setPiece(new Rook(PieceColor.WHITE, i));
+                    builder.setPiece(new Rook(PlayerColor.WHITE, i));
                     i++;
                     break;
                 case 'N':
-                    builder.setPiece(new Knight(PieceColor.WHITE, i));
+                    builder.setPiece(new Knight(PlayerColor.WHITE, i));
                     i++;
                     break;
                 case 'B':
-                    builder.setPiece(new Bishop(PieceColor.WHITE, i));
+                    builder.setPiece(new Bishop(PlayerColor.WHITE, i));
                     i++;
                     break;
                 case 'Q':
-                    builder.setPiece(new Queen(PieceColor.WHITE, i));
+                    builder.setPiece(new Queen(PlayerColor.WHITE, i));
                     i++;
                     break;
                 case 'K':
-                    builder.setPiece(new King(PieceColor.WHITE, i, whiteKingSideCastle, whiteQueenSideCastle));
+                    builder.setPiece(new King(PlayerColor.WHITE, i, whiteKingSideCastle, whiteQueenSideCastle));
                     i++;
                     break;
                 case 'P':
-                    builder.setPiece(new Pawn(PieceColor.WHITE, i));
+                    builder.setPiece(new Pawn(PlayerColor.WHITE, i));
                     i++;
                     break;
                 case '-':
@@ -105,11 +105,11 @@ public class FenUtilities {
         return builder.build();
     }
 
-    private static PieceColor moveMaker(final String moveMakerString) {
+    private static PlayerColor moveMaker(final String moveMakerString) {
         if(moveMakerString.equals("w")) {
-            return PieceColor.WHITE;
+            return PlayerColor.WHITE;
         } else if(moveMakerString.equals("b")) {
-            return PieceColor.BLACK;
+            return PlayerColor.BLACK;
         }
         throw new RuntimeException("Invalid FEN String " +moveMakerString);
     }
@@ -150,9 +150,9 @@ public class FenUtilities {
     }
 
     private static String calculateEnPassantSquare(final Board board) {
-        final Pawn enPassantPawn = board.getEnPassantPawn();
+        final Pawn enPassantPawn = board.getEnPassant();
         if(enPassantPawn != null) {
-            return BoardUtils.INSTANCE.getPositionAtCoordinate(enPassantPawn.getPosition() +
+            return BoardService.INSTANCE.getPositionAtCoordinate(enPassantPawn.getPosition() +
                     (8) * enPassantPawn.getPieceAllegiance().getOppositeDirection());
         }
         return "-";
@@ -160,7 +160,7 @@ public class FenUtilities {
 
     private static String calculateBoardText(final Board board) {
         final StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < BoardUtils.NUM_TILES; i++) {
+        for (int i = 0; i < BoardService.NUM_TILES; i++) {
             final String tileText = board.getPiece(i) == null ? "-" :
                     board.getPiece(i).getPieceAllegiance().isWhite() ? board.getPiece(i).toString() :
                     board.getPiece(i).toString().toLowerCase();
@@ -185,7 +185,7 @@ public class FenUtilities {
     }
 
     private static String calculateCurrentPlayerText(final Board board) {
-        return board.currentPlayer().toString().substring(0, 1).toLowerCase();
+        return board.getCurrentPlayer().toString().substring(0, 1).toLowerCase();
     }
 
 }

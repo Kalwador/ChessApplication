@@ -55,8 +55,8 @@ public class GamePvEController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "MoveImpl execution success"),
-            @ApiResponse(code = 400, message = "MoveImpl is not acceptable"),
+            @ApiResponse(code = 200, message = "Move execution success"),
+            @ApiResponse(code = 400, message = "Move is not acceptable"),
             @ApiResponse(code = 404, message = "Game not found, wrong id"),
             @ApiResponse(code = 409, message = "Error during creation of game, wrong status"),
             @ApiResponse(code = 423, message = "Game is over"),

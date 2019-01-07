@@ -44,7 +44,7 @@ public class TestController {
 
     @GetMapping(value = "/login")
     public String loginTest() {
-        return "login message";
+        return "tokens message";
     }
 
     @GetMapping(value = "/register/test")

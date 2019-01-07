@@ -1,11 +1,12 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.board.BoardUtils;
-import com.chess.spring.engine.moves.simple.MajorAttackMove;
-import com.chess.spring.engine.moves.simple.MajorMove;
-import com.chess.spring.engine.moves.simple.Move;
-import com.google.common.collect.ImmutableList;
+import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.moves.simple.attack.AttackMoveImpl;
+import com.chess.spring.engine.moves.simple.MoveImpl;
+import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.engine.pieces.utils.PieceType;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
@@ -15,28 +16,28 @@ import java.util.List;
 @EqualsAndHashCode
 public class King extends AbstractPiece {
 
-    private static int[] CANDIDATE_MOVE_COORDINATES = {-9, -8, -7, -1, 1, 7, 8, 9};
+    private static int[] DEFAULT_STRATEGY = {-9, -8, -7, -1, 1, 7, 8, 9};
     private boolean isCastled;
     private boolean kingSideCastleCapable;
     private boolean queenSideCastleCapable;
 
-    public King(PieceColor pieceColor,
+    public King(PlayerColor playerColor,
                 int piecePosition,
                 boolean kingSideCastleCapable,
                 boolean queenSideCastleCapable) {
-        super(PieceType.KING, pieceColor, piecePosition, true);
+        super(PieceType.KING, playerColor, piecePosition, true);
         this.isCastled = false;
         this.kingSideCastleCapable = kingSideCastleCapable;
         this.queenSideCastleCapable = queenSideCastleCapable;
     }
 
-    public King(PieceColor pieceColor,
+    public King(PlayerColor playerColor,
                 int piecePosition,
                 boolean isFirstMove,
                 boolean isCastled,
                 boolean kingSideCastleCapable,
                 boolean queenSideCastleCapable) {
-        super(PieceType.KING, pieceColor, piecePosition, isFirstMove);
+        super(PieceType.KING, playerColor, piecePosition, isFirstMove);
         this.isCastled = isCastled;
         this.kingSideCastleCapable = kingSideCastleCapable;
         this.queenSideCastleCapable = queenSideCastleCapable;
@@ -55,22 +56,22 @@ public class King extends AbstractPiece {
     }
 
     @Override
-    public Collection<Move> getOptionalMoves(Board board) {
-        List<Move> legalMoves = new ArrayList<>();
-        for (int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+    public Collection<AbstractMove> getOptionalMoves(Board board) {
+        List<AbstractMove> legalMoves = new ArrayList<>();
+        for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             if (isFirstColumnExclusion(getPosition(), currentCandidateOffset) ||
                     isEighthColumnExclusion(getPosition(), currentCandidateOffset)) {
                 continue;
             }
             int candidateDestinationCoordinate = getPosition() + currentCandidateOffset;
-            if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+            if (BoardService.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 AbstractPiece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
                 if (pieceAtDestination == null) {
-                    legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+                    legalMoves.add(new MoveImpl(board, this, candidateDestinationCoordinate));
                 } else {
-                    PieceColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
+                    PlayerColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
                     if (getColor() != pieceAtDestinationAllegiance) {
-                        legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
+                        legalMoves.add(new AttackMoveImpl(board, this, candidateDestinationCoordinate,
                                 pieceAtDestination));
                     }
                 }
@@ -90,21 +91,21 @@ public class King extends AbstractPiece {
     }
 
     @Override
-    public King movePiece(Move move) {
+    public King movePiece(AbstractMove move) {
         return new King(getColor(), move.getDestination(), false, move.isCastlingMove(), false, false);
     }
 
 
     private static boolean isFirstColumnExclusion(int currentCandidate,
                                                   int candidateDestinationCoordinate) {
-        return BoardUtils.INSTANCE.FIRST_COLUMN.get(currentCandidate)
+        return BoardService.INSTANCE.FIRST_COLUMN.get(currentCandidate)
                 && ((candidateDestinationCoordinate == -9) || (candidateDestinationCoordinate == -1) ||
                 (candidateDestinationCoordinate == 7));
     }
 
     private static boolean isEighthColumnExclusion(int currentCandidate,
                                                    int candidateDestinationCoordinate) {
-        return BoardUtils.INSTANCE.EIGHTH_COLUMN.get(currentCandidate)
+        return BoardService.INSTANCE.EIGHTH_COLUMN.get(currentCandidate)
                 && ((candidateDestinationCoordinate == -7) || (candidateDestinationCoordinate == 1) ||
                 (candidateDestinationCoordinate == 9));
     }

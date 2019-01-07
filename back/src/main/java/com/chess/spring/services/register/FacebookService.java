@@ -1,10 +1,9 @@
 package com.chess.spring.services.register;
 
 import com.chess.spring.dto.RegisterDTO;
-import com.chess.spring.entities.account.Account;
 import com.chess.spring.entities.register.RegisterAttempt;
-import com.chess.spring.models.login.AccessToken;
-import com.chess.spring.models.login.AccessTokenData;
+import com.chess.spring.models.tokens.AccessToken;
+import com.chess.spring.models.tokens.AccessTokenData;
 import com.chess.spring.repositories.AccountDetailsRepository;
 import com.chess.spring.repositories.AccountRepository;
 import com.chess.spring.repositories.RegisterAttemptRepository;

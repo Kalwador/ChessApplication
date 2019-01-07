@@ -32,7 +32,7 @@ application:
     host-web: http://localhost:4200
 
 #Facebook app
-REDIRECT_URI: http://localhost:8080/login/facebook
+REDIRECT_URI: http://localhost:8080/tokens/facebook
 APP_ID: 949905705187730
 APP_SECRET: 10b52a2ef982e3e02b66559457fb62be
 #APP_ID: 233668646673605
