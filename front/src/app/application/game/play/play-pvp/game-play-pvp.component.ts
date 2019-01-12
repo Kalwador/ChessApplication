@@ -90,7 +90,7 @@ export class GamePlayPvpComponent implements OnInit {
     }
 
     initializeWebSocketConnection() {
-        this.socket = new SockJS(this.gameService.getBasePath() + '/socket');
+        this.socket = new SockJS(this.gameService.getBasePath() + '/sockets');
         this.stompClient = Stomp.over(this.socket);
         let that = this;
         this.stompClient.connect({}, function (frame) {

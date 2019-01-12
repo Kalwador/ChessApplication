@@ -30,8 +30,8 @@
 //         usernamePage.classList.add('hidden');
 //         chatPage.classList.remove('hidden');
 //
-//         var socket = new SockJS('http://localhost:8080/ws');
-//         stompClient = Stomp.over(socket);
+//         var sockets = new SockJS('http://localhost:8080/ws');
+//         stompClient = Stomp.over(sockets);
 //
 //         stompClient.connect({}, onConnected, onError);
 //     }
