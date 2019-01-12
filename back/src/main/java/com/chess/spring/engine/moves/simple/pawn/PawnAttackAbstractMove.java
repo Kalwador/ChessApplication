@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class PawnAttackAbstractMove extends AbstractAttackMove {
 
     public PawnAttackAbstractMove(Board board, AbstractPiece attacker, int destination, AbstractPiece attacked) {

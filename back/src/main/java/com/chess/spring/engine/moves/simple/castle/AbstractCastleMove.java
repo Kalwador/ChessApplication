@@ -15,8 +15,7 @@ public abstract class AbstractCastleMove extends AbstractMove {
     private int castleRookStart;
     private int castleRookDestination;
 
-    AbstractCastleMove(Board board, AbstractPiece pieceMoved, int destinationCoordinate, Rook castleRook,
-                       int castleRookStart, int castleRookDestination) {
+    AbstractCastleMove(Board board, AbstractPiece pieceMoved, int destinationCoordinate, Rook castleRook, int castleRookStart, int castleRookDestination) {
         super(board, pieceMoved, destinationCoordinate);
         this.castleRook = castleRook;
         this.castleRookStart = castleRookStart;

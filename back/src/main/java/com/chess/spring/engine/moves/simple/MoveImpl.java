@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class MoveImpl extends AbstractMove {
 
     public MoveImpl(Board board, AbstractPiece pieceMoved, int destinationCoordinate) {
@@ -16,7 +16,7 @@ public class MoveImpl extends AbstractMove {
 
     @Override
     public String toString() {
-        return getPiece().getType().toString() + disambiguationFile() + BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
+        return getPiece().getType().toString() + getSimpleFile() + BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
     }
 
 }

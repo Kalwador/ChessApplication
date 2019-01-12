@@ -8,7 +8,8 @@ import com.chess.spring.engine.pieces.utils.PieceDistance;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
+
 
 @Data
 @Service
@@ -19,11 +20,11 @@ public class KingAnalyserService {
 
     public PieceDistance calculateKingTropism(AbstractPlayer player) {
         int playerKingSquare = player.getPlayerKing().getPosition();
-        Collection<AbstractMove> enemyMoves = player.getOpponent().getLegalMoves();
+        List<AbstractMove> enemyMoves = player.getOpponent().getLegalMoves();
         AbstractPiece closestPiece = null;
         int closestDistance = Integer.MAX_VALUE;
         for (AbstractMove move : enemyMoves) {
-            int currentDistance = calculateChebyshevDistance(playerKingSquare, move.getDestination());
+            int currentDistance = calculateClosesDistance(playerKingSquare, move.getDestination());
             if (currentDistance < closestDistance) {
                 closestDistance = currentDistance;
                 closestPiece = move.getPiece();
@@ -32,8 +33,8 @@ public class KingAnalyserService {
         return new PieceDistance(closestPiece, closestDistance);
     }
 
-    private int calculateChebyshevDistance(int kingTileId,
-                                           int enemyAttackTileId) {
+    private int calculateClosesDistance(int kingTileId,
+                                        int enemyAttackTileId) {
 
         int squareOneRank = getRank(kingTileId);
         int squareTwoRank = getRank(enemyAttackTileId);

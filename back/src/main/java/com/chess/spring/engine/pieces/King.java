@@ -7,13 +7,14 @@ import com.chess.spring.engine.moves.simple.MoveImpl;
 import com.chess.spring.engine.moves.simple.AbstractMove;
 import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.engine.pieces.utils.PieceType;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class King extends AbstractPiece {
 
     private static int[] DEFAULT_STRATEGY = {-9, -8, -7, -1, 1, 7, 8, 9};
@@ -43,20 +44,9 @@ public class King extends AbstractPiece {
         this.queenSideCastleCapable = queenSideCastleCapable;
     }
 
-    public boolean isCastled() {
-        return this.isCastled;
-    }
-
-    public boolean isKingSideCastleCapable() {
-        return this.kingSideCastleCapable;
-    }
-
-    public boolean isQueenSideCastleCapable() {
-        return this.queenSideCastleCapable;
-    }
 
     @Override
-    public Collection<AbstractMove> getOptionalMoves(Board board) {
+    public List<AbstractMove> getOptionalMoves(Board board) {
         List<AbstractMove> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             if (isFirstColumnExclusion(getPosition(), currentCandidateOffset) ||
@@ -109,4 +99,26 @@ public class King extends AbstractPiece {
                 && ((candidateDestinationCoordinate == -7) || (candidateDestinationCoordinate == 1) ||
                 (candidateDestinationCoordinate == 9));
     }
+
+    public static int[] WHITE_BONUS_COORDINATES = {
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -20, -30, -30, -40, -40, -30, -30, -20,
+            -10, -20, -20, -20, -20, -20, -20, -10,
+            20, 20, 0, 0, 0, 0, 20, 20,
+            20, 30, 10, 0, 0, 10, 30, 20
+    };
+
+    public static int[] BLACK_BONUS_COORDINATES = {
+            20, 30, 10, 0, 0, 10, 30, 20,
+            20, 20, 0, 0, 0, 0, 20, 20,
+            -10, -20, -20, -20, -20, -20, -20, -10,
+            -20, -30, -30, -40, -40, -30, -30, -20,
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30
+    };
 }

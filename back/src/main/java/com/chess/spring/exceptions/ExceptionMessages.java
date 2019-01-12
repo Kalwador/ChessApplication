@@ -7,6 +7,8 @@ public enum ExceptionMessages {
     GAME_END("Gra się zakończyła"),
     GAME_STATUS_NOT_VALID("Nie poprawny status gry"),
     GAME_LEVEL_NOT_VALID("Poziom gry poza skalą"),
+
+    NOT_EXPECTED_ERROR("Błąd nie rozpoznany")
     ;
 
 

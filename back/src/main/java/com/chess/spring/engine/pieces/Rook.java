@@ -10,7 +10,6 @@ import com.chess.spring.engine.pieces.utils.PieceType;
 import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Rook extends AbstractPiece {
@@ -26,7 +25,7 @@ public class Rook extends AbstractPiece {
     }
 
     @Override
-    public Collection<AbstractMove> getOptionalMoves(Board board) {
+    public List<AbstractMove> getOptionalMoves(Board board) {
         List<AbstractMove> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             int candidateDestinationCoordinate = getPosition();
@@ -73,5 +72,27 @@ public class Rook extends AbstractPiece {
         return (BoardService.INSTANCE.FIRST_COLUMN.get(candidateDestinationCoordinate) && (currentCandidate == -1)) ||
                 (BoardService.INSTANCE.EIGHTH_COLUMN.get(candidateDestinationCoordinate) && (currentCandidate == 1));
     }
+
+    public static int[] WHITE_PREFERRED_COORDINATES = {
+            0, 0, 0, 0, 0, 0, 0, 0,
+            5, 20, 20, 20, 20, 20, 20, 5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            0, 0, 0, 5, 5, 0, 0, 0
+    };
+
+    public static int[] BLACK_PREFERRED_COORDINATES = {
+            0, 0, 0, 5, 5, 0, 0, 0,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            -5, 0, 0, 0, 0, 0, 0, -5,
+            5, 20, 20, 20, 20, 20, 20, 5,
+            0, 0, 0, 0, 0, 0, 0, 0,
+    };
 
 }

@@ -6,7 +6,6 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -16,20 +15,20 @@ public class PawnAnalyserService {
     private static int ISOLATED_PAWN_PENALTY = -25;
     private static int DOUBLED_PAWN_PENALTY = -25;
 
-    public int isolatedPawnPenalty(AbstractPlayer player) {
-        return calculateIsolatedPawnPenalty(createPawnColumnTable(calculatePlayerPawns(player)));
-    }
+//    public int isolatedPawnPenalty(AbstractPlayer player) {
+//        return calculateIsolatedPawnPenalty(createPawnColumnTable(calculatePlayerPawns(player)));
+//    }
 
-    public int doubledPawnPenalty(AbstractPlayer player) {
-        return calculatePawnColumnStack(createPawnColumnTable(calculatePlayerPawns(player)));
-    }
+//    public int doubledPawnPenalty(AbstractPlayer player) {
+//        return calculatePawnColumnStack(createPawnColumnTable(calculatePlayerPawns(player)));
+//    }
 
     public int pawnStructureScore(AbstractPlayer player) {
         int[] pawnsOnColumnTable = createPawnColumnTable(calculatePlayerPawns(player));
         return calculatePawnColumnStack(pawnsOnColumnTable) + calculateIsolatedPawnPenalty(pawnsOnColumnTable);
     }
 
-    private static Collection<AbstractPiece> calculatePlayerPawns(AbstractPlayer player) {
+    private static List<AbstractPiece> calculatePlayerPawns(AbstractPlayer player) {
         List<AbstractPiece> playerPawnLocations = new ArrayList<>(8);
         for (AbstractPiece piece : player.getActivePieces()) {
             if (piece.getType().isPawn()) {
@@ -65,7 +64,7 @@ public class PawnAnalyserService {
         return numIsolatedPawns * ISOLATED_PAWN_PENALTY;
     }
 
-    private static int[] createPawnColumnTable(Collection<AbstractPiece> playerPawns) {
+    private static int[] createPawnColumnTable(List<AbstractPiece> playerPawns) {
         int[] table = new int[8];
         for (AbstractPiece playerPawn : playerPawns) {
             table[playerPawn.getPosition() % 8]++;

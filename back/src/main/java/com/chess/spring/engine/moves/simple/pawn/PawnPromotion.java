@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class PawnPromotion extends PawnAbstractMove {
     private AbstractMove move;
     private Pawn pawn;

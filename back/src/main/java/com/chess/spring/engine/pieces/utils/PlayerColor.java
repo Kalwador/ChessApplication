@@ -1,11 +1,12 @@
 package com.chess.spring.engine.pieces.utils;
 
 import com.chess.spring.engine.board.BoardService;
+import com.chess.spring.engine.pieces.*;
 import com.chess.spring.engine.player.AbstractPlayer;
 import com.chess.spring.engine.player.BlackPlayer;
 import com.chess.spring.engine.player.WhitePlayer;
+import com.chess.spring.game.GameService;
 
-import static com.chess.spring.engine.core.PreferedStructure.*;
 
 public enum PlayerColor {
 
@@ -22,12 +23,12 @@ public enum PlayerColor {
 
         @Override
         public int getDirection() {
-            return UP_DIRECTION;
+            return GameService.UP_DIRECTION;
         }
 
         @Override
         public int getOppositeDirection() {
-            return DOWN_DIRECTION;
+            return GameService.DOWN_DIRECTION;
         }
 
         @Override
@@ -47,32 +48,32 @@ public enum PlayerColor {
 
         @Override
         public int pawnBonus(int position) {
-            return WHITE_PAWN_PREFERRED_COORDINATES[position];
+            return Pawn.WHITE_BONUS_COORDINATES[position];
         }
 
         @Override
         public int knightBonus(int position) {
-            return WHITE_KNIGHT_PREFERRED_COORDINATES[position];
+            return Knight.WHITE_BONUS_COORDINATES[position];
         }
 
         @Override
         public int bishopBonus(int position) {
-            return WHITE_BISHOP_PREFERRED_COORDINATES[position];
+            return Bishop.WHITE_BONUS_COORDINATES[position];
         }
 
         @Override
         public int rookBonus(int position) {
-            return WHITE_ROOK_PREFERRED_COORDINATES[position];
+            return Rook.WHITE_PREFERRED_COORDINATES[position];
         }
 
         @Override
         public int queenBonus(int position) {
-            return WHITE_QUEEN_PREFERRED_COORDINATES[position];
+            return Queen.WHITE_BONUS_COORDINATES[position];
         }
 
         @Override
         public int kingBonus(int position) {
-            return WHITE_KING_PREFERRED_COORDINATES[position];
+            return King.WHITE_BONUS_COORDINATES[position];
         }
 
     },
@@ -89,12 +90,12 @@ public enum PlayerColor {
 
         @Override
         public int getDirection() {
-            return DOWN_DIRECTION;
+            return GameService.DOWN_DIRECTION;
         }
 
         @Override
         public int getOppositeDirection() {
-            return UP_DIRECTION;
+            return GameService.UP_DIRECTION;
         }
 
         @Override
@@ -114,32 +115,32 @@ public enum PlayerColor {
 
         @Override
         public int pawnBonus(int position) {
-            return BLACK_PAWN_PREFERRED_COORDINATES[position];
+            return Pawn.BLACK_BONUS_COORDINATES[position];
         }
 
         @Override
         public int knightBonus(int position) {
-            return BLACK_KNIGHT_PREFERRED_COORDINATES[position];
+            return Knight.BLACK_BONUS_COORDINATES[position];
         }
 
         @Override
         public int bishopBonus(int position) {
-            return BLACK_BISHOP_PREFERRED_COORDINATES[position];
+            return Bishop.BLACK_BONUS_COORDINATES[position];
         }
 
         @Override
         public int rookBonus(int position) {
-            return BLACK_ROOK_PREFERRED_COORDINATES[position];
+            return Rook.BLACK_PREFERRED_COORDINATES[position];
         }
 
         @Override
         public int queenBonus(int position) {
-            return BLACK_QUEEN_PREFERRED_COORDINATES[position];
+            return Queen.BLACK_BONUS_COORDINATES[position];
         }
 
         @Override
         public int kingBonus(int position) {
-            return BLACK_KING_PREFERRED_COORDINATES[position];
+            return King.BLACK_BONUS_COORDINATES[position];
         }
     },
     RANDOM() {
@@ -232,9 +233,5 @@ public enum PlayerColor {
     public abstract boolean isPawnPromotionSquare(int position);
 
     public abstract AbstractPlayer choosePlayerByAlliance(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
-
-    private static int UP_DIRECTION = -1;
-
-    private static int DOWN_DIRECTION = 1;
 
 }

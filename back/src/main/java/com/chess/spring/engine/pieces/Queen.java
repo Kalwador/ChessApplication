@@ -10,7 +10,6 @@ import com.chess.spring.engine.pieces.utils.PieceType;
 import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Queen extends AbstractPiece {
@@ -29,7 +28,7 @@ public class Queen extends AbstractPiece {
     }
 
     @Override
-    public Collection<AbstractMove> getOptionalMoves(Board board) {
+    public List<AbstractMove> getOptionalMoves(Board board) {
         List<AbstractMove> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             int candidateDestinationCoordinate = getPosition();
@@ -85,5 +84,27 @@ public class Queen extends AbstractPiece {
         return BoardService.INSTANCE.EIGHTH_COLUMN.get(candidatePosition) && ((currentPosition == -7)
                 || (currentPosition == 1) || (currentPosition == 9));
     }
+
+    public static int[] WHITE_BONUS_COORDINATES = {
+            -20, -10, -10, -5, -5, -10, -10, -20,
+            -10, 0, 0, 0, 0, 0, 0, -10,
+            -10, 0, 5, 5, 5, 5, 0, -10,
+            -5, 0, 5, 5, 5, 5, 0, -5,
+            0, 0, 5, 5, 5, 5, 0, -5,
+            -10, 5, 5, 5, 5, 5, 0, -10,
+            -10, 0, 5, 0, 0, 0, 0, -10,
+            -20, -10, -10, -5, -5, -10, -10, -20
+    };
+
+    public static int[] BLACK_BONUS_COORDINATES = {
+            -20, -10, -10, -5, -5, -10, -10, -20,
+            -10, 0, 5, 0, 0, 0, 0, -10,
+            -10, 5, 5, 5, 5, 5, 0, -10,
+            0, 0, 5, 5, 5, 5, 0, -5,
+            0, 0, 5, 5, 5, 5, 0, -5,
+            -10, 0, 5, 5, 5, 5, 0, -10,
+            -10, 0, 0, 0, 0, 0, 0, -10,
+            -20, -10, -10, -5, -5, -10, -10, -20
+    };
 
 }

@@ -141,8 +141,7 @@ public enum PieceType {
         return this.pieceName;
     }
 
-    PieceType(int val,
-              String pieceName) {
+    PieceType(int val, String pieceName) {
         this.value = val;
         this.pieceName = pieceName;
     }

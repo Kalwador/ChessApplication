@@ -10,8 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class KingSideCastleMove extends AbstractCastleMove {
 
-    public KingSideCastleMove(Board board, AbstractPiece piece, int destination, Rook rook,
-                              int rookSource, int rookDestination) {
+    public KingSideCastleMove(Board board, AbstractPiece piece, int destination, Rook rook, int rookSource, int rookDestination) {
         super(board, piece, destination, rook, rookSource, rookDestination);
     }
 

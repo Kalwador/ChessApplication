@@ -4,9 +4,9 @@ import com.chess.spring.engine.board.Board;
 import com.chess.spring.engine.board.BoardService;
 import com.chess.spring.engine.core.evaluators.EvaluatorService;
 import com.chess.spring.engine.core.evaluators.EvaluatorServiceImpl;
+import com.chess.spring.engine.moves.ErrorMove;
 import com.chess.spring.engine.player.AbstractPlayer;
 import com.chess.spring.engine.moves.simple.AbstractMove;
-import com.chess.spring.engine.moves.MoveService;
 import com.chess.spring.engine.moves.Transition;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -15,48 +15,33 @@ import java.util.Observable;
 
 @Data
 @Service
-public class AlphaBetaAlgorithm extends Observable implements AbstractAlgorithm {
+public class AlphaBetaAlgorithm extends AbstractAlgorithm {
 
     private EvaluatorService evaluator;
     private long boardsEvaluated;
     private long executionTime;
     private int quiescenceCount;
     private static int MAX_QUIESCENCE = 5000 * 10;
-    private EvaluatorServiceImpl defaultAbstractEvaluartor;
 
-    public AlphaBetaAlgorithm(EvaluatorServiceImpl defaultAbstractEvaluartor) {
-        this.evaluator = defaultAbstractEvaluartor;
+    public AlphaBetaAlgorithm(EvaluatorServiceImpl evaluatorService) {
+        this.evaluator = evaluatorService;
         this.boardsEvaluated = 0;
         this.quiescenceCount = 0;
     }
 
     @Override
-    public String toString() {
-        return "AlphaBetaAlgorithm";
-    }
-
-    @Override
-    public long getNumBoardsEvaluated() {
-        return this.boardsEvaluated;
-    }
-
-    @Override
-    public AbstractMove execute(Board board, int level) {
+    public AbstractMove getBestMove(Board board, int level) {
         long startTime = System.currentTimeMillis();
         AbstractPlayer currentPlayer = board.getCurrentPlayer();
-        AbstractMove bestMove = MoveService.getNullMove();
+        AbstractMove bestMove = ErrorMove.getInstance();
         int highestSeenValue = Integer.MIN_VALUE;
         int lowestSeenValue = Integer.MAX_VALUE;
         int currentValue;
-        int moveCounter = 1;
-        int numMoves = board.getCurrentPlayer().getLegalMoves().size();
-
-        for (AbstractMove move : MoveSorter.EXPENSIVE.sort((board.getCurrentPlayer().getLegalMoves()))) {
+        for (AbstractMove move : fullSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
             this.quiescenceCount = 0;
             String s;
             if (moveTransition.getStatus().isDone()) {
-                long candidateMoveStartTime = System.nanoTime();
                 currentValue = currentPlayer.getAlliance().isWhite() ?
                         min(moveTransition.getAfterMoveBoard(), level - 1, highestSeenValue, lowestSeenValue) :
                         max(moveTransition.getAfterMoveBoard(), level - 1, highestSeenValue, lowestSeenValue);
@@ -74,69 +59,53 @@ public class AlphaBetaAlgorithm extends Observable implements AbstractAlgorithm 
                     }
                 }
             }
-            setChanged();
-            moveCounter++;
         }
 
         this.executionTime = System.currentTimeMillis() - startTime;
-        setChanged();
         return bestMove;
     }
 
-    private static String score(AbstractPlayer currentPlayer,
-                                int highestSeenValue,
-                                int lowestSeenValue) {
-
-        if (currentPlayer.getAlliance().isWhite()) {
-            return "[score: " + highestSeenValue + "]";
-        } else if (currentPlayer.getAlliance().isBlack()) {
-            return "[score: " + lowestSeenValue + "]";
-        }
-        throw new RuntimeException("bad bad boy!");
-    }
-
-    private int max(Board board,
-                    int depth,
-                    int highest,
-                    int lowest) {
-        if (depth == 0 || BoardService.isEndGame(board)) {
-            this.boardsEvaluated++;
-            return this.evaluator.evaluate(board, depth);
-        }
-        int currentHighest = highest;
-        for (AbstractMove move : MoveSorter.STANDARD.sort((board.getCurrentPlayer().getLegalMoves()))) {
+    private int max(Board board, int depth, int highest, int min) {
+        if (checkEndGame(board, depth)) return this.evaluator.evaluate(board, depth);
+        int tempMax = highest;
+        for (AbstractMove move : simpleSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getStatus().isDone()) {
-                currentHighest = Math.max(currentHighest, min(moveTransition.getAfterMoveBoard(),
-                        calculateQuiescenceDepth(moveTransition, depth), currentHighest, lowest));
-                if (currentHighest >= lowest) {
-                    return lowest;
+                tempMax = Math.max(tempMax, min(moveTransition.getAfterMoveBoard(),
+                        calculateQuiescenceDepth(moveTransition, depth), tempMax, min));
+                if (tempMax >= min) {
+                    return min;
                 }
             }
         }
-        return currentHighest;
+        return tempMax;
     }
 
     private int min(Board board,
                     int depth,
-                    int highest,
+                    int max,
                     int lowest) {
-        if (depth == 0 || BoardService.isEndGame(board)) {
-            this.boardsEvaluated++;
-            return this.evaluator.evaluate(board, depth);
-        }
-        int currentLowest = lowest;
-        for (AbstractMove move : MoveSorter.STANDARD.sort((board.getCurrentPlayer().getLegalMoves()))) {
+        if (checkEndGame(board, depth)) return this.evaluator.evaluate(board, depth);
+        int tempMin = lowest;
+        for (AbstractMove move : simpleSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getStatus().isDone()) {
-                currentLowest = Math.min(currentLowest, max(moveTransition.getAfterMoveBoard(),
-                        calculateQuiescenceDepth(moveTransition, depth), highest, currentLowest));
-                if (currentLowest <= highest) {
-                    return highest;
+                tempMin = Math.min(tempMin, max(moveTransition.getAfterMoveBoard(),
+                        calculateQuiescenceDepth(moveTransition, depth), max, tempMin));
+                if (tempMin <= max) {
+                    return max;
                 }
             }
         }
-        return currentLowest;
+        return tempMin;
+    }
+
+    private boolean checkEndGame(Board board, int depth) {
+        if (depth == 0 || BoardService.isEndGame(board)) {
+            this.boardsEvaluated++;
+            return true;
+        }
+        return false;
     }
 
     private int calculateQuiescenceDepth(Transition moveTransition,
@@ -157,11 +126,6 @@ public class AlphaBetaAlgorithm extends Observable implements AbstractAlgorithm 
             }
         }
         return depth - 1;
-    }
-
-    private static String calculateTimeTaken(long start, long end) {
-        long timeTaken = (end - start) / 1000000;
-        return timeTaken + " ms";
     }
 
 }

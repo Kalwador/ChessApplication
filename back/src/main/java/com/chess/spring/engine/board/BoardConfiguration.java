@@ -3,39 +3,39 @@ import java.util.BitSet;
 
 public  class BoardConfiguration extends BitSet {
 
-	public BoardConfiguration() {
-		super(64);
-	}
-
-	public BoardConfiguration(BoardConfiguration bSet) {
-		super(64);
-		or(bSet);
-	}
-
-	public BoardConfiguration shift(int shiftValue) {
-		 int len = length();
-		if (shiftValue > 0) {
-			if (len + shiftValue < 64) {
-				for (int bitIndex = len; bitIndex >= 0; bitIndex--) {
-					set(bitIndex + shiftValue, get(bitIndex));
-				}
-				clear(0, shiftValue);
-			} else {
-				clear(shiftValue, len + shiftValue);
-			}
-		} else if (shiftValue < 0) {
-			if (len < -shiftValue) {
-				clear();
-			} else {
-				for (int bitIndex = -shiftValue; bitIndex < length(); bitIndex++) {
-					set(bitIndex + shiftValue, get(bitIndex));
-				}
-				clear(len + shiftValue, len);
-			}
-		}
-
-		return this;
-	}
+//	public BoardConfiguration() {
+//		super(64);
+//	}
+//
+//	public BoardConfiguration(BoardConfiguration bSet) {
+//		super(64);
+//		or(bSet);
+//	}
+//
+//	public BoardConfiguration shift(int shiftValue) {
+//		 int len = length();
+//		if (shiftValue > 0) {
+//			if (len + shiftValue < 64) {
+//				for (int bitIndex = len; bitIndex >= 0; bitIndex--) {
+//					set(bitIndex + shiftValue, get(bitIndex));
+//				}
+//				clear(0, shiftValue);
+//			} else {
+//				clear(shiftValue, len + shiftValue);
+//			}
+//		} else if (shiftValue < 0) {
+//			if (len < -shiftValue) {
+//				clear();
+//			} else {
+//				for (int bitIndex = -shiftValue; bitIndex < length(); bitIndex++) {
+//					set(bitIndex + shiftValue, get(bitIndex));
+//				}
+//				clear(len + shiftValue, len);
+//			}
+//		}
+//
+//		return this;
+//	}
 
 	@Override
 	public String toString() {

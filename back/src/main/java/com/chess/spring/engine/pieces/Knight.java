@@ -10,7 +10,6 @@ import com.chess.spring.engine.pieces.utils.PieceType;
 import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public  class Knight extends AbstractPiece {
@@ -30,7 +29,7 @@ public  class Knight extends AbstractPiece {
     }
 
     @Override
-    public Collection<AbstractMove> getOptionalMoves(Board board) {
+    public List<AbstractMove> getOptionalMoves(Board board) {
          List<AbstractMove> legalMoves = new ArrayList<>();
         for ( int currentCandidateOffset : DEFAULT_STRATEGY) {
             if(isFirstColumnExclusion(getPosition(), currentCandidateOffset) ||
@@ -92,5 +91,27 @@ public  class Knight extends AbstractPiece {
         return BoardService.INSTANCE.EIGHTH_COLUMN.get(currentPosition) && ((candidateOffset == -15) || (candidateOffset == -6) ||
                 (candidateOffset == 10) || (candidateOffset == 17));
     }
+
+    public static int[] WHITE_BONUS_COORDINATES = {
+            -50, -40, -30, -30, -30, -30, -40, -50,
+            -40, -20, 0, 0, 0, 0, -20, -40,
+            -30, 0, 10, 15, 15, 10, 0, -30,
+            -30, 5, 15, 20, 20, 15, 5, -30,
+            -30, 0, 15, 20, 20, 15, 0, -30,
+            -30, 5, 10, 15, 15, 10, 5, -30,
+            -40, -20, 0, 5, 5, 0, -20, -40,
+            -50, -40, -30, -30, -30, -30, -40, -50
+    };
+
+    public static int[] BLACK_BONUS_COORDINATES = {
+            -50, -40, -30, -30, -30, -30, -40, -50,
+            -40, -20, 0, 5, 5, 0, -20, -40,
+            -30, 5, 10, 15, 15, 10, 5, -30,
+            -30, 0, 15, 20, 20, 15, 0, -30,
+            -30, 5, 15, 20, 20, 15, 5, -30,
+            -30, 0, 10, 15, 15, 10, 0, -30,
+            -40, -20, 0, 0, 0, 0, -20, -40,
+            -50, -40, -30, -30, -30, -30, -40, -50,
+    };
 
 }

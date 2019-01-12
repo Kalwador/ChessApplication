@@ -11,48 +11,45 @@ import com.chess.spring.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public  class WhitePlayer extends AbstractPlayer {
+public class WhitePlayer extends AbstractPlayer {
 
-    public WhitePlayer( Board board,
-                        Collection<AbstractMove> whiteStandardLegals,
-                        Collection<AbstractMove> blackStandardLegals) {
+    public WhitePlayer(Board board,
+                       List<AbstractMove> whiteStandardLegals,
+                       List<AbstractMove> blackStandardLegals) {
         super(board, whiteStandardLegals, blackStandardLegals);
     }
 
     @Override
-    protected Collection<AbstractMove> calculateKingCastles(Collection<AbstractMove> playerLegals,
-                                                            Collection<AbstractMove> opponentLegals) {
+    protected List<AbstractMove> calculateKingCastles(List<AbstractMove> playerLegals,
+                                                            List<AbstractMove> opponentLegals) {
 
-        if(this.isInCheck() || this.isCastled() || !(this.isKingSideCastleCapable() || this.isQueenSideCastleCapable())) {
+        if (this.isInCheck() || this.isCastled() || !(this.isKingSideCastleCapable() || this.isQueenSideCastleCapable())) {
             return ImmutableList.of();
         }
 
-         List<AbstractMove> kingCastles = new ArrayList<>();
+        List<AbstractMove> kingCastles = new ArrayList<>();
 
-        if(this.playerKing.isFirstMove() && this.playerKing.getPosition() == 60 && !this.isInCheck()) {
-            //whites king side castle
-            if(this.board.getPiece(61) == null && this.board.getPiece(62) == null) {
-                 AbstractPiece kingSideRook = this.board.getPiece(63);
-                if(kingSideRook != null && kingSideRook.isFirstMove()) {
-                    if(AbstractPlayer.calculateAttacksOnTile(61, opponentLegals).isEmpty() && AbstractPlayer.calculateAttacksOnTile(62, opponentLegals).isEmpty() &&
-                       kingSideRook.getType().isRook()) {
-                        if(!BoardService.isKingPawnTrap(this.board, this.playerKing, 52)) {
+        if (this.playerKing.isFirstMove() && this.playerKing.getPosition() == 60 && !this.isInCheck()) {
+            if (this.board.getPiece(61) == null && this.board.getPiece(62) == null) {
+                AbstractPiece kingSideRook = this.board.getPiece(63);
+                if (kingSideRook != null && kingSideRook.isFirstMove()) {
+                    if (AbstractPlayer.calculateAttacksOnTile(61, opponentLegals).isEmpty() && AbstractPlayer.calculateAttacksOnTile(62, opponentLegals).isEmpty() &&
+                            kingSideRook.getType().isRook()) {
+                        if (!BoardService.isKingPawnTrap(this.board, this.playerKing, 52)) {
                             kingCastles.add(new KingSideCastleMove(this.board, this.playerKing, 62, (Rook) kingSideRook, kingSideRook.getPosition(), 61));
                         }
                     }
                 }
             }
-            //whites queen side castle
-            if(this.board.getPiece(59) == null && this.board.getPiece(58) == null &&
-               this.board.getPiece(57) == null) {
-                 AbstractPiece queenSideRook = this.board.getPiece(56);
-                if(queenSideRook != null && queenSideRook.isFirstMove()) {
-                    if(AbstractPlayer.calculateAttacksOnTile(58, opponentLegals).isEmpty() &&
-                       AbstractPlayer.calculateAttacksOnTile(59, opponentLegals).isEmpty() && queenSideRook.getType().isRook()) {
-                        if(!BoardService.isKingPawnTrap(this.board, this.playerKing, 52)) {
+            if (this.board.getPiece(59) == null && this.board.getPiece(58) == null &&
+                    this.board.getPiece(57) == null) {
+                AbstractPiece queenSideRook = this.board.getPiece(56);
+                if (queenSideRook != null && queenSideRook.isFirstMove()) {
+                    if (AbstractPlayer.calculateAttacksOnTile(58, opponentLegals).isEmpty() &&
+                            AbstractPlayer.calculateAttacksOnTile(59, opponentLegals).isEmpty() && queenSideRook.getType().isRook()) {
+                        if (!BoardService.isKingPawnTrap(this.board, this.playerKing, 52)) {
                             kingCastles.add(new QueenSideCastleMove(this.board, this.playerKing, 58, (Rook) queenSideRook, queenSideRook.getPosition(), 59));
                         }
                     }
@@ -68,7 +65,7 @@ public  class WhitePlayer extends AbstractPlayer {
     }
 
     @Override
-    public Collection<AbstractPiece> getActivePieces() {
+    public List<AbstractPiece> getActivePieces() {
         return this.board.getWhitePieces();
     }
 

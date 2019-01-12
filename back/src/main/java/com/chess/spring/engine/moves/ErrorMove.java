@@ -6,8 +6,17 @@ import com.chess.spring.exceptions.NotExpectedError;
 
 public class ErrorMove extends AbstractMove {
 
-    public ErrorMove() {
+    private static AbstractMove INSTANCE;
+
+    private ErrorMove() {
         super(null, -1);
+    }
+
+    public static AbstractMove getInstance() {
+        if(INSTANCE == null){
+            INSTANCE = new ErrorMove();
+        }
+        return INSTANCE;
     }
 
     @Override

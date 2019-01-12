@@ -142,7 +142,7 @@ public class FenService {
     }
 
     private static String calculateEnPassantSquare(final Board board) {
-        final Pawn enPassantPawn = board.getEnPassant();
+        final Pawn enPassantPawn = board.getPassingAttack();
         if(enPassantPawn != null) {
             return BoardService.INSTANCE.getPositionAtCoordinate(enPassantPawn.getPosition() +
                     (8) * enPassantPawn.getPieceAllegiance().getOppositeDirection());

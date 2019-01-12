@@ -6,7 +6,7 @@ import com.chess.spring.engine.moves.simple.AbstractMove;
 import com.chess.spring.engine.pieces.AbstractPiece;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class PawnAbstractMove extends AbstractMove {
 
     public PawnAbstractMove(Board board, AbstractPiece piece, int destination) {

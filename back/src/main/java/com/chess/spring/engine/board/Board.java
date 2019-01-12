@@ -1,44 +1,45 @@
 package com.chess.spring.engine.board;
 
+import com.chess.spring.engine.moves.ErrorMove;
 import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.engine.player.AbstractPlayer;
 import com.chess.spring.engine.moves.simple.AbstractMove;
-import com.chess.spring.engine.moves.MoveService;
 import com.chess.spring.engine.pieces.*;
 import com.chess.spring.engine.player.BlackPlayer;
 import com.chess.spring.engine.player.WhitePlayer;
 import com.google.common.collect.Iterables;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public final class Board {
+public class Board {
 
     private Map<Integer, AbstractPiece> config;
-    private Collection<AbstractPiece> whitePieces;
-    private Collection<AbstractPiece> blackPieces;
+    private List<AbstractPiece> whitePieces;
+    private List<AbstractPiece> blackPieces;
     private WhitePlayer whitePlayer;
     private BlackPlayer blackPlayer;
     private AbstractPlayer currentPlayer;
-    private Pawn enPassant;
+    private Pawn passingAttack;
     private AbstractMove transition;
 
     public Board(final BoardBuilder builder) {
         this.config = builder.getConfiguration();
         this.whitePieces = BoardUtils.calculateActivePieces(builder, PlayerColor.WHITE);
         this.blackPieces = BoardUtils.calculateActivePieces(builder, PlayerColor.BLACK);
-        this.enPassant = builder.getPawn();
-        Collection<AbstractMove> whiteStandardMoves = BoardUtils.calculateLegalMoves(this, this.whitePieces);
-        Collection<AbstractMove> blackStandardMoves = BoardUtils.calculateLegalMoves(this, this.blackPieces);
+        this.passingAttack = builder.getPawn();
+        List<AbstractMove> whiteStandardMoves = BoardUtils.calculateLegalMoves(this, this.whitePieces);
+        List<AbstractMove> blackStandardMoves = BoardUtils.calculateLegalMoves(this, this.blackPieces);
         this.whitePlayer = new WhitePlayer(this, whiteStandardMoves, blackStandardMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStandardMoves, blackStandardMoves);
         this.currentPlayer = builder.getNextPlayer().choosePlayerByAlliance(this.whitePlayer, this.blackPlayer);
-        this.transition = Optional.ofNullable(builder.getMove()).orElse(MoveService.getNullMove());
+        this.transition = Optional.ofNullable(builder.getMove()).orElse(ErrorMove.getInstance());
     }
 
     @Override
@@ -62,11 +63,11 @@ public final class Board {
         return "-";
     }
 
-    public Collection<AbstractPiece> getBlackPieces() {
+    public List<AbstractPiece> getBlackPieces() {
         return this.blackPieces;
     }
 
-    public Collection<AbstractPiece> getWhitePieces() {
+    public List<AbstractPiece> getWhitePieces() {
         return this.whitePieces;
     }
 

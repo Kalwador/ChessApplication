@@ -9,7 +9,6 @@ import com.chess.spring.engine.pieces.utils.PieceType;
 import com.chess.spring.engine.pieces.utils.PieceService;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Pawn
@@ -34,7 +33,7 @@ public class Pawn
     }
 
     @Override
-    public Collection<AbstractMove> getOptionalMoves(Board board) {
+    public List<AbstractMove> getOptionalMoves(Board board) {
         List<AbstractMove> legalMoves = new ArrayList<>();
         for (int currentCandidateOffset : DEFAULT_STRATEGY) {
             int candidateDestinationCoordinate =
@@ -84,12 +83,12 @@ public class Pawn
                                     new PawnAttackAbstractMove(board, this, candidateDestinationCoordinate, pieceOnCandidate));
                         }
                     }
-                } else if (board.getEnPassant() != null && board.getEnPassant().getPosition() ==
+                } else if (board.getPassingAttack() != null && board.getPassingAttack().getPosition() ==
                         (getPosition() + (getColor().getOppositeDirection()))) {
-                    AbstractPiece pieceOnCandidate = board.getEnPassant();
+                    AbstractPiece pieceOnCandidate = board.getPassingAttack();
                     if (getColor() != pieceOnCandidate.getPieceAllegiance()) {
                         legalMoves.add(
-                                new PawnEnPassantAbstract(board, this, candidateDestinationCoordinate, pieceOnCandidate));
+                                new PawnPassingAttack(board, this, candidateDestinationCoordinate, pieceOnCandidate));
 
                     }
                 }
@@ -118,12 +117,12 @@ public class Pawn
                                             board.getPiece(candidateDestinationCoordinate)));
                         }
                     }
-                } else if (board.getEnPassant() != null && board.getEnPassant().getPosition() ==
+                } else if (board.getPassingAttack() != null && board.getPassingAttack().getPosition() ==
                         (getPosition() - (getColor().getOppositeDirection()))) {
-                    AbstractPiece pieceOnCandidate = board.getEnPassant();
+                    AbstractPiece pieceOnCandidate = board.getPassingAttack();
                     if (getColor() != pieceOnCandidate.getPieceAllegiance()) {
                         legalMoves.add(
-                                new PawnEnPassantAbstract(board, this, candidateDestinationCoordinate, pieceOnCandidate));
+                                new PawnPassingAttack(board, this, candidateDestinationCoordinate, pieceOnCandidate));
 
                     }
                 }
@@ -141,5 +140,27 @@ public class Pawn
     public Pawn movePiece(AbstractMove move) {
         return PieceService.INSTANCE.getMovedPawn(move.getPiece().getPieceAllegiance(), move.getDestination());
     }
+
+    public static int[] WHITE_BONUS_COORDINATES = {
+            0, 0, 0, 0, 0, 0, 0, 0,
+            75, 75, 75, 75, 75, 75, 75, 75,
+            25, 25, 29, 29, 29, 29, 25, 25,
+            5, 5, 10, 25, 25, 10, 5, 5,
+            0, 0, 0, 20, 20, 0, 0, 0,
+            5, -5, -10, 0, 0, -10, -5, 5,
+            5, 10, 10, -20, -20, 10, 10, 5,
+            0, 0, 0, 0, 0, 0, 0, 0
+    };
+
+    public static int[] BLACK_BONUS_COORDINATES = {
+            0, 0, 0, 0, 0, 0, 0, 0,
+            5, 10, 10, -20, -20, 10, 10, 5,
+            5, -5, -10, 0, 0, -10, -5, 5,
+            0, 0, 0, 20, 20, 0, 0, 0,
+            5, 5, 10, 25, 25, 10, 5, 5,
+            25, 25, 29, 29, 29, 29, 25, 25,
+            75, 75, 75, 75, 75, 75, 75, 75,
+            0, 0, 0, 0, 0, 0, 0, 0
+    };
 
 }

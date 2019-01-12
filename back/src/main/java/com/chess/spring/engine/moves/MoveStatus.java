@@ -1,20 +1,19 @@
 package com.chess.spring.engine.moves;
 
 public enum MoveStatus {
-
     DONE {
         @Override
         public boolean isDone() {
             return true;
         }
     },
-    ILLEGAL_MOVE {
+    ILLEGAL {
         @Override
         public boolean isDone() {
             return false;
         }
     },
-    LEAVES_PLAYER_IN_CHECK {
+    CHECK {
         @Override
         public boolean isDone() {
             return false;

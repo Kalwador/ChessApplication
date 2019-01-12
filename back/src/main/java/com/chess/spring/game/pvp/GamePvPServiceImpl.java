@@ -2,10 +2,10 @@ package com.chess.spring.game.pvp;
 
 import com.chess.spring.communication.sockets.SocketEmitter;
 import com.chess.spring.communication.chat.ChatDTO;
+import com.chess.spring.engine.core.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.game.GameEndStatus;
 import com.chess.spring.game.GameService;
 import com.chess.spring.game.GameType;
-import com.chess.spring.game.GameUtils;
 import com.chess.spring.game.MoveDTO;
 import com.chess.spring.communication.sockets.SocketMessageDTO;
 import com.chess.spring.engine.board.Board;
@@ -20,10 +20,12 @@ import com.chess.spring.communication.chat.ChatService;
 import com.chess.spring.game.FenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -31,36 +33,35 @@ import static java.lang.String.format;
 
 @Slf4j
 @Service
-public class GamePvPServiceImpl implements GamePvPService {
+public class GamePvPServiceImpl extends GameService implements GamePvPService {
     private GamePvPRepository gamePvPRepository;
     private AccountService accountService;
     private AccountRepository accountRepository;
     private ChatService chatService;
     private SocketEmitter socketEmitter;
-    private GameService gameService;
-    private GameUtils gameUtils;
 
     @Autowired
-    public GamePvPServiceImpl(GamePvPRepository gamePvPRepository,
+    public GamePvPServiceImpl(EntityManager entityManager,
+                              AlphaBetaAlgorithm alphaBetaAlgorithm,
+                              ApplicationEventPublisher applicationEventPublisher,
+                              GamePvPRepository gamePvPRepository,
                               AccountService accountService,
                               AccountRepository accountRepository,
                               SocketEmitter socketEmitter,
                               GameService gameService,
-                              ChatService chatService,
-                              GameUtils gameUtils) {
+                              ChatService chatService) {
+        super(entityManager, alphaBetaAlgorithm, applicationEventPublisher);
         this.gamePvPRepository = gamePvPRepository;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
         this.socketEmitter = socketEmitter;
-        this.gameService = gameService;
         this.chatService = chatService;
-        this.gameUtils = gameUtils;
     }
 
     @Override
     public Page<GamePvPDTO> getAll(Pageable page) throws ResourceNotFoundException {
         List<GamePvPStatus> statuses = Arrays.asList(GamePvPStatus.BLACK_MOVE, GamePvPStatus.WHITE_MOVE);
-        List<GamePvP> results = gameService.getQueryForGames(accountService.getCurrent(), statuses, page).getResultList();
+        List<GamePvP> results = getQueryForGames(accountService.getCurrent(), statuses, page).getResultList();
         return GamePvPDTO.map(results, page);
     }
 
@@ -116,9 +117,9 @@ public class GamePvPServiceImpl implements GamePvPService {
         message.setMoveDTO(new MoveDTO());
 
         validateGameStatus(game.getStatus());
-        Board boardAfterPlayerMove = gameUtils.executeMove(game.getBoard(), moveDTO);
+        Board boardAfterPlayerMove = executeMove(game.getBoard(), moveDTO);
 
-        GameEndStatus gameEndStatus = gameUtils.checkEndOfGame(boardAfterPlayerMove);
+        GameEndStatus gameEndStatus = checkEndOfGame(boardAfterPlayerMove);
         if (gameEndStatus != null) {
             GamePvPStatus status = handleEndOfGame(game, moveDTO, gameEndStatus);
             game.setStatus(status);
@@ -131,7 +132,7 @@ public class GamePvPServiceImpl implements GamePvPService {
             message.setType(SocketMessageType.MOVE);
             message.getMoveDTO().setStatusPvP(status);
             message.getMoveDTO().setInCheck(boardAfterPlayerMove.getCurrentPlayer().isInCheck());
-            message.getMoveDTO().setType(gameUtils.map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
+            message.getMoveDTO().setType(map(boardAfterPlayerMove, moveDTO).getClass().getSimpleName());
         }
 
         message.getMoveDTO().setSource(moveDTO.getSource());
@@ -172,7 +173,7 @@ public class GamePvPServiceImpl implements GamePvPService {
     }
 
     private Optional<GamePvP> getEmptyRoom(Account account) {
-        List<GamePvP> results = gameService.getQuerryForEmptyRoom(account).getResultList();
+        List<GamePvP> results = getQuerryForEmptyRoom(account).getResultList();
         if (results.isEmpty()) {
             return Optional.empty();
         } else {
@@ -190,7 +191,7 @@ public class GamePvPServiceImpl implements GamePvPService {
     }
 
     private GamePvP buildGame(GamePvPDTO gamePvPDTO, Account account) {
-        PlayerColor color = gameUtils.drawColor();
+        PlayerColor color = drawColor();
         return GamePvP.builder()
                 .whitePlayer(color == PlayerColor.WHITE ? account : null)
                 .blackPlayer(color == PlayerColor.BLACK ? account : null)
@@ -240,8 +241,8 @@ public class GamePvPServiceImpl implements GamePvPService {
                 blackEndStatus = GameEndType.WIN;
             }
         }
-        gameUtils.updateStatistics(game.getWhitePlayer().getId(), GameType.PVP, whiteEndStatus, game.getBlackPlayer().getStatistics().getRank());
-        gameUtils.updateStatistics(game.getBlackPlayer().getId(), GameType.PVP, blackEndStatus, game.getWhitePlayer().getStatistics().getRank());
+        updateStatistics(game.getWhitePlayer().getId(), GameType.PVP, whiteEndStatus, game.getBlackPlayer().getStatistics().getRank());
+        updateStatistics(game.getBlackPlayer().getId(), GameType.PVP, blackEndStatus, game.getWhitePlayer().getStatistics().getRank());
         return status;
     }
 

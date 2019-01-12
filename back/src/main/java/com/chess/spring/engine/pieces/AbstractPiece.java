@@ -1,14 +1,18 @@
 package com.chess.spring.engine.pieces;
 
 import com.chess.spring.engine.board.Board;
+import com.chess.spring.engine.board.BoardService;
 import com.chess.spring.engine.moves.simple.AbstractMove;
+import com.chess.spring.engine.moves.simple.MoveImpl;
+import com.chess.spring.engine.moves.simple.attack.AttackMoveImpl;
 import com.chess.spring.engine.pieces.utils.PlayerColor;
 import com.chess.spring.engine.pieces.utils.PieceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Collection;
+import java.util.List;
+
 
 @Data
 @EqualsAndHashCode
@@ -29,7 +33,7 @@ public abstract class AbstractPiece {
         this.position = position;
         this.color = color;
         this.isFirstMove = isFirstMove;
-        this.code = calculateCode();
+        this.code = generateCustomHash();
     }
 
     public PlayerColor getPieceAllegiance() {
@@ -44,13 +48,28 @@ public abstract class AbstractPiece {
 
     public abstract AbstractPiece movePiece(AbstractMove move);
 
-    public abstract Collection<AbstractMove> getOptionalMoves(Board board);
+    public abstract List<AbstractMove> getOptionalMoves(Board board);
 
-    private int calculateCode() {
+    private int generateCustomHash() {
         int result = this.type.hashCode();
         result = 31 * result + this.color.hashCode();
         result = 31 * result + this.position;
         result = 31 * result + (this.isFirstMove ? 1 : 0);
         return result;
+    }
+
+    public void qualifyMove(Board board, List<AbstractMove> legalMoves, int candidateDestinationCoordinate) {
+        if (BoardService.isValidTileCoordinate(candidateDestinationCoordinate)) {
+            AbstractPiece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
+            if (pieceAtDestination == null) {
+                legalMoves.add(new MoveImpl(board, this, candidateDestinationCoordinate));
+            } else {
+                PlayerColor pieceAtDestinationAllegiance = pieceAtDestination.getPieceAllegiance();
+                if (getColor() != pieceAtDestinationAllegiance) {
+                    legalMoves.add(new AttackMoveImpl(board, this, candidateDestinationCoordinate,
+                            pieceAtDestination));
+                }
+            }
+        }
     }
 }

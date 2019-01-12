@@ -11,29 +11,26 @@ import com.chess.spring.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public  class BlackPlayer extends AbstractPlayer {
 
     public BlackPlayer( Board board,
-                        Collection<AbstractMove> whiteStandardLegals,
-                        Collection<AbstractMove> blackStandardLegals) {
+                        List<AbstractMove> whiteStandardLegals,
+                        List<AbstractMove> blackStandardLegals) {
         super(board, blackStandardLegals, whiteStandardLegals);
     }
 
     @Override
-    protected Collection<AbstractMove> calculateKingCastles(Collection<AbstractMove> playerLegals,
-                                                            Collection<AbstractMove> opponentLegals) {
+    protected List<AbstractMove> calculateKingCastles(List<AbstractMove> playerLegals,
+                                                      List<AbstractMove> opponentLegals) {
 
         if (this.isInCheck() || this.isCastled() || !(this.isKingSideCastleCapable() || this.isQueenSideCastleCapable())) {
             return ImmutableList.of();
         }
 
          List<AbstractMove> kingCastles = new ArrayList<>();
-
         if (this.playerKing.isFirstMove() && this.playerKing.getPosition() == 4 && !this.isInCheck) {
-            //blacks king side castle
             if (this.board.getPiece(5) == null && this.board.getPiece(6) == null) {
                  AbstractPiece kingSideRook = this.board.getPiece(7);
                 if (kingSideRook != null && kingSideRook.isFirstMove() &&
@@ -47,7 +44,6 @@ public  class BlackPlayer extends AbstractPlayer {
                     }
                 }
             }
-            //blacks queen side castle
             if (this.board.getPiece(1) == null && this.board.getPiece(2) == null &&
                     this.board.getPiece(3) == null) {
                  AbstractPiece queenSideRook = this.board.getPiece(0);
@@ -71,7 +67,7 @@ public  class BlackPlayer extends AbstractPlayer {
     }
 
     @Override
-    public Collection<AbstractPiece> getActivePieces() {
+    public List<AbstractPiece> getActivePieces() {
         return this.board.getBlackPieces();
     }
 

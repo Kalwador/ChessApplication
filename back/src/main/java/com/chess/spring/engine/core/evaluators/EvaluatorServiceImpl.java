@@ -30,16 +30,18 @@ public class EvaluatorServiceImpl implements EvaluatorService {
     @Override
     public int evaluate(Board board,
                         int depth) {
-        return score(board.whitePlayer(), depth) - score(board.blackPlayer(), depth);
+        return score(board, board.whitePlayer(), depth) - score(board,board.blackPlayer(), depth);
     }
 
-    private int score(AbstractPlayer player,
+    private int score(Board board, AbstractPlayer player,
                       int depth) {
         return mobility(player) +
                 kingThreats(player, depth) +
                 attacks(player) + castle(player) +
                 pieceEvaluations(player) +
-                pawnStructure(player);
+                pawnStructure(player)+
+                kingSafety(player)
+                +rookStructure(board, player);
     }
 
     private static int attacks(AbstractPlayer player) {

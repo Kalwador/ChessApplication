@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public abstract class AbstractMove {
     private Board board;
     private AbstractPiece piece;
@@ -35,7 +35,6 @@ public abstract class AbstractMove {
         this.piece = pieceMoved;
         this.isFirstMove = pieceMoved.isFirstMove();
     }
-
 
     public int getCurrentCoordinate() {
         return this.piece.getPosition();
@@ -63,16 +62,7 @@ public abstract class AbstractMove {
         return builder.build();
     }
 
-    public Board undo() {
-        BoardBuilder builder = new BoardBuilder();
-        for (AbstractPiece piece : this.board.getAllPieces()) {
-            builder.setPiece(piece);
-        }
-        builder.setMoveMaker(this.board.getCurrentPlayer().getAlliance());
-        return builder.build();
-    }
-
-    public String disambiguationFile() {
+    public String getSimpleFile() {
         for (AbstractMove move : this.board.getCurrentPlayer().getLegalMoves()) {
             if (move.getDestination() == this.destination && !this.equals(move) &&
                     this.piece.getType().equals(move.getPiece().getType())) {
