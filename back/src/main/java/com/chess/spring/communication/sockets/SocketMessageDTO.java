@@ -1,6 +1,6 @@
 package com.chess.spring.communication.sockets;
 
-import com.chess.spring.game.MoveDTO;
+import com.chess.spring.game.moves.MoveDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

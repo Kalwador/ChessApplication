@@ -22,8 +22,6 @@ export class BoardComponent {
     oldFieldDragged: Field = null;
     oldFieldSelected: Field = null;
 
-    FieldSize = FieldSize;
-
     @Output() moveEventEmitter: EventEmitter<Move> = new EventEmitter();
 
     constructor(public baseService: AppService) {
@@ -31,6 +29,8 @@ export class BoardComponent {
 
     move(field: Field) {
         this.moveEventEmitter.emit(this.prepareMove(this.oldFieldDragged.id, field.id));
+        this.oldFieldDragged = null;
+        this.oldFieldSelected = null;
     }
 
     remove(field: Field) {

@@ -8,7 +8,6 @@ public enum GamePvPStatus {
     WHITE_WIN("Wygrały białe"),
     BLACK_WIN("Wygrały czarne");
 
-
     private final String info;
 
     GamePvPStatus(String info) {

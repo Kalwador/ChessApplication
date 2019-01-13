@@ -1,7 +1,7 @@
 package com.chess.spring.game.pvp;
 
 import com.chess.spring.communication.chat.ChatDTO;
-import com.chess.spring.game.MoveDTO;
+import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.exceptions.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

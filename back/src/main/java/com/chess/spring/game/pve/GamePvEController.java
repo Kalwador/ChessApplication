@@ -1,7 +1,7 @@
 package com.chess.spring.game.pve;
 
 import com.chess.spring.exceptions.*;
-import com.chess.spring.game.MoveDTO;
+import com.chess.spring.game.moves.MoveDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

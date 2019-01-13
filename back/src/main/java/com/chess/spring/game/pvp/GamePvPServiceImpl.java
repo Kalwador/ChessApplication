@@ -2,14 +2,14 @@ package com.chess.spring.game.pvp;
 
 import com.chess.spring.communication.sockets.SocketEmitter;
 import com.chess.spring.communication.chat.ChatDTO;
-import com.chess.spring.engine.core.algorithms.AlphaBetaAlgorithm;
+import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.game.GameEndStatus;
 import com.chess.spring.game.GameService;
 import com.chess.spring.game.GameType;
-import com.chess.spring.game.MoveDTO;
+import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.communication.sockets.SocketMessageDTO;
-import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.game.board.Board;
+import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.profile.account.Account;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.communication.event.GameEndType;

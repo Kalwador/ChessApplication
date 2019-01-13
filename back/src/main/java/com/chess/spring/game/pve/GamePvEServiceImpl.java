@@ -1,10 +1,11 @@
 package com.chess.spring.game.pve;
 
-import com.chess.spring.engine.core.algorithms.AlphaBetaAlgorithm;
+import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.game.*;
-import com.chess.spring.engine.board.Board;
-import com.chess.spring.engine.moves.simple.AbstractMove;
-import com.chess.spring.engine.pieces.utils.PlayerColor;
+import com.chess.spring.game.board.Board;
+import com.chess.spring.game.moves.MoveDTO;
+import com.chess.spring.game.moves.simple.AbstractMove;
+import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.profile.account.Account;
 import com.chess.spring.exceptions.*;
 import com.chess.spring.communication.event.GameEndType;
