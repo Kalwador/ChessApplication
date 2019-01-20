@@ -26,6 +26,4 @@ public class ApplicationService {
                 .profile(profile)
                 .build();
     }
-
-    //TODO - work log z gita
 }

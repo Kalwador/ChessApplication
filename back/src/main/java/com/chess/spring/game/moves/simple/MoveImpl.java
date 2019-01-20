@@ -16,7 +16,7 @@ public class MoveImpl extends AbstractMove {
 
     @Override
     public String toString() {
-        return getPiece().getType().toString() + getSimpleFile() + BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
+        return getPiece().getType().toString() + getSimpleFile() + BoardService.getPositionAtCoordinate(getDestination());
     }
 
 }

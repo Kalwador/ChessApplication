@@ -8633,3 +8633,13 @@ INFO    2019-01-13 16:16:59,551 [main] com.chess.spring.communication.mail.Maili
 INFO    2019-01-13 17:39:19,863 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2019-01-13 17:49:41,471 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2019-01-13 17:50:45,188 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-01-13 18:02:06,812 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-01-13 18:09:40,514 [http-nio-8080-exec-9] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-01-13 18:09:45,364 [http-nio-8080-exec-10] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-01-13 18:10:18,659 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-01-13 18:11:17,402 [http-nio-8080-exec-6] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-01-13 18:11:19,661 [http-nio-8080-exec-1] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-01-13 18:16:02,102 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-01-13 18:16:19,094 [http-nio-8080-exec-6] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-01-13 18:16:21,452 [http-nio-8080-exec-4] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-01-13 18:19:48,228 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized

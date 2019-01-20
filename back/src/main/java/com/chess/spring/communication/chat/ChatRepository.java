@@ -1,4 +1,4 @@
-package com.chess.spring.communication;
+package com.chess.spring.communication.chat;
 
 import com.chess.spring.communication.chat.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;

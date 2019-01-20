@@ -3,6 +3,7 @@ package com.chess.spring.game.pvp;
 import com.chess.spring.communication.chat.Chat;
 import com.chess.spring.game.Game;
 import com.chess.spring.profile.account.Account;
+import com.chess.spring.profile.invitations.Invitation;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -50,6 +51,11 @@ public class GamePvP extends Game {
             cascade = CascadeType.ALL,
             mappedBy = "game")
     private Chat chat;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "invitation")
+    private Invitation invitation;
 
     @Override
     public boolean equals(Object o) {

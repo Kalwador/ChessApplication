@@ -49,8 +49,8 @@ public class PawnPromotion extends PawnAbstractMove {
 
     @Override
     public String toString() {
-        return BoardService.INSTANCE.getPositionAtCoordinate(getPiece().getPosition()) + "-" +
-                BoardService.INSTANCE.getPositionAtCoordinate(getDestination()) + "=" + this.abstractPiece.getType();
+        return BoardService.getPositionAtCoordinate(getPiece().getPosition()) + "-" +
+                BoardService.getPositionAtCoordinate(getDestination()) + "=" + this.abstractPiece.getType();
     }
 
 }

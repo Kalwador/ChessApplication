@@ -16,6 +16,6 @@ public class AttackMoveImpl extends AbstractAttackMove {
 
     @Override
     public String toString() {
-        return getPiece().getType() + getSimpleFile() + "x" + BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
+        return getPiece().getType() + getSimpleFile() + "x" + BoardService.getPositionAtCoordinate(getDestination());
     }
 }

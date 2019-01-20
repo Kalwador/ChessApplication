@@ -1,4 +1,4 @@
-package com.chess.spring.communication.event;
+package com.chess.spring.game;
 
 public enum GameEndType {
     WIN, LOSE, DRAW

@@ -1,6 +1,5 @@
 package com.chess.spring.game;
 
-import com.chess.spring.communication.event.GameEndType;
 import com.chess.spring.communication.event.UpdateStatisticsEvent;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.core.algorithms.AbstractAlgorithm;

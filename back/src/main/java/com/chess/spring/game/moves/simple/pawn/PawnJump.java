@@ -29,7 +29,7 @@ public class PawnJump extends AbstractMove {
 
     @Override
     public String toString() {
-        return BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
+        return BoardService.getPositionAtCoordinate(getDestination());
     }
 
 }

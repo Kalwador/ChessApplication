@@ -12,7 +12,7 @@ import com.chess.spring.game.board.Board;
 import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.profile.account.Account;
 import com.chess.spring.exceptions.*;
-import com.chess.spring.communication.event.GameEndType;
+import com.chess.spring.game.GameEndType;
 import com.chess.spring.communication.sockets.SocketMessageType;
 import com.chess.spring.profile.account.AccountRepository;
 import com.chess.spring.profile.account.AccountService;
@@ -103,6 +103,25 @@ public class GamePvPServiceImpl extends GameService implements GamePvPService {
         this.socketEmitter.distributeMessage(game.getId().toString(), messageDTO);
 
         return game.getId();
+    }
+
+    @Override
+    public Long startGame(Account account, GamePvP game) {
+        if (game.getWhitePlayer() == null) {
+            game.setWhitePlayer(account);
+        } else {
+            game.setBlackPlayer(account);
+        }
+        game.setStatus(GamePvPStatus.WHITE_MOVE);
+        game.setGameStarted(LocalDate.now());
+        this.gamePvPRepository.save(game);
+
+        SocketMessageDTO messageDTO = SocketMessageDTO.builder()
+                .type(SocketMessageType.START_GAME)
+                .sender(account.getNick())
+                .chatMessage("Gracz " + account.getNick() + " dołączył do gry")
+                .build();
+        this.socketEmitter.distributeMessage(game.getId().toString(), messageDTO);
     }
 
     @Override

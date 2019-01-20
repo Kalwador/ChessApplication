@@ -61,7 +61,8 @@ public class GamePvEController {
             @ApiResponse(code = 500, message = "Not recognized error")
     })
     @PostMapping(value = "/{gameId}")
-    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
+    public MoveDTO makeMove(@PathVariable Long gameId, @RequestBody MoveDTO moveDTO) throws InvalidDataException,
+            DataMissmatchException, LockedSourceException, NotExpectedError, ResourceNotFoundException {
         return gameService.makeMove(gameId, moveDTO);
     }
 
@@ -80,8 +81,7 @@ public class GamePvEController {
     })
     @GetMapping(value = "/{gameId}/legate")
     public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException {
-        List<MoveDTO> list = gameService.getLegateMoves(gameId);
-        return list;
+        return gameService.getLegateMoves(gameId);
     }
 
     @ApiResponses(value = {

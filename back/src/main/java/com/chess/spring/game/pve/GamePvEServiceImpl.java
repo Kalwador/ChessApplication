@@ -8,7 +8,7 @@ import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.profile.account.Account;
 import com.chess.spring.exceptions.*;
-import com.chess.spring.communication.event.GameEndType;
+import com.chess.spring.game.GameEndType;
 import com.chess.spring.profile.account.AccountRepository;
 import com.chess.spring.profile.account.AccountService;
 import lombok.extern.slf4j.Slf4j;

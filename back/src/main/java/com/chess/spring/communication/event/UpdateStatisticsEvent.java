@@ -1,5 +1,6 @@
 package com.chess.spring.communication.event;
 
+import com.chess.spring.game.GameEndType;
 import com.chess.spring.game.GameType;
 import lombok.Data;
 import lombok.ToString;

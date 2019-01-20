@@ -66,7 +66,7 @@ public abstract class AbstractMove {
         for (AbstractMove move : this.board.getCurrentPlayer().getLegalMoves()) {
             if (move.getDestination() == this.destination && !this.equals(move) &&
                     this.piece.getType().equals(move.getPiece().getType())) {
-                return BoardService.INSTANCE.getPositionAtCoordinate(this.piece.getPosition()).substring(0, 1);
+                return BoardService.getPositionAtCoordinate(this.piece.getPosition()).substring(0, 1);
             }
         }
         return "";

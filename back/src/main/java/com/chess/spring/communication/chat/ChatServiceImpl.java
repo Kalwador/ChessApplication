@@ -4,7 +4,6 @@ import com.chess.spring.communication.sockets.SocketMessageDTO;
 import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.exceptions.ExceptionMessages;
 import com.chess.spring.exceptions.ResourceNotFoundException;
-import com.chess.spring.communication.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -144,7 +144,7 @@ public class FenService {
     private static String calculatePassingField(Board board) {
         Pawn enPassantPawn = board.getPassingAttack();
         if (enPassantPawn != null) {
-            return BoardService.INSTANCE.getPositionAtCoordinate(enPassantPawn.getPosition() +
+            return BoardService.getPositionAtCoordinate(enPassantPawn.getPosition() +
                     (8) * enPassantPawn.getPieceAllegiance().getOppositeDirection());
         }
         return "-";

@@ -15,8 +15,7 @@ import java.util.List;
 
 public class Queen extends AbstractPiece {
 
-    private static int[] DEFAULT_STRATEGY = {-9, -8, -7, -1, 1,
-            7, 8, 9};
+    private static int[] DEFAULT_STRATEGY = {-9, -8, -7, -1, 1, 7, 8, 9};
 
     public Queen(PlayerColor playerColor, int piecePosition) {
         super(PieceType.QUEEN, playerColor, piecePosition, true);
@@ -76,14 +75,14 @@ public class Queen extends AbstractPiece {
 
     private static boolean isFirstColumnExclusion(int currentPosition,
                                                   int candidatePosition) {
-        return BoardConfiguration.getInstance().FIRST_COLUMN.get(candidatePosition) && ((currentPosition == -9)
-                || (currentPosition == -1) || (currentPosition == 7));
+        return BoardConfiguration.getInstance().FIRST_COLUMN.get(candidatePosition) &&
+                ((currentPosition == -9) || (currentPosition == -1) || (currentPosition == 7));
     }
 
     private static boolean isEightColumnExclusion(int currentPosition,
                                                   int candidatePosition) {
-        return BoardConfiguration.getInstance().EIGHTH_COLUMN.get(candidatePosition) && ((currentPosition == -7)
-                || (currentPosition == 1) || (currentPosition == 9));
+        return BoardConfiguration.getInstance().EIGHTH_COLUMN.get(candidatePosition)
+                && ((currentPosition == -7) || (currentPosition == 1) || (currentPosition == 9));
     }
 
     public static int[] WHITE_BONUS_COORDINATES = {

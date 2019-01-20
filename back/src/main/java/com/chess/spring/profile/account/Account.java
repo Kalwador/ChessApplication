@@ -3,6 +3,7 @@ package com.chess.spring.profile.account;
 import com.chess.spring.game.pve.GamePvE;
 import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.profile.account.details.AccountDetails;
+import com.chess.spring.profile.invitations.Invitation;
 import com.chess.spring.profile.statistics.Statistics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -41,6 +42,9 @@ public class Account implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "nick", nullable = false)
+    private String nick;
+
     @Lob
     @Column(name = "avatar", length = 5120)
     @Type(type = "org.hibernate.type.BinaryType")
@@ -63,8 +67,8 @@ public class Account implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private Set<GamePvP> pvpGames;
 
-    @Column(name = "nick", nullable = false)
-    private String nick;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+    private Set<Invitation> invitations;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

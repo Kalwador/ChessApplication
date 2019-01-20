@@ -23,13 +23,11 @@ public class RefreshToken {
     private String tokenId;
 
     @Lob
-//    @Length(max = 5120)
     @Column(length = 5120)
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] token;
 
     @Lob
-//    @Length(max = 5120)
     @Column(length = 5120)
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] authentication;

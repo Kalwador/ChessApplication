@@ -15,6 +15,6 @@ public class PawnAbstractMove extends AbstractMove {
 
     @Override
     public String toString() {
-        return BoardService.INSTANCE.getPositionAtCoordinate(getDestination());
+        return BoardService.getPositionAtCoordinate(getDestination());
     }
 }
