@@ -15,7 +15,7 @@
 
     <hr/>
     <div class="submit">
-        <button mat-button color="accent" class="button button-continue" (click)="submit()">Znajdź grę</button>
-        <button mat-button color="accent" class="button button-continue" (click)="submit()">Zaproś znajomego</button>
+        <button mat-button color="accent" class="button button-continue" (click)="findGame()">Znajdź grę</button>
+        <app-invite-player-modal (emiter)="sendInvitation($event)" [type]="'button'"></app-invite-player-modal>
     </div>
 </div>

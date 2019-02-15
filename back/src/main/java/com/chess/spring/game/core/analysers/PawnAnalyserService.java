@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Service
@@ -21,13 +22,9 @@ public class PawnAnalyserService {
     }
 
     private static List<AbstractPiece> getPlayerPawns(AbstractPlayer player) {
-        List<AbstractPiece> playerPawnLocations = new ArrayList<>(BoardConfiguration.TILES_PER_ROW);
-        for (AbstractPiece piece : player.getActivePieces()) {
-            if (piece.getType().isPawn()) {
-                playerPawnLocations.add(piece);
-            }
-        }
-        return playerPawnLocations;
+        return player.getActivePieces().stream()
+                .filter(piece -> piece.getType().isPawn())
+                .collect(Collectors.toList());
     }
 
     private static int[] setPawnsInColumn(List<AbstractPiece> pawns) {
@@ -63,7 +60,6 @@ public class PawnAnalyserService {
         }
         return isolated * ISOLATED_PENALTY;
     }
-
 
 
 }

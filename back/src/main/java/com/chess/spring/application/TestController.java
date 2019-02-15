@@ -2,6 +2,7 @@ package com.chess.spring.application;
 
 import com.chess.spring.exceptions.LockedSourceException;
 import com.chess.spring.application.backlog.ApplicationInfo;
+import com.chess.spring.profile.BCryptEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,9 +10,12 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//@RequestMapping("test")
 @Profile("dev")
 @Api(value = "test controller", description = "Allow to test security levels")
 public class TestController {
@@ -60,5 +64,10 @@ public class TestController {
     @GetMapping(value = "/admin")
     public String sayHello4() {
         return "admin message";
+    }
+
+    @GetMapping(value = "/home/bcrypt/{password}")
+    public String getBcryptedString(@PathVariable String password){
+        return BCryptEncoder.encode(password);
     }
 }

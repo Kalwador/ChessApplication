@@ -59,4 +59,5 @@ public class ProfileController {
     public void updateAvatar(@RequestParam("file") MultipartFile file) throws ResourceNotFoundException {
         this.accountService.updateAvatar(file);
     }
+
 }

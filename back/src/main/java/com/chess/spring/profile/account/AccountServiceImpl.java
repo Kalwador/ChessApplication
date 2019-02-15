@@ -1,5 +1,6 @@
 package com.chess.spring.profile.account;
 
+import com.chess.spring.exceptions.ExceptionMessages;
 import com.chess.spring.profile.account.details.AccountDetails;
 import com.chess.spring.profile.register.RegisterDTO;
 import com.chess.spring.exceptions.ResourceNotFoundException;
@@ -152,5 +153,14 @@ public class AccountServiceImpl implements AccountService {
         } catch (IOException ioe) {
             log.error("Image to thumbnail failed ");
         }
+    }
+
+    public Account findPlayerByNickOrName(String playerNick) throws ResourceNotFoundException {
+        return accountRepository.findByNick(playerNick).
+                orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.PLAYER_NOT_FOUND.getInfo()));
+    }
+
+    public boolean existByNick(String nick) {
+        return accountRepository.existsByNick(nick);
     }
 }

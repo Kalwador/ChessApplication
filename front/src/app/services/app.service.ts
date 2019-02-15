@@ -42,12 +42,12 @@ export class AppService {
         return this.baseService.executeHttpRequest(HttpMethodTypeEnum.GET, path, ValueType.JSON);
     }
 
-    public post(path: string, body: any): Observable<any> {
+    public post(path: string, body?: any): Observable<any> {
         this.notificationService.info('post path: ' + path);
         return this.baseService.executeHttpRequest(HttpMethodTypeEnum.POST, path, ValueType.JSON, body);
     }
 
-    public put(path: string, body: any): Observable<any> {
+    public put(path: string, body?: any): Observable<any> {
         this.notificationService.trace('put path: ' + path);
         return this.baseService.executeHttpRequest(HttpMethodTypeEnum.PUT, path, ValueType.JSON, body);
     }

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameType} from "../../../../models/chess/game/game-type.enum";
-import {GamePvp} from "../../../../models/chess/game/game-pvp";
-import {GamePve} from "../../../../models/chess/game/game-pve";
+import {GamePvpModel} from "../../../../models/chess/game/game-pvp-model";
+import {GamePveModel} from "../../../../models/chess/game/game-pve-model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GameService} from "../../service/game.service";
 import {NotificationService} from "../../../notifications/notification.service";
@@ -16,8 +16,8 @@ export class GameListTableComponent implements OnInit {
     @Input() listSize: number = 7;
     @Input() type: GameType = null;
 
-    gamesPvPList: Array<GamePvp>;
-    gamesPvEList: Array<GamePve>;
+    gamesPvPList: Array<GamePvpModel>;
+    gamesPvEList: Array<GamePveModel>;
 
     currentPvPPage: number = 0;
     currentPvEPage: number = 0;

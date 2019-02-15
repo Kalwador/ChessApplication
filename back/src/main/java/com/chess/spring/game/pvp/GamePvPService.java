@@ -16,6 +16,8 @@ public interface GamePvPService {
 
     String getBoardById(Long gameId) throws ResourceNotFoundException;
 
+    Long newGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException;
+
     Long findGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException;
 
     void makeMove(Long gameId, MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException, PreconditionFailedException;
@@ -27,4 +29,7 @@ public interface GamePvPService {
     ChatDTO getChatConversation(Long gameId) throws ResourceNotFoundException;
 
     Long startGame(Account account, GamePvP game);
+
+    GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account);
+
 }

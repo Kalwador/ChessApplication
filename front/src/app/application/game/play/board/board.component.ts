@@ -4,6 +4,7 @@ import {Piece} from '../../../../models/pieces/piece';
 import {Move} from '../../../../models/chess/move';
 import {AppService} from "../../../../services/app.service";
 import {FieldSize} from "../../../../models/chess/field-size.eum";
+import {GameType} from "../../../../models/chess/game/game-type.enum";
 
 @Component({
     selector: 'app-board',
@@ -13,6 +14,7 @@ import {FieldSize} from "../../../../models/chess/field-size.eum";
 export class BoardComponent {
 
     @Input() fields: Array<Field> = [];
+    @Input() type: GameType;
     @Input() size: FieldSize = FieldSize.BIG;
     @Input() isPlayerPlaying: boolean = false;
     @Input() isGameContinued: boolean = false;

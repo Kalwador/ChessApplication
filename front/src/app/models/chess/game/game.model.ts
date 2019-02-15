@@ -1,4 +1,4 @@
-export class Game {
+export class GameModel {
     id: number;
     board: string;
     moves: string;

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../service/game.service';
 import {Router} from '@angular/router';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
-import {GamePve} from "../../../../models/chess/game/game-pve";
+import {GamePveModel} from "../../../../models/chess/game/game-pve-model";
 
 @Component({
     selector: 'app-game-new-pve',
@@ -34,7 +34,7 @@ export class GameNewPveComponent {
     }
 
     submit() {
-        this.gameService.newPvE(new GamePve(this.choosedColor, this.value)).subscribe(value => {
+        this.gameService.newPvE(new GamePveModel(this.choosedColor, this.value)).subscribe(value => {
             this.router.navigate(['/game/play/pve', value]);
         });
     }

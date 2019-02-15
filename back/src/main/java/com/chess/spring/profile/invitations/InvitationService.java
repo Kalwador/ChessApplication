@@ -1,37 +1,22 @@
 package com.chess.spring.profile.invitations;
 
 import com.chess.spring.exceptions.ResourceNotFoundException;
-import com.chess.spring.game.Game;
-import com.chess.spring.game.pvp.GamePvP;
-import com.chess.spring.game.pvp.GamePvPService;
-import com.chess.spring.profile.account.AccountService;
-import org.springframework.stereotype.Service;
+import com.chess.spring.game.pvp.GamePvPDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
-import static com.chess.spring.profile.invitations.InvitationDTO.map;
+public interface InvitationService {
+    Page<InvitationDTO> getInvitations(Pageable pageable) throws ResourceNotFoundException;
 
-@Service
-public class InvitationService {
+    boolean checkNick(String nick) throws ResourceNotFoundException, IllegalArgumentException;
 
-    private InvitationRepository invitationRepository;
-    private AccountService accountService;
-    private GamePvPService gamePvPService;
+    void sendInvitation(Long gameId, String playerNick) throws ResourceNotFoundException;
 
-    public InvitationService(InvitationRepository invitationRepository,
-                             AccountService accountService,
-                             GamePvPService gamePvPService) {
-        this.invitationRepository = invitationRepository;
-        this.accountService = accountService;
-        this.gamePvPService = gamePvPService;
-    }
+    @Transactional
+    void accept(Long gameId) throws ResourceNotFoundException;
 
-    public List<InvitationDTO> getInvitations() throws ResourceNotFoundException {
-        return map(invitationRepository.findByAccount(accountService.getCurrent()));
-    }
-
-    public void accept(Long gameId) throws ResourceNotFoundException {
-        GamePvP game = gamePvPService.getById(gameId);
-        gamePvPService.startGame(accountService.getCurrent(), game);
-    }
+    @Transactional
+    void decline(Long gameId) throws ResourceNotFoundException;
 }

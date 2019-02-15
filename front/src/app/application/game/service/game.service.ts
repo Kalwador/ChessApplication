@@ -13,10 +13,10 @@ import {AccountModel} from '../../../models/profile/account.model';
 import {PageModel} from "../../../models/application/page.model";
 import {GameType} from "../../../models/chess/game/game-type.enum";
 import {NotificationService} from "../../notifications/notification.service";
-import {GamePvp} from "../../../models/chess/game/game-pvp";
-import {Game} from "../../../models/chess/game/game.model";
+import {GamePvpModel} from "../../../models/chess/game/game-pvp-model";
+import {GameModel} from "../../../models/chess/game/game.model";
 import {GameStatus} from "../../../models/chess/game/game-status.enum";
-import {GamePve} from "../../../models/chess/game/game-pve";
+import {GamePveModel} from "../../../models/chess/game/game-pve-model";
 import {ChatModel} from "../../../models/chat.model";
 
 @Injectable({
@@ -30,23 +30,27 @@ export class GameService {
     public pathPvP = '/game/pvp';
 
 
-    constructor(private baseService: AppService,
+    constructor(private appService: AppService,
                 private notificationService: NotificationService) {
     }
 
-    public newPvE(game: GamePve): Observable<number> {
-        return this.baseService.post(this.pathPvE + '/new', game);
+    public newPvE(game: GamePveModel): Observable<number> {
+        return this.appService.post(this.pathPvE + '/new', game);
     }
 
-    public newPvP(game: GamePvp): Observable<number> {
-        return this.baseService.post(this.pathPvP + '/find', game);
+    public newPvP(game: GamePvpModel): Observable<number> {
+        return this.appService.post(this.pathPvP + '/new', game);
     }
 
-    public getGame(gameId: number, type: GameType): Observable<Game> {
+    public findPvP(game: GamePvpModel): Observable<number> {
+        return this.appService.post(this.pathPvP + '/find', game);
+    }
+
+    public getGame(gameId: number, type: GameType): Observable<GameModel> {
         let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
         path += '/' + gameId;
         this.notificationService.trace('get game, path: ' + path);
-        return this.baseService.get(path);
+        return this.appService.get(path);
     }
 
     public createBoard(fenBoard: string): Array<Field> {
@@ -79,26 +83,26 @@ export class GameService {
 
     public makeMove(move: Move, id: number, type: GameType): Observable<Move> {
         let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
-        return this.baseService.post(path + '/' + id, move);
+        return this.appService.post(path + '/' + id, move);
     }
 
     public getLegateMoves(gameId: number, type: GameType) {
         let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
-        return this.baseService.get(path + '/' + gameId + '/legate');
+        return this.appService.get(path + '/' + gameId + '/legate');
     }
 
     public getAccountModel(): AccountModel {
-        return this.baseService.accountModel;
+        return this.appService.accountModel;
     }
 
     public getPvPList(page: number, size: number): Observable<PageModel> {
-        let paging = this.baseService.getPaging(page, size);
-        return this.baseService.get(this.pathPvP + paging);
+        let paging = this.appService.getPaging(page, size);
+        return this.appService.get(this.pathPvP + paging);
     }
 
     public getPvEList(page: number, size: number): Observable<PageModel> {
-        let paging = this.baseService.getPaging(page, size);
-        return this.baseService.get(this.pathPvE + paging);
+        let paging = this.appService.getPaging(page, size);
+        return this.appService.get(this.pathPvE + paging);
     }
 
     private getPieceByChar(char: string, isWhite: boolean) {
@@ -125,7 +129,7 @@ export class GameService {
     }
 
     public getBasePath(): string {
-        return this.baseService.getBasePath();
+        return this.appService.getBasePath();
     }
 
     public translateStatus(status: string): string {
@@ -167,10 +171,10 @@ export class GameService {
         let path: string = type === GameType.PVE ? this.pathPvE : this.pathPvP;
         path += '/forfeit/' + gameId;
         this.notificationService.trace('forfeit game, path: ' + path);
-        return this.baseService.delete(path);
+        return this.appService.delete(path);
     }
 
     getChatConversation(id: number): Observable<ChatModel> {
-        return this.baseService.get(this.pathPvP + "/" + id + "/chat/");
+        return this.appService.get(this.pathPvP + "/" + id + "/chat/");
     }
 }

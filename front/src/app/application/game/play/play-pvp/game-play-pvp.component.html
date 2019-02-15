@@ -3,6 +3,7 @@
         <div class="head-player">
             <div *ngIf="whitePlayerNick !== undefined">
                 <player-header
+                        [gameId]="currentGameService.game.id"
                         [data]="blackPlayerNick"
                         [blackStatus]="blackStatus"
                         [color]="PlayerColor.BLACK">
@@ -11,6 +12,7 @@
         </div>
         <div class="board">
             <app-board
+                    [type]="GameType.PVP"
                     [fields]="currentGameService.fields"
                     [isPlayerPlaying]="isPlayerPlaying"
                     [isGameContinued]="isGameContinued"
@@ -20,6 +22,7 @@
         <div class="head-player">
             <div *ngIf="whitePlayerNick !== undefined">
                 <player-header
+                        [gameId]="currentGameService.game.id"
                         [data]="whitePlayerNick"
                         [whiteStatus]="whiteStatus"
                         [color]="PlayerColor.WHITE">

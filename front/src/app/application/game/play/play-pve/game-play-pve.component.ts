@@ -25,6 +25,7 @@ export class GamePlayPveComponent implements OnInit {
     isGameContinued: boolean;
     FieldSize = FieldSize;
     PlayerColor = PlayerColor;
+    GameType = GameType;
 
     constructor(private route: ActivatedRoute,
                 private gameService: GameService,

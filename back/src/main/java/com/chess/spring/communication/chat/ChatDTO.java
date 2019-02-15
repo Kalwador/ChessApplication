@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,6 +18,7 @@ public class ChatDTO {
 
     public ChatDTO(Long id) {
         this.id = id;
+        this.conversation = new ArrayList<>();
     }
 
     public static ChatDTO map(Long gameId, List<String> conversation){

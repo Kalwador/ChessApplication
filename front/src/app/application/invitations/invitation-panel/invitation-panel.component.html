@@ -1,0 +1,22 @@
+<hr>
+<div class="panel">
+    <div style="clear: both;"></div>
+
+    <div class="panel-game-players">
+        <div class="">
+            Białe: {{invitation.game.white}}
+        </div>
+        <div style="clear: both;"></div>
+        <div class="">
+            Czarne: {{invitation.game.black}}
+        </div>
+    </div>
+    <div class="panel-game-options">
+        <button mat-button color="accent" class="button button-continue" (click)="accept()">Kontynuuj</button>
+        <button mat-button color="accent" class="button button-forfeit" (click)="decline()">Zrezygnuj</button>
+    </div>
+    <div class="panel-game-status">
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<hr>

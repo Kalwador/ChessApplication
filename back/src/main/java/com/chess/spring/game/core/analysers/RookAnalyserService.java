@@ -12,7 +12,6 @@ import java.util.List;
 public class RookAnalyserService {
 
     private static int OPEN_COLUMN_ROOK_BONUS = 25;
-    private static int NO_BONUS = 0;
 
     public int rookStructureScore(Board board,
                                   AbstractPlayer player) {
@@ -22,17 +21,14 @@ public class RookAnalyserService {
 
     private static List<Integer> calculateRookLocations(AbstractPlayer player) {
         Builder<Integer> playerRookLocations = new Builder<>();
-        for (AbstractPiece piece : player.getActivePieces()) {
-            if (piece.getType().isRook()) {
-                playerRookLocations.add(piece.getPosition());
-            }
-        }
+        player.getActivePieces().stream()
+                .filter(piece -> piece.getType().isRook())
+                .forEach(rook -> playerRookLocations.add(rook.getPosition()));
         return playerRookLocations.build();
     }
 
-    private int calculateOpenFileRookBonus(Board board,
-                                           List<Integer> rookLocations) {
-        int bonus = NO_BONUS;
+    private int calculateOpenFileRookBonus(Board board, List<Integer> rookLocations) {
+        int bonus = 0;
         for (Integer rookLocation : rookLocations) {
             int[] piecesOnColumn = createPiecesOnColumnTable(board);
             int rookColumn = rookLocation / 8;
@@ -40,7 +36,6 @@ public class RookAnalyserService {
                 if (piecesOnColumn[i] == 1 && i == rookColumn) {
                     bonus += OPEN_COLUMN_ROOK_BONUS;
                 }
-
             }
         }
         return bonus;

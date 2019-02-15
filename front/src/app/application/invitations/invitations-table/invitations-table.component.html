@@ -1,3 +1,13 @@
-<p>
-  invitations-table works!
-</p>
+<div class="list">
+  <header>
+    <h1>Zaproszenia</h1>
+  </header>
+  <div *ngFor="let inv of invitations; index as i" [attr.data-index]="i">
+    <div [class]="'panel-row-' + i%2">
+      <app-inv-list-panel [invitation]="inv"></app-inv-list-panel>
+    </div>
+  </div>
+  <div *ngIf="invitations.length === 0">
+    <p>Brak zaproszeń do gry</p>
+  </div>
+</div>

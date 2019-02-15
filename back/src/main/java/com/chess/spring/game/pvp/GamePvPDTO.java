@@ -1,6 +1,7 @@
 package com.chess.spring.game.pvp;
 
 import com.chess.spring.profile.account.Account;
+import com.chess.spring.profile.account.AccountDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,9 @@ import java.util.stream.Collectors;
 public class GamePvPDTO {
     private Long id;
     private Long white;
+    private AccountDTO whitePlayer;
     private Long black;
+    private AccountDTO blackPlayer;
     private String board;
     private String moves;
     private GamePvPStatus status;
@@ -30,7 +33,9 @@ public class GamePvPDTO {
         return GamePvPDTO.builder()
                 .id(game.getId())
                 .white(Optional.ofNullable(game.getWhitePlayer()).map(Account::getId).orElse(null))
+                .whitePlayer(Optional.ofNullable(game.getWhitePlayer()).map(AccountDTO::mapSimple).orElse(null))
                 .black(Optional.ofNullable(game.getBlackPlayer()).map(Account::getId).orElse(null))
+                .blackPlayer(Optional.ofNullable(game.getBlackPlayer()).map(AccountDTO::mapSimple).orElse(null))
                 .board(game.getBoard())
                 .moves(game.getMoves())
                 .status(game.getStatus())

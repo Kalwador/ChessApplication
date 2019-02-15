@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 
         let a1 = new ArticleModel();
         a1.img = 'https://images.chesscomfiles.com/uploads/v1/news/469204.dfe6ad12.630x354o.9bab41affc88.jpeg';
-        a1.header = 'Ding Liren Breaks Mikhail Tal\'s 95-Game Undefeated Streak';
+        a1.header = 'Ding Liren Breaks Mikhail Tal\'s 95-GameModel Undefeated Streak';
         a1.text = 'Today, Ding Liren of China bested Mikhail Tals legendary streak of 95 games played without a defeat.' +
             'Ding Lirens unbeaten streak now stands at 96 and counting. Tals mark was set between October of 1973 and ' +
             'October of 1974. Ding Lirens streak is ongoing. He is currently playing in the Shenzhen Masters. ' +

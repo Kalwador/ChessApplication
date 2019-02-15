@@ -31,4 +31,8 @@ public interface AccountService {
     String createNickName(Account account);
 
     void updateAvatar(MultipartFile file) throws ResourceNotFoundException;
+
+    Account findPlayerByNickOrName(String playerNick) throws ResourceNotFoundException;
+
+    boolean existByNick(String nick);
 }

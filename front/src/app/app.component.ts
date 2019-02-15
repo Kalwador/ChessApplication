@@ -18,7 +18,7 @@ export class AppComponent {
             .pipe(map(response => response.json()))
             .subscribe(data => {
                 this.baseService.appInfo = data;
-                let isDev = this.baseService.appInfo.profile === AppProfileEnum.DEV;
+                let isDev = this.baseService.appInfo.profile === AppProfileEnum.RELEASE;
                 this.baseService.isDEVProfile = isDev;
                 this.notificationService.isDevProfile = isDev;
             });

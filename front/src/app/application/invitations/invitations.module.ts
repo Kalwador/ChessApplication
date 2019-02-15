@@ -4,13 +4,14 @@ import {InvitationsComponent} from './invitations.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import { InvitationsTableComponent } from './invitations-table/invitations-table.component';
+import {InvitationPanelComponent} from "./invitation-panel/invitation-panel.component";
 
 const routes: Routes = [
     {
         path: '',
         component: InvitationsComponent,
         children: [
-            // {path: '', component: StatisticCardComponent},
+            {path: '', component: InvitationsTableComponent},
         ]
     }
 ];
@@ -24,6 +25,7 @@ const routes: Routes = [
     declarations: [
         InvitationsComponent,
         InvitationsTableComponent,
+        InvitationPanelComponent
     ]
 })
 export class InvitationsModule {

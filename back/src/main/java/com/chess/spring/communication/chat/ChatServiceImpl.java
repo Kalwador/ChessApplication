@@ -29,10 +29,11 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Chat buildChat(GamePvP game) {
-        return Chat.builder()
+        Chat chat = Chat.builder()
                 .game(game)
-                .conversation("")
+                .conversation("ala")
                 .build();
+        return chatRepository.save(chat);
     }
 
     @Override

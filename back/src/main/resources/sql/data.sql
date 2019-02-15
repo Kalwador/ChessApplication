@@ -15,20 +15,20 @@ INSERT INTO backlog (version,note) VALUES (null,'Profil');
 INSERT INTO backlog (version,note) VALUES (null,'Avatary');
 
 -- -- ADMIN
-INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('admin@mail.me','admin','$2a$10$BGy6eqJgaYhUCL8nJmRlj.TtIEwOVXTZZEU7f3udQhk6S30DMKXKe',true,true,true,true);
+INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('admin@mail.me','admin','$2a$12$U5NI1R4dEQHRB0syPWPk0emNVi8Hz1h0KVVBLUU3j5HSay2.1gegK',true,true,true,true);
 INSERT INTO accounts (account_details,age,nick) VALUES (1,25,'ADMIN');
 INSERT INTO account_authority (id,authority) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO account_authority (id,authority) VALUES (1, 'ROLE_USER');
 
 -- -- TEST USER
-INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('user@mail.me','1','$2a$12$jcNLGBtjzDDHXbBcckc39O3cuAEwgdu4RZ.KO9SyMhJ0keWDb1CCC',true,true,true,true);
+INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('user@mail.me','user1','$2a$12$4V6cV4upNnWD6hc6p8AKIe28FGasftuAeV2jEB86/lWmY545Q6V86',true,true,true,true);
 INSERT INTO account_authority (id,authority) VALUES (2, 'ROLE_USER');
 INSERT INTO statistics (rank,games_pvp,win_games_pvp,week_games_pvp,week_win_games_pvp,month_games_pvp,month_win_games_pvp,games_pve,win_games_pve,week_games_pve,week_win_games_pve,month_games_pve,month_win_games_pve)
   VALUES (1766,343,184,13,7,83,49,721,584,92,76,349,270);
 INSERT INTO accounts (account_details,first_name,last_name,age,nick,gender,statistics_id) VALUES (2,'Jan','Nowak',22,'GraczTestowy1','MALE',1);
 
 -- -- TEST USER 2
-INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('user2@mail.me','2','$2a$12$jcNLGBtjzDDHXbBcckc39O3cuAEwgdu4RZ.KO9SyMhJ0keWDb1CCC',true,true,true,true);
+INSERT INTO account_details (email,username,password,enabled,expired,locked,credentials_expired) VALUES ('user2@mail.me','user2','$2a$12$WOJzx8RXnQAHBe2guq.igegGSR/zHci967.TOWc.18b7E35W/paHi',true,true,true,true);
 INSERT INTO account_authority (id,authority) VALUES (3, 'ROLE_USER');
 INSERT INTO statistics (rank,games_pvp,win_games_pvp,week_games_pvp,week_win_games_pvp,month_games_pvp,month_win_games_pvp,games_pve,win_games_pve,week_games_pve,week_win_games_pve,month_games_pve,month_win_games_pve)
   VALUES (1830,343,184,13,7,83,49,721,584,92,76,349,270);

@@ -90,8 +90,7 @@ public class SwggerConfiguaration {
     private AuthorizationScope[] scopes() {
         AuthorizationScope[] scopes = {
                 new AuthorizationScope("read", "for read operations"),
-                new AuthorizationScope("write", "for write operations"),
-                new AuthorizationScope("foo", "Access foo API")};
+                new AuthorizationScope("write", "for write operations")};
         return scopes;
     }
 }

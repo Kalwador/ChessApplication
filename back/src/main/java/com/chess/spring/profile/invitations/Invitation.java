@@ -6,12 +6,14 @@ import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.profile.account.Account;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,7 +29,19 @@ public class Invitation {
     private GamePvP game;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    @PreRemove
+    private void onRemove(){
+        this.game.setInvitation(null);
+        this.game = null;
+        for(Invitation inv : this.account.getInvitations()){
+            if (inv.id == id){
+                this.account.getInvitations().remove(inv);
+            }
+        }
+        this.account = null;
+    }
 }

@@ -12,13 +12,6 @@ export class InvitationsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.appService.get("/home").subscribe(data => {
-            console.log("jest data");
-            console.log(data);
-        }, error => {
-            console.log("omega");
-            console.log(error);
-        });
     }
 
 }

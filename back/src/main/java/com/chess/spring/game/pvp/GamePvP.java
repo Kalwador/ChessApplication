@@ -54,7 +54,7 @@ public class GamePvP extends Game {
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
-            mappedBy = "invitation")
+            mappedBy = "game")
     private Invitation invitation;
 
     @Override

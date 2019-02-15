@@ -47,6 +47,16 @@ public class GamePvPController {
     }
 
     @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Game created"),
+            @ApiResponse(code = 404, message = "User not logged in"),
+            @ApiResponse(code = 409, message = "Level out of scale")
+    })
+    @PostMapping(value = "/new")
+    public Long newGame(@RequestBody @Valid GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
+        return gameService.newGame(gamePvPDTO);
+    }
+
+    @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Game found"),
             @ApiResponse(code = 404, message = "User not logged in"),
             @ApiResponse(code = 409, message = "Level out of scale")

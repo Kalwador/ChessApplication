@@ -34,6 +34,7 @@ export class GamePlayPvpComponent implements OnInit {
     chatMessageReceivedEmitter: Subject<string> = new Subject<string>();
 
     PlayerColor = PlayerColor;
+    GameType = GameType;
 
     private stompClient;
     private socket = null;
@@ -63,6 +64,7 @@ export class GamePlayPvpComponent implements OnInit {
                 }
             });
         });
+
     }
 
     reloadGame() {
@@ -70,7 +72,6 @@ export class GamePlayPvpComponent implements OnInit {
             this.currentGameService.game = data;
             this.isGameContinued = this.currentGameService.checkIfGameContinued(this.currentGameService.game.status, true);
             this.getPlayersInfo();
-            this.notificationService.info("Gracz " + '//TODO ' + " dołaczył do gry!");
         }, error => {
             if (error.status === 400) {
                 this.router.navigate(['/']);
@@ -131,23 +132,16 @@ export class GamePlayPvpComponent implements OnInit {
     }
 
     makeMove(move: Move) {
-        console.log("moves 2");
-        console.log(move);
         if (this.isPlayerPlaying && this.isGameContinued) {
-            console.log("moves 3");
             if (this.currentGameService.game.status === GameStatus.WHITE_MOVE
                 || this.currentGameService.game.status === GameStatus.BLACK_MOVE
                 || this.currentGameService.game.status === GameStatus.ON_HOLD
                 || this.currentGameService.game.status === GameStatus.CHECK) {
-                console.log("moves 4");
                 let legateMove = this.currentGameService.getLegateMove(move.source, move.destination);
                 if (legateMove !== null) {
-                    console.log("moves 5");
                     if (this.currentGameService.game.status === GameStatus.CHECK) {
-                        console.log("moves 5.5");
                         this.currentGameService.executeMove(move);
                     }
-                    console.log("6");
                     this.gameService.makeMove(move, this.currentGameService.game.id, GameType.PVP).subscribe(data => {
                         if (this.currentGameService.checkIfGameContinued(data.status, true)) {
                             this.currentGameService.getLegateMoves(GameType.PVP);

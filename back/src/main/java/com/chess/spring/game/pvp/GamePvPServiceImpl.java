@@ -76,6 +76,11 @@ public class GamePvPServiceImpl extends GameService implements GamePvPService {
     }
 
     @Override
+    public Long newGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
+        return startNewGame(gamePvPDTO, accountService.getCurrent()).getId();
+    }
+
+    @Override
     public Long findGame(GamePvPDTO gamePvPDTO) throws ResourceNotFoundException {
         Account account = accountService.getCurrent();
         GamePvP game;
@@ -90,19 +95,20 @@ public class GamePvPServiceImpl extends GameService implements GamePvPService {
             game.setStatus(GamePvPStatus.WHITE_MOVE);
             game.setGameStarted(LocalDate.now());
             this.gamePvPRepository.save(game);
-
+            emitGameJoinEvent(account, game);
         } else {
             game = startNewGame(gamePvPDTO, account);
         }
+        return game.getId();
+    }
 
+    public void emitGameJoinEvent(Account account, GamePvP game) {
         SocketMessageDTO messageDTO = SocketMessageDTO.builder()
                 .type(SocketMessageType.START_GAME)
                 .sender(account.getNick())
                 .chatMessage("Gracz " + account.getNick() + " dołączył do gry")
                 .build();
         this.socketEmitter.distributeMessage(game.getId().toString(), messageDTO);
-
-        return game.getId();
     }
 
     @Override
@@ -116,12 +122,8 @@ public class GamePvPServiceImpl extends GameService implements GamePvPService {
         game.setGameStarted(LocalDate.now());
         this.gamePvPRepository.save(game);
 
-        SocketMessageDTO messageDTO = SocketMessageDTO.builder()
-                .type(SocketMessageType.START_GAME)
-                .sender(account.getNick())
-                .chatMessage("Gracz " + account.getNick() + " dołączył do gry")
-                .build();
-        this.socketEmitter.distributeMessage(game.getId().toString(), messageDTO);
+        emitGameJoinEvent(account, game);
+        return game.getId();
     }
 
     @Override
@@ -200,7 +202,8 @@ public class GamePvPServiceImpl extends GameService implements GamePvPService {
         }
     }
 
-    private GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
+    @Override
+    public GamePvP startNewGame(GamePvPDTO gamePvPDTO, Account account) {
         GamePvP game = buildGame(gamePvPDTO, account);
         game = gamePvPRepository.save(game);
         game.setChat(chatService.buildChat(game));

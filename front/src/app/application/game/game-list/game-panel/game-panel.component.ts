@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GamePve} from '../../../../models/chess/game/game-pve';
-import {GamePvp} from '../../../../models/chess/game/game-pvp';
+import {GamePveModel} from '../../../../models/chess/game/game-pve-model';
+import {GamePvpModel} from '../../../../models/chess/game/game-pvp-model';
 import {GameType} from '../../../../models/chess/game/game-type.enum';
 import {Field} from '../../../../models/chess/field.model';
 import {GameService} from '../../service/game.service';
@@ -20,8 +20,8 @@ import {CurrentGameService} from "../../service/current-game.service";
 export class GamePanelComponent implements OnInit {
 
     @Input() gameType: GameType;
-    @Input() gamePvE: GamePve;
-    @Input() gamePvP: GamePvp;
+    @Input() gamePvE: GamePveModel;
+    @Input() gamePvP: GamePvpModel;
 
     fields: Array<Field>;
 

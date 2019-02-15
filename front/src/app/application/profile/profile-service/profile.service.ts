@@ -40,4 +40,7 @@ export class ProfileService {
         return this.appService.putFile(this.path + "/avatar", file);
     }
 
+    checkExistByNick(nick: string) {
+        return this.appService.getText(this.path + "/exist/" + nick);
+    }
 }
