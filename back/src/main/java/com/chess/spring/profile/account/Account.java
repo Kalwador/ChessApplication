@@ -58,9 +58,6 @@ public class Account implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    @ColumnDefault("true")
-    private boolean isFirstLogin;
-
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     private Set<GamePvE> pveGames;
 
@@ -80,7 +77,7 @@ public class Account implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return isFirstLogin == account.isFirstLogin &&
+        return id.equals(account.id) &&
                 Objects.equals(firstName, account.firstName) &&
                 Objects.equals(lastName, account.lastName) &&
                 Objects.equals(nick, account.nick) &&
@@ -90,6 +87,6 @@ public class Account implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, age, gender, isFirstLogin);
+        return Objects.hash(id, firstName, lastName, nick, age, gender);
     }
 }

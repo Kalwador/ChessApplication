@@ -1,10 +1,7 @@
 package com.chess.spring.profile.invitations;
 
-import com.chess.spring.game.Game;
-import com.chess.spring.game.pve.GamePvE;
 import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.profile.account.Account;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

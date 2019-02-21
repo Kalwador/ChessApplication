@@ -94,7 +94,6 @@ public class RegisterService {
         Account account = Account.builder()
                 .accountDetails(accountDetails)
                 .statistics(statistics)
-                .isFirstLogin(true)
                 .build();
 
         account.setNick(accountService.createNickName(account));

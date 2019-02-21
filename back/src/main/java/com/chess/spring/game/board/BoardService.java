@@ -57,15 +57,15 @@ public class BoardService {
     }
 
     public static List<AbstractMove> lastNMoves(Board board, int N) {
-        List<AbstractMove> moveHistory = new ArrayList<>();
+        List<AbstractMove> lastMoves = new ArrayList<>();
         AbstractMove move = board.getTransition();
         int i = 0;
         while (move != ErrorMove.getInstance() && i < N) {
-            moveHistory.add(move);
+            lastMoves.add(move);
             move = move.getBoard().getTransition();
             i++;
         }
-        return moveHistory;
+        return lastMoves;
     }
 
     public static boolean isEndGame(Board board) {

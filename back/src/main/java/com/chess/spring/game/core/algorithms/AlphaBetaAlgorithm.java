@@ -32,25 +32,25 @@ public class AlphaBetaAlgorithm extends AbstractAlgorithm {
         long startTime = System.currentTimeMillis();
         AbstractPlayer currentPlayer = board.getCurrentPlayer();
         AbstractMove bestMove = ErrorMove.getInstance();
-        int highestSeenValue = Integer.MIN_VALUE;
-        int lowestSeenValue = Integer.MAX_VALUE;
-        int currentValue;
+        int alfa = Integer.MIN_VALUE;
+        int beta = Integer.MAX_VALUE;
+        int tempValue;
         for (AbstractMove move : fullSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
             this.quiescenceCount = 0;
             String s;
             if (moveTransition.getStatus().isDone()) {
-                currentValue = currentPlayer.getAlliance().isWhite() ?
-                        min(moveTransition.getAfterMoveBoard(), level - 1, highestSeenValue, lowestSeenValue) :
-                        max(moveTransition.getAfterMoveBoard(), level - 1, highestSeenValue, lowestSeenValue);
-                if (currentPlayer.getAlliance().isWhite() && currentValue > highestSeenValue) {
-                    highestSeenValue = currentValue;
+                tempValue = currentPlayer.getAlliance().isWhite() ?
+                        min(moveTransition.getAfterMoveBoard(), level - 1, alfa, beta) :
+                        max(moveTransition.getAfterMoveBoard(), level - 1, alfa, beta);
+                if (currentPlayer.getAlliance().isWhite() && tempValue > alfa) {
+                    alfa = tempValue;
                     bestMove = move;
                     if (moveTransition.getAfterMoveBoard().blackPlayer().isInCheckMate()) {
                         break;
                     }
-                } else if (currentPlayer.getAlliance().isBlack() && currentValue < lowestSeenValue) {
-                    lowestSeenValue = currentValue;
+                } else if (currentPlayer.getAlliance().isBlack() && tempValue < beta) {
+                    beta = tempValue;
                     bestMove = move;
                     if (moveTransition.getAfterMoveBoard().whitePlayer().isInCheckMate()) {
                         break;
@@ -63,36 +63,34 @@ public class AlphaBetaAlgorithm extends AbstractAlgorithm {
         return bestMove;
     }
 
-    private int max(Board board, int level, int highest, int min) {
+    private int max(Board board, int level, int max, int min) {
         if (checkEndGame(board, level)) return this.evaluator.evaluate(board, level);
-        int tempMax = highest;
         for (AbstractMove move : simpleSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getStatus().isDone()) {
-                tempMax = Math.max(tempMax, min(moveTransition.getAfterMoveBoard(),
-                        getAverageLevel(moveTransition, level), tempMax, min));
-                if (tempMax >= min) {
+                max = Math.max(max, min(moveTransition.getAfterMoveBoard(),
+                        getAverageLevel(moveTransition, level), max, min));
+                if (max >= min) {
                     return min;
                 }
             }
         }
-        return tempMax;
+        return max;
     }
 
-    private int min(Board board, int level, int max, int lowest) {
+    private int min(Board board, int level, int max, int min) {
         if (checkEndGame(board, level)) return this.evaluator.evaluate(board, level);
-        int tempMin = lowest;
         for (AbstractMove move : simpleSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getStatus().isDone()) {
-                tempMin = Math.min(tempMin, max(moveTransition.getAfterMoveBoard(),
-                        getAverageLevel(moveTransition, level), max, tempMin));
-                if (tempMin <= max) {
+                min = Math.min(min, max(moveTransition.getAfterMoveBoard(),
+                        getAverageLevel(moveTransition, level), max, min));
+                if (min <= max) {
                     return max;
                 }
             }
         }
-        return tempMin;
+        return min;
     }
 
     private boolean checkEndGame(Board board, int level) {
@@ -103,13 +101,13 @@ public class AlphaBetaAlgorithm extends AbstractAlgorithm {
         return false;
     }
 
-    private int getAverageLevel(Transition moveTransition, int level) {
+    private int getAverageLevel(Transition transition, int level) {
         if (level == 1 && this.quiescenceCount < MAX_QUIESCENCE) {
             int activityMeasure = 0;
-            if (moveTransition.getAfterMoveBoard().getCurrentPlayer().isInCheck()) {
+            if (transition.getAfterMoveBoard().getCurrentPlayer().isInCheck()) {
                 activityMeasure += 1;
             }
-            for (AbstractMove move : BoardService.lastNMoves(moveTransition.getAfterMoveBoard(), 2)) {
+            for (AbstractMove move : BoardService.lastNMoves(transition.getAfterMoveBoard(), 2)) {
                 if (move.isAttackMove()) {
                     activityMeasure += 1;
                 }

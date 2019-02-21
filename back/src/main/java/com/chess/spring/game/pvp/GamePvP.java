@@ -34,8 +34,10 @@ public class GamePvP extends Game {
     @ApiModelProperty(notes = "whitePlayer player in current game")
     private Account whitePlayer;
 
+    @Column(name = "time_per_move")
     private Long timePerMove;
 
+    @Column(name = "game_started")
     private LocalDate gameStarted;
 
     @Enumerated(value = EnumType.STRING)
@@ -45,6 +47,7 @@ public class GamePvP extends Game {
 
     private String moves;
 
+    @Column(unique = true)
     private String permalink;
 
     @OneToOne(fetch = FetchType.LAZY,

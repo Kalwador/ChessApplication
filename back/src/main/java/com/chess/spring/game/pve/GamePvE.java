@@ -27,6 +27,7 @@ public class GamePvE extends Game {
     @ApiModelProperty(notes = "player in current game")
     private Account account;
 
+    @Column(name = "time_per_move")
     private Long timePerMove;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +35,7 @@ public class GamePvE extends Game {
 
     private Integer level;
 
+    @Column(name = "game_started")
     private LocalDate gameStarted;
 
     @Enumerated(value = EnumType.STRING)
@@ -43,6 +45,7 @@ public class GamePvE extends Game {
 
     private String moves;
 
+    @Column(unique = true)
     private String permalink;
 
     @Override

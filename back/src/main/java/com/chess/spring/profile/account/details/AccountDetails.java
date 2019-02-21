@@ -39,14 +39,15 @@ public class AccountDetails implements UserDetails, Serializable {
 
     @Email
     @Size(min = 1, max = 50)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(updatable = false, nullable = false)
     @Size(min = 4, max = 50)
+    @Column(updatable = false, nullable = false, unique = true)
     private String username;
 
     @Size(min = 4, max = 500)
-    @Column(length = 400)
+    @Column(length = 400, nullable = false)
     private String password;
 
     private boolean enabled;
@@ -63,12 +64,13 @@ public class AccountDetails implements UserDetails, Serializable {
     @JoinTable(
             name = "account_authority",
             joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "authority"))
+            inverseJoinColumns = @JoinColumn(name = "authority", nullable = false))
     private Set<Authority> authorities;
 
     @Min(0)
     @Max(3)
     @ColumnDefault("0")
+    @Column(name = "incorrect_login_count")
     private int incorrectLoginCount;
 
     @Override

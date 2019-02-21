@@ -8,7 +8,6 @@ import com.chess.spring.game.board.BoardService;
 import com.chess.spring.game.pieces.*;
 
 public class FenService {
-
     public static String parse(Board board) {
         return calculateBoardText(board) + " " +
                 calculateCurrentPlayerText(board) + " " +
@@ -17,8 +16,8 @@ public class FenService {
                 "0 1";
     }
 
-    public static Board parse(String fenString) {
-        String[] fenPartitions = fenString.trim().split(" ");
+    public static Board parse(String fen) {
+        String[] fenPartitions = fen.trim().split(" ");
         BoardBuilder builder = new BoardBuilder();
         boolean whiteKingSideCastle = whiteKingSideCastle(fenPartitions[2]);
         boolean whiteQueenSideCastle = whiteQueenSideCastle(fenPartitions[2]);

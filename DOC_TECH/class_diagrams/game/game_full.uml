@@ -1,0 +1,2391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.chess.spring.game</OriginalElement>
+  <nodes>
+    <node x="7021.959093863993" y="5983.0">com.chess.spring.game.pieces.utils.PlayerColor</node>
+    <node x="12508.365761446308" y="5145.5">com.chess.spring.game.moves.MoveDTO.MoveDTOBuilder</node>
+    <node x="1510.7493479299478" y="550.5">com.chess.spring.game.moves.simple.pawn.PawnPromotion</node>
+    <node x="12513.865761446308" y="8520.0">com.chess.spring.game.pvp.GamePvPDTO.GamePvPDTOBuilder</node>
+    <node x="9449.447302129061" y="3625.0">com.chess.spring.game.pve.GamePvEStatus</node>
+    <node x="5525.462183081444" y="9285.0">com.chess.spring.game.moves.Transition</node>
+    <node x="5132.8323768310265" y="3448.0">com.chess.spring.game.player.AbstractPlayer</node>
+    <node x="10284.780940017738" y="5079.5">com.chess.spring.game.pvp.GamePvP.GamePvPBuilder</node>
+    <node x="9351.23451144631" y="7216.0">com.chess.spring.game.pve.GamePvE</node>
+    <node x="10852.176385971066" y="8653.0">com.chess.spring.game.pve.GamePvEService</node>
+    <node x="6494.526960452242" y="2841.0">com.chess.spring.game.pieces.King</node>
+    <node x="8649.896511039331" y="8564.0">com.chess.spring.game.pve.GamePvEDTO.GamePvEDTOBuilder</node>
+    <node x="138.5" y="11010.0">com.chess.spring.game.pieces.utils.PieceDistance</node>
+    <node x="1031.1626430381552" y="256.0">com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove</node>
+    <node x="4850.844623557634" y="4294.0">com.chess.spring.game.player.WhitePlayer</node>
+    <node x="6262.2970045100155" y="517.0">com.chess.spring.game.pieces.utils.PieceType</node>
+    <node x="1980.3911613675682" y="1192.0">com.chess.spring.game.pieces.Pawn</node>
+    <node x="6095.195115214146" y="1170.0">com.chess.spring.game.pieces.Queen</node>
+    <node x="13121.990761446308" y="9274.0">com.chess.spring.game.pvp.GamePvPController</node>
+    <node x="10235.709511446308" y="4184.0">com.chess.spring.game.pvp.GamePvP</node>
+    <node x="4423.287480700492" y="5288.5">com.chess.spring.game.player.BlackPlayer</node>
+    <node x="5731.195115214146" y="1170.0">com.chess.spring.game.pieces.Bishop</node>
+    <node x="11998.365761446308" y="5333.5">com.chess.spring.game.pvp.GamePvPRepository</node>
+    <node x="11611.709511446308" y="9131.0">com.chess.spring.game.pvp.GamePvPServiceImpl</node>
+    <node x="3186.3203848661933" y="1148.0">com.chess.spring.game.pieces.Knight</node>
+    <node x="8345.387079499862" y="4339.0">com.chess.spring.game.GameEndStatus</node>
+    <node x="3163.2795542247104" y="1976.0">com.chess.spring.game.pieces.utils.PieceService</node>
+    <node x="3897.067366368639" y="8509.0">com.chess.spring.game.board.Board</node>
+    <node x="7501.959093863993" y="10141.0">com.chess.spring.game.moves.simple.attack.AttackMoveImpl</node>
+    <node x="1061.7493479299478" y="617.0">com.chess.spring.game.moves.simple.pawn.PawnPassingAttack</node>
+    <node x="11055.280635462395" y="3602.0">com.chess.spring.game.pvp.GamePvPStatus</node>
+    <node x="9901.709511446308" y="7731.0">com.chess.spring.game.pve.GamePvE.GamePvEBuilder</node>
+    <node x="3840.13152831954" y="2918.5">com.chess.spring.game.moves.simple.castle.AbstractCastleMove</node>
+    <node x="5718.5470045100155" y="4240.0">com.chess.spring.game.FenService</node>
+    <node x="2731.6953848661933" y="606.0">com.chess.spring.game.moves.simple.pawn.PawnJump</node>
+    <node x="10772.473190610972" y="9296.0">com.chess.spring.game.pve.GamePvEController</node>
+    <node x="5875.506941526623" y="2985.0">com.chess.spring.game.moves.MoveStatus</node>
+    <node x="8852.822302129061" y="4328.0">com.chess.spring.game.GameEndType</node>
+    <node x="4546.8856949862065" y="3635.5">com.chess.spring.game.moves.simple.castle.KingSideCastleMove</node>
+    <node x="4107.63152831954" y="2479.0">com.chess.spring.game.pieces.Rook</node>
+    <node x="214.0" y="11241.0">com.chess.spring.game.core</node>
+    <node x="12343.365761446308" y="7786.0">com.chess.spring.game.pvp.GamePvPDTO</node>
+    <node x="2426.6953848661933" y="617.0">com.chess.spring.game.moves.simple.MoveImpl</node>
+    <node x="1608.4126430381552" y="256.0">com.chess.spring.game.moves.simple.pawn.PawnAbstractMove</node>
+    <node x="1482.2519287524406" y="6655.0">com.chess.spring.game.board.BoardBuilder</node>
+    <node x="8253.501259812325" y="5068.0">com.chess.spring.game.GameService</node>
+    <node x="9179.60951144631" y="4339.0">com.chess.spring.game.GameType</node>
+    <node x="466.61244316804004" y="7952.0">com.chess.spring.game.board.BoardUtils</node>
+    <node x="2841.016161367568" y="4271.5">com.chess.spring.game.moves.ErrorMove</node>
+    <node x="8683.702066594886" y="9208.0">com.chess.spring.game.pve.GamePvEServiceImpl</node>
+    <node x="2150.0416666666774" y="9851.0">com.chess.spring.game.board.BoardService</node>
+    <node x="3934.9065283195396" y="3635.5">com.chess.spring.game.moves.simple.castle.QueenSideCastleMove</node>
+    <node x="9392.709511446308" y="7963.0">com.chess.spring.game.pve.GamePvERepository</node>
+    <node x="10968.709511446308" y="4206.0">com.chess.spring.game.moves.MoveDTO</node>
+    <node x="72.5" y="10532.0">com.chess.spring.game.pieces.AbstractPiece</node>
+    <node x="0.0" y="11241.0">com.chess.spring.game.pve.GamePvEStatusDTO</node>
+    <node x="2171.305500181012" y="0.0">com.chess.spring.game.moves.simple.attack.AbstractAttackMove</node>
+    <node x="8532.396511039331" y="7808.0">com.chess.spring.game.pve.GamePvEDTO</node>
+    <node x="13052.865761446308" y="8609.0">com.chess.spring.game.pvp.GamePvPService</node>
+    <node x="9754.697302129061" y="3691.0">com.chess.spring.game.Game</node>
+    <node x="2557.8803040437006" y="7183.0">com.chess.spring.game.moves.simple.AbstractMove</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove">
+      <point x="0.0" y="-115.0" />
+      <point x="2152.391161367568" y="978.0" />
+      <point x="2166.0022724786795" y="978.0" />
+      <point x="2166.0022724786795" y="447.0" />
+      <point x="1464.8055001810121" y="447.0" />
+      <point x="200.14285714285688" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnJump" target="com.chess.spring.game.pieces.Pawn">
+      <point x="-45.375" y="81.5" />
+      <point x="2807.3203848661933" y="1068.0" />
+      <point x="2267.0578280342343" y="1068.0" />
+      <point x="114.66666666666606" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnJump" target="com.chess.spring.game.board.BoardService">
+      <point x="105.875" y="81.5" />
+      <point x="2958.5703848661933" y="968.0" />
+      <point x="6951.956233261553" y="968.0" />
+      <point x="6951.956233261553" y="4988.0" />
+      <point x="6252.1407545100155" y="4988.0" />
+      <point x="6252.1407545100155" y="5893.0" />
+      <point x="6171.569325938586" y="5893.0" />
+      <point x="6171.569325938586" y="6575.0" />
+      <point x="6064.462183081444" y="6575.0" />
+      <point x="6064.462183081444" y="9821.0" />
+      <point x="2472.2559523809637" y="9821.0" />
+      <point x="148.71428571428623" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.QueenSideCastleMove" target="com.chess.spring.game.pieces.Rook">
+      <point x="147.66666666666606" y="-70.5" />
+      <point x="4304.073194986206" y="3368.0" />
+      <point x="4279.63152831954" y="3368.0" />
+      <point x="0.0" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAbstractMove" target="com.chess.spring.game.board.BoardService">
+      <point x="-106.5625" y="70.5" />
+      <point x="1672.3501430381552" y="477.0" />
+      <point x="231.0" y="477.0" />
+      <point x="231.0" y="9821.0" />
+      <point x="2174.827380952391" y="9821.0" />
+      <point x="-148.71428571428623" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.board.Board">
+      <point x="23.83333333333303" y="82.0" />
+      <point x="5160.677956890968" y="4828.0" />
+      <point x="5140.189861652872" y="4828.0" />
+      <point x="5140.189861652872" y="6385.0" />
+      <point x="4906.0470045100155" y="6385.0" />
+      <point x="4906.0470045100155" y="8379.0" />
+      <point x="4101.126890178162" y="8379.0" />
+      <point x="63.55952380952385" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.pvp.GamePvPStatus">
+      <point x="-132.88888888888914" y="-302.5" />
+      <point x="8419.612370923434" y="4728.0" />
+      <point x="8334.887079499862" y="4728.0" />
+      <point x="8334.887079499862" y="4154.0" />
+      <point x="11072.86396879573" y="4154.0" />
+      <point x="-87.91666666666697" y="104.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardBuilder" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="110.54545454545405" y="159.0" />
+      <point x="1744.7973832978946" y="7133.0" />
+      <point x="2585.4560616194585" y="7133.0" />
+      <point x="-154.42424242424204" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-160.38461538461524" y="203.5" />
+      <point x="6542.642345067627" y="3388.0" />
+      <point x="4388.40652831954" y="3388.0" />
+      <point x="4388.40652831954" y="4114.0" />
+      <point x="3736.7430001810117" y="4114.0" />
+      <point x="3736.7430001810117" y="7103.0" />
+      <point x="2850.1833343467306" y="7103.0" />
+      <point x="110.30303030303003" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceService" target="com.chess.spring.game.pieces.Knight">
+      <point x="-104.78125" y="-191.5" />
+      <point x="3297.9983042247104" y="1786.0" />
+      <point x="3346.0346705804786" y="1786.0" />
+      <point x="-12.285714285714675" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="133.42857142857156" y="70.5" />
+      <point x="1398.0912144667268" y="457.0" />
+      <point x="1969.8911613675682" y="457.0" />
+      <point x="1969.8911613675682" y="7083.0" />
+      <point x="2640.6075767709726" y="7083.0" />
+      <point x="-99.27272727272793" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEController" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="114.375" y="-115.0" />
+      <point x="11039.348190610972" y="9111.0" />
+      <point x="11353.926385971066" y="9111.0" />
+      <point x="11353.926385971066" y="5048.0" />
+      <point x="11279.709511446308" y="5048.0" />
+      <point x="0.0" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.board.Board">
+      <point x="-38.13333333333321" y="258.0" />
+      <point x="5380.699043497693" y="4064.0" />
+      <point x="5466.3565283195385" y="4064.0" />
+      <point x="5466.3565283195385" y="4818.0" />
+      <point x="5281.05890927192" y="4818.0" />
+      <point x="5281.05890927192" y="6405.0" />
+      <point x="5046.916052129063" y="6405.0" />
+      <point x="5046.916052129063" y="8399.0" />
+      <point x="4114.507842559115" y="8399.0" />
+      <point x="76.94047619047615" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPRepository" target="com.chess.spring.game.pvp.GamePvP">
+      <point x="-122.25" y="-37.0" />
+      <point x="12120.615761446308" y="4658.0" />
+      <point x="10694.066654303451" y="4658.0" />
+      <point x="101.85714285714266" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-135.14285714285688" y="137.0" />
+      <point x="5768.0522580712895" y="1836.0" />
+      <point x="3116.516161367568" y="1836.0" />
+      <point x="3116.516161367568" y="7053.0" />
+      <point x="2795.0318191952165" y="7053.0" />
+      <point x="55.15151515151592" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.moves.simple.pawn.PawnPromotion">
+      <point x="-114.66666666666606" y="-115.0" />
+      <point x="2037.7244947009021" y="898.0" />
+      <point x="1777.3402570208577" y="898.0" />
+      <point x="94.09090909090992" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="192.46153846153902" y="203.5" />
+      <point x="6895.488498913781" y="3278.0" />
+      <point x="11601.209511446308" y="3278.0" />
+      <point x="11601.209511446308" y="10432.0" />
+      <point x="392.0" y="10432.0" />
+      <point x="121.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="135.14285714285688" y="137.0" />
+      <point x="6038.337972357003" y="1516.0" />
+      <point x="13042.365761446308" y="1516.0" />
+      <point x="13042.365761446308" y="10452.0" />
+      <point x="410.0" y="10452.0" />
+      <point x="139.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="64.15384615384573" y="203.5" />
+      <point x="6767.180806606088" y="3318.0" />
+      <point x="7686.263195794221" y="3318.0" />
+      <point x="7686.263195794221" y="4154.0" />
+      <point x="7173.355955975217" y="4154.0" />
+      <point x="7173.355955975217" y="5873.0" />
+      <point x="7202.88217078707" y="5873.0" />
+      <point x="-43.07692307692287" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.pieces.Rook">
+      <point x="-163.42857142857156" y="-82.0" />
+      <point x="4545.858909271921" y="4778.0" />
+      <point x="4536.3856949862065" y="4778.0" />
+      <point x="4536.3856949862065" y="2821.0" />
+      <point x="4299.866822437187" y="2821.0" />
+      <point x="20.235294117646845" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.player.BlackPlayer">
+      <point x="-71.5" y="82.0" />
+      <point x="5065.344623557634" y="4828.0" />
+      <point x="4954.430337843349" y="4828.0" />
+      <point x="245.14285714285688" y="-82.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.board.Board">
+      <point x="-32.07692307692287" y="203.5" />
+      <point x="6670.95003737532" y="3428.0" />
+      <point x="6575.379551128851" y="3428.0" />
+      <point x="6575.379551128851" y="4908.0" />
+      <point x="5954.80890927192" y="4908.0" />
+      <point x="5954.80890927192" y="5903.0" />
+      <point x="5868.737480700491" y="5903.0" />
+      <point x="5868.737480700491" y="6485.0" />
+      <point x="5626.939861652872" y="6485.0" />
+      <point x="5626.939861652872" y="8469.0" />
+      <point x="4161.3411758924485" y="8469.0" />
+      <point x="123.77380952380918" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="86.0" y="-137.0" />
+      <point x="6353.195115214146" y="1128.0" />
+      <point x="6360.7970045100155" y="1128.0" />
+      <point x="0.0" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.player.AbstractPlayer">
+      <point x="81.71428571428532" y="-82.0" />
+      <point x="4791.001766414778" y="4778.0" />
+      <point x="4729.7606949862065" y="4778.0" />
+      <point x="4729.7606949862065" y="4154.0" />
+      <point x="5266.299043497693" y="4154.0" />
+      <point x="-152.53333333333376" y="258.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AttackMoveImpl" target="com.chess.spring.game.board.Board">
+      <point x="-143.85000000000036" y="-70.5" />
+      <point x="7563.609093863993" y="10101.0" />
+      <point x="7659.0598021290625" y="10101.0" />
+      <point x="7659.0598021290625" y="9091.0" />
+      <point x="4090.254866368639" y="9091.0" />
+      <point x="52.6875" y="236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="262.16666666666606" y="82.0" />
+      <point x="5399.0112902243" y="4778.0" />
+      <point x="7118.355955975217" y="4778.0" />
+      <point x="7118.355955975217" y="5903.0" />
+      <point x="7116.728324633224" y="5903.0" />
+      <point x="-129.2307692307695" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEController" target="com.chess.spring.game.pve.GamePvEDTO">
+      <point x="-114.375" y="-115.0" />
+      <point x="10810.598190610972" y="9011.0" />
+      <point x="8639.396511039331" y="9011.0" />
+      <point x="8639.396511039331" y="8489.0" />
+      <point x="8722.896511039331" y="8489.0" />
+      <point x="-63.5" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="119.16666666666606" y="82.0" />
+      <point x="5256.0112902243" y="4808.0" />
+      <point x="5378.130337843349" y="4808.0" />
+      <point x="5378.130337843349" y="5853.0" />
+      <point x="6201.9502783195385" y="5853.0" />
+      <point x="6201.9502783195385" y="10342.0" />
+      <point x="311.0" y="10342.0" />
+      <point x="40.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.pve.GamePvEDTO">
+      <point x="-108.47058823529414" y="-203.0" />
+      <point x="9036.231478359592" y="9021.0" />
+      <point x="8478.973482034546" y="9021.0" />
+      <point x="8478.973482034546" y="8489.0" />
+      <point x="8595.896511039331" y="8489.0" />
+      <point x="-190.5" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.pieces.utils.PieceService">
+      <point x="80.94117647058738" y="115.0" />
+      <point x="2233.3323378381556" y="1666.0" />
+      <point x="3268.0608042247104" y="1666.0" />
+      <point x="-134.71875" y="-191.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.KingSideCastleMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="160.875" y="70.5" />
+      <point x="4922.2606949862065" y="4074.0" />
+      <point x="5455.3565283195385" y="4074.0" />
+      <point x="5455.3565283195385" y="4808.0" />
+      <point x="6287.021706890968" y="4808.0" />
+      <point x="6287.021706890968" y="10352.0" />
+      <point x="320.0" y="10352.0" />
+      <point x="49.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.Pawn">
+      <point x="-218.25" y="-48.0" />
+      <point x="490.86244316804004" y="7641.0" />
+      <point x="463.125" y="7641.0" />
+      <point x="463.125" y="2419.0" />
+      <point x="881.98744316804" y="2419.0" />
+      <point x="881.98744316804" y="1666.0" />
+      <point x="2051.214690779332" y="1666.0" />
+      <point x="-101.17647058823604" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-200.14285714285688" y="70.5" />
+      <point x="1064.5197858952984" y="427.0" />
+      <point x="9.0" y="427.0" />
+      <point x="9.0" y="10502.0" />
+      <point x="86.0" y="10502.0" />
+      <point x="-184.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.Rook">
+      <point x="-132.0" y="-136.0" />
+      <point x="5740.5470045100155" y="4164.0" />
+      <point x="5715.3323768310265" y="4164.0" />
+      <point x="5715.3323768310265" y="2791.0" />
+      <point x="4360.572704790127" y="2791.0" />
+      <point x="80.94117647058738" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.moves.simple.castle.KingSideCastleMove">
+      <point x="-114.39999999999964" y="-82.0" />
+      <point x="5022.444623557634" y="4084.0" />
+      <point x="4815.0106949862065" y="4084.0" />
+      <point x="53.625" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.pieces.utils.PieceService">
+      <point x="61.42857142857156" y="159.0" />
+      <point x="3419.748956294765" y="1816.0" />
+      <point x="3387.8108042247104" y="1816.0" />
+      <point x="-14.96875" y="-191.5" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="152.53333333333376" y="258.0" />
+      <point x="5571.36571016436" y="4014.0" />
+      <point x="7011.459093863993" y="4014.0" />
+      <point x="7011.459093863993" y="10362.0" />
+      <point x="329.0" y="10362.0" />
+      <point x="58.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.pve.GamePvERepository">
+      <point x="216.9411764705883" y="-203.0" />
+      <point x="9361.643243065475" y="9041.0" />
+      <point x="9525.959511446308" y="9041.0" />
+      <point x="9525.959511446308" y="8489.0" />
+      <point x="9759.459511446308" y="8489.0" />
+      <point x="122.25" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPController" target="com.chess.spring.game.pvp.GamePvPService">
+      <point x="38.125" y="-137.0" />
+      <point x="13312.615761446308" y="9111.0" />
+      <point x="13358.699094779642" y="9111.0" />
+      <point x="122.33333333333326" y="136.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.Knight">
+      <point x="0.0" y="-136.0" />
+      <point x="5872.5470045100155" y="4134.0" />
+      <point x="5802.5470045100155" y="4134.0" />
+      <point x="5802.5470045100155" y="1636.0" />
+      <point x="3444.3203848661933" y="1636.0" />
+      <point x="86.0" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-266.9333333333334" y="258.0" />
+      <point x="5151.899043497693" y="4124.0" />
+      <point x="3747.7430001810117" y="4124.0" />
+      <point x="3747.7430001810117" y="7113.0" />
+      <point x="2861.2136373770345" y="7113.0" />
+      <point x="121.33333333333394" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove" target="com.chess.spring.game.board.Board">
+      <point x="-66.71428571428532" y="70.5" />
+      <point x="1197.94835732387" y="447.0" />
+      <point x="1009.457681263279" y="447.0" />
+      <point x="1009.457681263279" y="8459.0" />
+      <point x="3920.484033035305" y="8459.0" />
+      <point x="-117.08333333333394" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.KingSideCastleMove" target="com.chess.spring.game.board.Board">
+      <point x="-160.875" y="70.5" />
+      <point x="4600.5106949862065" y="4114.0" />
+      <point x="4406.097004510017" y="4114.0" />
+      <point x="4406.097004510017" y="8309.0" />
+      <point x="4054.2935568448297" y="8309.0" />
+      <point x="16.726190476190823" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.pieces.King">
+      <point x="190.66666666666697" y="-258.0" />
+      <point x="5609.4990434976935" y="3408.0" />
+      <point x="6606.796191221472" y="3408.0" />
+      <point x="-96.23076923076951" y="203.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.board.BoardService">
+      <point x="36.85714285714312" y="137.0" />
+      <point x="6304.0522580712895" y="1866.0" />
+      <point x="6940.956233261553" y="1866.0" />
+      <point x="6940.956233261553" y="4978.0" />
+      <point x="6241.1407545100155" y="4978.0" />
+      <point x="6241.1407545100155" y="5883.0" />
+      <point x="6160.569325938586" y="5883.0" />
+      <point x="6160.569325938586" y="6565.0" />
+      <point x="6053.462183081444" y="6565.0" />
+      <point x="6053.462183081444" y="9811.0" />
+      <point x="2455.7321428571545" y="9811.0" />
+      <point x="132.19047619047706" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.pieces.Knight">
+      <point x="94.76923076923049" y="-181.0" />
+      <point x="7340.728324633224" y="5763.0" />
+      <point x="7906.911272717298" y="5763.0" />
+      <point x="7906.911272717298" y="4948.0" />
+      <point x="7989.411272717298" y="4948.0" />
+      <point x="7989.411272717298" y="1606.0" />
+      <point x="3468.8918134376217" y="1606.0" />
+      <point x="110.57142857142844" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.moves.simple.attack.AttackMoveImpl">
+      <point x="110.57142857142844" y="137.0" />
+      <point x="6377.766543785576" y="1526.0" />
+      <point x="10372.906677129062" y="1526.0" />
+      <point x="10372.906677129062" y="3408.0" />
+      <point x="8154.411272717298" y="3408.0" />
+      <point x="8154.411272717298" y="4978.0" />
+      <point x="8115.911272717298" y="4978.0" />
+      <point x="8115.911272717298" y="5873.0" />
+      <point x="7795.159093863993" y="5873.0" />
+      <point x="7795.159093863993" y="10121.0" />
+      <point x="7810.209093863993" y="10121.0" />
+      <point x="102.75" y="-70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="137.15476190476147" y="-236.0" />
+      <point x="4174.722128273401" y="8489.0" />
+      <point x="5640.320814033825" y="8489.0" />
+      <point x="5640.320814033825" y="6625.0" />
+      <point x="7178.759093863993" y="6625.0" />
+      <point x="-67.19999999999982" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.GameEndStatus">
+      <point x="-66.44444444444434" y="-302.5" />
+      <point x="8486.05681536788" y="4718.0" />
+      <point x="8417.387079499862" y="4718.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.moves.Transition">
+      <point x="0.0" y="302.5" />
+      <point x="8552.501259812325" y="5953.0" />
+      <point x="7480.459093863993" y="5953.0" />
+      <point x="7480.459093863993" y="6635.0" />
+      <point x="5772.628849748111" y="6635.0" />
+      <point x="5772.628849748111" y="9101.0" />
+      <point x="5879.295516414777" y="9101.0" />
+      <point x="160.83333333333348" y="-126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.moves.simple.attack.AttackMoveImpl">
+      <point x="128.30769230769147" y="203.5" />
+      <point x="6831.334652759933" y="3298.0" />
+      <point x="8060.911272717298" y="3298.0" />
+      <point x="8060.911272717298" y="5833.0" />
+      <point x="7681.0598021290625" y="5833.0" />
+      <point x="7681.0598021290625" y="10121.0" />
+      <point x="7645.809093863993" y="10121.0" />
+      <point x="-61.649999999999636" y="-70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.pvp.GamePvPDTO">
+      <point x="258.34375" y="-280.0" />
+      <point x="12460.553261446308" y="9011.0" />
+      <point x="12281.615761446308" y="9011.0" />
+      <point x="12281.615761446308" y="8489.0" />
+      <point x="12420.615761446308" y="8489.0" />
+      <point x="-231.75" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.board.BoardService">
+      <point x="-94.09090909090992" y="137.0" />
+      <point x="1589.158438839038" y="968.0" />
+      <point x="987.457681263279" y="968.0" />
+      <point x="987.457681263279" y="1586.0" />
+      <point x="242.0" y="1586.0" />
+      <point x="242.0" y="9811.0" />
+      <point x="2191.3511904762004" y="9811.0" />
+      <point x="-132.19047619047706" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.pieces.King">
+      <point x="-25.846153846154266" y="-181.0" />
+      <point x="7220.112940017839" y="5863.0" />
+      <point x="7184.355955975217" y="5863.0" />
+      <point x="7184.355955975217" y="4164.0" />
+      <point x="7697.263195794221" y="4164.0" />
+      <point x="7697.263195794221" y="3308.0" />
+      <point x="6799.257729683011" y="3308.0" />
+      <point x="96.23076923076951" y="203.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.AbstractCastleMove" target="com.chess.spring.game.pieces.Rook">
+      <point x="143.0" y="-126.0" />
+      <point x="4197.63152831954" y="2821.0" />
+      <point x="4259.396234201893" y="2821.0" />
+      <point x="-20.235294117646845" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AttackMoveImpl" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="102.75" y="70.5" />
+      <point x="7810.209093863993" y="10412.0" />
+      <point x="374.0" y="10412.0" />
+      <point x="103.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AttackMoveImpl" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-102.75" y="-70.5" />
+      <point x="7604.709093863993" y="10111.0" />
+      <point x="7670.0598021290625" y="10111.0" />
+      <point x="7670.0598021290625" y="7701.0" />
+      <point x="2879.8803040437006" y="7701.0" />
+      <point x="140.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPassingAttack" target="com.chess.spring.game.board.Board">
+      <point x="-107.25" y="70.5" />
+      <point x="1168.9993479299478" y="938.0" />
+      <point x="1144.9637831345917" y="938.0" />
+      <point x="1144.9637831345917" y="8439.0" />
+      <point x="3933.8649854162572" y="8439.0" />
+      <point x="-103.70238095238165" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.pve.GamePvE">
+      <point x="108.47058823529369" y="-203.0" />
+      <point x="9253.17265483018" y="9021.0" />
+      <point x="9382.209511446308" y="9021.0" />
+      <point x="9382.209511446308" y="7711.0" />
+      <point x="9556.43451144631" y="7711.0" />
+      <point x="-136.80000000000018" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.moves.simple.MoveImpl">
+      <point x="-143.33333333333394" y="-126.0" />
+      <point x="4136.298194986206" y="2449.0" />
+      <point x="3105.516161367568" y="2449.0" />
+      <point x="3105.516161367568" y="1038.0" />
+      <point x="2595.1044757752834" y="1038.0" />
+      <point x="25.909090909090082" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.board.BoardService">
+      <point x="-141.64705882352973" y="126.0" />
+      <point x="4137.98446949601" y="2761.0" />
+      <point x="286.0" y="2761.0" />
+      <point x="286.0" y="9771.0" />
+      <point x="2257.446428571439" y="9771.0" />
+      <point x="-66.09523809523853" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPassingAttack" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="35.75" y="70.5" />
+      <point x="1311.9993479299478" y="928.0" />
+      <point x="1377.4126430381552" y="928.0" />
+      <point x="1377.4126430381552" y="6565.0" />
+      <point x="1514.82335732387" y="6565.0" />
+      <point x="-119.42857142857065" y="-159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardBuilder" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-138.18181818181802" y="159.0" />
+      <point x="1496.0701105706225" y="7093.0" />
+      <point x="126.0" y="7093.0" />
+      <point x="126.0" y="10372.0" />
+      <point x="203.0" y="10372.0" />
+      <point x="-67.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.GameEndStatus">
+      <point x="-216.9411764705883" y="-203.0" />
+      <point x="8927.760890124297" y="9041.0" />
+      <point x="8243.001259812325" y="9041.0" />
+      <point x="8243.001259812325" y="4998.0" />
+      <point x="8369.387079499862" y="4998.0" />
+      <point x="-48.0" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.moves.ErrorMove">
+      <point x="-265.7777777777778" y="-302.5" />
+      <point x="8286.723482034546" y="4748.0" />
+      <point x="3056.444732796139" y="4748.0" />
+      <point x="99.42857142857065" y="104.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.KingSideCastleMove" target="com.chess.spring.game.moves.simple.castle.AbstractCastleMove">
+      <point x="0.0" y="-70.5" />
+      <point x="4761.3856949862065" y="3338.0" />
+      <point x="4204.78152831954" y="3338.0" />
+      <point x="150.14999999999964" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.AbstractMove" target="com.chess.spring.game.board.BoardService">
+      <point x="-84.0" y="214.0" />
+      <point x="2655.8803040437006" y="7691.0" />
+      <point x="456.11244316804004" y="7691.0" />
+      <point x="456.11244316804004" y="9721.0" />
+      <point x="2340.0654761904866" y="9721.0" />
+      <point x="16.523809523809177" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.board.BoardService">
+      <point x="-257.39999999999964" y="82.0" />
+      <point x="4451.887480700492" y="5953.0" />
+      <point x="3692.7430001810117" y="5953.0" />
+      <point x="3692.7430001810117" y="6585.0" />
+      <point x="341.0" y="6585.0" />
+      <point x="341.0" y="9731.0" />
+      <point x="2323.5416666666774" y="9731.0" />
+      <point x="0.0" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.pvp.GamePvP">
+      <point x="132.8888888888887" y="-302.5" />
+      <point x="8685.390148701212" y="4988.0" />
+      <point x="10286.63808287488" y="4988.0" />
+      <point x="-305.57142857142856" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.moves.simple.MoveImpl">
+      <point x="-130.5" y="-214.0" />
+      <point x="140.0" y="10442.0" />
+      <point x="63.0" y="10442.0" />
+      <point x="63.0" y="1596.0" />
+      <point x="998.457681263279" y="1596.0" />
+      <point x="998.457681263279" y="998.0" />
+      <point x="2465.5590212298293" y="998.0" />
+      <point x="-103.63636363636397" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.board.BoardService">
+      <point x="-121.41176470588289" y="115.0" />
+      <point x="2030.9793966616853" y="1656.0" />
+      <point x="264.0" y="1656.0" />
+      <point x="264.0" y="9791.0" />
+      <point x="2224.3988095238205" y="9791.0" />
+      <point x="-99.14285714285688" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPService" target="com.chess.spring.game.pvp.GamePvP">
+      <point x="0.0" y="-136.0" />
+      <point x="13236.365761446308" y="4608.0" />
+      <point x="10897.780940017738" y="4608.0" />
+      <point x="305.57142857142844" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="76.5" y="-214.0" />
+      <point x="347.0" y="10382.0" />
+      <point x="7255.959093863993" y="10382.0" />
+      <point x="7255.959093863993" y="6625.0" />
+      <point x="7268.359093863993" y="6625.0" />
+      <point x="22.399999999999636" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.pieces.Bishop">
+      <point x="129.2307692307695" y="-181.0" />
+      <point x="7375.189863094763" y="5783.0" />
+      <point x="7928.911272717298" y="5783.0" />
+      <point x="7928.911272717298" y="4968.0" />
+      <point x="8011.411272717298" y="4968.0" />
+      <point x="8011.411272717298" y="1586.0" />
+      <point x="5964.623686642719" y="1586.0" />
+      <point x="61.42857142857156" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.MoveDTO" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-282.727272727273" y="170.0" />
+      <point x="10996.982238719036" y="5008.0" />
+      <point x="3780.7430001810117" y="5008.0" />
+      <point x="3780.7430001810117" y="7143.0" />
+      <point x="2894.3045464679426" y="7143.0" />
+      <point x="154.42424242424204" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.AbstractMove" target="com.chess.spring.game.board.Board">
+      <point x="84.0" y="214.0" />
+      <point x="2823.8803040437006" y="7711.0" />
+      <point x="2791.9160183294152" y="7711.0" />
+      <point x="2791.9160183294152" y="8319.0" />
+      <point x="4014.150699701972" y="8319.0" />
+      <point x="-23.41666666666697" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceService" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="199.58333333333303" y="191.5" />
+      <point x="3602.3628875580434" y="2379.0" />
+      <point x="7950.911272717298" y="2379.0" />
+      <point x="7950.911272717298" y="4154.0" />
+      <point x="7868.411272717298" y="4154.0" />
+      <point x="7868.411272717298" y="5733.0" />
+      <point x="7289.036016940916" y="5733.0" />
+      <point x="43.07692307692287" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.Pawn">
+      <point x="-88.0" y="-136.0" />
+      <point x="5784.5470045100155" y="4154.0" />
+      <point x="5726.3323768310265" y="4154.0" />
+      <point x="5726.3323768310265" y="1656.0" />
+      <point x="2253.5676319558042" y="1656.0" />
+      <point x="101.17647058823604" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.board.BoardService">
+      <point x="-134.75" y="136.0" />
+      <point x="5737.7970045100155" y="4838.0" />
+      <point x="330.0" y="4838.0" />
+      <point x="330.0" y="9741.0" />
+      <point x="2307.0178571428683" y="9741.0" />
+      <point x="-16.523809523809177" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEService" target="com.chess.spring.game.pve.GamePvE">
+      <point x="0.0" y="-92.0" />
+      <point x="11004.676385971066" y="8469.0" />
+      <point x="10830.676385971066" y="8469.0" />
+      <point x="10830.676385971066" y="7701.0" />
+      <point x="9966.83451144631" y="7701.0" />
+      <point x="273.60000000000036" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceDistance" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="0.0" y="-93.0" />
+      <point x="0.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.moves.simple.castle.QueenSideCastleMove">
+      <point x="-228.80000000000018" y="-82.0" />
+      <point x="4908.044623557635" y="4094.0" />
+      <point x="4322.53152831954" y="4094.0" />
+      <point x="166.125" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="-56.869047619047706" y="-236.0" />
+      <point x="3980.698318749591" y="8369.0" />
+      <point x="1464.847565948463" y="8369.0" />
+      <point x="1464.847565948463" y="7153.0" />
+      <point x="1661.8882923888045" y="7153.0" />
+      <point x="27.636363636363967" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPController" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="114.375" y="-137.0" />
+      <point x="13388.865761446308" y="9111.0" />
+      <point x="13430.365761446308" y="9111.0" />
+      <point x="13430.365761446308" y="4588.0" />
+      <point x="11562.436784173582" y="4588.0" />
+      <point x="282.727272727273" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.Knight">
+      <point x="-169.75" y="-48.0" />
+      <point x="539.36244316804" y="7631.0" />
+      <point x="474.125" y="7631.0" />
+      <point x="474.125" y="2439.0" />
+      <point x="903.98744316804" y="2439.0" />
+      <point x="903.98744316804" y="1756.0" />
+      <point x="3272.3203848661933" y="1756.0" />
+      <point x="-86.0" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.pieces.utils.PieceService">
+      <point x="-61.42857142857156" y="137.0" />
+      <point x="6205.766543785576" y="1936.0" />
+      <point x="3627.3108042247104" y="1936.0" />
+      <point x="224.53125" y="-191.5" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-265.7777777777778" y="302.5" />
+      <point x="8286.723482034546" y="5913.0" />
+      <point x="5857.737480700491" y="5913.0" />
+      <point x="5857.737480700491" y="6475.0" />
+      <point x="3802.7430001810117" y="6475.0" />
+      <point x="3802.7430001810117" y="7163.0" />
+      <point x="2916.3651525285486" y="7163.0" />
+      <point x="176.48484848484804" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.pve.GamePvEStatus">
+      <point x="271.17647058823513" y="-203.0" />
+      <point x="9415.878537183122" y="9051.0" />
+      <point x="10225.209511446308" y="9051.0" />
+      <point x="10225.209511446308" y="4134.0" />
+      <point x="9550.247302129063" y="4134.0" />
+      <point x="28.800000000000182" y="81.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.pieces.utils.PieceService">
+      <point x="-28.66666666666606" y="-126.0" />
+      <point x="4250.964861652874" y="2429.0" />
+      <point x="3203.1962208913774" y="2429.0" />
+      <point x="-199.58333333333303" y="191.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.player.BlackPlayer">
+      <point x="30.107142857143117" y="-236.0" />
+      <point x="4067.674509225782" y="8329.0" />
+      <point x="4568.647004510016" y="8329.0" />
+      <point x="4568.647004510016" y="5963.0" />
+      <point x="4566.287480700492" y="5963.0" />
+      <point x="-143.0" y="82.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPassingAttack" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="107.25" y="70.5" />
+      <point x="1383.4993479299478" y="938.0" />
+      <point x="1659.4983042247113" y="938.0" />
+      <point x="1659.4983042247113" y="1586.0" />
+      <point x="1843.3201105706225" y="1586.0" />
+      <point x="1843.3201105706225" y="7113.0" />
+      <point x="2607.5166676800645" y="7113.0" />
+      <point x="-132.36363636363603" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.moves.simple.attack.AttackMoveImpl">
+      <point x="159.71428571428532" y="159.0" />
+      <point x="3518.0346705804786" y="1546.0" />
+      <point x="10350.906677129062" y="1546.0" />
+      <point x="10350.906677129062" y="3388.0" />
+      <point x="8132.411272717298" y="3388.0" />
+      <point x="8132.411272717298" y="4958.0" />
+      <point x="8093.911272717298" y="4958.0" />
+      <point x="8093.911272717298" y="5853.0" />
+      <point x="7773.159093863993" y="5853.0" />
+      <point x="7773.159093863993" y="10111.0" />
+      <point x="7728.009093863993" y="10111.0" />
+      <point x="20.550000000000182" y="-70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvP.GamePvPBuilder" target="com.chess.spring.game.pvp.GamePvP">
+      <point x="0.0" y="-291.0" />
+      <point x="10441.280940017738" y="4998.0" />
+      <point x="10490.352368589167" y="4998.0" />
+      <point x="-101.85714285714289" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.moves.simple.MoveImpl">
+      <point x="-104.25" y="-203.5" />
+      <point x="6598.776960452242" y="2821.0" />
+      <point x="6655.4671687993505" y="2821.0" />
+      <point x="6655.4671687993505" y="988.0" />
+      <point x="2698.7408394116474" y="988.0" />
+      <point x="129.54545454545405" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.AbstractCastleMove" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-107.25" y="126.0" />
+      <point x="3947.38152831954" y="3358.0" />
+      <point x="3714.7430001810117" y="3358.0" />
+      <point x="3714.7430001810117" y="7083.0" />
+      <point x="2828.1227282861246" y="7083.0" />
+      <point x="88.24242424242402" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEService" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="101.66666666666697" y="-92.0" />
+      <point x="11106.343052637734" y="8459.0" />
+      <point x="10994.47466296146" y="8459.0" />
+      <point x="10994.47466296146" y="5048.0" />
+      <point x="11223.164056900854" y="5048.0" />
+      <point x="-56.54545454545496" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPController" target="com.chess.spring.game.pvp.GamePvPDTO">
+      <point x="-114.375" y="-137.0" />
+      <point x="13160.115761446308" y="9071.0" />
+      <point x="12503.365761446308" y="9071.0" />
+      <point x="12503.365761446308" y="8489.0" />
+      <point x="12575.115761446308" y="8489.0" />
+      <point x="-77.25" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.MoveImpl" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-129.54545454545405" y="70.5" />
+      <point x="2439.6499303207393" y="988.0" />
+      <point x="220.0" y="988.0" />
+      <point x="220.0" y="1586.0" />
+      <point x="54.0" y="1586.0" />
+      <point x="54.0" y="10452.0" />
+      <point x="131.0" y="10452.0" />
+      <point x="-139.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-379.64705882352973" y="-203.0" />
+      <point x="8765.055007771356" y="9071.0" />
+      <point x="7964.984593145657" y="9071.0" />
+      <point x="7964.984593145657" y="7691.0" />
+      <point x="2907.8803040437006" y="7691.0" />
+      <point x="168.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardBuilder" target="com.chess.spring.game.board.Board">
+      <point x="0.0" y="159.0" />
+      <point x="1634.2519287524406" y="7143.0" />
+      <point x="1458.157089757986" y="7143.0" />
+      <point x="1458.157089757986" y="8379.0" />
+      <point x="3974.007842559115" y="8379.0" />
+      <point x="-63.55952380952385" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-200.19999999999982" y="82.0" />
+      <point x="4509.087480700493" y="5963.0" />
+      <point x="3791.7430001810117" y="5963.0" />
+      <point x="3791.7430001810117" y="7153.0" />
+      <point x="2905.3348494982465" y="7153.0" />
+      <point x="165.45454545454595" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.player.AbstractPlayer">
+      <point x="90.32142857142844" y="-236.0" />
+      <point x="4127.888794940067" y="8419.0" />
+      <point x="5167.606528319539" y="8419.0" />
+      <point x="5167.606528319539" y="6425.0" />
+      <point x="5401.749385462396" y="6425.0" />
+      <point x="5401.749385462396" y="5943.0" />
+      <point x="5495.475575938586" y="5943.0" />
+      <point x="5495.475575938586" y="4828.0" />
+      <point x="5579.392242605253" y="4828.0" />
+      <point x="5579.392242605253" y="4044.0" />
+      <point x="5456.96571016436" y="4044.0" />
+      <point x="38.13333333333321" y="258.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove" target="com.chess.spring.game.moves.simple.attack.AbstractAttackMove">
+      <point x="116.75" y="-70.5" />
+      <point x="1381.4126430381552" y="236.0" />
+      <point x="2340.4721668476786" y="236.0" />
+      <point x="-48.333333333333485" y="93.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.pieces.King">
+      <point x="99.14285714285688" y="-115.0" />
+      <point x="2422.6845238095343" y="9791.0" />
+      <point x="6031.462183081444" y="9791.0" />
+      <point x="6031.462183081444" y="6545.0" />
+      <point x="6138.569325938586" y="6545.0" />
+      <point x="6138.569325938586" y="5863.0" />
+      <point x="6219.1407545100155" y="5863.0" />
+      <point x="6219.1407545100155" y="4958.0" />
+      <point x="6823.065421990704" y="4958.0" />
+      <point x="6823.065421990704" y="3428.0" />
+      <point x="6735.103883529166" y="3428.0" />
+      <point x="32.07692307692287" y="203.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="86.0" y="137.0" />
+      <point x="5989.195115214146" y="1576.0" />
+      <point x="8022.411272717298" y="1576.0" />
+      <point x="8022.411272717298" y="4978.0" />
+      <point x="7939.911272717298" y="4978.0" />
+      <point x="7939.911272717298" y="5793.0" />
+      <point x="7392.420632325531" y="5793.0" />
+      <point x="146.4615384615381" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="121.25" y="-48.0" />
+      <point x="830.36244316804" y="7651.0" />
+      <point x="798.6369047619046" y="7651.0" />
+      <point x="798.6369047619046" y="7123.0" />
+      <point x="1578.9792014797126" y="7123.0" />
+      <point x="-55.272727272727934" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.MoveImpl" target="com.chess.spring.game.board.Board">
+      <point x="-51.81818181818198" y="70.5" />
+      <point x="2517.3772030480113" y="1018.0" />
+      <point x="1703.6129842935838" y="1018.0" />
+      <point x="1703.6129842935838" y="1616.0" />
+      <point x="1242.853119228631" y="1616.0" />
+      <point x="1242.853119228631" y="8419.0" />
+      <point x="3947.2459377972104" y="8419.0" />
+      <point x="-90.32142857142844" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.Rook">
+      <point x="-24.25" y="-48.0" />
+      <point x="684.86244316804" y="7651.0" />
+      <point x="667.7619047619046" y="7651.0" />
+      <point x="667.7619047619046" y="2771.0" />
+      <point x="4158.219763613657" y="2771.0" />
+      <point x="-121.41176470588289" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.pvp.GamePvPService">
+      <point x="553.59375" y="-280.0" />
+      <point x="12755.803261446308" y="9111.0" />
+      <point x="13114.032428112976" y="9111.0" />
+      <point x="-122.33333333333331" y="136.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.Transition" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-96.5" y="-126.0" />
+      <point x="5621.962183081444" y="9101.0" />
+      <point x="5728.628849748111" y="9101.0" />
+      <point x="5728.628849748111" y="7711.0" />
+      <point x="2851.8803040437006" y="7711.0" />
+      <point x="112.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.player.WhitePlayer">
+      <point x="-163.69230769230762" y="-181.0" />
+      <point x="7082.266786171685" y="5813.0" />
+      <point x="7000.459093863993" y="5813.0" />
+      <point x="7000.459093863993" y="4798.0" />
+      <point x="5303.677956890968" y="4798.0" />
+      <point x="166.83333333333303" y="82.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.board.BoardService">
+      <point x="-110.57142857142844" y="159.0" />
+      <point x="3247.748956294765" y="1746.0" />
+      <point x="892.98744316804" y="1746.0" />
+      <point x="892.98744316804" y="2429.0" />
+      <point x="275.0" y="2429.0" />
+      <point x="275.0" y="9781.0" />
+      <point x="2240.9226190476297" y="9781.0" />
+      <point x="-82.6190476190477" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.Transition" target="com.chess.spring.game.moves.MoveStatus">
+      <point x="96.5" y="-126.0" />
+      <point x="5814.962183081444" y="9111.0" />
+      <point x="5761.628849748111" y="9111.0" />
+      <point x="5761.628849748111" y="6515.0" />
+      <point x="5991.235992605254" y="6515.0" />
+      <point x="5991.235992605254" y="5893.0" />
+      <point x="6077.307421176682" y="5893.0" />
+      <point x="6077.307421176682" y="4938.0" />
+      <point x="6669.411474816375" y="4938.0" />
+      <point x="6669.411474816375" y="3368.0" />
+      <point x="5973.006941526623" y="3368.0" />
+      <point x="32.5" y="59.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.GameType">
+      <point x="-36.90625" y="-280.0" />
+      <point x="12165.303261446308" y="9051.0" />
+      <point x="11976.865761446308" y="9051.0" />
+      <point x="11976.865761446308" y="4678.0" />
+      <point x="9272.942844779644" y="4678.0" />
+      <point x="37.33333333333394" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-214.5" y="82.0" />
+      <point x="4922.344623557634" y="4798.0" />
+      <point x="3769.7430001810117" y="4798.0" />
+      <point x="3769.7430001810117" y="7133.0" />
+      <point x="2883.2742434376405" y="7133.0" />
+      <point x="143.39393939393995" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.board.Board">
+      <point x="12.285714285714675" y="137.0" />
+      <point x="5915.480829499862" y="1886.0" />
+      <point x="6144.506941526623" y="1886.0" />
+      <point x="6144.506941526623" y="4878.0" />
+      <point x="5666.666052129063" y="4878.0" />
+      <point x="5666.666052129063" y="5963.0" />
+      <point x="5572.939861652872" y="5963.0" />
+      <point x="5572.939861652872" y="6445.0" />
+      <point x="5338.7970045100155" y="6445.0" />
+      <point x="5338.7970045100155" y="8439.0" />
+      <point x="4141.269747321019" y="8439.0" />
+      <point x="103.70238095238074" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPRepository" target="com.chess.spring.game.pvp.GamePvPStatus">
+      <point x="122.25" y="-37.0" />
+      <point x="12365.115761446308" y="4154.0" />
+      <point x="11178.36396879573" y="4154.0" />
+      <point x="17.58333333333303" y="104.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.moves.simple.pawn.PawnAbstractMove">
+      <point x="38.222222222222626" y="-115.0" />
+      <point x="2190.613383589791" y="978.0" />
+      <point x="2200.6953848661933" y="978.0" />
+      <point x="2200.6953848661933" y="437.0" />
+      <point x="1842.8501430381552" y="437.0" />
+      <point x="63.9375" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEDTO" target="com.chess.spring.game.pve.GamePvE">
+      <point x="169.33333333333303" y="-192.0" />
+      <point x="8955.729844372663" y="7701.0" />
+      <point x="9419.63451144631" y="7701.0" />
+      <point x="-273.5999999999999" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.board.Board">
+      <point x="-62.727272727272066" y="137.0" />
+      <point x="1620.5220752026758" y="978.0" />
+      <point x="1236.1626430381543" y="978.0" />
+      <point x="1236.1626430381543" y="8429.0" />
+      <point x="3940.5554616067343" y="8429.0" />
+      <point x="-97.01190476190459" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-40.5" y="-214.0" />
+      <point x="230.0" y="10342.0" />
+      <point x="153.0" y="10342.0" />
+      <point x="153.0" y="7671.0" />
+      <point x="2599.8803040437006" y="7671.0" />
+      <point x="-140.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.AbstractCastleMove" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="-150.14999999999964" y="126.0" />
+      <point x="3904.4815283195403" y="3348.0" />
+      <point x="1764.9632420090502" y="3348.0" />
+      <point x="1764.9632420090502" y="4084.0" />
+      <point x="1646.1418134376217" y="4084.0" />
+      <point x="1646.1418134376217" y="6545.0" />
+      <point x="1688.5376430381543" y="6545.0" />
+      <point x="54.285714285713766" y="-159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="0.0" y="115.0" />
+      <point x="2323.5416666666774" y="10322.0" />
+      <point x="293.0" y="10322.0" />
+      <point x="22.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEService" target="com.chess.spring.game.pve.GamePvEDTO">
+      <point x="-101.66666666666652" y="-92.0" />
+      <point x="10903.0097193044" y="8479.0" />
+      <point x="8976.896511039331" y="8479.0" />
+      <point x="190.5" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.pvp.GamePvP">
+      <point x="36.90625" y="-280.0" />
+      <point x="12239.115761446308" y="9041.0" />
+      <point x="11987.865761446308" y="9041.0" />
+      <point x="11987.865761446308" y="4668.0" />
+      <point x="10592.209511446308" y="4668.0" />
+      <point x="0.0" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-36.85714285714312" y="137.0" />
+      <point x="6230.337972357003" y="1946.0" />
+      <point x="3681.7430001810117" y="1946.0" />
+      <point x="3681.7430001810117" y="7063.0" />
+      <point x="2806.0621222255186" y="7063.0" />
+      <point x="66.18181818181802" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="165.2380952380954" y="-115.0" />
+      <point x="2488.779761904773" y="9831.0" />
+      <point x="6075.462183081444" y="9831.0" />
+      <point x="6075.462183081444" y="6585.0" />
+      <point x="6182.569325938586" y="6585.0" />
+      <point x="6182.569325938586" y="5903.0" />
+      <point x="6263.1407545100155" y="5903.0" />
+      <point x="6263.1407545100155" y="4998.0" />
+      <point x="6970.558122557422" y="4998.0" />
+      <point x="6970.558122557422" y="958.0" />
+      <point x="6404.574782287793" y="958.0" />
+      <point x="43.777777777777374" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="0.0" y="115.0" />
+      <point x="2152.391161367568" y="1706.0" />
+      <point x="2178.805500181012" y="1706.0" />
+      <point x="2178.805500181012" y="7073.0" />
+      <point x="2651.6378798012765" y="7073.0" />
+      <point x="-88.24242424242402" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.MoveDTO" target="com.chess.spring.game.pve.GamePvEStatus">
+      <point x="-155.5" y="-170.0" />
+      <point x="11124.209511446308" y="4114.0" />
+      <point x="9579.047302129062" y="4114.0" />
+      <point x="57.59999999999991" y="81.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AttackMoveImpl" target="com.chess.spring.game.board.BoardService">
+      <point x="-184.94999999999982" y="-70.5" />
+      <point x="7522.509093863993" y="10121.0" />
+      <point x="2439.2083333333435" y="10121.0" />
+      <point x="115.66666666666606" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceService" target="com.chess.spring.game.pieces.Queen">
+      <point x="134.71875" y="-191.5" />
+      <point x="3537.4983042247104" y="1906.0" />
+      <point x="6132.0522580712895" y="1906.0" />
+      <point x="-135.14285714285688" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="218.25" y="-48.0" />
+      <point x="927.36244316804" y="7701.0" />
+      <point x="2683.8803040437006" y="7701.0" />
+      <point x="-56.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="86.0" y="-137.0" />
+      <point x="5989.195115214146" y="1128.0" />
+      <point x="6338.908115621127" y="1128.0" />
+      <point x="-21.888888888888687" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardBuilder" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="119.42857142857065" y="-159.0" />
+      <point x="1753.6805001810112" y="6595.0" />
+      <point x="7044.359093863993" y="6595.0" />
+      <point x="-201.60000000000036" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-101.17647058823604" y="126.0" />
+      <point x="4178.455057731304" y="2781.0" />
+      <point x="3703.7430001810117" y="2781.0" />
+      <point x="3703.7430001810117" y="7073.0" />
+      <point x="2817.0924252558225" y="7073.0" />
+      <point x="77.21212121212193" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.AbstractMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-168.0" y="214.0" />
+      <point x="2571.8803040437006" y="7661.0" />
+      <point x="144.0" y="7661.0" />
+      <point x="144.0" y="10352.0" />
+      <point x="221.0" y="10352.0" />
+      <point x="-49.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.moves.simple.MoveImpl">
+      <point x="-86.0" y="-159.0" />
+      <point x="3272.3203848661933" y="1028.0" />
+      <point x="2621.0135666843753" y="1028.0" />
+      <point x="51.81818181818198" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnJump" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="-105.875" y="81.5" />
+      <point x="2746.8203848661933" y="1048.0" />
+      <point x="1714.6129842935838" y="1048.0" />
+      <point x="1714.6129842935838" y="1626.0" />
+      <point x="1559.3203848661933" y="1626.0" />
+      <point x="1559.3203848661933" y="6565.0" />
+      <point x="1579.9662144667268" y="6565.0" />
+      <point x="-54.285714285713766" y="-159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-43.48809523809541" y="-236.0" />
+      <point x="3994.0792711305435" y="8349.0" />
+      <point x="2771.844589757985" y="8349.0" />
+      <point x="2771.844589757985" y="7711.0" />
+      <point x="2739.8803040437006" y="7711.0" />
+      <point x="0.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAbstractMove" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="106.5625" y="70.5" />
+      <point x="1885.4751430381552" y="427.0" />
+      <point x="2371.8044111865574" y="427.0" />
+      <point x="2371.8044111865574" y="7063.0" />
+      <point x="2662.6681828315786" y="7063.0" />
+      <point x="-77.21212121212193" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="161.88235294117658" y="115.0" />
+      <point x="2314.273514308745" y="1616.0" />
+      <point x="7978.411272717298" y="1616.0" />
+      <point x="7978.411272717298" y="4938.0" />
+      <point x="7895.911272717298" y="4938.0" />
+      <point x="7895.911272717298" y="5753.0" />
+      <point x="7323.497555402455" y="5753.0" />
+      <point x="77.53846153846189" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="169.75" y="-48.0" />
+      <point x="878.86244316804" y="7641.0" />
+      <point x="809.6369047619046" y="7641.0" />
+      <point x="809.6369047619046" y="7163.0" />
+      <point x="1796.7519287524406" y="7163.0" />
+      <point x="1796.7519287524406" y="6615.0" />
+      <point x="7133.959093863993" y="6615.0" />
+      <point x="-112.0" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.player.AbstractPlayer">
+      <point x="228.79999999999927" y="-82.0" />
+      <point x="5365.644623557633" y="4164.0" />
+      <point x="5342.56571016436" y="4164.0" />
+      <point x="-76.26666666666642" y="258.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.board.BoardService">
+      <point x="0.0" y="203.5" />
+      <point x="6703.026960452242" y="3428.0" />
+      <point x="6727.545403065085" y="3428.0" />
+      <point x="6727.545403065085" y="4948.0" />
+      <point x="6109.6407545100155" y="4948.0" />
+      <point x="6109.6407545100155" y="5903.0" />
+      <point x="6029.069325938586" y="5903.0" />
+      <point x="6029.069325938586" y="6535.0" />
+      <point x="5921.962183081444" y="6535.0" />
+      <point x="5921.962183081444" y="9781.0" />
+      <point x="2406.160714285725" y="9781.0" />
+      <point x="82.6190476190477" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.FenService">
+      <point x="-199.33333333333348" y="-302.5" />
+      <point x="8353.167926478991" y="4738.0" />
+      <point x="5968.7970045100155" y="4738.0" />
+      <point x="96.25" y="136.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.King">
+      <point x="24.25" y="-48.0" />
+      <point x="733.36244316804" y="7641.0" />
+      <point x="678.7619047619046" y="7641.0" />
+      <point x="678.7619047619046" y="4094.0" />
+      <point x="3778.941052129064" y="4094.0" />
+      <point x="3778.941052129064" y="3378.0" />
+      <point x="6510.565421990705" y="3378.0" />
+      <point x="-192.4615384615381" y="203.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.pieces.Pawn">
+      <point x="-83.6309523809523" y="-236.0" />
+      <point x="3953.9364139876866" y="8409.0" />
+      <point x="1249.5435954191075" y="8409.0" />
+      <point x="1249.5435954191075" y="1676.0" />
+      <point x="2071.449984896981" y="1676.0" />
+      <point x="-80.94117647058738" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvP" target="com.chess.spring.game.Game">
+      <point x="-178.25" y="-192.0" />
+      <point x="10413.959511446308" y="4124.0" />
+      <point x="9817.697302129061" y="4124.0" />
+      <point x="21.0" y="15.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.ErrorMove" target="com.chess.spring.game.board.Board">
+      <point x="33.14285714285688" y="104.5" />
+      <point x="2990.159018510425" y="4778.0" />
+      <point x="3816.2505759385876" y="4778.0" />
+      <point x="3816.2505759385876" y="8309.0" />
+      <point x="4020.841175892448" y="8309.0" />
+      <point x="-16.726190476190823" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove" target="com.chess.spring.game.board.BoardService">
+      <point x="-133.42857142857156" y="70.5" />
+      <point x="1131.2340716095837" y="437.0" />
+      <point x="182.0" y="437.0" />
+      <point x="182.0" y="9831.0" />
+      <point x="2158.303571428582" y="9831.0" />
+      <point x="-165.2380952380954" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="257.40000000000055" y="82.0" />
+      <point x="4966.687480700493" y="5823.0" />
+      <point x="7065.036016940916" y="5823.0" />
+      <point x="-180.92307692307713" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.board.Board">
+      <point x="161.66666666666606" y="48.0" />
+      <point x="870.7791098347061" y="8479.0" />
+      <point x="3907.1030806543527" y="8479.0" />
+      <point x="-130.46428571428623" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnJump" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="45.375" y="81.5" />
+      <point x="2898.0703848661933" y="1088.0" />
+      <point x="3083.516161367568" y="1088.0" />
+      <point x="3083.516161367568" y="7033.0" />
+      <point x="2772.9712131346105" y="7033.0" />
+      <point x="33.09090909090992" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.Bishop">
+      <point x="44.0" y="-136.0" />
+      <point x="5916.5470045100155" y="4124.0" />
+      <point x="5865.006941526623" y="4124.0" />
+      <point x="5865.006941526623" y="1886.0" />
+      <point x="5890.909400928433" y="1886.0" />
+      <point x="-12.285714285714675" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAbstractMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-149.1875" y="70.5" />
+      <point x="1629.7251430381552" y="467.0" />
+      <point x="18.0" y="467.0" />
+      <point x="18.0" y="10492.0" />
+      <point x="95.0" y="10492.0" />
+      <point x="-175.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.MoveDTO" target="com.chess.spring.game.pvp.GamePvPStatus">
+      <point x="155.5" y="-170.0" />
+      <point x="11435.209511446308" y="4164.0" />
+      <point x="11143.197302129061" y="4164.0" />
+      <point x="-17.583333333333314" y="104.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.board.BoardService">
+      <point x="36.85714285714312" y="137.0" />
+      <point x="5940.0522580712895" y="1876.0" />
+      <point x="6929.956233261553" y="1876.0" />
+      <point x="6929.956233261553" y="4968.0" />
+      <point x="6230.1407545100155" y="4968.0" />
+      <point x="6230.1407545100155" y="5873.0" />
+      <point x="6149.569325938586" y="5873.0" />
+      <point x="6149.569325938586" y="6555.0" />
+      <point x="6042.462183081444" y="6555.0" />
+      <point x="6042.462183081444" y="9801.0" />
+      <point x="2439.2083333333435" y="9801.0" />
+      <point x="115.66666666666606" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.MoveDTO.MoveDTOBuilder" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="0.0" y="-225.0" />
+      <point x="12674.365761446308" y="4638.0" />
+      <point x="11336.254965991764" y="4638.0" />
+      <point x="56.545454545454504" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.moves.ErrorMove">
+      <point x="-10.035714285714675" y="-236.0" />
+      <point x="4027.531652082924" y="8299.0" />
+      <point x="3822.9410521290642" y="8299.0" />
+      <point x="3822.9410521290642" y="4768.0" />
+      <point x="3023.301875653282" y="4768.0" />
+      <point x="66.28571428571377" y="104.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="31.363636363636033" y="137.0" />
+      <point x="1714.6129842935838" y="978.0" />
+      <point x="1904.8055001810121" y="978.0" />
+      <point x="1904.8055001810121" y="7103.0" />
+      <point x="2618.5469707103666" y="7103.0" />
+      <point x="-121.33333333333394" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.pieces.Rook">
+      <point x="0.0" y="-82.0" />
+      <point x="5136.844623557634" y="4114.0" />
+      <point x="5113.487138735789" y="4114.0" />
+      <point x="5113.487138735789" y="2801.0" />
+      <point x="4340.3374106724805" y="2801.0" />
+      <point x="60.705882352940534" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.QueenSideCastleMove" target="com.chess.spring.game.moves.simple.castle.AbstractCastleMove">
+      <point x="0.0" y="-70.5" />
+      <point x="4156.40652831954" y="3368.0" />
+      <point x="4076.0815283195407" y="3368.0" />
+      <point x="21.450000000000728" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.QueenSideCastleMove" target="com.chess.spring.game.board.Board">
+      <point x="-55.375" y="70.5" />
+      <point x="4101.03152831954" y="4104.0" />
+      <point x="4056.872774572076" y="4104.0" />
+      <point x="4056.872774572076" y="8289.0" />
+      <point x="4040.9126044638774" y="8289.0" />
+      <point x="3.3452380952385283" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.pve.GamePvEService">
+      <point x="433.8823529411766" y="-203.0" />
+      <point x="9578.584419536062" y="9081.0" />
+      <point x="10903.0097193044" y="9081.0" />
+      <point x="-101.66666666666652" y="92.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.board.Board">
+      <point x="49.57142857142935" y="-115.0" />
+      <point x="2373.113095238107" y="9761.0" />
+      <point x="4020.004866368639" y="9761.0" />
+      <point x="-17.5625" y="236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvP" target="com.chess.spring.game.pvp.GamePvPStatus">
+      <point x="178.25" y="-192.0" />
+      <point x="10770.459511446308" y="4164.0" />
+      <point x="11108.030635462395" y="4164.0" />
+      <point x="-52.75" y="104.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AbstractAttackMove" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="0.0" y="93.0" />
+      <point x="2388.805500181012" y="236.0" />
+      <point x="2404.2106611865574" y="236.0" />
+      <point x="2404.2106611865574" y="7043.0" />
+      <point x="2684.7287888921846" y="7043.0" />
+      <point x="-55.15151515151592" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.pvp.GamePvPRepository">
+      <point x="184.53125" y="-280.0" />
+      <point x="12386.740761446308" y="9021.0" />
+      <point x="12131.615761446308" y="9021.0" />
+      <point x="12131.615761446308" y="5963.0" />
+      <point x="12365.115761446308" y="5963.0" />
+      <point x="122.25" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-156.81818181818198" y="137.0" />
+      <point x="1526.4311661117658" y="948.0" />
+      <point x="202.0" y="948.0" />
+      <point x="202.0" y="1566.0" />
+      <point x="36.0" y="1566.0" />
+      <point x="36.0" y="10472.0" />
+      <point x="113.0" y="10472.0" />
+      <point x="-157.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.GameService">
+      <point x="198.15384615384573" y="-181.0" />
+      <point x="7444.112940017839" y="5933.0" />
+      <point x="8419.612370923434" y="5933.0" />
+      <point x="-132.8888888888887" y="302.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.FenService">
+      <point x="-271.17647058823513" y="-203.0" />
+      <point x="8873.52559600665" y="9051.0" />
+      <point x="7986.984593145657" y="9051.0" />
+      <point x="7986.984593145657" y="5693.0" />
+      <point x="7824.411272717298" y="5693.0" />
+      <point x="7824.411272717298" y="4758.0" />
+      <point x="5930.2970045100155" y="4758.0" />
+      <point x="57.75" y="136.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardBuilder" target="com.chess.spring.game.pieces.Pawn">
+      <point x="-10.857142857143117" y="-159.0" />
+      <point x="1623.3947858952974" y="6575.0" />
+      <point x="1607.6418134376217" y="6575.0" />
+      <point x="1607.6418134376217" y="1706.0" />
+      <point x="2132.1558672499214" y="1706.0" />
+      <point x="-20.235294117646845" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="-86.0" y="-126.0" />
+      <point x="4193.63152831954" y="2439.0" />
+      <point x="3138.516161367568" y="2439.0" />
+      <point x="3138.516161367568" y="1108.0" />
+      <point x="6295.130337843348" y="1108.0" />
+      <point x="-65.66666666666697" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.board.Board">
+      <point x="-60.705882352940534" y="115.0" />
+      <point x="2091.6852790146277" y="1686.0" />
+      <point x="1256.2340716095841" y="1686.0" />
+      <point x="1256.2340716095841" y="8399.0" />
+      <point x="3960.6268901781627" y="8399.0" />
+      <point x="-76.94047619047615" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvE" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="-228.0" y="-181.0" />
+      <point x="9465.23451144631" y="7163.0" />
+      <point x="9510.447302129061" y="7163.0" />
+      <point x="9510.447302129061" y="6605.0" />
+      <point x="7402.759093863993" y="6605.0" />
+      <point x="156.80000000000018" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.board.Board">
+      <point x="-28.600000000000364" y="82.0" />
+      <point x="4680.6874807004915" y="5963.0" />
+      <point x="4705.942242605254" y="5963.0" />
+      <point x="4705.942242605254" y="8349.0" />
+      <point x="4081.0554616067343" y="8349.0" />
+      <point x="43.48809523809541" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AbstractAttackMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="193.33333333333394" y="93.0" />
+      <point x="2582.138833514346" y="216.0" />
+      <point x="13486.365761446308" y="216.0" />
+      <point x="13486.365761446308" y="10512.0" />
+      <point x="464.0" y="10512.0" />
+      <point x="193.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.moves.simple.attack.AttackMoveImpl">
+      <point x="141.64705882352973" y="126.0" />
+      <point x="4421.27858714307" y="2761.0" />
+      <point x="8115.911272717298" y="2761.0" />
+      <point x="8115.911272717298" y="4948.0" />
+      <point x="8082.911272717298" y="4948.0" />
+      <point x="8082.911272717298" y="5843.0" />
+      <point x="7762.159093863993" y="5843.0" />
+      <point x="7762.159093863993" y="10101.0" />
+      <point x="7686.909093863993" y="10101.0" />
+      <point x="-20.550000000000182" y="-70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEDTO" target="com.chess.spring.game.pve.GamePvEStatus">
+      <point x="0.0" y="-192.0" />
+      <point x="8786.396511039331" y="7711.0" />
+      <point x="8756.192844779642" y="7711.0" />
+      <point x="8756.192844779642" y="5963.0" />
+      <point x="9169.10951144631" y="5963.0" />
+      <point x="9169.10951144631" y="4134.0" />
+      <point x="9463.847302129063" y="4134.0" />
+      <point x="-57.599999999999454" y="81.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.board.Board">
+      <point x="-19.25" y="136.0" />
+      <point x="5853.2970045100155" y="4868.0" />
+      <point x="5571.445814033825" y="4868.0" />
+      <point x="5571.445814033825" y="5953.0" />
+      <point x="5477.719623557634" y="5953.0" />
+      <point x="5477.719623557634" y="6435.0" />
+      <point x="5243.576766414777" y="6435.0" />
+      <point x="5243.576766414777" y="8429.0" />
+      <point x="4134.579271130544" y="8429.0" />
+      <point x="97.01190476190459" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="-66.44444444444434" y="302.5" />
+      <point x="8486.05681536788" y="5943.0" />
+      <point x="7461.343709248608" y="5943.0" />
+      <point x="215.38461538461524" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnAbstractMove" target="com.chess.spring.game.board.Board">
+      <point x="-63.9375" y="70.5" />
+      <point x="1714.9751430381552" y="487.0" />
+      <point x="1043.3262263026327" y="487.0" />
+      <point x="1043.3262263026327" y="8449.0" />
+      <point x="3927.174509225781" y="8449.0" />
+      <point x="-110.39285714285779" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPDTO" target="com.chess.spring.game.pvp.GamePvP">
+      <point x="-154.5" y="-214.0" />
+      <point x="12497.865761446308" y="4648.0" />
+      <point x="10795.923797160594" y="4648.0" />
+      <point x="203.71428571428532" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.board.Board">
+      <point x="-80.94117647058738" y="126.0" />
+      <point x="4198.690351848953" y="2791.0" />
+      <point x="3829.63152831954" y="2791.0" />
+      <point x="3829.63152831954" y="8289.0" />
+      <point x="4034.2221282734004" y="8289.0" />
+      <point x="-3.3452380952385283" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.moves.simple.pawn.PawnJump">
+      <point x="76.44444444444525" y="-115.0" />
+      <point x="2228.8356058120135" y="1058.0" />
+      <point x="2777.0703848661933" y="1058.0" />
+      <point x="-75.625" y="81.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.moves.simple.pawn.PawnPassingAttack">
+      <point x="-152.8888888888887" y="-115.0" />
+      <point x="1999.5022724786795" y="908.0" />
+      <point x="1454.9993479299478" y="908.0" />
+      <point x="178.75" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPassingAttack" target="com.chess.spring.game.moves.simple.pawn.PawnAttackAbstractMove">
+      <point x="107.25" y="-70.5" />
+      <point x="1383.4993479299478" y="457.0" />
+      <point x="1331.3769287524406" y="457.0" />
+      <point x="66.71428571428532" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceService" target="com.chess.spring.game.pieces.Bishop">
+      <point x="74.84375" y="-191.5" />
+      <point x="3477.6233042247104" y="1866.0" />
+      <point x="5841.766543785576" y="1866.0" />
+      <point x="-61.42857142857156" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-36.85714285714312" y="159.0" />
+      <point x="3321.46324200905" y="1776.0" />
+      <point x="3094.516161367568" y="1776.0" />
+      <point x="3094.516161367568" y="7043.0" />
+      <point x="2784.0015161649126" y="7043.0" />
+      <point x="44.12121212121201" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.board.BoardService">
+      <point x="13.5" y="-214.0" />
+      <point x="284.0" y="10312.0" />
+      <point x="2231.5416666666774" y="10312.0" />
+      <point x="2231.5416666666774" y="10121.0" />
+      <point x="2207.8750000000114" y="10121.0" />
+      <point x="-115.66666666666606" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="175.5" y="-214.0" />
+      <point x="446.0" y="10492.0" />
+      <point x="13468.365761446308" y="10492.0" />
+      <point x="13468.365761446308" y="948.0" />
+      <point x="6426.463671176682" y="948.0" />
+      <point x="65.66666666666697" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.Queen">
+      <point x="88.0" y="-136.0" />
+      <point x="5960.5470045100155" y="4154.0" />
+      <point x="6122.506941526623" y="4154.0" />
+      <point x="6122.506941526623" y="1956.0" />
+      <point x="6254.909400928433" y="1956.0" />
+      <point x="-12.285714285714675" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.board.Board">
+      <point x="-199.33333333333348" y="302.5" />
+      <point x="8353.167926478991" y="5923.0" />
+      <point x="6018.069325938586" y="5923.0" />
+      <point x="6018.069325938586" y="6525.0" />
+      <point x="5633.630337843349" y="6525.0" />
+      <point x="5633.630337843349" y="8479.0" />
+      <point x="4168.031652082924" y="8479.0" />
+      <point x="130.46428571428532" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="121.41176470588289" y="126.0" />
+      <point x="4401.043293025423" y="2771.0" />
+      <point x="7928.911272717298" y="2771.0" />
+      <point x="7928.911272717298" y="4134.0" />
+      <point x="7846.411272717298" y="4134.0" />
+      <point x="7846.411272717298" y="5713.0" />
+      <point x="7254.574478479378" y="5713.0" />
+      <point x="8.615384615384755" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.WhitePlayer" target="com.chess.spring.game.board.BoardService">
+      <point x="-262.16666666666697" y="82.0" />
+      <point x="4874.677956890968" y="4788.0" />
+      <point x="319.0" y="4788.0" />
+      <point x="319.0" y="9751.0" />
+      <point x="2290.494047619059" y="9751.0" />
+      <point x="-33.047619047618355" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.moves.simple.attack.AttackMoveImpl">
+      <point x="94.5" y="-214.0" />
+      <point x="365.0" y="10402.0" />
+      <point x="7604.709093863993" y="10402.0" />
+      <point x="-102.75" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="-325.41176470588243" y="-203.0" />
+      <point x="8819.290301889003" y="9061.0" />
+      <point x="7975.984593145657" y="9061.0" />
+      <point x="7975.984593145657" y="6625.0" />
+      <point x="7313.159093863993" y="6625.0" />
+      <point x="67.19999999999982" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.QueenSideCastleMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-166.125" y="70.5" />
+      <point x="3990.2815283195396" y="4104.0" />
+      <point x="117.0" y="4104.0" />
+      <point x="117.0" y="10382.0" />
+      <point x="194.0" y="10382.0" />
+      <point x="-76.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.moves.Transition">
+      <point x="76.26666666666642" y="258.0" />
+      <point x="5495.099043497693" y="4034.0" />
+      <point x="6647.411474816375" y="4034.0" />
+      <point x="6647.411474816375" y="4918.0" />
+      <point x="6055.307421176682" y="4918.0" />
+      <point x="6055.307421176682" y="5873.0" />
+      <point x="5969.235992605254" y="5873.0" />
+      <point x="5969.235992605254" y="6495.0" />
+      <point x="5739.628849748111" y="6495.0" />
+      <point x="5739.628849748111" y="9111.0" />
+      <point x="5686.295516414777" y="9111.0" />
+      <point x="-32.166666666666515" y="-126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.GameType">
+      <point x="54.235294117646845" y="-203.0" />
+      <point x="9198.937360712533" y="9111.0" />
+      <point x="9235.60951144631" y="9111.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPDTO" target="com.chess.spring.game.pvp.GamePvPStatus">
+      <point x="154.5" y="-214.0" />
+      <point x="12806.865761446308" y="7711.0" />
+      <point x="12850.865761446308" y="7711.0" />
+      <point x="12850.865761446308" y="4144.0" />
+      <point x="11213.530635462395" y="4144.0" />
+      <point x="52.75" y="104.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.King">
+      <point x="132.0" y="-136.0" />
+      <point x="6004.5470045100155" y="4164.0" />
+      <point x="6133.506941526623" y="4164.0" />
+      <point x="6133.506941526623" y="3418.0" />
+      <point x="6638.873114298396" y="3418.0" />
+      <point x="-64.15384615384573" y="203.5" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.GameType">
+      <point x="66.44444444444434" y="-302.5" />
+      <point x="8618.945704256768" y="4978.0" />
+      <point x="9198.276178112976" y="4978.0" />
+      <point x="-37.333333333333485" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.pieces.utils.PieceService">
+      <point x="-36.85714285714312" y="137.0" />
+      <point x="5866.337972357003" y="1876.0" />
+      <point x="3507.5608042247104" y="1876.0" />
+      <point x="104.78125" y="-191.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AbstractAttackMove" target="com.chess.spring.game.board.Board">
+      <point x="-145.0" y="93.0" />
+      <point x="2243.805500181012" y="216.0" />
+      <point x="859.98744316804" y="216.0" />
+      <point x="859.98744316804" y="2399.0" />
+      <point x="973.1124431680405" y="2399.0" />
+      <point x="973.1124431680405" y="8469.0" />
+      <point x="3913.793556844829" y="8469.0" />
+      <point x="-123.77380952381009" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.FenService">
+      <point x="-258.34375" y="-280.0" />
+      <point x="11943.865761446308" y="9081.0" />
+      <point x="11700.318886446308" y="9081.0" />
+      <point x="11700.318886446308" y="4708.0" />
+      <point x="6007.2970045100155" y="4708.0" />
+      <point x="134.75" y="136.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.moves.simple.castle.QueenSideCastleMove">
+      <point x="-245.14285714285688" y="-82.0" />
+      <point x="4464.144623557635" y="4778.0" />
+      <point x="4525.3856949862065" y="4778.0" />
+      <point x="4525.3856949862065" y="4104.0" />
+      <point x="4211.78152831954" y="4104.0" />
+      <point x="55.375" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="-57.75" y="136.0" />
+      <point x="5814.7970045100155" y="4858.0" />
+      <point x="1668.1418134376217" y="4858.0" />
+      <point x="1668.1418134376217" y="6525.0" />
+      <point x="1731.9662144667268" y="6525.0" />
+      <point x="97.71428571428623" y="-159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.pieces.Pawn">
+      <point x="60.30769230769238" y="-181.0" />
+      <point x="7306.266786171685" y="5743.0" />
+      <point x="7879.411272717298" y="5743.0" />
+      <point x="7879.411272717298" y="4164.0" />
+      <point x="7961.911272717298" y="4164.0" />
+      <point x="7961.911272717298" y="1626.0" />
+      <point x="2294.038220191098" y="1626.0" />
+      <point x="141.64705882352973" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-159.71428571428532" y="159.0" />
+      <point x="3198.606099151908" y="1726.0" />
+      <point x="211.0" y="1726.0" />
+      <point x="211.0" y="2399.0" />
+      <point x="90.0" y="2399.0" />
+      <point x="90.0" y="10412.0" />
+      <point x="167.0" y="10412.0" />
+      <point x="-103.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.board.Board">
+      <point x="-433.8823529411766" y="-203.0" />
+      <point x="8710.81971365371" y="9081.0" />
+      <point x="4125.379866368639" y="9081.0" />
+      <point x="87.8125" y="236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.pieces.Queen">
+      <point x="180.92307692307713" y="-181.0" />
+      <point x="7426.88217078707" y="5813.0" />
+      <point x="7961.911272717298" y="5813.0" />
+      <point x="7961.911272717298" y="4998.0" />
+      <point x="8044.411272717298" y="4998.0" />
+      <point x="8044.411272717298" y="1556.0" />
+      <point x="6353.195115214146" y="1556.0" />
+      <point x="86.0" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="61.42857142857156" y="137.0" />
+      <point x="6328.623686642719" y="1566.0" />
+      <point x="8033.411272717298" y="1566.0" />
+      <point x="8033.411272717298" y="4988.0" />
+      <point x="7950.911272717298" y="4988.0" />
+      <point x="7950.911272717298" y="5803.0" />
+      <point x="7409.651401556301" y="5803.0" />
+      <point x="163.69230769230762" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="332.15625" y="-280.0" />
+      <point x="12534.365761446308" y="9081.0" />
+      <point x="12971.865761446308" y="9081.0" />
+      <point x="12971.865761446308" y="4628.0" />
+      <point x="11392.800420537218" y="4628.0" />
+      <point x="113.09090909090901" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.moves.simple.MoveImpl">
+      <point x="-86.0" y="-137.0" />
+      <point x="6181.195115214146" y="1008.0" />
+      <point x="2672.8317485025573" y="1008.0" />
+      <point x="103.63636363636397" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvERepository" target="com.chess.spring.game.pve.GamePvEStatus">
+      <point x="-122.25" y="-37.0" />
+      <point x="9514.959511446308" y="7691.0" />
+      <point x="9340.73451144631" y="7691.0" />
+      <point x="9340.73451144631" y="4144.0" />
+      <point x="9492.647302129062" y="4144.0" />
+      <point x="-28.800000000000182" y="81.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.AbstractPiece" target="com.chess.spring.game.board.Board">
+      <point x="-4.5" y="-214.0" />
+      <point x="266.0" y="10302.0" />
+      <point x="211.0" y="10302.0" />
+      <point x="211.0" y="9101.0" />
+      <point x="3949.754866368639" y="9101.0" />
+      <point x="-87.8125" y="236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEController" target="com.chess.spring.game.pve.GamePvEService">
+      <point x="-38.125" y="-115.0" />
+      <point x="10886.848190610972" y="9091.0" />
+      <point x="11004.676385971066" y="9091.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.moves.simple.attack.AttackMoveImpl">
+      <point x="110.57142857142844" y="137.0" />
+      <point x="6013.766543785576" y="1536.0" />
+      <point x="10361.906677129062" y="1536.0" />
+      <point x="10361.906677129062" y="3398.0" />
+      <point x="8143.411272717298" y="3398.0" />
+      <point x="8143.411272717298" y="4968.0" />
+      <point x="8104.911272717298" y="4968.0" />
+      <point x="8104.911272717298" y="5863.0" />
+      <point x="7784.159093863993" y="5863.0" />
+      <point x="7784.159093863993" y="10121.0" />
+      <point x="7769.109093863993" y="10121.0" />
+      <point x="61.649999999999636" y="-70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="325.4117647058829" y="-203.0" />
+      <point x="9470.113831300769" y="9061.0" />
+      <point x="10819.676385971066" y="9061.0" />
+      <point x="10819.676385971066" y="5028.0" />
+      <point x="11110.073147809946" y="5028.0" />
+      <point x="-169.63636363636306" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="-479.78125" y="-280.0" />
+      <point x="11722.428261446308" y="9111.0" />
+      <point x="11667.318886446308" y="9111.0" />
+      <point x="11667.318886446308" y="6595.0" />
+      <point x="7447.559093863993" y="6595.0" />
+      <point x="201.60000000000036" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.GameEndType">
+      <point x="0.0" y="-203.0" />
+      <point x="9144.702066594886" y="9111.0" />
+      <point x="9124.85951144631" y="9111.0" />
+      <point x="9124.85951144631" y="4968.0" />
+      <point x="8919.822302129061" y="4968.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvE" target="com.chess.spring.game.Game">
+      <point x="228.0" y="-181.0" />
+      <point x="9921.23451144631" y="7153.0" />
+      <point x="9646.73451144631" y="7153.0" />
+      <point x="9646.73451144631" y="4144.0" />
+      <point x="9775.697302129061" y="4144.0" />
+      <point x="-21.0" y="15.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.player.WhitePlayer">
+      <point x="163.42857142857156" y="-82.0" />
+      <point x="4872.716052129064" y="4818.0" />
+      <point x="5017.677956890968" y="4818.0" />
+      <point x="-119.16666666666697" y="82.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.Transition" target="com.chess.spring.game.board.Board">
+      <point x="-160.83333333333348" y="-126.0" />
+      <point x="5557.628849748111" y="9111.0" />
+      <point x="4055.129866368639" y="9111.0" />
+      <point x="17.5625" y="236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.King" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="104.25" y="-203.5" />
+      <point x="6807.276960452242" y="2821.0" />
+      <point x="6716.128849748111" y="2821.0" />
+      <point x="6716.128849748111" y="978.0" />
+      <point x="6382.685893398904" y="978.0" />
+      <point x="21.888888888888687" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEServiceImpl" target="com.chess.spring.game.GameService">
+      <point x="-162.70588235294144" y="-203.0" />
+      <point x="8981.996184241943" y="9031.0" />
+      <point x="8436.473482034546" y="9031.0" />
+      <point x="8436.473482034546" y="5963.0" />
+      <point x="8618.945704256768" y="5963.0" />
+      <point x="66.44444444444434" y="302.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.board.Board">
+      <point x="12.285714285714675" y="137.0" />
+      <point x="6279.480829499862" y="1956.0" />
+      <point x="6329.852179621861" y="1956.0" />
+      <point x="6329.852179621861" y="4888.0" />
+      <point x="5852.011290224301" y="4888.0" />
+      <point x="5852.011290224301" y="5883.0" />
+      <point x="5758.285099748111" y="5883.0" />
+      <point x="5758.285099748111" y="6455.0" />
+      <point x="5524.142242605254" y="6455.0" />
+      <point x="5524.142242605254" y="8449.0" />
+      <point x="4147.960223511496" y="8449.0" />
+      <point x="110.39285714285688" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.board.BoardUtils">
+      <point x="-137.15476190476238" y="-236.0" />
+      <point x="3900.4126044638765" y="8489.0" />
+      <point x="709.11244316804" y="8489.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.moves.MoveStatus">
+      <point x="-190.66666666666697" y="-258.0" />
+      <point x="5228.16571016436" y="3368.0" />
+      <point x="5908.006941526623" y="3368.0" />
+      <point x="-32.5" y="59.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.board.Board">
+      <point x="-553.59375" y="-280.0" />
+      <point x="11648.615761446308" y="9001.0" />
+      <point x="4160.504866368639" y="9001.0" />
+      <point x="122.9375" y="236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvERepository" target="com.chess.spring.game.pve.GamePvE">
+      <point x="122.25" y="-37.0" />
+      <point x="9759.459511446308" y="7711.0" />
+      <point x="9693.23451144631" y="7711.0" />
+      <point x="0.0" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.MoveImpl" target="com.chess.spring.game.board.BoardService">
+      <point x="-77.72727272727207" y="70.5" />
+      <point x="2491.4681121389212" y="1008.0" />
+      <point x="1251.69835732387" y="1008.0" />
+      <point x="1251.69835732387" y="1606.0" />
+      <point x="253.0" y="1606.0" />
+      <point x="253.0" y="9801.0" />
+      <point x="2207.8750000000114" y="9801.0" />
+      <point x="-115.66666666666606" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.board.Board">
+      <point x="-61.42857142857156" y="159.0" />
+      <point x="3296.8918134376217" y="1766.0" />
+      <point x="1854.3201105706225" y="1766.0" />
+      <point x="1854.3201105706225" y="2449.0" />
+      <point x="1742.9632420090502" y="2449.0" />
+      <point x="1742.9632420090502" y="4064.0" />
+      <point x="1807.7519287524406" y="4064.0" />
+      <point x="1807.7519287524406" y="8359.0" />
+      <point x="3987.3887949400673" y="8359.0" />
+      <point x="-50.17857142857156" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.Queen">
+      <point x="-72.75" y="-48.0" />
+      <point x="636.36244316804" y="7651.0" />
+      <point x="656.7619047619046" y="7651.0" />
+      <point x="656.7619047619046" y="2459.0" />
+      <point x="3127.516161367568" y="2459.0" />
+      <point x="3127.516161367568" y="1896.0" />
+      <point x="6107.480829499862" y="1896.0" />
+      <point x="-159.71428571428532" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="152.8888888888887" y="-115.0" />
+      <point x="2305.280050256457" y="1098.0" />
+      <point x="6273.241448954459" y="1098.0" />
+      <point x="-87.55555555555566" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.Bishop">
+      <point x="-121.25" y="-48.0" />
+      <point x="587.86244316804" y="7641.0" />
+      <point x="645.7619047619046" y="7641.0" />
+      <point x="645.7619047619046" y="2449.0" />
+      <point x="920.4874431680405" y="2449.0" />
+      <point x="920.4874431680405" y="1826.0" />
+      <point x="5743.480829499862" y="1826.0" />
+      <point x="-159.71428571428532" y="137.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.AbstractCastleMove" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="193.04999999999927" y="126.0" />
+      <point x="4247.681528319539" y="3328.0" />
+      <point x="7675.263195794221" y="3328.0" />
+      <point x="7675.263195794221" y="4114.0" />
+      <point x="7928.911272717298" y="4114.0" />
+      <point x="7928.911272717298" y="4928.0" />
+      <point x="7972.911272717298" y="4928.0" />
+      <point x="7972.911272717298" y="5823.0" />
+      <point x="7491.459093863993" y="5823.0" />
+      <point x="7491.459093863993" y="10392.0" />
+      <point x="356.0" y="10392.0" />
+      <point x="85.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.MoveImpl" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="0.0" y="70.5" />
+      <point x="2569.1953848661933" y="1038.0" />
+      <point x="2524.436615913023" y="1038.0" />
+      <point x="2524.436615913023" y="7013.0" />
+      <point x="2717.8196979830946" y="7013.0" />
+      <point x="-22.060606060606005" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Bishop" target="com.chess.spring.game.moves.simple.MoveImpl">
+      <point x="-86.0" y="-137.0" />
+      <point x="5817.195115214146" y="1018.0" />
+      <point x="2646.9226575934654" y="1018.0" />
+      <point x="77.72727272727207" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPassingAttack" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-178.75" y="70.5" />
+      <point x="1097.4993479299478" y="938.0" />
+      <point x="193.0" y="938.0" />
+      <point x="193.0" y="1556.0" />
+      <point x="27.0" y="1556.0" />
+      <point x="27.0" y="10482.0" />
+      <point x="104.0" y="10482.0" />
+      <point x="-166.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvE.GamePvEBuilder" target="com.chess.spring.game.pve.GamePvE">
+      <point x="0.0" y="-269.0" />
+      <point x="10058.209511446308" y="7711.0" />
+      <point x="9830.034511446309" y="7711.0" />
+      <point x="136.80000000000018" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.GameEndStatus">
+      <point x="-184.53125" y="-280.0" />
+      <point x="12017.678261446308" y="9071.0" />
+      <point x="11711.318886446308" y="9071.0" />
+      <point x="11711.318886446308" y="4698.0" />
+      <point x="8465.387079499862" y="4698.0" />
+      <point x="48.0" y="37.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.GameEndType">
+      <point x="0.0" y="-302.5" />
+      <point x="8552.501259812325" y="4968.0" />
+      <point x="8875.155635462395" y="4968.0" />
+      <point x="-44.666666666666515" y="48.0" />
+    </edge>
+    <edge source="com.chess.spring.game.FenService" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="19.25" y="136.0" />
+      <point x="5891.7970045100155" y="4768.0" />
+      <point x="7129.355955975217" y="4768.0" />
+      <point x="7129.355955975217" y="5903.0" />
+      <point x="7133.959093863993" y="5903.0" />
+      <point x="-112.0" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.pieces.utils.PieceType">
+      <point x="86.0" y="-159.0" />
+      <point x="3444.3203848661933" y="1118.0" />
+      <point x="6317.019226732238" y="1118.0" />
+      <point x="-43.777777777777374" y="170.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceService" target="com.chess.spring.game.pieces.Rook">
+      <point x="-119.75" y="191.5" />
+      <point x="3283.0295542247104" y="2419.0" />
+      <point x="4308.298194986206" y="2419.0" />
+      <point x="28.66666666666606" y="-126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.GameService">
+      <point x="-405.96875" y="-280.0" />
+      <point x="11796.240761446308" y="9101.0" />
+      <point x="11678.318886446308" y="9101.0" />
+      <point x="11678.318886446308" y="5943.0" />
+      <point x="8751.834593145657" y="5943.0" />
+      <point x="199.33333333333348" y="302.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEDTO.GamePvEDTOBuilder" target="com.chess.spring.game.pve.GamePvEDTO">
+      <point x="0.0" y="-181.0" />
+      <point x="8817.396511039331" y="8489.0" />
+      <point x="8849.896511039331" y="8489.0" />
+      <point x="63.5" y="192.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.pvp.GamePvPStatus">
+      <point x="479.78125" y="-280.0" />
+      <point x="12681.990761446308" y="9101.0" />
+      <point x="12993.865761446308" y="9101.0" />
+      <point x="12993.865761446308" y="4134.0" />
+      <point x="11248.697302129061" y="4134.0" />
+      <point x="87.91666666666697" y="104.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvEDTO" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="-169.33333333333348" y="-192.0" />
+      <point x="8617.063177705997" y="7711.0" />
+      <point x="8623.942844779642" y="7711.0" />
+      <point x="8623.942844779642" y="6615.0" />
+      <point x="7357.959093863993" y="6615.0" />
+      <point x="112.0" y="181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="33.047619047618355" y="-115.0" />
+      <point x="2356.589285714296" y="9711.0" />
+      <point x="962.1124431680405" y="9711.0" />
+      <point x="962.1124431680405" y="7711.0" />
+      <point x="2711.8803040437006" y="7711.0" />
+      <point x="-28.0" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnJump" target="com.chess.spring.game.board.Board">
+      <point x="75.625" y="81.5" />
+      <point x="2928.3203848661933" y="998.0" />
+      <point x="6470.970885276206" y="998.0" />
+      <point x="6470.970885276206" y="4898.0" />
+      <point x="5940.463671176682" y="4898.0" />
+      <point x="5940.463671176682" y="5893.0" />
+      <point x="5846.737480700491" y="5893.0" />
+      <point x="5846.737480700491" y="6465.0" />
+      <point x="5612.594623557634" y="6465.0" />
+      <point x="5612.594623557634" y="8459.0" />
+      <point x="4154.6506997019715" y="8459.0" />
+      <point x="117.08333333333303" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="85.80000000000018" y="82.0" />
+      <point x="4795.087480700493" y="5963.0" />
+      <point x="5122.499385462396" y="5963.0" />
+      <point x="5122.499385462396" y="6365.0" />
+      <point x="6090.343135462396" y="6365.0" />
+      <point x="6090.343135462396" y="10332.0" />
+      <point x="302.0" y="10332.0" />
+      <point x="31.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.player.BlackPlayer">
+      <point x="-215.38461538461524" y="-181.0" />
+      <point x="7030.574478479378" y="5843.0" />
+      <point x="4852.287480700492" y="5843.0" />
+      <point x="143.0" y="82.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.AbstractMove" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="-165.45454545454595" y="-214.0" />
+      <point x="2574.4257585891546" y="7143.0" />
+      <point x="1717.1610196615306" y="7143.0" />
+      <point x="82.90909090909008" y="159.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPServiceImpl" target="com.chess.spring.game.GameEndType">
+      <point x="-110.71875" y="-280.0" />
+      <point x="12091.490761446308" y="9061.0" />
+      <point x="11722.318886446308" y="9061.0" />
+      <point x="11722.318886446308" y="4688.0" />
+      <point x="8964.48896879573" y="4688.0" />
+      <point x="44.666666666666515" y="48.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.pieces.Rook">
+      <point x="-8.615384615384755" y="-181.0" />
+      <point x="7237.343709248608" y="5703.0" />
+      <point x="7835.411272717298" y="5703.0" />
+      <point x="7835.411272717298" y="4124.0" />
+      <point x="7917.911272717298" y="4124.0" />
+      <point x="7917.911272717298" y="2781.0" />
+      <point x="4380.807998907776" y="2781.0" />
+      <point x="101.17647058823604" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.BlackPlayer" target="com.chess.spring.game.moves.simple.castle.KingSideCastleMove">
+      <point x="-81.71428571428532" y="-82.0" />
+      <point x="4627.573194986207" y="4768.0" />
+      <point x="4707.7606949862065" y="4768.0" />
+      <point x="-53.625" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.KingSideCastleMove" target="com.chess.spring.game.pieces.Rook">
+      <point x="143.0" y="-70.5" />
+      <point x="4904.3856949862065" y="2811.0" />
+      <point x="4320.102116554834" y="2811.0" />
+      <point x="40.47058823529369" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.player.WhitePlayer">
+      <point x="70.25" y="-236.0" />
+      <point x="4107.817366368639" y="8389.0" />
+      <point x="5040.225575938587" y="8389.0" />
+      <point x="5040.225575938587" y="6395.0" />
+      <point x="5274.368433081444" y="6395.0" />
+      <point x="5274.368433081444" y="4828.0" />
+      <point x="5208.344623557634" y="4828.0" />
+      <point x="71.5" y="82.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PlayerColor" target="com.chess.spring.game.player.AbstractPlayer">
+      <point x="-94.76923076923049" y="-181.0" />
+      <point x="7151.189863094763" y="5903.0" />
+      <point x="7140.355955975217" y="5903.0" />
+      <point x="7140.355955975217" y="4004.0" />
+      <point x="5609.4990434976935" y="4004.0" />
+      <point x="190.66666666666697" y="258.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPService" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="122.33333333333394" y="-136.0" />
+      <point x="13358.699094779642" y="8489.0" />
+      <point x="13247.365761446308" y="8489.0" />
+      <point x="13247.365761446308" y="4598.0" />
+      <point x="11505.891329628128" y="4598.0" />
+      <point x="226.18181818181802" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.GameService" target="com.chess.spring.game.moves.MoveDTO">
+      <point x="265.7777777777778" y="-302.5" />
+      <point x="8818.279037590102" y="5018.0" />
+      <point x="11053.527693264492" y="5018.0" />
+      <point x="-226.18181818181824" y="170.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.pieces.Pawn">
+      <point x="156.81818181818198" y="137.0" />
+      <point x="1840.0675297481298" y="878.0" />
+      <point x="2114.1689391453456" y="878.0" />
+      <point x="-38.222222222222626" y="-115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Knight" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="135.14285714285688" y="159.0" />
+      <point x="3493.46324200905" y="1596.0" />
+      <point x="8000.411272717298" y="1596.0" />
+      <point x="8000.411272717298" y="4958.0" />
+      <point x="7917.911272717298" y="4958.0" />
+      <point x="7917.911272717298" y="5773.0" />
+      <point x="7357.959093863993" y="5773.0" />
+      <point x="112.0" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.ErrorMove" target="com.chess.spring.game.moves.simple.AbstractMove">
+      <point x="-33.14285714285688" y="104.5" />
+      <point x="2923.8733042247113" y="4778.0" />
+      <point x="2914.4275277233364" y="4778.0" />
+      <point x="2914.4275277233364" y="7013.0" />
+      <point x="2750.9106070740045" y="7013.0" />
+      <point x="11.030303030303912" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Pawn" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-141.64705882352973" y="115.0" />
+      <point x="2010.7441025440385" y="1646.0" />
+      <point x="202.0" y="1646.0" />
+      <point x="202.0" y="2389.0" />
+      <point x="81.0" y="2389.0" />
+      <point x="81.0" y="10422.0" />
+      <point x="158.0" y="10422.0" />
+      <point x="-112.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.attack.AttackMoveImpl" target="com.chess.spring.game.moves.simple.attack.AbstractAttackMove">
+      <point x="184.94999999999982" y="-70.5" />
+      <point x="7892.409093863993" y="10101.0" />
+      <point x="7817.159093863993" y="10101.0" />
+      <point x="7817.159093863993" y="5893.0" />
+      <point x="8137.911272717298" y="5893.0" />
+      <point x="8137.911272717298" y="4998.0" />
+      <point x="8176.411272717298" y="4998.0" />
+      <point x="8176.411272717298" y="3428.0" />
+      <point x="10394.906677129062" y="3428.0" />
+      <point x="10394.906677129062" y="226.0" />
+      <point x="2533.805500181012" y="226.0" />
+      <point x="145.0" y="93.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pve.GamePvE" target="com.chess.spring.game.pve.GamePvEStatus">
+      <point x="0.0" y="-181.0" />
+      <point x="9693.23451144631" y="7163.0" />
+      <point x="9584.73451144631" y="7163.0" />
+      <point x="9584.73451144631" y="4144.0" />
+      <point x="9521.447302129061" y="4144.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.utils.PieceService" target="com.chess.spring.game.pieces.Pawn">
+      <point x="-224.53125" y="-191.5" />
+      <point x="3178.2483042247104" y="1696.0" />
+      <point x="2172.626455485215" y="1696.0" />
+      <point x="20.235294117646845" y="115.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.moves.ErrorMove">
+      <point x="-49.57142857142935" y="-115.0" />
+      <point x="2273.970238095248" y="9761.0" />
+      <point x="297.0" y="9761.0" />
+      <point x="297.0" y="4778.0" />
+      <point x="2857.5875899389976" y="4778.0" />
+      <point x="-99.42857142857065" y="104.5" />
+    </edge>
+    <edge source="com.chess.spring.game.board.Board" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-122.9375" y="236.0" />
+      <point x="3914.629866368639" y="9091.0" />
+      <point x="202.0" y="9091.0" />
+      <point x="202.0" y="10312.0" />
+      <point x="257.0" y="10312.0" />
+      <point x="-13.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Queen" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="135.14285714285688" y="137.0" />
+      <point x="6402.337972357003" y="1496.0" />
+      <point x="13450.365761446308" y="1496.0" />
+      <point x="13450.365761446308" y="10472.0" />
+      <point x="428.0" y="10472.0" />
+      <point x="157.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.player.AbstractPlayer" target="com.chess.spring.game.pieces.utils.PlayerColor">
+      <point x="228.80000000000018" y="258.0" />
+      <point x="5647.632376831027" y="3994.0" />
+      <point x="7151.355955975217" y="3994.0" />
+      <point x="7151.355955975217" y="5893.0" />
+      <point x="7168.420632325531" y="5893.0" />
+      <point x="-77.53846153846189" y="-181.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardService" target="com.chess.spring.game.moves.Transition">
+      <point x="66.09523809523853" y="-115.0" />
+      <point x="2389.636904761916" y="9771.0" />
+      <point x="5718.462183081444" y="9771.0" />
+      <point x="0.0" y="126.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.moves.simple.pawn.PawnAbstractMove">
+      <point x="-86.25" y="-137.0" />
+      <point x="1596.9993479299478" y="497.0" />
+      <point x="1757.6001430381552" y="497.0" />
+      <point x="-21.3125" y="70.5" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPService" target="com.chess.spring.game.pvp.GamePvPDTO">
+      <point x="-122.33333333333331" y="-136.0" />
+      <point x="13114.032428112976" y="8489.0" />
+      <point x="12884.115761446308" y="8489.0" />
+      <point x="231.75" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pieces.Rook" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="161.88235294117658" y="126.0" />
+      <point x="4441.5138812607165" y="2751.0" />
+      <point x="10339.906677129062" y="2751.0" />
+      <point x="10339.906677129062" y="3268.0" />
+      <point x="13004.865761446308" y="3268.0" />
+      <point x="13004.865761446308" y="10442.0" />
+      <point x="401.0" y="10442.0" />
+      <point x="130.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.pvp.GamePvPDTO.GamePvPDTOBuilder" target="com.chess.spring.game.pvp.GamePvPDTO">
+      <point x="0.0" y="-225.0" />
+      <point x="12685.865761446308" y="8489.0" />
+      <point x="12729.615761446308" y="8489.0" />
+      <point x="77.25" y="214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.board.BoardUtils" target="com.chess.spring.game.pieces.AbstractPiece">
+      <point x="-161.66666666666606" y="48.0" />
+      <point x="547.445776501374" y="8489.0" />
+      <point x="171.0" y="8489.0" />
+      <point x="171.0" y="10322.0" />
+      <point x="248.0" y="10322.0" />
+      <point x="-22.5" y="-214.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.castle.AbstractCastleMove" target="com.chess.spring.game.board.Board">
+      <point x="64.35000000000036" y="126.0" />
+      <point x="4118.98152831954" y="3358.0" />
+      <point x="4399.40652831954" y="3358.0" />
+      <point x="4399.40652831954" y="8299.0" />
+      <point x="4047.6030806543536" y="8299.0" />
+      <point x="10.035714285714675" y="-236.0" />
+    </edge>
+    <edge source="com.chess.spring.game.moves.simple.pawn.PawnPromotion" target="com.chess.spring.game.board.BoardBuilder">
+      <point x="0.0" y="137.0" />
+      <point x="1683.2493479299478" y="918.0" />
+      <point x="1692.6129842935838" y="918.0" />
+      <point x="1692.6129842935838" y="1606.0" />
+      <point x="1542.8203848661933" y="1606.0" />
+      <point x="1542.8203848661933" y="6575.0" />
+      <point x="1558.2519287524406" y="6575.0" />
+      <point x="-76.0" y="-159.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="6743.5" y="5635.499999999999" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

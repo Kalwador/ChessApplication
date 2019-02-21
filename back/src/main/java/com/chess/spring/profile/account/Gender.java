@@ -1,6 +1,6 @@
 package com.chess.spring.profile.account;
 
-public enum Gender {
+public enum Gender extends Account {
     MALE,
     FEMALE
 }

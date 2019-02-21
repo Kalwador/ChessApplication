@@ -29,7 +29,6 @@ public class AccountDTO {
                 .email(account.getAccountDetails().getEmail())
                 .age(account.getAge())
                 .avatar(account.getAvatar())
-                .isFirstLogin(account.isFirstLogin())
                 .firstName(account.getFirstName())
                 .lastName(account.getLastName())
                 .gender(account.getGender())
