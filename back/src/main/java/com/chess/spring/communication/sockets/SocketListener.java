@@ -1,7 +1,7 @@
 package com.chess.spring.communication.sockets;
 
-import com.chess.spring.exceptions.*;
 import com.chess.spring.communication.chat.ChatService;
+import com.chess.spring.exceptions.*;
 import com.chess.spring.game.pvp.GamePvPService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
-
-import static java.lang.String.format;
 
 @Slf4j
 @Controller

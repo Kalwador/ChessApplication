@@ -18,7 +18,7 @@ public class AccountDTO {
     private String lastName;
     private int age;
     private Gender gender;
-    private byte[] avatar;
+    private String avatar;
     private boolean isFirstLogin;
     private String nick;
     private StatisticsDTO statistics;

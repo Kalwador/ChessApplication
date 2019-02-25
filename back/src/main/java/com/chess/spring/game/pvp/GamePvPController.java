@@ -86,7 +86,7 @@ public class GamePvPController {
             @ApiResponse(code = 412, message = "You are not player in this game")
     })
     @GetMapping(value = "/{gameId}/legate")
-    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException {
+    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException, InvalidDataException {
         return gameService.getLegateMoves(gameId);
     }
 

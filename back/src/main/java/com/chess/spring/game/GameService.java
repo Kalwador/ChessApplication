@@ -1,6 +1,8 @@
 package com.chess.spring.game;
 
 import com.chess.spring.communication.event.UpdateStatisticsEvent;
+import com.chess.spring.exceptions.ExceptionMessages;
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.core.algorithms.AbstractAlgorithm;
 import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
@@ -9,11 +11,9 @@ import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.game.moves.Transition;
 import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.pieces.utils.PlayerColor;
-import com.chess.spring.exceptions.ExceptionMessages;
-import com.chess.spring.exceptions.InvalidDataException;
-import com.chess.spring.profile.account.Account;
 import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.game.pvp.GamePvPStatus;
+import com.chess.spring.profile.account.Account;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +95,7 @@ public class GameService {
         return new Random(System.currentTimeMillis()).nextInt() > 0.5 ? PlayerColor.WHITE : PlayerColor.BLACK;
     }
 
-    public Board map(String fenBoard) {
+    public Board map(String fenBoard) throws InvalidDataException {
         return FenService.parse(fenBoard);
     }
 
@@ -134,7 +134,7 @@ public class GameService {
         return null;
     }
 
-    public AbstractMove getBestMove(Board board, int level) {
+    public AbstractMove getBestMove(Board board, int level) throws InvalidDataException {
         return algorithm.getBestMove(board, level);
     }
 

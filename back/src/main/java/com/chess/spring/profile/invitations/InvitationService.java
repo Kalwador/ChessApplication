@@ -1,7 +1,6 @@
 package com.chess.spring.profile.invitations;
 
 import com.chess.spring.exceptions.ResourceNotFoundException;
-import com.chess.spring.game.pvp.GamePvPDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,9 +1,9 @@
 package com.chess.spring.communication.chat;
 
 import com.chess.spring.communication.sockets.SocketMessageDTO;
-import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.exceptions.ExceptionMessages;
 import com.chess.spring.exceptions.ResourceNotFoundException;
+import com.chess.spring.game.pvp.GamePvP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class ChatServiceImpl implements ChatService {
     public Chat buildChat(GamePvP game) {
         Chat chat = Chat.builder()
                 .game(game)
-                .conversation("ala")
+                .conversation("")
                 .build();
         return chatRepository.save(chat);
     }

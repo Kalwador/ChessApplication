@@ -1,10 +1,10 @@
 package com.chess.spring.profile.account;
 
 import com.chess.spring.exceptions.ExceptionMessages;
-import com.chess.spring.profile.account.details.AccountDetails;
-import com.chess.spring.profile.register.RegisterDTO;
 import com.chess.spring.exceptions.ResourceNotFoundException;
+import com.chess.spring.profile.account.details.AccountDetails;
 import com.chess.spring.profile.account.details.AccountDetailsRepository;
+import com.chess.spring.profile.register.RegisterDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,9 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Base64;
 
 @Slf4j
@@ -134,26 +132,37 @@ public class AccountServiceImpl implements AccountService {
     public void updateAvatar(MultipartFile file) throws ResourceNotFoundException {
         try {
             ByteArrayInputStream input = new ByteArrayInputStream(file.getBytes());
-            Image img = ImageIO.read(input);
+            Image imgFull = ImageIO.read(input);
 
-            BufferedImage buf = ImageUtils.toBufferedImage(img);
-            BufferedImage bufferedImage = ImageUtils.resizeTrick(buf, 100, 100);
+            BufferedImage bufFull = ImageUtils.toBufferedImage(imgFull);
+            BufferedImage bufferedImageFull = ImageUtils.resizeTrick(bufFull, ((BufferedImage) imgFull).getWidth(), ((BufferedImage) imgFull).getHeight());
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "jpg", baos);
-            baos.flush();
-            byte[] imageInByte = baos.toByteArray();
-            baos.close();
-            String thumbnail = Base64.getEncoder().encodeToString(imageInByte);
+            ByteArrayOutputStream baosFull = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImageFull, "png", baosFull);
+            baosFull.flush();
+            byte[] imageInByteFull = baosFull.toByteArray();
+            String base64Imagef = Base64.getEncoder().encodeToString(imageInByteFull);
 
             Account account = this.getCurrent();
-            account.setAvatar(file.getBytes());
-            account.setThumbnail(thumbnail);
+            account.setAvatar(base64Imagef);
+
+            BufferedImage bufferedImage = ImageUtils.resizeTrick(bufFull, 100, 100);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            Base64.getEncoder().encodeToString(imageInByte);
+
+            account.setThumbnail(base64Imagef);
             accountRepository.save(account);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Image not found" + e);
         } catch (IOException ioe) {
-            log.error("Image to thumbnail failed ");
+            System.out.println("Exception while reading the Image " + ioe);
         }
     }
+
 
     public Account findPlayerByNickOrName(String playerNick) throws ResourceNotFoundException {
         return accountRepository.findByNick(playerNick).

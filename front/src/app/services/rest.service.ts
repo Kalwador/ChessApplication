@@ -1,6 +1,7 @@
 import {Observable} from 'rxjs/internal/Observable';
 import {Injectable} from '@angular/core';
 import {Http, RequestOptions} from '@angular/http';
+import {Option} from "@angular/cli/models/command";
 
 @Injectable({
     providedIn: 'root',
@@ -27,7 +28,7 @@ export class RestService {
         return this.http.delete(this.basicPath + path, options);
     }
 
-    public putFile(path: string, body: any, options: RequestOptions): any {
+    public putFile(path: string, body: any, options: any): Observable<any> {
         return this.http.put(this.basicPath + path, body, options);
     }
 }

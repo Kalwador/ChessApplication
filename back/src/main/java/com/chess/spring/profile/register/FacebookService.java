@@ -1,9 +1,9 @@
 package com.chess.spring.profile.register;
 
+import com.chess.spring.profile.account.AccountRepository;
+import com.chess.spring.profile.account.details.AccountDetailsRepository;
 import com.chess.spring.security.token.AccessToken;
 import com.chess.spring.security.token.AccessTokenData;
-import com.chess.spring.profile.account.details.AccountDetailsRepository;
-import com.chess.spring.profile.account.AccountRepository;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

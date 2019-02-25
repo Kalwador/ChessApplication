@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="article-image">
-                    <img [src]="article.img">
+                    <img [src]="article.photo" style="height: 190px; min-width: 190px; max-width: 250px; margin-left: 30px">
                 </div>
             </div>
             <div class="col-sm-8">
                 <div class="article-header">
-                    {{article.header}}
+                    {{article.title}}
                 </div>
                 <div class="article-text">
-                    {{article.text}}
+                    {{article.content}}
                 </div>
             </div>
         </div>

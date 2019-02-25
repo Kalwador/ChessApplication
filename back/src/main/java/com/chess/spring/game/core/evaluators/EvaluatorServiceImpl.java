@@ -1,13 +1,14 @@
 package com.chess.spring.game.core.evaluators;
 
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.core.analysers.KingAnalyserService;
 import com.chess.spring.game.core.analysers.PawnAnalyserService;
 import com.chess.spring.game.core.analysers.RookAnalyserService;
-import com.chess.spring.game.player.AbstractPlayer;
 import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.pieces.AbstractPiece;
 import com.chess.spring.game.pieces.utils.PieceDistance;
+import com.chess.spring.game.player.AbstractPlayer;
 import org.springframework.stereotype.Service;
 
 import static com.chess.spring.game.core.evaluators.BonusPoints.*;
@@ -28,11 +29,11 @@ public class EvaluatorServiceImpl implements EvaluatorService {
     }
 
     @Override
-    public int evaluate(Board board, int level) {
+    public int evaluate(Board board, int level) throws InvalidDataException {
         return score(board, board.whitePlayer(), level) - score(board, board.blackPlayer(), level);
     }
 
-    private int score(Board board, AbstractPlayer player, int level) {
+    private int score(Board board, AbstractPlayer player, int level) throws InvalidDataException {
         return mobility(player) +
                 kingThreats(player, level) +
                 attacks(player) + castle(player) +
@@ -96,7 +97,7 @@ public class EvaluatorServiceImpl implements EvaluatorService {
         return pawnAnalyserService.pawnStructureScore(player);
     }
 
-    private int kingSafety(AbstractPlayer player) {
+    private int kingSafety(AbstractPlayer player) throws InvalidDataException {
         PieceDistance pieceDistance = kingAnalyserService.calculateKingTropism(player);
         return ((pieceDistance.getEnemyPiece().getPieceValue() / 100) * pieceDistance.getDistance());
     }

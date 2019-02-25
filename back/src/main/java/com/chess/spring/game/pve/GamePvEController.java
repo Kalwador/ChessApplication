@@ -48,7 +48,7 @@ public class GamePvEController {
     })
     @PostMapping(value = "/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long startNewGame(@RequestBody @Valid GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
+    public Long startNewGame(@RequestBody @Valid GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException, InvalidDataException {
         return gameService.startNewGame(gamePvEDTO);
     }
 
@@ -80,7 +80,7 @@ public class GamePvEController {
             @ApiResponse(code = 404, message = "Game not found, wrong id")
     })
     @GetMapping(value = "/{gameId}/legate")
-    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException {
+    public List<MoveDTO> getLegateMoves(@PathVariable Long gameId) throws ResourceNotFoundException, InvalidDataException {
         return gameService.getLegateMoves(gameId);
     }
 

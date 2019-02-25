@@ -2,10 +2,11 @@ package com.chess.spring.game.board;
 
 import com.chess.spring.game.core.analysers.BoardConfiguration;
 import com.chess.spring.game.moves.ErrorMove;
+import com.chess.spring.game.moves.simple.AbstractMove;
+import com.chess.spring.game.pieces.AbstractPiece;
+import com.chess.spring.game.pieces.Pawn;
 import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.game.player.AbstractPlayer;
-import com.chess.spring.game.moves.simple.AbstractMove;
-import com.chess.spring.game.pieces.*;
 import com.chess.spring.game.player.BlackPlayer;
 import com.chess.spring.game.player.WhitePlayer;
 import com.google.common.collect.Iterables;

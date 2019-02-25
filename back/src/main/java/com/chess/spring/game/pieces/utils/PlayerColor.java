@@ -1,11 +1,11 @@
 package com.chess.spring.game.pieces.utils;
 
+import com.chess.spring.game.GameService;
 import com.chess.spring.game.core.analysers.BoardConfiguration;
 import com.chess.spring.game.pieces.*;
 import com.chess.spring.game.player.AbstractPlayer;
 import com.chess.spring.game.player.BlackPlayer;
 import com.chess.spring.game.player.WhitePlayer;
-import com.chess.spring.game.GameService;
 
 
 public enum PlayerColor {

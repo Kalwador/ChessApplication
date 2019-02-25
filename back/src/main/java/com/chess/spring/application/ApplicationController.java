@@ -1,6 +1,5 @@
-package com.chess.spring.application.backlog;
+package com.chess.spring.application;
 
-import com.chess.spring.ApplicationService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,8 @@ public class ApplicationController {
     }
 
     @GetMapping(path = "/info")
-    public ApplicationInfo info() {
+    public ApplicationInfoDTO info() {
         return this.applicationService.getInfo();
     }
+
 }

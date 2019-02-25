@@ -22,13 +22,11 @@ export class InvitationPanelComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        console.log(this.invitation);
     }
 
     accept() {
-        console.log('1');
         this.invitationService.accept(this.invitation.game.id).subscribe(data => {
-            console.log('2');
             this.router.navigate(['/game/play/pvp', this.invitation.game.id]);
         });
     }

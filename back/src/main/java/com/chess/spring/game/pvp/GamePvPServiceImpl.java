@@ -1,23 +1,19 @@
 package com.chess.spring.game.pvp;
 
-import com.chess.spring.communication.sockets.SocketEmitter;
 import com.chess.spring.communication.chat.ChatDTO;
-import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
-import com.chess.spring.game.GameEndStatus;
-import com.chess.spring.game.GameService;
-import com.chess.spring.game.GameType;
-import com.chess.spring.game.moves.MoveDTO;
+import com.chess.spring.communication.chat.ChatService;
+import com.chess.spring.communication.sockets.SocketEmitter;
 import com.chess.spring.communication.sockets.SocketMessageDTO;
+import com.chess.spring.communication.sockets.SocketMessageType;
+import com.chess.spring.exceptions.*;
+import com.chess.spring.game.*;
 import com.chess.spring.game.board.Board;
+import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
+import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.profile.account.Account;
-import com.chess.spring.exceptions.*;
-import com.chess.spring.game.GameEndType;
-import com.chess.spring.communication.sockets.SocketMessageType;
 import com.chess.spring.profile.account.AccountRepository;
 import com.chess.spring.profile.account.AccountService;
-import com.chess.spring.communication.chat.ChatService;
-import com.chess.spring.game.FenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,9 +23,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
-import java.util.*;
-
-import static java.lang.String.format;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -170,7 +166,7 @@ public class GamePvPServiceImpl extends GameService implements GamePvPService {
 
 
     @Override
-    public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException, PreconditionFailedException {
+    public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException, PreconditionFailedException, InvalidDataException {
         checkIsPlayerInGame(getById(gameId), accountService.getCurrent());
         Board board = FenService.parse(getBoardById(gameId));
         return MoveDTO.map(board.getAllLegalMoves());

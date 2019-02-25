@@ -37,19 +37,14 @@ class MailServiceImpl implements MailService {
      * @param subject   message subject
      */
     @Override
-    public void sendMessage(String recipient, String content, String subject) {
+    public void sendMessage(String recipient, String content, String subject) throws MessagingException {
         Properties prop = getPropertiesOfMailingSystem();
 
         Session session = Session.getDefaultInstance(prop);
         MimeMessage message = new MimeMessage(session);
-        try {
             setMessageDetails(recipient, subject, message);
             message.setContent(content, "text/html; charset=utf-8");
             send(message, session);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            log.error("messagign exception message = " + recipient + content + subject);
-        }
     }
 
     /**
@@ -99,8 +94,7 @@ class MailServiceImpl implements MailService {
      * @param msng    sending message
      * @param session default object from javax mailing library
      */
-    private void send(MimeMessage msng, Session session) {
-        try {
+    private void send(MimeMessage msng, Session session) throws MessagingException {
             Transport transport = session.getTransport("smtp");
             transport.connect(mailingSystemConfiguration.getHost(),
                     mailingSystemConfiguration.getEmail(),
@@ -108,10 +102,6 @@ class MailServiceImpl implements MailService {
             transport.sendMessage(msng, msng.getAllRecipients());
             transport.close();
             log.info("Message sent succesfully");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            log.error("Message could not be sent " + e.getMessage());
-        }
     }
 
     /**

@@ -2,9 +2,7 @@ package com.chess.spring.profile.invitations;
 
 import com.chess.spring.exceptions.ExceptionMessages;
 import com.chess.spring.exceptions.ResourceNotFoundException;
-import com.chess.spring.game.Game;
 import com.chess.spring.game.pvp.GamePvP;
-import com.chess.spring.game.pvp.GamePvPDTO;
 import com.chess.spring.game.pvp.GamePvPService;
 import com.chess.spring.profile.account.Account;
 import com.chess.spring.profile.account.AccountService;
@@ -13,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.beans.Transient;
-import java.util.List;
 
 import static com.chess.spring.profile.invitations.InvitationDTO.map;
 

@@ -1,14 +1,13 @@
 package com.chess.spring.game.pve;
 
-import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
+import com.chess.spring.exceptions.*;
 import com.chess.spring.game.*;
 import com.chess.spring.game.board.Board;
+import com.chess.spring.game.core.algorithms.AlphaBetaAlgorithm;
 import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.profile.account.Account;
-import com.chess.spring.exceptions.*;
-import com.chess.spring.game.GameEndType;
 import com.chess.spring.profile.account.AccountRepository;
 import com.chess.spring.profile.account.AccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +57,7 @@ public class GamePvEServiceImpl extends GameService implements GamePvEService {
     }
 
     @Override
-    public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException {
+    public Long startNewGame(GamePvEDTO gamePvEDTO) throws ResourceNotFoundException, DataMissmatchException, InvalidDataException {
         Account account = accountService.getCurrent();
         if (gamePvEDTO.getLevel() < 1 || gamePvEDTO.getLevel() > 5) {
             throw new DataMissmatchException(ExceptionMessages.GAME_LEVEL_NOT_VALID.getInfo());
@@ -71,7 +70,7 @@ public class GamePvEServiceImpl extends GameService implements GamePvEService {
         return game.getId();
     }
 
-    private GamePvE buildGame(GamePvEDTO gamePvEDTO, Account account) {
+    private GamePvE buildGame(GamePvEDTO gamePvEDTO, Account account) throws InvalidDataException {
         Board board = Board.createStandardBoard();
         PlayerColor color = gamePvEDTO.getColor();
         if (gamePvEDTO.getColor().equals(PlayerColor.RANDOM)) {
@@ -186,7 +185,7 @@ public class GamePvEServiceImpl extends GameService implements GamePvEService {
     }
 
     @Override
-    public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException {
+    public List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException, InvalidDataException {
         Board board = FenService.parse(getBoardById(gameId));
         return MoveDTO.map(board.getAllLegalMoves());
     }

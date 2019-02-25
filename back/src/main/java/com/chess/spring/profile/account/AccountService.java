@@ -1,8 +1,8 @@
 package com.chess.spring.profile.account;
 
-import com.chess.spring.profile.register.RegisterDTO;
-import com.chess.spring.profile.account.details.AccountDetails;
 import com.chess.spring.exceptions.ResourceNotFoundException;
+import com.chess.spring.profile.account.details.AccountDetails;
+import com.chess.spring.profile.register.RegisterDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;

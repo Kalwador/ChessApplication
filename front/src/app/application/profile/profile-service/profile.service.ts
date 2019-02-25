@@ -36,11 +36,15 @@ export class ProfileService {
         return this.appService.put(this.path + "/details", details);
     }
 
-    updateAvatar(file: File): any {
+    updateAvatar(file: File): Observable<any> {
         return this.appService.putFile(this.path + "/avatar", file);
     }
 
     checkExistByNick(nick: string) {
         return this.appService.getText(this.path + "/exist/" + nick);
+    }
+
+    isActivated(username: string){
+        return this.appService.getUnauthorized('/register/activate/' + username);
     }
 }

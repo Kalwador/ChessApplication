@@ -25,4 +25,8 @@ export class RegisterService {
         }));
         return null;
     }
+
+    public activate(username: string, code: string): Observable<any> {
+        return this.appService.getUnauthorized(this.path + '/activate/' + username + '/' + code);}
+
 }

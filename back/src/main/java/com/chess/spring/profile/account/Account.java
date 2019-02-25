@@ -7,7 +7,6 @@ import com.chess.spring.profile.invitations.Invitation;
 import com.chess.spring.profile.statistics.Statistics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -46,11 +45,10 @@ public class Account implements Serializable {
     private String nick;
 
     @Lob
-    @Column(name = "avatar", length = 5120)
-    @Type(type = "org.hibernate.type.BinaryType")
-    private byte[] avatar;
+    @Column(length = 5120)
+    private String avatar;
 
-    @Column(name = "thumbnail", length = 1012)
+    @Column(length = 5120)
     private String thumbnail;
 
     private Integer age;

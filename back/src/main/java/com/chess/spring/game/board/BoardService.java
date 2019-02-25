@@ -2,13 +2,16 @@ package com.chess.spring.game.board;
 
 import com.chess.spring.game.core.analysers.BoardConfiguration;
 import com.chess.spring.game.moves.ErrorMove;
-import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.moves.Transition;
-import com.chess.spring.game.pieces.*;
+import com.chess.spring.game.moves.simple.AbstractMove;
+import com.chess.spring.game.pieces.AbstractPiece;
+import com.chess.spring.game.pieces.King;
 import com.chess.spring.game.pieces.utils.PieceType;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class BoardService {

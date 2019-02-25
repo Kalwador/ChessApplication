@@ -1,4 +1,4 @@
-package com.chess.spring.application.backlog;
+package com.chess.spring.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationInfo {
+public class ApplicationInfoDTO {
     private String projectName;
     private String projectDescription;
     private String version;

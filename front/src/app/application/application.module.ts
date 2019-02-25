@@ -9,6 +9,7 @@ import {TopBarComponent} from './top-bar/top-bar.component';
 import {LoginModalComponent} from './top-bar/login/login-modal.component';
 import {FooterComponent} from './footer/footer.component';
 import {CommonModule} from '@angular/common';
+import {RegisterService} from "../register/register-service/register.service";
 
 const routes: Routes = [
     {

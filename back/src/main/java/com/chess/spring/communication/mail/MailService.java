@@ -1,5 +1,6 @@
 package com.chess.spring.communication.mail;
 
+import javax.mail.MessagingException;
 import java.io.File;
 
 /**
@@ -13,7 +14,7 @@ interface MailService {
      * @param content   message content
      * @param subject   message subject
      */
-    public void sendMessage(String recipient, String content, String subject);
+    public void sendMessage(String recipient, String content, String subject) throws MessagingException;
 
     /**
      * Message with attachment

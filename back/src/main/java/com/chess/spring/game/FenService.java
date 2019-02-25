@@ -1,11 +1,17 @@
 package com.chess.spring.game;
 
-import com.chess.spring.game.board.BoardBuilder;
-import com.chess.spring.game.core.analysers.BoardConfiguration;
-import com.chess.spring.game.pieces.utils.PlayerColor;
+import com.chess.spring.exceptions.ExceptionMessages;
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.game.board.Board;
+import com.chess.spring.game.board.BoardBuilder;
 import com.chess.spring.game.board.BoardService;
+import com.chess.spring.game.core.analysers.BoardConfiguration;
 import com.chess.spring.game.pieces.*;
+import com.chess.spring.game.pieces.utils.PlayerColor;
+import com.google.common.primitives.Chars;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class FenService {
     public static String parse(Board board) {
@@ -16,15 +22,16 @@ public class FenService {
                 "0 1";
     }
 
-    public static Board parse(String fen) {
-        String[] fenPartitions = fen.trim().split(" ");
+    public static Board parse(String fen) throws InvalidDataException {
+        String[] fenParts = fen.trim().split(" ");
         BoardBuilder builder = new BoardBuilder();
-        boolean whiteKingSideCastle = whiteKingSideCastle(fenPartitions[2]);
-        boolean whiteQueenSideCastle = whiteQueenSideCastle(fenPartitions[2]);
-        boolean blackKingSideCastle = blackKingSideCastle(fenPartitions[2]);
-        boolean blackQueenSideCastle = blackQueenSideCastle(fenPartitions[2]);
-        String gameConfiguration = fenPartitions[0];
-        char[] boardTiles = gameConfiguration.replaceAll("/", "")
+        boolean whiteKingSideCastle = whiteKingSideCastle(fenParts[2]);
+        boolean whiteQueenSideCastle = whiteQueenSideCastle(fenParts[2]);
+        boolean blackKingSideCastle = blackKingSideCastle(fenParts[2]);
+        boolean blackQueenSideCastle = blackQueenSideCastle(fenParts[2]);
+        String gameConfiguration = fenParts[0];
+        List<Character> boardTiles = new LinkedList<>(Chars.asList(gameConfiguration
+                .replaceAll("/", "")
                 .replaceAll("8", "--------")
                 .replaceAll("7", "-------")
                 .replaceAll("6", "------")
@@ -33,76 +40,63 @@ public class FenService {
                 .replaceAll("3", "---")
                 .replaceAll("2", "--")
                 .replaceAll("1", "-")
-                .toCharArray();
-        int i = 0;
-        while (i < boardTiles.length) {
-            switch (boardTiles[i]) {
+                .toCharArray()));
+        for (int i = 0; i < boardTiles.size(); i++) {
+            switch (boardTiles.get(i)) {
                 case 'r':
                     builder.setPiece(new Rook(PlayerColor.BLACK, i));
-                    i++;
-                    break;
+                    continue;
                 case 'n':
                     builder.setPiece(new Knight(PlayerColor.BLACK, i));
-                    i++;
-                    break;
+                    continue;
                 case 'b':
                     builder.setPiece(new Bishop(PlayerColor.BLACK, i));
-                    i++;
-                    break;
+                    continue;
                 case 'q':
                     builder.setPiece(new Queen(PlayerColor.BLACK, i));
-                    i++;
-                    break;
+                    continue;
                 case 'k':
                     builder.setPiece(new King(PlayerColor.BLACK, i, blackKingSideCastle, blackQueenSideCastle));
-                    i++;
-                    break;
+                    continue;
                 case 'p':
                     builder.setPiece(new Pawn(PlayerColor.BLACK, i));
-                    i++;
-                    break;
+                    continue;
                 case 'R':
                     builder.setPiece(new Rook(PlayerColor.WHITE, i));
-                    i++;
-                    break;
+                    continue;
                 case 'N':
                     builder.setPiece(new Knight(PlayerColor.WHITE, i));
-                    i++;
-                    break;
+                    continue;
                 case 'B':
                     builder.setPiece(new Bishop(PlayerColor.WHITE, i));
-                    i++;
-                    break;
+                    continue;
                 case 'Q':
                     builder.setPiece(new Queen(PlayerColor.WHITE, i));
-                    i++;
-                    break;
+                    continue;
                 case 'K':
                     builder.setPiece(new King(PlayerColor.WHITE, i, whiteKingSideCastle, whiteQueenSideCastle));
-                    i++;
-                    break;
+                    continue;
                 case 'P':
                     builder.setPiece(new Pawn(PlayerColor.WHITE, i));
-                    i++;
-                    break;
+                    continue;
                 case '-':
-                    i++;
-                    break;
+                    continue;
                 default:
                     throw new RuntimeException("Invalid FEN String " + gameConfiguration);
             }
         }
-        builder.setMoveMaker(moveMaker(fenPartitions[1]));
+        builder.setMoveMaker(moveMaker(fenParts[1]));
         return builder.build();
     }
 
-    private static PlayerColor moveMaker(String moveMakerString) {
-        if (moveMakerString.equals("w")) {
+    private static PlayerColor moveMaker(String player) throws InvalidDataException {
+        if (player.equals("w")) {
             return PlayerColor.WHITE;
-        } else if (moveMakerString.equals("b")) {
+        }
+        if (player.equals("b")) {
             return PlayerColor.BLACK;
         }
-        throw new RuntimeException("Invalid FEN String " + moveMakerString);
+        throw new InvalidDataException(ExceptionMessages.SYSTEM_ERROR_INVALID_DATA.getInfo());
     }
 
     private static boolean whiteKingSideCastle(String fenCastleString) {

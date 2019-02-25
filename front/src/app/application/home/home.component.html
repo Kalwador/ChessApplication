@@ -4,11 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="articles">
-            <ng-container *ngFor="let article of articles">
-                <div class="article">
-                    <app-article [article]="article"></app-article>
-                </div>
-            </ng-container>
+            <div *ngIf="articles != null">
+                <ng-container *ngFor="let article of articles">
+                    <div class="article">
+                        <app-article [article]="article"></app-article>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 </div>

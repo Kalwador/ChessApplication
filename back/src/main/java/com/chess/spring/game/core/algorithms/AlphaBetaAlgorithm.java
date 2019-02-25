@@ -1,13 +1,14 @@
 package com.chess.spring.game.core.algorithms;
 
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.board.BoardService;
 import com.chess.spring.game.core.evaluators.EvaluatorService;
 import com.chess.spring.game.core.evaluators.EvaluatorServiceImpl;
 import com.chess.spring.game.moves.ErrorMove;
-import com.chess.spring.game.player.AbstractPlayer;
-import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.moves.Transition;
+import com.chess.spring.game.moves.simple.AbstractMove;
+import com.chess.spring.game.player.AbstractPlayer;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class AlphaBetaAlgorithm extends AbstractAlgorithm {
     }
 
     @Override
-    public AbstractMove getBestMove(Board board, int level) {
+    public AbstractMove getBestMove(Board board, int level) throws InvalidDataException {
         long startTime = System.currentTimeMillis();
         AbstractPlayer currentPlayer = board.getCurrentPlayer();
         AbstractMove bestMove = ErrorMove.getInstance();
@@ -63,7 +64,7 @@ public class AlphaBetaAlgorithm extends AbstractAlgorithm {
         return bestMove;
     }
 
-    private int max(Board board, int level, int max, int min) {
+    private int max(Board board, int level, int max, int min) throws InvalidDataException {
         if (checkEndGame(board, level)) return this.evaluator.evaluate(board, level);
         for (AbstractMove move : simpleSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);
@@ -78,7 +79,7 @@ public class AlphaBetaAlgorithm extends AbstractAlgorithm {
         return max;
     }
 
-    private int min(Board board, int level, int max, int min) {
+    private int min(Board board, int level, int max, int min) throws InvalidDataException {
         if (checkEndGame(board, level)) return this.evaluator.evaluate(board, level);
         for (AbstractMove move : simpleSort((board.getCurrentPlayer().getLegalMoves()))) {
             Transition moveTransition = board.getCurrentPlayer().makeMove(move);

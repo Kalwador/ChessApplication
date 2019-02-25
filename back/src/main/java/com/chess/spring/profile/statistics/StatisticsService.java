@@ -1,10 +1,10 @@
 package com.chess.spring.profile.statistics;
 
-import com.chess.spring.profile.account.Account;
+import com.chess.spring.communication.event.UpdateStatisticsEvent;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.game.GameEndType;
-import com.chess.spring.communication.event.UpdateStatisticsEvent;
 import com.chess.spring.game.GameType;
+import com.chess.spring.profile.account.Account;
 import com.chess.spring.profile.account.AccountService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;

@@ -1,19 +1,19 @@
 package com.chess.spring.profile.register;
 
-import com.chess.spring.profile.account.Account;
-import com.chess.spring.profile.BCryptEncoder;
-import com.chess.spring.profile.account.details.AccountDetails;
-import com.chess.spring.security.authority.Authority;
-import com.chess.spring.profile.statistics.Statistics;
-import com.chess.spring.exceptions.InvalidDataException;
-import com.chess.spring.security.authority.AuthorityType;
-import com.chess.spring.communication.mail.type.AccountActivationMail;
+import com.chess.spring.communication.mail.MailFactory;
 import com.chess.spring.communication.mail.MailSubject;
-import com.chess.spring.profile.account.details.AccountDetailsRepository;
+import com.chess.spring.communication.mail.type.AccountActivationMail;
+import com.chess.spring.exceptions.InvalidDataException;
+import com.chess.spring.profile.BCryptEncoder;
+import com.chess.spring.profile.account.Account;
 import com.chess.spring.profile.account.AccountRepository;
 import com.chess.spring.profile.account.AccountService;
-import com.chess.spring.communication.mail.MailFactory;
 import com.chess.spring.profile.account.EmailValidator;
+import com.chess.spring.profile.account.details.AccountDetails;
+import com.chess.spring.profile.account.details.AccountDetailsRepository;
+import com.chess.spring.profile.statistics.Statistics;
+import com.chess.spring.security.authority.Authority;
+import com.chess.spring.security.authority.AuthorityType;
 import com.google.common.collect.Sets;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
 
 @Log4j
 @NoArgsConstructor
@@ -61,56 +62,54 @@ public class RegisterService {
             throw new InvalidDataException("Email zajęty");
         }
 
-        AccountDetails accountDetails = AccountDetails.builder()
-                .email(registerDTO.getEmail())
-                .username(registerDTO.getUsername())
-                .password(BCryptEncoder.encode(registerDTO.getPassword()))
-                .authorities(Sets.newHashSet(new Authority(AuthorityType.ROLE_USER)))
-                .activationCode(ActivationCodeGenerator.generateCode())
-                .credentialsExpired(false)
-                .enabled(false) //need to confirm activation link
-                .locked(false)
-                .expired(false)
-                .build();
+        try {
+            AccountDetails accountDetails = AccountDetails.builder()
+                    .email(registerDTO.getEmail())
+                    .username(registerDTO.getUsername())
+                    .password(BCryptEncoder.encode(registerDTO.getPassword()))
+                    .authorities(Sets.newHashSet(new Authority(AuthorityType.ROLE_USER)))
+                    .activationCode(ActivationCodeGenerator.generateCode())
+                    .credentialsExpired(false)
+                    .enabled(false) //need to confirm activation link
+                    .locked(false)
+                    .expired(false)
+                    .build();
 
-        accountDetails = this.accountDetailsRepository.save(accountDetails);
+            this.sendActivationCodeInMail(accountDetails);
 
-        Statistics statistics = Statistics.builder()
-                .rank(1000)
-                .gamesPvE(0)
-                .winGamesPvE(0)
-                .gamesPvP(0)
-                .winGamesPvP(0)
-                .monthGamesPvE(0)
-                .monthWinGamesPvE(0)
-                .monthGamesPvP(0)
-                .monthWinGamesPvP(0)
-                .weekGamesPvE(0)
-                .weekWinGamesPvE(0)
-                .weekGamesPvP(0)
-                .weekWinGamesPvP(0)
-                .build();
+            accountDetails = this.accountDetailsRepository.save(accountDetails);
 
-        Account account = Account.builder()
-                .accountDetails(accountDetails)
-                .statistics(statistics)
-                .build();
+            Statistics statistics = Statistics.builder()
+                    .rank(1000)
+                    .gamesPvE(0)
+                    .winGamesPvE(0)
+                    .gamesPvP(0)
+                    .winGamesPvP(0)
+                    .monthGamesPvE(0)
+                    .monthWinGamesPvE(0)
+                    .monthGamesPvP(0)
+                    .monthWinGamesPvP(0)
+                    .weekGamesPvE(0)
+                    .weekWinGamesPvE(0)
+                    .weekGamesPvP(0)
+                    .weekWinGamesPvP(0)
+                    .build();
 
-        account.setNick(accountService.createNickName(account));
-        this.accountRepository.save(account);
+            Account account = Account.builder()
+                    .accountDetails(accountDetails)
+                    .statistics(statistics)
+                    .build();
 
-        this.sendActivationCodeInMail(accountDetails);
-        log.info("The user : '" + accountDetails.getUsername() + "' was successful registered in application!");
+            account.setNick(accountService.createNickName(account));
+            this.accountRepository.save(account);
+            log.info("The user : '" + accountDetails.getUsername() + "' was successful registered in application!");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            log.error("Message could not be sent " + e.getMessage());
+        }
     }
 
-    @PostConstruct
-    public static void test() {
-//        System.out.println("##");
-//        System.out.println(BCryptEncoder.encode(" "));
-//        System.out.println("##");
-    }
-
-    private void sendActivationCodeInMail(AccountDetails accountDetails) throws InvalidDataException {
+    private void sendActivationCodeInMail(AccountDetails accountDetails) throws InvalidDataException, MessagingException {
         AccountActivationMail mail = AccountActivationMail.builder()
                 .activationCode(accountDetails.getActivationCode())
                 .username(accountDetails.getUsername())

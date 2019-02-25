@@ -1,12 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AppService} from "../../../services/app.service";
-import {GameType} from "../../../models/chess/game/game-type.enum";
-import {GamePvpModel} from "../../../models/chess/game/game-pvp-model";
-import {GamePveModel} from "../../../models/chess/game/game-pve-model";
 import {ActivatedRoute, Router} from "@angular/router";
-import {GameService} from "../../game/service/game.service";
 import {NotificationService} from "../../notifications/notification.service";
-import {ProfileService} from "../../profile/profile-service/profile.service";
 import {InvitationModel} from "../../../models/invitations/invitation.model";
 import {InvitationsService} from "../../game/service/invitations.service";
 

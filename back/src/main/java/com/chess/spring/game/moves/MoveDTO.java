@@ -3,7 +3,8 @@ package com.chess.spring.game.moves;
 import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.pve.GamePvEStatus;
 import com.chess.spring.game.pvp.GamePvPStatus;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.List;

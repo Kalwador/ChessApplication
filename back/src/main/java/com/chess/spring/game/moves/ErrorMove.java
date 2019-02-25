@@ -1,8 +1,8 @@
 package com.chess.spring.game.moves;
 
+import com.chess.spring.exceptions.NotExpectedError;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.moves.simple.AbstractMove;
-import com.chess.spring.exceptions.NotExpectedError;
 
 public class ErrorMove extends AbstractMove {
 

@@ -1,13 +1,13 @@
 package com.chess.spring.game.player;
 
-import com.chess.spring.game.moves.simple.castle.KingSideCastleMove;
-import com.chess.spring.game.moves.simple.castle.QueenSideCastleMove;
-import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.board.BoardService;
 import com.chess.spring.game.moves.simple.AbstractMove;
+import com.chess.spring.game.moves.simple.castle.KingSideCastleMove;
+import com.chess.spring.game.moves.simple.castle.QueenSideCastleMove;
 import com.chess.spring.game.pieces.AbstractPiece;
 import com.chess.spring.game.pieces.Rook;
+import com.chess.spring.game.pieces.utils.PlayerColor;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;

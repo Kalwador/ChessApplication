@@ -14,7 +14,6 @@ public class BoardConfiguration {
     public static final int TILES_PER_ROW = 8;
     public static final int TILES_MAX = 64;
 
-
     public final List<Boolean> FIRST_COLUMN = initColumn(0);
     public final List<Boolean> SECOND_COLUMN = initColumn(1);
     public final List<Boolean> THIRD_COLUMN = initColumn(2);
@@ -47,8 +46,14 @@ public class BoardConfiguration {
 
     public List<List<Boolean>> initColumns() {
         return Arrays.asList(
-                FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, FOURTH_COLUMN,
-                FIFTH_COLUMN, SIXTH_COLUMN, SEVENTH_COLUMN, EIGHTH_COLUMN);
+                FIRST_COLUMN,
+                SECOND_COLUMN,
+                THIRD_COLUMN,
+                FOURTH_COLUMN,
+                FIFTH_COLUMN,
+                SIXTH_COLUMN,
+                SEVENTH_COLUMN,
+                EIGHTH_COLUMN);
     }
 
     private static List<Boolean> initColumn(int columnNumber) {

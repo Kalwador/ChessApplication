@@ -3,11 +3,11 @@ package com.chess.spring.game.pieces;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.board.BoardService;
 import com.chess.spring.game.core.analysers.BoardConfiguration;
-import com.chess.spring.game.moves.simple.attack.AttackMoveImpl;
-import com.chess.spring.game.moves.simple.MoveImpl;
 import com.chess.spring.game.moves.simple.AbstractMove;
-import com.chess.spring.game.pieces.utils.PlayerColor;
+import com.chess.spring.game.moves.simple.MoveImpl;
+import com.chess.spring.game.moves.simple.attack.AttackMoveImpl;
 import com.chess.spring.game.pieces.utils.PieceType;
+import com.chess.spring.game.pieces.utils.PlayerColor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

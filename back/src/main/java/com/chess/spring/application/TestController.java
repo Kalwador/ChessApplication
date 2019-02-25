@@ -1,7 +1,6 @@
 package com.chess.spring.application;
 
 import com.chess.spring.exceptions.LockedSourceException;
-import com.chess.spring.application.backlog.ApplicationInfo;
 import com.chess.spring.profile.BCryptEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@RequestMapping("test")
-@Profile("dev")
+@RequestMapping("test")
+@Profile({"dev", "test"})
 @Api(value = "test controller", description = "Allow to test security levels")
 public class TestController {
 
@@ -34,8 +33,7 @@ public class TestController {
     }
 
     @GetMapping(value = "/home")
-    public ApplicationInfo homeTest() throws LockedSourceException {
-//        return new ApplicationInfo("asd","fgh","123","kukuryku");
+    public ApplicationInfoDTO homeTest() throws LockedSourceException {
         throw new LockedSourceException("asd");
     }
 

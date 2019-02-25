@@ -1,9 +1,11 @@
 package com.chess.spring.game.core.analysers;
 
-import com.chess.spring.game.player.AbstractPlayer;
+import com.chess.spring.exceptions.ExceptionMessages;
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.game.moves.simple.AbstractMove;
 import com.chess.spring.game.pieces.AbstractPiece;
 import com.chess.spring.game.pieces.utils.PieceDistance;
+import com.chess.spring.game.player.AbstractPlayer;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class KingAnalyserService {
     private KingAnalyserService() {
     }
 
-    public PieceDistance calculateKingTropism(AbstractPlayer player) {
+    public PieceDistance calculateKingTropism(AbstractPlayer player) throws InvalidDataException {
         int playerKingSquare = player.getPlayerKing().getPosition();
         List<AbstractMove> enemyMoves = player.getOpponent().getLegalMoves();
         AbstractPiece closestPiece = null;
@@ -33,7 +35,7 @@ public class KingAnalyserService {
     }
 
     private int calculateClosesDistance(int kingTileId,
-                                        int enemyAttackTileId) {
+                                        int enemyAttackTileId) throws InvalidDataException {
 
         int squareOneRank = getRank(kingTileId);
         int squareTwoRank = getRank(enemyAttackTileId);
@@ -47,7 +49,7 @@ public class KingAnalyserService {
         return Math.max(rankDistance, fileDistance);
     }
 
-    private static int getFile(int coordinate) {
+    private static int getFile(int coordinate) throws InvalidDataException {
         BoardConfiguration boardConfiguration = BoardConfiguration.getInstance();
         if (boardConfiguration.FIRST_COLUMN.get(coordinate)) {
             return 1;
@@ -66,10 +68,10 @@ public class KingAnalyserService {
         } else if (boardConfiguration.EIGHTH_COLUMN.get(coordinate)) {
             return 8;
         }
-        throw new RuntimeException("should not reach here!");
+        throw new InvalidDataException(ExceptionMessages.SYSTEM_ERROR_INVALID_DATA.getInfo());
     }
 
-    private static int getRank(int coordinate) {
+    private static int getRank(int coordinate) throws InvalidDataException {
         BoardConfiguration boardConfiguration = BoardConfiguration.getInstance();
         if (boardConfiguration.FIRST_ROW.get(coordinate)) {
             return 1;
@@ -88,6 +90,6 @@ public class KingAnalyserService {
         } else if (boardConfiguration.EIGHTH_ROW.get(coordinate)) {
             return 8;
         }
-        throw new RuntimeException("should not reach here!");
+        throw new InvalidDataException(ExceptionMessages.SYSTEM_ERROR_INVALID_DATA.getInfo());
     }
 }

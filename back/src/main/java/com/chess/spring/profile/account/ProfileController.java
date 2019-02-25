@@ -1,7 +1,7 @@
 package com.chess.spring.profile.account;
 
-import com.chess.spring.profile.register.RegisterDTO;
 import com.chess.spring.exceptions.ResourceNotFoundException;
+import com.chess.spring.profile.register.RegisterDTO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

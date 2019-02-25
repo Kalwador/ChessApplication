@@ -1,14 +1,14 @@
 package com.chess.spring.game.player;
 
-import com.chess.spring.game.moves.MoveStatus;
-import com.chess.spring.game.pieces.utils.PlayerColor;
-import com.chess.spring.game.board.Board;
-import com.chess.spring.game.moves.simple.AbstractMove;
-import com.chess.spring.game.moves.Transition;
-import com.chess.spring.game.pieces.King;
-import com.chess.spring.game.pieces.AbstractPiece;
 import com.chess.spring.exceptions.ExceptionMessages;
 import com.chess.spring.exceptions.NotExpectedError;
+import com.chess.spring.game.board.Board;
+import com.chess.spring.game.moves.MoveStatus;
+import com.chess.spring.game.moves.Transition;
+import com.chess.spring.game.moves.simple.AbstractMove;
+import com.chess.spring.game.pieces.AbstractPiece;
+import com.chess.spring.game.pieces.King;
+import com.chess.spring.game.pieces.utils.PlayerColor;
 import lombok.Data;
 
 import java.util.List;

@@ -19,6 +19,8 @@ export class LoginModalComponent {
 
     modalReference: any;
 
+    isUnlockAccountMode: boolean = false; //TODO inny sposob odblokowania konta
+
     constructor(private ngbModal: NgbModal,
                 private router: Router,
                 private oauthService: OauthService,
@@ -59,13 +61,17 @@ export class LoginModalComponent {
             this.baseService.isUserLoggedIn = true;
             this.notificationService.trace('Poprawnie zalogowano');
 
-            this.baseService.getUserProfile();
             this.modalReference.dismiss();
         }, error => {
             switch (error.status) {
                 case (400): {
-                    this.notificationService.warning('Błędny tokens i/lub hasło');
-                    //TODO - wyswietl info ze zle dane
+                    if(JSON.parse(error._body).error_description === 'Bad credentials'){
+                        this.notificationService.warning('Błędny login i/lub hasło');
+                    }
+
+                    if(JSON.parse(error._body).error_description === 'User account is locked'){
+                        this.notificationService.warning('Konto nie zostało odblokowane. Kod aktywacyjny został wysłany na adres email');
+                    }
                     return false;
                 }
                 case (401): {

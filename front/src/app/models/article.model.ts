@@ -1,5 +1,7 @@
 export class ArticleModel {
-    img: string;
-    header: string;
-    text: string;
+    id: number;
+    photo: string;
+    title: string;
+    content: string;
+    date: string;
 }

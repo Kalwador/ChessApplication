@@ -1,10 +1,10 @@
 package com.chess.spring.game.moves.simple;
 
-import com.chess.spring.game.board.Board;
-import com.chess.spring.game.board.BoardService;
-import com.chess.spring.game.board.BoardBuilder;
-import com.chess.spring.game.pieces.AbstractPiece;
 import com.chess.spring.exceptions.NotExpectedError;
+import com.chess.spring.game.board.Board;
+import com.chess.spring.game.board.BoardBuilder;
+import com.chess.spring.game.board.BoardService;
+import com.chess.spring.game.pieces.AbstractPiece;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

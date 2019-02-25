@@ -2,7 +2,6 @@ package com.chess.spring.profile.invitations;
 
 import com.chess.spring.game.pvp.GamePvP;
 import com.chess.spring.game.pvp.GamePvPDTO;
-import com.chess.spring.profile.account.Account;
 import com.chess.spring.profile.account.AccountDTO;
 import lombok.Builder;
 import lombok.Data;

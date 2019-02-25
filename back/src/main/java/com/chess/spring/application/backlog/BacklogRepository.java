@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ChangelogRepository extends JpaRepository<Backlog, Long> {
+public interface BacklogRepository extends JpaRepository<Backlog, Long> {
 }

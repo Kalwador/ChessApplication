@@ -78,15 +78,15 @@ export class BaseService {
         }
     }
 
-    public putFile(path: string, file: File): any {
-        let formData: FormData = new FormData();
-        formData.append('file', file);
-        let options: any = {
+    public putFile(path: string, file: File): Observable<any> {
+        const formdata: FormData = new FormData();
+        formdata.append('file', file);
+
+        return this.restService.putFile(path, formdata, {
             reportProgress: true,
-            responseType: 'text',
+            observe: 'events',
             headers: {'Authorization': 'bearer ' + this.oauthService.getAccessToken()}
-        };
-        return this.restService.putFile(path, formData, options);
+        });
     }
 
     private getOptions(): RequestOptions {
@@ -95,11 +95,10 @@ export class BaseService {
 
     private getHeaders() {
         return new Headers({
-            'Content-Type': 'application/json'
-            , 'Authorization': 'bearer ' + this.oauthService.getAccessToken()
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + this.oauthService.getAccessToken()
         });
     }
-
 
     public logOut() {
         this.oauthService.clearToken();

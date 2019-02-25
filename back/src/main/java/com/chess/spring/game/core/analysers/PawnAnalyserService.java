@@ -1,11 +1,10 @@
 package com.chess.spring.game.core.analysers;
 
-import com.chess.spring.game.player.AbstractPlayer;
 import com.chess.spring.game.pieces.AbstractPiece;
+import com.chess.spring.game.player.AbstractPlayer;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

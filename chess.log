@@ -8714,3 +8714,113 @@ INFO    2019-02-18 10:15:54,673 [main] com.chess.spring.communication.mail.Maili
 INFO    2019-02-18 10:16:09,935 [http-nio-8080-exec-6] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
 INFO    2019-02-18 10:16:11,476 [http-nio-8080-exec-9] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
 INFO    2019-02-18 10:16:13,971 [http-nio-8080-exec-9] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-21 19:54:02,478 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:01:44,701 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:13:11,721 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:14:12,768 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:15:33,960 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:16:18,376 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:16:31,945 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 16:24:22,312 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 18:08:54,108 [http-nio-8080-exec-7] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 18:08:54,124 [http-nio-8080-exec-7] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@52f6fc4d
+INFO    2019-02-24 18:08:54,125 [http-nio-8080-exec-7] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+ERROR   2019-02-24 18:08:55,106 [http-nio-8080-exec-7] com.chess.spring.communication.mail.MailServiceImpl  - Message could not be sent null
+INFO    2019-02-24 18:08:55,107 [http-nio-8080-exec-7] com.chess.spring.profile.register.RegisterService  - The user : 'testtest' was successful registered in application!
+INFO    2019-02-24 18:12:49,969 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 18:18:46,826 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 18:24:35,314 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 18:24:35,314 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@2e84c9ac
+INFO    2019-02-24 18:24:35,314 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 18:28:19,330 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 18:28:44,054 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 18:28:44,055 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@56909ad3
+INFO    2019-02-24 18:28:44,055 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 18:51:41,396 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 18:51:42,097 [http-nio-8080-exec-1] com.chess.spring.profile.register.RegisterService  - The user : 'testtest1@sharklasers.com' was successful registered in application!
+INFO    2019-02-24 19:55:24,721 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 19:58:37,310 [http-nio-8080-exec-1] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-24 20:02:30,394 [http-nio-8080-exec-5] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-24 20:02:41,146 [http-nio-8080-exec-6] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-24 20:08:36,485 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 20:10:28,020 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 20:11:37,483 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:08:32,460 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 21:08:32,464 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@2a43c886
+INFO    2019-02-24 21:08:32,465 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 21:08:41,209 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 21:08:41,325 [http-nio-8080-exec-1] com.chess.spring.profile.register.RegisterService  - The user : 'testtest' was successful registered in application!
+INFO    2019-02-24 21:24:23,596 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:26:22,169 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:29:28,865 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:30:38,703 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:32:46,937 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:33:00,017 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:33:53,765 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 21:42:40,153 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 22:24:19,203 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:42:42,163 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:43:23,684 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:44:00,283 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 23:44:00,284 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@2e845496
+INFO    2019-02-24 23:44:00,284 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 23:44:03,142 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 23:44:03,637 [http-nio-8080-exec-5] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 23:44:03,638 [http-nio-8080-exec-5] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@39024b23
+INFO    2019-02-24 23:44:03,638 [http-nio-8080-exec-5] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 23:44:05,311 [http-nio-8080-exec-5] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 23:44:50,896 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:45:05,553 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 23:45:05,554 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@72307640
+INFO    2019-02-24 23:45:05,554 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 23:45:07,369 [http-nio-8080-exec-1] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 23:45:38,243 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 23:45:38,243 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@5f638071
+INFO    2019-02-24 23:45:38,243 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 23:45:39,932 [http-nio-8080-exec-2] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 23:45:39,955 [http-nio-8080-exec-2] com.chess.spring.profile.register.RegisterService  - The user : 'testtest2' was successful registered in application!
+INFO    2019-02-24 23:49:11,692 [http-nio-8080-exec-6] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 23:49:11,693 [http-nio-8080-exec-6] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@319efef4
+INFO    2019-02-24 23:49:11,693 [http-nio-8080-exec-6] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 23:49:13,539 [http-nio-8080-exec-6] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 23:49:13,554 [http-nio-8080-exec-6] com.chess.spring.profile.register.RegisterService  - The user : 'testtest3' was successful registered in application!
+INFO    2019-02-24 23:54:30,119 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:58:08,211 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:58:31,297 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-24 23:59:36,425 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailFactory  - Creating message ActivationAccount content
+INFO    2019-02-24 23:59:36,426 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailFactory  - Sending message with account activiation com.chess.spring.communication.mail.type.AccountActivationMail@16b9264a
+INFO    2019-02-24 23:59:36,426 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailServiceImpl  - Message properties set successful
+INFO    2019-02-24 23:59:38,982 [http-nio-8080-exec-3] com.chess.spring.communication.mail.MailServiceImpl  - Message sent succesfully
+INFO    2019-02-24 23:59:39,144 [http-nio-8080-exec-3] com.chess.spring.profile.register.RegisterService  - The user : 'testtest3' was successful registered in application!
+INFO    2019-02-25 16:42:30,635 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:36:20,157 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:42:16,937 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:46:53,765 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:47:27,466 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:48:04,422 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:48:43,309 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:49:38,044 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:50:24,919 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 20:56:35,013 [http-nio-8080-exec-4] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-25 21:01:41,378 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:03:28,064 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:04:11,117 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:05:58,585 [http-nio-8080-exec-10] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-25 21:06:54,906 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:07:01,813 [http-nio-8080-exec-2] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-25 21:07:35,356 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:07:50,264 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:08:23,603 [http-nio-8080-exec-2] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-25 21:11:01,410 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:51:29,647 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 21:56:19,371 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 22:32:51,780 [http-nio-8080-exec-1] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-25 22:40:31,573 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 22:46:02,712 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 22:52:08,592 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 22:53:58,217 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 23:04:49,566 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 23:07:10,965 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 23:08:16,598 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 23:10:03,113 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-25 23:11:22,934 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized

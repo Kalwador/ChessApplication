@@ -3,17 +3,17 @@
     <div style="clear: both;"></div>
 
     <div class="panel-game-players">
-        <div class="">
-            Białe: {{invitation.game.white}}
+        <div style="margin-top: 10%">
+            Wysyłający zaproszenie: {{invitation.account.nick}} ({{invitation.account.statistics.rank}})
         </div>
         <div style="clear: both;"></div>
         <div class="">
-            Czarne: {{invitation.game.black}}
+
         </div>
     </div>
     <div class="panel-game-options">
-        <button mat-button color="accent" class="button button-continue" (click)="accept()">Kontynuuj</button>
-        <button mat-button color="accent" class="button button-forfeit" (click)="decline()">Zrezygnuj</button>
+        <button mat-button color="accent" class="button button-continue" (click)="accept()">Rozpocznij Grę</button>
+        <button mat-button color="accent" class="button button-forfeit" (click)="decline()">Odrzuć</button>
     </div>
     <div class="panel-game-status">
     </div>

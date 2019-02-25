@@ -6,8 +6,10 @@ import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.profile.account.EmailValidator;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 
 /**
@@ -20,6 +22,10 @@ public class MailFactory {
 
     private MailService mailService;
 
+    @Value("${application.project.host-web}")
+    private String hostWeb;
+
+
     @Autowired
     public MailFactory(MailService mailService) {
         this.mailService = mailService;
@@ -30,7 +36,7 @@ public class MailFactory {
      *
      * @param mail full prepared object, need to contain recipent and subject
      */
-    public void sendMail(Mail mail) throws InvalidDataException {
+    public void sendMail(Mail mail) throws InvalidDataException, MessagingException {
         String content;
         String subject;
 
@@ -67,8 +73,8 @@ public class MailFactory {
     private String getAccountActivationMessage(AccountActivationMail mail) {
         StringBuilder content = new StringBuilder();
         content.append("<h1>Hello " + mail.getUsername() + "</h1>");
-        content.append("<p>Thank you for registration in our application, now you can activate your account with code:</p>");
-        content.append("<p><b>" + mail.getActivationCode() + "</b></p>");
+        content.append("<p>Thank you for registration in our application, now you can activate your account:</p>");
+        content.append("<p> <a href=\"" + hostWeb + "/register/activate/" + mail.getUsername() + "/" + mail.getActivationCode() + "\">Aktywuj konto</a></p>");
         content.append("<p>Best regards,</p>");
         content.append("<p>Chess app admin</p>");
         log.info("Creating message ActivationAccount content");

@@ -77,7 +77,7 @@ export class AppService {
         return this.baseService.executeHttpRequest(HttpMethodTypeEnum.DELETE, path, ValueType.TEXT);
     }
 
-    public putFile(path: string, file: File): any {
+    public putFile(path: string, file: File): Observable<any> {
         return this.baseService.putFile(path, file);
     }
 
@@ -94,14 +94,17 @@ export class AppService {
         this.get('http://localhost:8080/game/pve/reload');
     }
 
-    public getUserProfile() {
-        this.get("/profile").subscribe(data => {
-            this.accountModel = data;
-            this.notificationService.trace("Pobrano account model, nick: " + this.accountModel.username);
+    public getUserProfile(): Promise<AccountModel> {
+        return new Promise(resolve => {
+            this.get("/profile").subscribe(data => {
+                this.accountModel = data;
+                this.notificationService.trace("Pobrano account model, nick: " + this.accountModel.username);
 
-            if (this.accountModel.avatar !== null) {
-                this.isAvatarAvailable = true;
-            }
+                if (this.accountModel.avatar !== null) {
+                    this.isAvatarAvailable = true;
+                }
+                resolve(data);
+            });
         });
     }
 

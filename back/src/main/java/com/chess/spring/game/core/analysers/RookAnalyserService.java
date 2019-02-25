@@ -1,8 +1,8 @@
 package com.chess.spring.game.core.analysers;
 
 import com.chess.spring.game.board.Board;
-import com.chess.spring.game.player.AbstractPlayer;
 import com.chess.spring.game.pieces.AbstractPiece;
+import com.chess.spring.game.player.AbstractPlayer;
 import com.google.common.collect.ImmutableList.Builder;
 import org.springframework.stereotype.Service;
 

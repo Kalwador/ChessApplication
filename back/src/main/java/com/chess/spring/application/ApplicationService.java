@@ -1,6 +1,7 @@
-package com.chess.spring;
+package com.chess.spring.application;
 
-import com.chess.spring.application.backlog.ApplicationInfo;
+import com.chess.spring.application.articles.ArticleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,20 @@ public class ApplicationService {
     @Value("${spring.profiles.active}")
     private String profile;
 
-    public ApplicationInfo getInfo() {
-        return ApplicationInfo.builder()
+    private ArticleRepository articleRepository;
+
+    @Autowired
+    public ApplicationService(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
+
+    public ApplicationInfoDTO getInfo() {
+        return ApplicationInfoDTO.builder()
                 .version(version)
                 .projectName(projectName)
                 .projectDescription(projectDescription)
                 .profile(profile)
                 .build();
     }
+
 }

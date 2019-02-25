@@ -31,10 +31,9 @@ application:
 
 #Mailing System
 email:
-  address: projektzespolowyprojectmanager@gmail.com
-  password: ProjektZespolowyProjectManager123
+  address: chessappinz@gmail.com
+  password: ChessAppInz123
   host: smtp.gmail.com
-
 mail:
   smtp:
     starttls:

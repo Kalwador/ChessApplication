@@ -1,8 +1,8 @@
 package com.chess.spring.game.pvp;
 
 import com.chess.spring.communication.chat.ChatDTO;
-import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.exceptions.*;
+import com.chess.spring.game.moves.MoveDTO;
 import com.chess.spring.profile.account.Account;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public interface GamePvPService {
 
     void makeMove(Long gameId, MoveDTO moveDTO) throws InvalidDataException, DataMissmatchException, LockedSourceException, ResourceNotFoundException, PreconditionFailedException;
 
-    List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException;
+    List<MoveDTO> getLegateMoves(Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException, InvalidDataException;
 
     void forfeit(Long gameId) throws ResourceNotFoundException, LockedSourceException, PreconditionFailedException;
 

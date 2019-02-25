@@ -1,5 +1,6 @@
 package com.chess.spring.game.core.algorithms;
 
+import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.game.board.Board;
 import com.chess.spring.game.board.BoardService;
 import com.chess.spring.game.moves.simple.AbstractMove;
@@ -12,7 +13,7 @@ import java.util.List;
 import static com.chess.spring.game.board.BoardService.calculatePieceExchangeValue;
 
 public abstract class AbstractAlgorithm {
-    public abstract AbstractMove getBestMove(Board board, int level);
+    public abstract AbstractMove getBestMove(Board board, int level) throws InvalidDataException;
 
     List<AbstractMove> simpleSort(List<AbstractMove> moves) {
         return Ordering.from((Comparator<AbstractMove>) (move1, move2) -> ComparisonChain.start()

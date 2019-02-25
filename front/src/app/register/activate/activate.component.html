@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="main col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+    <div class="main-login main-center" >
+      <div class="panel-heading">
+        <div class="panel-title text-center">
+          <h1 class="title">Aktywacja konta</h1>
+          <hr />
+        </div>
+      </div>
+      <form class="form-horizontal">
+        <div class="alert alert-danger" style="height: 100px; text-align: center; line-height: normal" role="alert" *ngIf="!status">
+          Konto nie zostało aktywowane.
+          {{message}}
+        </div>
+        <h4 style="color: #1B1B1B; text-align: center" *ngIf="status" >Konto zostało poprawnie aktywowane.</h4>
+        <br/>
+        <br/>
+        <div class="home-page">
+          <a routerLink="/" style="color: #30231d;">Strona Główna</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

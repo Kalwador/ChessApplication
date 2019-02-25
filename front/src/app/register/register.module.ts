@@ -5,9 +5,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {RegisterService} from './register-service/register.service';
 import {MatButtonModule} from '@angular/material/button';
+import {ActivateComponent} from "./activate/activate.component";
 
 const routes: Routes = [
-    {path: '', component: RegisterComponent}
+    {path: '', component: RegisterComponent},
+    {path: 'activate/:username/:code', component: ActivateComponent}
 ];
 
 @NgModule({
@@ -17,7 +19,10 @@ const routes: Routes = [
         CommonModule,
         MatButtonModule
     ],
-    declarations: [RegisterComponent],
+    declarations: [
+        RegisterComponent,
+        ActivateComponent
+    ],
     providers: [RegisterService]
 })
 export class RegisterModule {
