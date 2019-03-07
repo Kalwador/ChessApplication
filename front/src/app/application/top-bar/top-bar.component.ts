@@ -21,10 +21,6 @@ export class TopBarComponent {
         this.notificationService.info("aaaaaaaaa");
     }
 
-    reload() {
-        this.baseService.reload();
-    }
-
     public isUserLoggedIn(): boolean {
         return this.baseService.isLoggedIn();
     }

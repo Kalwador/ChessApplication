@@ -16,8 +16,17 @@ export class ProfileService {
                 private notificationService: NotificationService) {
     }
 
-    getUserProfile(): AccountModel {
-        return this.appService.accountModel;
+    getUserProfile(): Promise<AccountModel> {
+        if (this.appService.isLoggedIn()) {
+            this.notificationService.trace('ProfileService - User is loged in');
+            if (this.appService.accountModel === null) {
+                this.notificationService.trace('ProfileService - Account model not found - reloading');
+                return this.appService.getUserProfile();
+            }
+            return new Promise(resolve => {
+               resolve(this.appService.accountModel);
+            });
+        }
     }
 
     getProfileById(id: number): Observable<AccountModel> {
@@ -36,6 +45,10 @@ export class ProfileService {
         return this.appService.put(this.path + "/details", details);
     }
 
+    getAvatar(): Observable<any> {
+        return this.appService.getText(this.path + '/avatar');
+    }
+
     updateAvatar(file: File): Observable<any> {
         return this.appService.putFile(this.path + "/avatar", file);
     }
@@ -44,7 +57,7 @@ export class ProfileService {
         return this.appService.getText(this.path + "/exist/" + nick);
     }
 
-    isActivated(username: string){
+    isActivated(username: string) {
         return this.appService.getUnauthorized('/register/activate/' + username);
     }
 }

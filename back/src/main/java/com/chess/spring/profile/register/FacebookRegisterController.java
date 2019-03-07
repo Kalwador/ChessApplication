@@ -1,9 +1,9 @@
 package com.chess.spring.profile.register;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-@Log4j
+@Slf4j
 @RestController
 @RequestMapping(path = "/register/facebook")
 public class FacebookRegisterController {

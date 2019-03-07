@@ -1,4 +1,4 @@
-package com.chess.spring.application;
+package com.chess.spring.core.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

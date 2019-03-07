@@ -22,9 +22,10 @@ import {ChatComponent} from './play/chat/chat.component';
 import {GameListTableComponent} from "./game-list/games-list-table/game-list-table.component";
 import {GameNewPvpComponent} from './game-new/pvp-options/game-new-pvp.component';
 import {GameNewPveComponent} from './game-new/pve-options/game-new-pve.component';
-import { TimeBlockComponent } from './game-new/pvp-options/time-block/time-block.component';
-import {MatCardModule} from "@angular/material";
-import {InvitePlayerModalComponent} from "./invite-player/invite-pleyer-modal.component";
+import {TimeBlockComponent} from './game-new/pvp-options/time-block/time-block.component';
+import {MatCardModule, MatPaginatorModule} from "@angular/material";
+import {InvitePlayerModalComponent} from "./invite-player-modal/invite-pleyer-modal.component";
+
 
 const routes: Routes = [
     {
@@ -55,6 +56,7 @@ const routes: Routes = [
         MatSliderModule,
         MatTableModule,
         MatCardModule,
+        MatPaginatorModule,
     ],
     declarations: [
         GameComponent,
@@ -72,8 +74,7 @@ const routes: Routes = [
         BoardComponent,
         TimeBlockComponent
     ],
-    exports: [
-    ]
+    exports: []
 })
 
 export class GameModule {

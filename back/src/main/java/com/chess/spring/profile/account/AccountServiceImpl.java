@@ -1,6 +1,8 @@
 package com.chess.spring.profile.account;
 
 import com.chess.spring.exceptions.ExceptionMessages;
+import com.chess.spring.exceptions.InvalidDataException;
+import com.chess.spring.exceptions.PreconditionFailedException;
 import com.chess.spring.exceptions.ResourceNotFoundException;
 import com.chess.spring.profile.account.details.AccountDetails;
 import com.chess.spring.profile.account.details.AccountDetailsRepository;
@@ -21,6 +23,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Base64;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -39,7 +42,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getById(Long id) throws ResourceNotFoundException {
-        return accountRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return accountRepository
+                .findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -74,7 +79,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDetails getAccountDetailsByUsername(String username) throws ResourceNotFoundException {
-        return accountDetailsRepository.findByUsernameCaseInsensitive(username).orElseThrow(ResourceNotFoundException::new);
+        return accountDetailsRepository
+                .findByUsernameCaseInsensitive(username)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -129,40 +136,37 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void updateAvatar(MultipartFile file) throws ResourceNotFoundException {
+    public void updateAvatar(MultipartFile file) throws ResourceNotFoundException, InvalidDataException, PreconditionFailedException {
         try {
+            //TODO need test and better execptions, also check type of file is an image
             ByteArrayInputStream input = new ByteArrayInputStream(file.getBytes());
             Image imgFull = ImageIO.read(input);
 
-            BufferedImage bufFull = ImageUtils.toBufferedImage(imgFull);
-            BufferedImage bufferedImageFull = ImageUtils.resizeTrick(bufFull, ((BufferedImage) imgFull).getWidth(), ((BufferedImage) imgFull).getHeight());
+            BufferedImage image = ImageUtils.toBufferedImage(imgFull);
+            BufferedImage preparedImage = ImageUtils.decreaseQuality(image);
+            BufferedImage avatar = ImageUtils.resizeImage(preparedImage, 200);
 
-            ByteArrayOutputStream baosFull = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImageFull, "png", baosFull);
-            baosFull.flush();
-            byte[] imageInByteFull = baosFull.toByteArray();
-            String base64Imagef = Base64.getEncoder().encodeToString(imageInByteFull);
+            BufferedImage thumbnail = ImageUtils.resizeImage(avatar, 100);
+            String encodedThumbnail = ImageUtils.encodeImage(thumbnail);
+
+            if(encodedThumbnail.length() >= 151200 ){
+                log.warn("Image is to big to save");
+                log.info(Integer.valueOf(encodedThumbnail.length()).toString());
+                throw new PreconditionFailedException(ExceptionMessages.IMAGE_TO_BIG.getInfo());
+            }
 
             Account account = this.getCurrent();
-            account.setAvatar(base64Imagef);
-
-            BufferedImage bufferedImage = ImageUtils.resizeTrick(bufFull, 100, 100);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "png", baos);
-            baos.flush();
-            byte[] imageInByte = baos.toByteArray();
-            Base64.getEncoder().encodeToString(imageInByte);
-
-            account.setThumbnail(base64Imagef);
+            account.setAvatar(ImageUtils.imageToByteArray(avatar));
+            account.setThumbnail(encodedThumbnail);
             accountRepository.save(account);
-
         } catch (FileNotFoundException e) {
-            System.out.println("Image not found" + e);
+            log.error("Image not found" + e);
+            throw new InvalidDataException(ExceptionMessages.IMAGE_NOT_VALID.getInfo());
         } catch (IOException ioe) {
-            System.out.println("Exception while reading the Image " + ioe);
+            log.error("Exception while reading the Image " + ioe);
+            throw new InvalidDataException(ExceptionMessages.IMAGE_NOT_VALID.getInfo());
         }
     }
-
 
     public Account findPlayerByNickOrName(String playerNick) throws ResourceNotFoundException {
         return accountRepository.findByNick(playerNick).
@@ -171,5 +175,11 @@ public class AccountServiceImpl implements AccountService {
 
     public boolean existByNick(String nick) {
         return accountRepository.existsByNick(nick);
+    }
+
+    public String getAvatar() throws ResourceNotFoundException, InvalidDataException {
+        byte[] avatar = Optional.ofNullable(getCurrent().getAvatar())
+                .orElseThrow(() -> new InvalidDataException(ExceptionMessages.AVATAR_NOT_SET.getInfo()));
+        return Base64.getEncoder().encodeToString(avatar);
     }
 }

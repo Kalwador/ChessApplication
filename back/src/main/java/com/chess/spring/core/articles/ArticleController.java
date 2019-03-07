@@ -1,4 +1,4 @@
-package com.chess.spring.application.articles;
+package com.chess.spring.core.articles;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

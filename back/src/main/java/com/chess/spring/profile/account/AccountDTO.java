@@ -19,6 +19,7 @@ public class AccountDTO {
     private int age;
     private Gender gender;
     private String avatar;
+    private String thumbnail;
     private boolean isFirstLogin;
     private String nick;
     private StatisticsDTO statistics;
@@ -28,7 +29,7 @@ public class AccountDTO {
                 .username(account.getAccountDetails().getUsername())
                 .email(account.getAccountDetails().getEmail())
                 .age(account.getAge())
-                .avatar(account.getAvatar())
+                .thumbnail(account.getThumbnail())
                 .firstName(account.getFirstName())
                 .lastName(account.getLastName())
                 .gender(account.getGender())
@@ -50,7 +51,7 @@ public class AccountDTO {
                 .lastName(account.getLastName())
                 .gender(account.getGender())
                 .age(account.getAge())
-                .avatar(account.getAvatar())
+                .thumbnail(account.getThumbnail())
                 .statistics(StatisticsDTO.map(account.getStatistics()))
                 .build();
     }

@@ -1,4 +1,4 @@
-package com.chess.spring.application.backlog;
+package com.chess.spring.core.backlog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

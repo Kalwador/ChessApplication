@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class King extends AbstractPiece {
 
     private static int[] DEFAULT_STRATEGY = {-9, -8, -7, -1, 1, 7, 8, 9};

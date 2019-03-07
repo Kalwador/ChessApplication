@@ -48,13 +48,16 @@ export class GamePanelComponent implements OnInit {
             this.isGameContinued = this.currentGameService.checkIfGameContinued(this.gamePvE.status, false);
             this.status = this.gameService.translateStatus(this.gamePvE.status);
             this.fields = this.gameService.createBoard(this.gamePvE.board);
-            if (this.gamePvE.color === PlayerColor.WHITE) {
-                this.whitePlayerNick = this.profileService.getUserProfile().nick;
-                this.blackPlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
-            } else {
-                this.blackPlayerNick = this.profileService.getUserProfile().nick;
-                this.whitePlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
-            }
+            this.profileService.getUserProfile().then(data => {
+                    if (this.gamePvE.color === PlayerColor.WHITE) {
+                        this.whitePlayerNick = data.nick;
+                        this.blackPlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
+                    } else {
+                        this.whitePlayerNick = 'Komputer poziom: ' + this.gamePvE.level;
+                        this.blackPlayerNick = data.nick;
+                    }
+                }
+            );
         } else {
             this.status = this.gameService.translateStatus(this.gamePvP.status);
             this.fields = this.gameService.createBoard(this.gamePvP.board);

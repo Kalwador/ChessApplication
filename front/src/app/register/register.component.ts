@@ -12,7 +12,7 @@ import {NotificationService} from "../application/notifications/notification.ser
 export class RegisterComponent implements OnInit {
     public registerModel: RegisterModel;
     private facebookRegisterPath: string;
-    password2: string = null;
+    password2: string = '';
     errorMessage: string = null;
 
     constructor(private router: Router,
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     }
 
     submit() {
-        if (this.validateDetails(this.registerModel, this.password2)) {
+        if (this.validate(this.registerModel, this.password2)) {
             this.registerService.register(this.registerModel).subscribe(() => {
                     this.notificationService.info('Pomyslnie zarejestrowano');
                     this.router.navigate(['/']);
@@ -40,13 +40,30 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    validateDetails(registerModel: RegisterModel, password2: string): boolean {
+    validate(registerModel: RegisterModel, password2: string): boolean {
+        if (registerModel.username.trim() === '') {
+            this.errorMessage = "Wprowadź nazwę użytkownika!";
+            return false;
+        }
         if (registerModel.username.length < 4) {
             this.errorMessage = "Username jest za krótki!";
             return false;
         }
         if (registerModel.username.length > 25) {
             this.errorMessage = "Username jest za długi!";
+            return false;
+        }
+        if (registerModel.email.trim() === '') {
+            this.errorMessage = "Wprowadź adres e-mail!";
+            return false;
+        }
+        if (registerModel.email.length < 4) {
+            this.errorMessage = "Podany e-mail jest nieprawidłowy!";
+            return false;
+        }
+        //TODO validate email adres
+        if (registerModel.password.trim() === '') {
+            this.errorMessage = "Wprowadź hasło!";
             return false;
         }
         if (registerModel.password.length < 8) {
@@ -57,12 +74,12 @@ export class RegisterComponent implements OnInit {
             this.errorMessage = "Hasło jest za długie!";
             return false;
         }
-        if (registerModel.password !== password2) {
-            this.errorMessage = "Hasła nie są zgodne!";
+        if (this.password2.trim() === '') {
+            this.errorMessage = "Wprowadź powtórzenie hasła!";
             return false;
         }
-        if (registerModel.email.length < 4) {
-            this.errorMessage = "Podany email jest nieprawidłowy!";
+        if (registerModel.password !== password2) {
+            this.errorMessage = "Hasła nie są zgodne!";
             return false;
         }
         return true;

@@ -1,4 +1,4 @@
-package com.chess.spring.application.articles;
+package com.chess.spring.core.articles;
 
 import lombok.Data;
 

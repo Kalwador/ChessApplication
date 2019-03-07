@@ -1,4 +1,4 @@
-package com.chess.spring.application;
+package com.chess.spring.core;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
-package com.chess.spring.application;
+package com.chess.spring.core.application;
 
-import com.chess.spring.application.articles.ArticleRepository;
+import com.chess.spring.core.articles.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

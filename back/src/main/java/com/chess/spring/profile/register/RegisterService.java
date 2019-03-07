@@ -16,14 +16,13 @@ import com.chess.spring.security.authority.Authority;
 import com.chess.spring.security.authority.AuthorityType;
 import com.google.common.collect.Sets;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
 
-@Log4j
+@Slf4j
 @NoArgsConstructor
 @Service
 public class RegisterService {

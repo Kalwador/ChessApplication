@@ -90,10 +90,6 @@ export class AppService {
         return this.oauthService.isLoggedIn();
     }
 
-    public reload() {
-        this.get('http://localhost:8080/game/pve/reload');
-    }
-
     public getUserProfile(): Promise<AccountModel> {
         return new Promise(resolve => {
             this.get("/profile").subscribe(data => {

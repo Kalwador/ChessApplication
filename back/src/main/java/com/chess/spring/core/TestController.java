@@ -1,11 +1,13 @@
-package com.chess.spring.application;
+package com.chess.spring.core;
 
+import com.chess.spring.core.application.ApplicationInfoDTO;
 import com.chess.spring.exceptions.LockedSourceException;
 import com.chess.spring.profile.BCryptEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
-@RequestMapping("test")
+@RequestMapping(path = "/test")
 @Profile({"dev", "test"})
 @Api(value = "test controller", description = "Allow to test security levels")
 public class TestController {
@@ -22,14 +25,15 @@ public class TestController {
     public TestController() {
     }
 
-    @ApiOperation(value = "Returns test Greating")
+    @ApiOperation(value = "Returns test greeting")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "That really works"),
             @ApiResponse(code = 404, message = "Nope just illusion")
     })
-    @GetMapping(path = "/")
+    @GetMapping()
     public String welcomeTest() {
-        return "message";
+        log.info("hello world");
+        return "hello world";
     }
 
     @GetMapping(value = "/home")

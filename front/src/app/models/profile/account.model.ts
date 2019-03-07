@@ -11,6 +11,7 @@ export class  AccountModel {
      age: number;
      gender: GenderEnum;
      avatar?: string;
+     thumbnail?: string;
      isFirstLogin: boolean;
      statistics: StatisticsModel;
 }

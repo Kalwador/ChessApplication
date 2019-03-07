@@ -14,6 +14,9 @@ public enum ExceptionMessages {
 
     //PROFILE
     PLAYER_NOT_FOUND("Taki gracz nie istnieje"),
+    IMAGE_NOT_VALID("Błędny obraz"),
+    IMAGE_TO_BIG("Avatar za duży"),
+    AVATAR_NOT_SET("Avatar not set"),
 
     //INVITATIONS
     INVITATION_SELF_EXCEPTION("Nie można zaprosić samego siebie"),

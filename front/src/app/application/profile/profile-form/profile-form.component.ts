@@ -1,38 +1,43 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AccountModel} from "../../../models/profile/account.model";
 import {GenderEnum} from "../../../models/profile/gender.enum";
 import {AppService} from "../../../services/app.service";
 import {ProfileService} from "../profile-service/profile.service";
 import {RegisterModel} from "../../../models/register.model";
 import {NotificationService} from "../../notifications/notification.service";
+import {AvatarPanelComponent} from "../avatar-panel/avatar-panel.component";
 
 @Component({
     selector: 'app-profile-form',
     templateUrl: './profile-form.component.html',
-    styleUrls: ['./profile-form.component.scss']
+    styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent implements OnInit {
 
+    @ViewChild('child') avatarPanel: AvatarPanelComponent;
     isInfoTabActive: boolean = true;
     profile: AccountModel;
-    password1: string;
-    password2: string;
-    gender: string;
+    password1: string = '';
+    password2: string = '';
     genders = ["Kobieta", "Mężczyzna"];
+    gender: string = this.genders[1];
     errorMessage: string = null;
 
     constructor(public appService: AppService,
                 private profileService: ProfileService,
                 private notificationService: NotificationService) {
-        this.profile = appService.accountModel;
-
+        this.notificationService.trace('ProfileFormComponent was inicialized');
+        this.profileService.getUserProfile().then(data => {
+            this.profile = data;
+            this.setGender();
+            this.avatarPanel.reloadAvatar();
+        });
     }
 
     ngOnInit() {
         if (!this.appService.isLoggedIn()) {
             this.appService.logOut();
         }
-        this.setGender();
     }
 
     changeTab(isActive: boolean) {
@@ -42,7 +47,7 @@ export class ProfileFormComponent implements OnInit {
     saveInfo() {
         this.profile.gender = this.parseGender(this.gender);
         this.profileService.updateInfo(this.profile).subscribe(() => {
-            this.notificationService.info("Zaktualizowano profil");
+            this.notificationService.info("profile was updated");
         });
     }
 
@@ -62,14 +67,16 @@ export class ProfileFormComponent implements OnInit {
     }
 
     setGender() {
-        switch (this.profile.gender) {
-            case GenderEnum.MALE: {
-                this.gender = "Mężczyzna";
-                break;
-            }
-            case GenderEnum.FEMALE: {
-                this.gender = "Kobieta";
-                break;
+        if (this.profile.gender != null) {
+            switch (this.profile.gender) {
+                case GenderEnum.MALE: {
+                    this.gender = "Mężczyzna";
+                    break;
+                }
+                case GenderEnum.FEMALE: {
+                    this.gender = "Kobieta";
+                    break;
+                }
             }
         }
     }

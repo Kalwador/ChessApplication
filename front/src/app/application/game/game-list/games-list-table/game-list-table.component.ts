@@ -13,7 +13,7 @@ import {NotificationService} from "../../../notifications/notification.service";
 })
 export class GameListTableComponent implements OnInit {
 
-    @Input() listSize: number = 7;
+    @Input() listSize: number = 5;
     @Input() type: GameType = null;
 
     gamesPvPList: Array<GamePvpModel>;

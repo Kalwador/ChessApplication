@@ -2,7 +2,7 @@ package com.chess.spring.security.oauth;
 
 import com.chess.spring.profile.account.details.AccountDetails;
 import com.chess.spring.profile.account.details.AccountDetailsRepository;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Log4j
+@Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
 

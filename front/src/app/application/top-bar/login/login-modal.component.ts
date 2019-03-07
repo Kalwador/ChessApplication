@@ -14,17 +14,18 @@ import {AppService} from "../../../services/app.service";
 })
 export class LoginModalComponent {
     closeResult: string;
-    username: string;
-    password: string;
+    username: string = '';
+    password: string = '';
 
     modalReference: any;
+    errorMessage: string = '';
 
     isUnlockAccountMode: boolean = false; //TODO inny sposob odblokowania konta
 
     constructor(private ngbModal: NgbModal,
                 private router: Router,
                 private oauthService: OauthService,
-                private baseService: AppService,
+                private appService: AppService,
                 private profileService: ProfileService,
                 private notificationService: NotificationService) {
     }
@@ -50,40 +51,59 @@ export class LoginModalComponent {
     }
 
     private sumbit() {
-        this.oauthService.login(this.username, this.password).subscribe(data => {
+        if(this.validate()){
+            this.oauthService.login(this.username, this.password).subscribe(data => {
 
-            //TOKEN
-            this.oauthService.token = data;
-            this.oauthService.putTokenToStorage(data);
-            this.router.navigate(['/']);
+                //TOKEN
+                this.oauthService.token = data;
+                this.oauthService.putTokenToStorage(data);
+                this.router.navigate(['/']);
 
-            //LOGEDIN
-            this.baseService.isUserLoggedIn = true;
-            this.notificationService.trace('Poprawnie zalogowano');
+                //LOGED IN
+                this.appService.isUserLoggedIn = true;
+                this.notificationService.trace('Poprawnie zalogowano');
+                this.appService.getUserProfile();
 
-            this.modalReference.dismiss();
-        }, error => {
-            switch (error.status) {
-                case (400): {
-                    if(JSON.parse(error._body).error_description === 'Bad credentials'){
-                        this.notificationService.warning('Błędny login i/lub hasło');
+                this.modalReference.dismiss();
+            }, error => {
+                switch (error.status) {
+                    case (400): {
+                        if(JSON.parse(error._body).error_description === 'Bad credentials'){
+                            this.notificationService.warning('Błędny login i/lub hasło');
+                            this.errorMessage = 'Błędny login i/lub hasło';
+                        }
+
+                        if(JSON.parse(error._body).error_description === 'User account is locked'){
+                            this.notificationService.warning('Konto nie zostało odblokowane. Kod aktywacyjny został wysłany na adres email');
+                            this.errorMessage = 'Konto nie zostało odblokowane. Kod aktywacyjny został wysłany na adres email';
+                        }
+                        return false;
                     }
-
-                    if(JSON.parse(error._body).error_description === 'User account is locked'){
-                        this.notificationService.warning('Konto nie zostało odblokowane. Kod aktywacyjny został wysłany na adres email');
+                    case (401): {
+                        this.router.navigate(['/']);
+                        this.notificationService.danger('Brak autoryzacji dla aplikacji');
+                        //TODO - wyswietl info ze brak autoryzacji dla serwisu
+                        return false;
                     }
-                    return false;
+                    default : {
+                        this.router.navigate(['/']);
+                        console.log(JSON.parse(error._body).error_description);
+                        this.notificationService.danger('Nieznany błąd!');
+                    }
                 }
-                case (401): {
-                    this.router.navigate(['/']);
-                    this.notificationService.danger('Brak autoryzacji dla aplikacji');
-                    //TODO - wyswietl info ze brak autoryzacji dla serwisu
-                }
-                default : {
-                    this.router.navigate(['/']);
-                    this.notificationService.danger('Nieznany błąd!');
-                }
-            }
-        });
+            });
+        }
+    }
+
+    private validate(): boolean{
+        if(this.username.trim() === ''){
+            this.errorMessage = 'Podaj username lub email';
+            return false;
+        }
+        if(this.password.trim() === ''){
+            this.errorMessage = 'Podaj hasło';
+            return false;
+        }
+        return true;
     }
 }

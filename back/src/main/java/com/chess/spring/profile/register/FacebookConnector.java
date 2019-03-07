@@ -5,7 +5,7 @@ import com.chess.spring.security.token.AccessTokenData;
 import com.chess.spring.security.token.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-@Log4j
+@Slf4j
 @Getter
 @Setter
 @Service

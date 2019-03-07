@@ -120,7 +120,7 @@ public class GamePvEServiceImpl extends GameService implements GamePvEService {
             if (gameEndStatus != null) {
                 return handleEndOfGame(game, boardAfterComputerResponse, gameEndStatus, false);
             } else {
-                gamePvERepository.save(game);
+//                gamePvERepository.save(game);
 
                 return MoveDTO.builder()
                         .source(move.getCurrentCoordinate())

@@ -72,6 +72,7 @@ export class BaseService {
             }
             if (error.json().error_description === 'Invalid access token: ' + this.oauthService.getAccessToken()) {
                 this.notificationService.info('Sesja wygasła zaloguj się ponownie!');
+                this.logOut();
             }
         } else {
             return Observable.create(error);

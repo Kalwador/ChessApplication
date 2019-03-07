@@ -12,8 +12,7 @@ import com.chess.spring.game.pieces.utils.PlayerColor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pawn
-        extends AbstractPiece {
+public class Pawn extends AbstractPiece {
 
     private static int[] DEFAULT_STRATEGY = {8, 16, 7, 9};
 

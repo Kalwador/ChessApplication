@@ -1,4 +1,4 @@
-package com.chess.spring.application.backlog;
+package com.chess.spring.core.backlog;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

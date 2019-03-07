@@ -1,4 +1,4 @@
-package com.chess.spring.security.oauth;
+package com.chess.spring.security.oauth.access;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "oauth_access_token")
-public class AccesToken {
+public class AccessToken {
 
     @Id
     @Column(name = "token_id")
@@ -47,7 +47,7 @@ public class AccesToken {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccesToken that = (AccesToken) o;
+        AccessToken that = (AccessToken) o;
         return Objects.equals(tokenId, that.tokenId) &&
                 Arrays.equals(token, that.token) &&
                 Objects.equals(authentication_id, that.authentication_id) &&

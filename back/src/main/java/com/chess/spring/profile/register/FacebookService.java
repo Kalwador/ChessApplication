@@ -4,14 +4,14 @@ import com.chess.spring.profile.account.AccountRepository;
 import com.chess.spring.profile.account.details.AccountDetailsRepository;
 import com.chess.spring.security.token.AccessToken;
 import com.chess.spring.security.token.AccessTokenData;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Log4j
+@Slf4j
 @Service
 public class FacebookService extends RegisterService{
     private FacebookConnector facebookConnector;

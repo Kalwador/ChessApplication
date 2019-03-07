@@ -68,13 +68,11 @@ export class CurrentGameService {
     }
 
     getLegateMove(source: number, destination: number): Move {
-        console.log("4.1");
         for (let move of this.legateMoves) {
             if (move.source === source && move.destination === destination) {
                 return move;
             }
         }
-        console.log(4.9);
         return null;
     }
 
@@ -86,6 +84,8 @@ export class CurrentGameService {
     }
 
     private specialMoveExecutor(move: Move) {
+        console.log('special move');
+        console.log(move);
         switch (move.type) {
             case 'KingSideCastleMove': {
                 switch (move.destination) {

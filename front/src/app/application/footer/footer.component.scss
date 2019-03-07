@@ -14,16 +14,6 @@
     padding-bottom: 5px;
 }
 
-.bg-circle {
-    background-color: $color7 !important;
-    display: inline-block;
-    width: 60px;
-    padding: 14px 4px;
-    color: $color0;
-    text-align: center;
-    border-radius: 50%;
-}
-
 .bg-circle-outline {
     width: 50px;
     padding: 8px 2px;
@@ -41,12 +31,6 @@ h4 {
     font-family: "Josefin Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: $color0;
     font-size: 18px;
-}
-
-.bg-circle a, a:hover, .media a:focus {
-    text-decoration: none !important;
-    outline: none;
-    color: #ececec;
 }
 
 .bg-circle-outline a, a:hover, .media a:focus {

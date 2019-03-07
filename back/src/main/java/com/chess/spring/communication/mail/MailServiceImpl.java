@@ -1,6 +1,6 @@
 package com.chess.spring.communication.mail;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.Properties;
  * Class contains methods building object of type Message from javax library
  * Works under MailFactory interface
  */
-@Log4j
+@Slf4j
 @Service
 class MailServiceImpl implements MailService {
 

@@ -1,9 +1,9 @@
 <div class="text-center">
-    <div *ngIf="avatar !== null">
-        <img [src]="avatar"
+    <div *ngIf="avatar != null">
+        <img [src]="'data:image/png;base64,' + avatar"
              class="avatar img-circle img-thumbnail" alt="avatar">
     </div>
-    <div *ngIf="avatar === null">
+    <div *ngIf="avatar == null">
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
              alt="avatar">
     </div>

@@ -7,6 +7,10 @@
             <app-game-list-panel [gamePvE]="game" [gameType]="GameType.PVE"></app-game-list-panel>
         </div>
     </div>
+    <mat-paginator [length]="gamesPvEList.length"
+                   [pageSize]="listSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
 </div>
 <div class="list" *ngIf="type === GameType.PVP">
     <header>
@@ -17,4 +21,8 @@
             <app-game-list-panel [gamePvP]="game" [gameType]="GameType.PVP"></app-game-list-panel>
         </div>
     </div>
+    <mat-paginator [length]="gamesPvEList.length"
+                   [pageSize]="listSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
 </div>

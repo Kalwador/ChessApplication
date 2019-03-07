@@ -38,7 +38,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and()
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/home**", "/home/**", "/info**", "/error**").permitAll()
+                .antMatchers("/test**","/test/**","/home**", "/home/**", "/info**", "/error**").permitAll()
                 .antMatchers("/h2/**", "/webjars/**", "/swagger-ui.html").permitAll()
                 .antMatchers("/oauth**", "/oauth/**", "/tokens/**", "/register**", "/register/**").permitAll()
                 .antMatchers("/sockets**", "/sockets/**").permitAll()//TODO - security over sockets

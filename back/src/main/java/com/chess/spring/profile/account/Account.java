@@ -10,6 +10,8 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
@@ -33,24 +35,29 @@ public class Account implements Serializable {
     @JoinColumn(name = "account_details", nullable = false)
     private AccountDetails accountDetails;
 
-    @Size(min = 1)
+    @Size(min = 1, max = 50)
     @Column(name = "first_name")
     private String firstName;
 
-    @Size(min = 1)
+    @Size(min = 1, max = 50)
     @Column(name = "last_name")
     private String lastName;
 
+    @Size(min = 4, max = 30)
     @Column(name = "nick", nullable = false)
     private String nick;
 
     @Lob
-    @Column(length = 5120)
-    private String avatar;
+    @Column(length = 512000)
+    @Type(type = "org.hibernate.type.BinaryType")
+    private byte[] avatar;
 
-    @Column(length = 5120)
+    @Lob
+    @Column(length = 151200)
     private String thumbnail;
 
+    @Min(1)
+    @Max(100)
     private Integer age;
 
     @Enumerated(value = EnumType.STRING)

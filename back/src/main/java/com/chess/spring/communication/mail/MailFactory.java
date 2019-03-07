@@ -4,7 +4,7 @@ import com.chess.spring.communication.mail.type.AccountActivationMail;
 import com.chess.spring.communication.mail.type.ResetPasswordMail;
 import com.chess.spring.exceptions.InvalidDataException;
 import com.chess.spring.profile.account.EmailValidator;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * Class provides Mailing System, contains methods to sendMail and SendMail with attachment
  * Class contains factory to create mail html content
  */
-@Log4j
+@Slf4j
 @Service
 public class MailFactory {
 

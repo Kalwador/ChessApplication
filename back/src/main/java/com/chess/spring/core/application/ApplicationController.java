@@ -1,4 +1,4 @@
-package com.chess.spring.application;
+package com.chess.spring.core.application;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

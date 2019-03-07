@@ -1,7 +1,8 @@
 <hr>
 <div class="container bootstrap snippet">
     <div class="row">
-        <div class="col-sm-10"><h1>{{profile.nick}}&nbsp;<span class="rank">({{profile.statistics.rank}})</span></h1></div>
+        <div class="col-sm-10"><h1>{{profile.nick}}&nbsp;<span class="rank">({{profile.statistics.rank}})</span></h1>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
@@ -49,12 +50,12 @@
                             <div class="col-xs-6">
                                 <label for="gender"><h4>Płeć</h4></label>
                                 <br>
-                                <mat-radio-group class="radio-group" [(ngModel)]="gender" id="gender" name="gender">
-                                    <mat-radio-button class="radio-button" *ngFor="let gender of genders"
-                                                      [value]="gender">
-                                        {{gender}}&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </mat-radio-button>
-                                </mat-radio-group>
+                                    <mat-radio-group class="radio-group" [(ngModel)]="gender" id="gender" name="gender">
+                                        <mat-radio-button class="radio-button" *ngFor="let gender of genders"
+                                                          [value]="gender">
+                                            {{gender}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </mat-radio-button>
+                                    </mat-radio-group>
                             </div>
                         </div>
                         <div class="form-group">

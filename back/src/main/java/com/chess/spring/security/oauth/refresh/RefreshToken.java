@@ -1,4 +1,4 @@
-package com.chess.spring.security.oauth;
+package com.chess.spring.security.oauth.refresh;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -18,9 +18,10 @@ export class AppComponent {
             .pipe(map(response => response.json()))
             .subscribe(data => {
                 this.baseService.appInfo = data;
-                let isDev = this.baseService.appInfo.profile === AppProfileEnum.RELEASE;
+                let isDev = data.profile === AppProfileEnum.DEV || data.profile === AppProfileEnum.TEST;
                 this.baseService.isDEVProfile = isDev;
                 this.notificationService.isDevProfile = isDev;
+                this.notificationService.trace("Pobrano informacje o aplikacji ");
             });
     }
 }

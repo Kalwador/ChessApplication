@@ -8824,3 +8824,15 @@ INFO    2019-02-25 23:07:10,965 [main] com.chess.spring.communication.mail.Maili
 INFO    2019-02-25 23:08:16,598 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2019-02-25 23:10:03,113 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
 INFO    2019-02-25 23:11:22,934 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 21:54:32,810 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 21:55:32,616 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:03:35,743 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:04:51,242 [http-nio-8080-exec-4] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-27 22:05:01,252 [http-nio-8080-exec-5] com.chess.spring.security.CustomAuthenticationEntryPoint  - Pre-authenticated entry point called. Rejecting access
+INFO    2019-02-27 22:06:55,370 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:07:52,769 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:08:23,249 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:09:12,653 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:10:26,991 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:15:31,394 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized
+INFO    2019-02-27 22:16:34,901 [main] com.chess.spring.communication.mail.MailingSystemConfiguration  - Mailing system variables inicialized

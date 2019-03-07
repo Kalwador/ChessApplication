@@ -1,6 +1,6 @@
 package com.chess.spring.security;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Returns a 401 error code (Unauthorized) to the client.
  */
-@Log4j
+@Slf4j
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
