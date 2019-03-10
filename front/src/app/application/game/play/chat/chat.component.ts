@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit {
     @Output() chatMessageEmitter: EventEmitter<SocketMessageModel> = new EventEmitter();
     @Input() chatMessageReceiver: Observable<string>;
 
-    constructor(private baseService: AppService) {
+    constructor(private appService: AppService) {
     }
 
     ngOnInit() {
@@ -31,7 +31,8 @@ export class ChatComponent implements OnInit {
             message.chatMessage = this.textMessage;
             let date = new Date();
             message.date = date.getHours() + ':' + date.getMinutes();
-            message.sender = this.baseService.accountModel.nick;
+            message.sender = this.appService.accountModel.nick;
+            message.thumbnail = this.appService.accountModel.thumbnail;
             this.textMessage = null;
             this.chatMessageEmitter.emit(message);
         }

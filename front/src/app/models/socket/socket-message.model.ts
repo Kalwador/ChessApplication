@@ -6,5 +6,6 @@ export class SocketMessageModel {
     moveDTO: Move;
     chatMessage: string;
     sender: string;
+    thumbnail: string;
     date: string;
 }

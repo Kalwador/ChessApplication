@@ -28,7 +28,8 @@ public class RefreshToken {
     private byte[] token;
 
     @Lob
-    @Column(length = 5120)
+//    @Column(length = 5120)
+    @Column(length = 53000)
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] authentication;
 

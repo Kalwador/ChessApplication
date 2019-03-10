@@ -23,7 +23,8 @@ public class AccessToken {
     private String tokenId;
 
     @Lob
-    @Column(length = 5120)
+//    @Column(length = 5120)
+    @Column(length = 53000)
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] token;
 
@@ -36,7 +37,8 @@ public class AccessToken {
     private String clientId;
 
     @Lob
-    @Column(length = 5120)
+//    @Column(length = 5120)
+    @Column(length = 53000)
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] authentication;
 

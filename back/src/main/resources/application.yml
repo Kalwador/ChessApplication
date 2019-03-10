@@ -1,4 +1,4 @@
-#SERVER PROPERTIES
+N#SERVER PROPERTIES
 spring:
   profiles:
     active: release

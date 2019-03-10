@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProfileService} from "../profile-service/profile.service";
 import {NotificationService} from "../../notifications/notification.service";
-import {not} from "rxjs/internal-compatibility";
 
 @Component({
     selector: 'app-avatar-panel',
@@ -32,6 +31,7 @@ export class AvatarPanelComponent implements OnInit {
 
     upload() {
         this.profileService.updateAvatar(this.selectedFile).subscribe(data => {
+            this.notificationService.info("Awatar został zaktualizowany");
             this.reloadAvatar();
         }, error => {
             //TODO

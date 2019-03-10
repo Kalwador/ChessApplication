@@ -47,6 +47,7 @@ public class Account implements Serializable {
     @Column(name = "nick", nullable = false)
     private String nick;
 
+    @JsonIgnore
     @Lob
     @Column(length = 512000)
     @Type(type = "org.hibernate.type.BinaryType")

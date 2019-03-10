@@ -10,9 +10,12 @@ import {Router} from '@angular/router';
 })
 export class TopBarComponent {
 
-    constructor(public baseService: AppService,
+    // thumbnail: string = null;
+
+    constructor(public appService: AppService,
                 private notificationService: NotificationService,
                 private router: Router) {
+        // this.reloadThumbnail();
     }
 
     test() {
@@ -22,10 +25,10 @@ export class TopBarComponent {
     }
 
     public isUserLoggedIn(): boolean {
-        return this.baseService.isLoggedIn();
+        return this.appService.isLoggedIn();
     }
 
     public logout() {
-        this.baseService.logOut();
+        this.appService.logOut();
     }
 }

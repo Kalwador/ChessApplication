@@ -146,7 +146,7 @@ public class AccountServiceImpl implements AccountService {
             BufferedImage preparedImage = ImageUtils.decreaseQuality(image);
             BufferedImage avatar = ImageUtils.resizeImage(preparedImage, 200);
 
-            BufferedImage thumbnail = ImageUtils.resizeImage(avatar, 100);
+            BufferedImage thumbnail = ImageUtils.resizeImage(avatar, 25);
             String encodedThumbnail = ImageUtils.encodeImage(thumbnail);
 
             if(encodedThumbnail.length() >= 151200 ){

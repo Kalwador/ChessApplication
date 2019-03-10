@@ -26,7 +26,7 @@ export class BoardComponent {
 
     @Output() moveEventEmitter: EventEmitter<Move> = new EventEmitter();
 
-    constructor(public baseService: AppService) {
+    constructor(public appService: AppService) {
     }
 
     move(field: Field) {
